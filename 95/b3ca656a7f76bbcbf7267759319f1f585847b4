@@ -1,0 +1,28 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesTagsReport.java
+  s_0af420b20b4753::t_bf44ded622db6f 66-74
+  s_0af420b20b4753::t_da47eb577308aa 251-252,254
+  s_0af420b20b4753::t_d418767cf3afd1 337,346
+  s_0af420b20b4753::t_14ce89e49cc4e3 221-227
+  s_0af420b20b4753::t_d73638b2542a17 366
+  s_0af420b20b4753::t_8e5ae7724f264a 75,79,84,379-444
+  s_0af420b20b4753::t_6a956ac535088f 86-94,98-99,101,109-110,114,122,124-134,136-141
+  s_0af420b20b4753::t_f391a98537a5b5 76-78
+  s_0af420b20b4753::t_1e0e0ea1ac9fd6 80-83
+  s_0af420b20b4753::t_65f60d3be86012 85
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "95b3ca656a7f76bbcbf7267759319f1f585847b4",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
