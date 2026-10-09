@@ -97,6 +97,11 @@ def load_tasks():
     return tasks
 
 
+# Sokrates' predictions as they were when the experiment started (scoring of 2026-10-07); the scoring was changed on
+# 2026-10-09 in response to the results, and load_variant_facts() reads the re-scored values from the analyses.
+ORIGINAL_PREDICTIONS = {"a": {"human": [6.4, "C"], "ai": [6.6, "B"], "context": 1690}, "b": {"human": [7.2, "B"], "ai": [7.7, "B"], "context": 774}}
+
+
 def load_variant_facts():
     facts = {}
     for v in ("a", "b"):
@@ -113,7 +118,7 @@ def load_variant_facts():
                     "big_files": sum(1 for f in files if f["linesOfCode"] > 500),
                     "big_units": sum(1 for u in units if u["linesOfCode"] > 50 or u["mcCabeIndex"] > 25),
                     "human": [ms["human"]["value"], ms["human"]["grade"]], "ai": [ms["ai"]["value"], ms["ai"]["grade"]],
-                    "context": ms.get("contextLinesPerChange")}
+                    "context": ms.get("contextLinesPerChange"), "original": ORIGINAL_PREDICTIONS[v]}
     return facts
 
 
@@ -233,7 +238,7 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.85rem; }
   <li><strong>The bill is the re-sent context.</strong> A run is 13 to 16 turns, and each turn re-reads the whole conversation as cache reads. The number of turns is set by how many greps, edits and test runs the task needs, and the split neither adds nor removes those on average.</li>
   <li><strong>A split can cost reading.</strong> The weaker model, which opens files whole, looked at about a quarter more code in B, because the same feature spans more files there. The extra reading did not reach the token bill.</li>
   <li><strong>Unit length did not matter either, for local edits.</strong> Seven target tasks land in units of 55 to 128 lines in A, split to under 45 in B, with no separation from the three tasks in short units. The agent greps for the line and reads twenty lines either side; it never needs the rest of the unit.</li>
-  <li><strong>For Sokrates:</strong> the AI ease-of-change score rose from C to B and the predicted context per change halved, while the measured cost did not move. The measures that survive are about how many places a change touches and how findable they are by name.</li>
+  <li><strong>For Sokrates:</strong> before the experiment its AI ease-of-change score rose from 6.6 to 7.7 for the split and the predicted context per change halved, while the measured cost did not move. The scoring was changed on 2026-10-09 in response: unit size and the 500-LOC file size no longer count for agents, a new measure counts only files beyond one read (2,000 lines), and context per change is capped at a 200-line window per touched file. Re-scored, the two variants sit at 7.2 and 7.3.</li>
 </ul>
 <h3>Limits</h3>
 <ul>
@@ -310,8 +315,10 @@ scripts/build_site.py                                                           
       ['files over 500 LOC', V.a.big_files, V.b.big_files],
       ['units over 50 LOC or McCabe 25', V.a.big_units, V.b.big_units],
       ['Human ease of change (Sokrates)', V.a.human[0] + ' (' + V.a.human[1] + ')', V.b.human[0] + ' (' + V.b.human[1] + ')'],
-      ['AI ease of change (Sokrates)', V.a.ai[0] + ' (' + V.a.ai[1] + ')', V.b.ai[0] + ' (' + V.b.ai[1] + ')'],
-      ['predicted context lines per change', V.a.context.toLocaleString('en-US'), V.b.context.toLocaleString('en-US')],
+      ['AI ease of change, scoring before the experiment', V.a.original.ai[0] + ' (' + V.a.original.ai[1] + ')', V.b.original.ai[0] + ' (' + V.b.original.ai[1] + ')'],
+      ['predicted context lines per change, before', V.a.original.context.toLocaleString('en-US'), V.b.original.context.toLocaleString('en-US')],
+      ['AI ease of change, scoring changed after the results', V.a.ai[0] + ' (' + V.a.ai[1] + ')', V.b.ai[0] + ' (' + V.b.ai[1] + ')'],
+      ['predicted context lines per change, after', V.a.context.toLocaleString('en-US'), V.b.context.toLocaleString('en-US')],
     ];
     document.getElementById('variants').innerHTML = '<table><thead><tr><th></th><th>variant A</th><th>variant B</th></tr></thead><tbody>' +
       rows.map(r => '<tr><td>' + esc(r[0]) + '</td><td>' + esc(r[1]) + '</td><td>' + esc(r[2]) + '</td></tr>').join('') + '</tbody></table>';

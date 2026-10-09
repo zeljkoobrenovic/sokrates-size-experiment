@@ -21,6 +21,8 @@ real tasks with known solutions, and it has the profile wanted: 48,137 main line
 | Human ease of change (Sokrates) | 6.4 (C) | 7.2 (B) |
 | AI ease of change (Sokrates) | 6.6 (B) | 7.7 (B) |
 | context lines per change (past year, 52 changes) | 1,690 | 774 |
+| AI ease of change, re-scored with the 2026-10-09 scoring (changed in response to the results) | 7.2 (B) | 7.3 (B) |
+| context lines per change, re-scored (200-line window per touched file) | 571 | 552 |
 
 (Predictions from `analysis/<variant>/reports`, reference date 2025-09-20 so the history windows are the ones the
 snapshot had; regenerate with `scripts/analyze_variant.sh <variant>`. B is measured against A's git history: split
