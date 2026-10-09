@@ -42,6 +42,7 @@ collect "$OUT/root/repo1/_sokrates" repo1
 collect "$OUT/root/repo2/_sokrates" repo2
 collect "$OUT/root/_sokrates_landscape" landscape
 python3 -I "$ROOT/scripts/golden_normalize.py" "$NORM"
+find "$NORM" -type d -empty -delete   # git stores no empty folders, so golden/ has none either
 
 if [ "$MODE" = "--store" ]; then
   rm -rf "$GOLDEN"; cp -R "$NORM" "$GOLDEN"
