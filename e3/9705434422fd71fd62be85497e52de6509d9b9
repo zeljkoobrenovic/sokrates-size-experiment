@@ -1,0 +1,19 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/UnitsAnalyzer.java
+  s_0af420b20b4753::t_be34b46d650ffc 74-85,105,107
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e39705434422fd71fd62be85497e52de6509d9b9",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
