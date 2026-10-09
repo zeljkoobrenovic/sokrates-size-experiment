@@ -1,0 +1,12 @@
+work/
+results/runs/
+variants/*/target/
+variants/*/**/target/
+variants/*/_sokrates/
+variants/*/git-history.txt
+variants/*/git-commits.txt
+variants/*/git-commit-trailers.txt
+analysis/*/reports/
+.DS_Store
+*.iml
+.idea/

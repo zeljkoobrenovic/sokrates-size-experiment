@@ -1,0 +1,24 @@
+{
+  "agent": "claude",
+  "model": "claude-sonnet-5-5",
+  "max_turns": 80,
+  "timeout_seconds": 2400,
+  "permission_mode": "acceptEdits",
+  "allowed_tools": [
+    "Bash(mvn:*)", "Bash(git diff:*)", "Bash(git status:*)", "Bash(git log:*)", "Bash(git show:*)", "Bash(git grep:*)",
+    "Bash(ls:*)", "Bash(cat:*)", "Bash(head:*)", "Bash(tail:*)", "Bash(wc:*)", "Bash(grep:*)", "Bash(rg:*)",
+    "Bash(find:*)", "Bash(sed -n:*)", "Bash(java -version:*)"
+  ],
+  "setting_sources": "project",
+  "command": [
+    "claude", "-p", "{prompt}", "--output-format", "json", "--model", "{model}", "--max-turns", "{max_turns}",
+    "--permission-mode", "{permission_mode}", "--allowedTools", "{allowed_tools}", "--setting-sources", "{setting_sources}"
+  ],
+  "prebuild": "mvn -q -o install -DskipTests",
+  "prebuild_fallback": "mvn -q install -DskipTests",
+  "prebuild_timeout_seconds": 1200,
+  "acceptance_timeout_seconds": 1200,
+  "exclude_from_copy": ["target", ".git", "_sokrates", "_sokrates_landscape", "git-history.txt", "git-commits.txt", "git-commit-trailers.txt", ".idea", "*.iml", ".DS_Store"],
+  "git_author": "Experiment <experiment@example.com>",
+  "git_date": "2025-09-20T12:00:00"
+}

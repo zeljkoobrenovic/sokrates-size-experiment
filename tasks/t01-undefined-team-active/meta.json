@@ -1,0 +1,14 @@
+{
+  "id": "t01-undefined-team-active",
+  "kind": "target",
+  "title": "Limit the Undefined Team to active contributors",
+  "reference_commit": "ad61da0f",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java"
+  ],
+  "target_unit": "getAllTeams() in LandscapeAnalysisResults (file of 1,133 LOC, very high risk)",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=UndefinedTeamActiveContributorsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The real change is +6/-1 in getAllTeams (also fixes the always-false contains(email) guard nearby). The acceptance test builds a landscape with one configured team and five contributors; it fails on the snapshot (dormant@other.org is in the Undefined Team) and passes with the reference change."
+}

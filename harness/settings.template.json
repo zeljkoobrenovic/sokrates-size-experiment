@@ -1,0 +1,11 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python3 {{HOOK}} {{LOG}}" }
+        ]
+      }
+    ]
+  }
+}

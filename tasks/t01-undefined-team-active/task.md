@@ -1,0 +1,3 @@
+In the landscape analysis, contributors are grouped into teams from the configured team definitions (`TeamsConfig`, email patterns per team). Contributors matched by no team land in a remainder team called "Undefined Team".
+
+Change the remainder so that it only collects **active** contributors: a contributor whose latest commit is within the activity threshold (`Contributor.isActive()`, 180 days before the analysis date). Dormant unmatched contributors are left out of the "Undefined Team". Contributors with a blank latest-commit date are treated as active, so nobody is dropped for missing data. Configured teams are not affected: they keep all their members, active or not.
