@@ -1,0 +1,23 @@
+harness/hooks/log_tool.py
+  s_0af420b20b4753::t_d0124a20159ea5 53-54
+harness/run.py
+  s_0af420b20b4753::t_3119a5a02fc667 55,147,170,176,237-238,256-257
+harness/summarize.py
+  s_0af420b20b4753::t_dfcc2f921f5776 21-22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "91abb7f8c499da963700f5bb069cb2c06eda16dd",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
