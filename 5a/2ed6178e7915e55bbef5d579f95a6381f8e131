@@ -1,0 +1,31 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesMetricsTable.java
+  s_0af420b20b4753::t_90576babb1e37f 1-143
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesSummaryGraphs.java
+  s_0af420b20b4753::t_7cc83a8bb224dd 1-212
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesHistoryTables.java
+  s_0af420b20b4753::t_54869575e56a57 1-184
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/RepositoryTableCells.java
+  s_0af420b20b4753::t_dac601e190caf0 1-78
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesFeaturesTable.java
+  s_0af420b20b4753::t_2112edddf93184 1-101
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/RepositoryReportUrls.java
+  s_0af420b20b4753::t_e7694af721dced 1-72
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+  s_0af420b20b4753::t_edde94a9b60066 25-27,41-46,52,62-70,122,135,145,156,166,173,178,182,186,190,194,238,259,285
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5a2ed6178e7915e55bbef5d579f95a6381f8e131",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
