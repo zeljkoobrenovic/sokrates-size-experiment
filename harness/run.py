@@ -311,7 +311,10 @@ def main():
     ap.add_argument("--keep", action="store_true", help="keep work/<run id> (repo, logs, diff) after the run")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--m2", help="own Maven local repository for this process (seeded from ~/.m2); lets one process per variant run in parallel")
+    ap.add_argument("--results", default="runs.csv", help="CSV file under results/ to append to (one per series, e.g. runs-haiku.csv)")
     args = ap.parse_args()
+    global RUNS_CSV
+    RUNS_CSV = os.path.join(RESULTS, args.results)
     if args.m2:
         use_maven_repo(args.m2)
     for v in args.variants:
