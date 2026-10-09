@@ -122,6 +122,26 @@ public class LandscapeContributorsReport {
                 : "color: " + color);
         counter[0] += 1;
         PeopleConfig peopleConfig = landscapeAnalysisResults.getPeopleConfig();
+        report.addTableCell(getLangIcon(contributor, peopleConfig), "text-align: center; width: 32px; max-width: 32px");
+
+        String contributorId = contributor.getContributor().getEmail();
+        PersonConfig personConfig = peopleConfig != null ? peopleConfig.getPersonByName(contributorId) : null;
+
+        String avatarHtml = getAvatarHtml(contributor, contributorId, personConfig);
+        String link = this.getContributorUrl(contributorId);
+        String body = getContributorBody(contributor, contributorId, avatarHtml);
+
+        report.addTableCellWithTitle("<a target='_blank' style='color: " + color + "; text-decoration: none' href='" + link + "'>" + body + "</a>",
+                "vertical-align: middle; white-space: nowrap; overflow: hidden;", "" + counter[0]);
+        addCommitsCells(totalCommits, contributor);
+        report.addTableCell(contributor.getContributor().getFirstCommitDate(), "vertical-align: middle; white-space: nowrap;");
+        report.addTableCell(contributor.getContributor().getLatestCommitDate(), "vertical-align: middle; white-space: nowrap;");
+        addRepositoriesCell(contributor);
+        report.addTableCell("<a target='_blank' href='" + link + "'  title='volume details' style='vertical-align: top'>" + getDetailsIcon() + "</a>", "text-align: center");
+        report.endTableRow();
+    }
+
+    private String getLangIcon(ContributorRepositories contributor, PeopleConfig peopleConfig) {
         String biggestExtension = new ContributorPerExtensionHelper().getBiggestExtension(landscapeAnalysisResults.getConfiguration(), contributor, peopleConfig);
         String icon;
         if (biggestExtension == null) {
@@ -129,11 +149,11 @@ public class LandscapeContributorsReport {
         } else {
             icon = DataImageUtils.getLangDataImageDiv30(biggestExtension);
         }
-        report.addTableCell(icon, "text-align: center; width: 32px; max-width: 32px");
-        String avatarHtml = "";
+        return icon;
+    }
 
-        String contributorId = contributor.getContributor().getEmail();
-        PersonConfig personConfig = peopleConfig != null ? peopleConfig.getPersonByName(contributorId) : null;
+    private String getAvatarHtml(ContributorRepositories contributor, String contributorId, PersonConfig personConfig) {
+        String avatarHtml = "";
 
         String avatarUrl;
         if (personConfig != null && StringUtils.isNotBlank(personConfig.getImage())) {
@@ -152,7 +172,10 @@ public class LandscapeContributorsReport {
                     "<img style='border-radius: 50%; height: 38px; width: 38px; margin-right: 10px;' src='" + defaultAvatar + "'>" +
                     "</div>";
         }
-        String link = this.getContributorUrl(contributorId);
+        return avatarHtml;
+    }
+
+    private String getContributorBody(ContributorRepositories contributor, String contributorId, String avatarHtml) {
         StringBuilder contributorBody = new StringBuilder(avatarHtml + StringEscapeUtils.escapeHtml4(contributorId));
 
         if (contributor.getMembers().size() > 0) {
@@ -167,9 +190,10 @@ public class LandscapeContributorsReport {
         if (team != null) {
             body = "<div><div style='vertical-align: top; font-size: 60%; background-color: lightyellow; border-radius: 12px; display: inline-block; padding: 3px; margin: 5px; color: black'>" + team + "</div><div style='margin-top: -15px; margin-bottom: -9px;'>" + body + "</div></div>";
         }
+        return body;
+    }
 
-        report.addTableCellWithTitle("<a target='_blank' style='color: " + color + "; text-decoration: none' href='" + link + "'>" + body + "</a>",
-                "vertical-align: middle; white-space: nowrap; overflow: hidden;", "" + counter[0]);
+    private void addCommitsCells(int totalCommits, ContributorRepositories contributor) {
         int commitsCountAllTime = contributor.getContributor().getCommitsCount();
         int commitsCount30Days = contributor.getContributor().getCommitsCount30Days();
         if (recent) {
@@ -187,8 +211,9 @@ public class LandscapeContributorsReport {
             report.addTableCell(FormattingUtils.formatCount(contributor.getContributor().getCommitsCount90Days()), "vertical-align: middle;");
             report.addTableCell(FormattingUtils.formatCount(commitsCount30Days), "vertical-align: middle;");
         }
-        report.addTableCell(contributor.getContributor().getFirstCommitDate(), "vertical-align: middle; white-space: nowrap;");
-        report.addTableCell(contributor.getContributor().getLatestCommitDate(), "vertical-align: middle; white-space: nowrap;");
+    }
+
+    private void addRepositoriesCell(ContributorRepositories contributor) {
         StringBuilder repositoryInfo = new StringBuilder();
         report.startTableCell();
         if (recent) {
@@ -220,8 +245,6 @@ public class LandscapeContributorsReport {
         }
         report.addHtmlContent(repositoryInfo.toString());
         report.endTableCell();
-        report.addTableCell("<a target='_blank' href='" + link + "'  title='volume details' style='vertical-align: top'>" + getDetailsIcon() + "</a>", "text-align: center");
-        report.endTableRow();
     }
 
     private String getDetailsIcon() {
