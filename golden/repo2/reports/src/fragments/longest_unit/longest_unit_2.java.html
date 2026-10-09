@@ -1,0 +1,84 @@
+<html>
+<head>
+    <title>private void init()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void init()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [301:362]</i></p>
+<ul>
+    <li><b>52</b> lines of code</li>
+    <li><b>13</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void init(String[] args) throws ParseException, IOException {
+        Options options = commands.getInitOptions();
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, args);
+
+        if (cmd.hasOption(commands.getHelp().getOpt())) {
+            helpMode = true;
+            commands.usage(Commands.INIT, commands.getInitOptions(), Commands.INIT_DESCRIPTION);
+            return;
+        }
+
+        startTimeoutIfDefined(cmd);
+
+        String strRootPath = cmd.getOptionValue(commands.getSrcRoot().getOpt());
+        if (!cmd.hasOption(commands.getSrcRoot().getOpt())) {
+            strRootPath = &quot;.&quot;;
+        }
+
+        CustomScopingConventions customScopingConventions = null;
+        if (cmd.hasOption(commands.getConventionsFile().getOpt())) {
+            File scopingConventionsFile = new File(cmd.getOptionValue(commands.getConventionsFile().getOpt()));
+            if (scopingConventionsFile.exists()) {
+                customScopingConventions = CustomConventionsHelper.readFromFile(scopingConventionsFile);
+            }
+        }
+        String nameValue = &quot;&quot;;
+        String descriptionValue = &quot;&quot;;
+        String logoLinkValue = &quot;&quot;;
+        if (cmd.hasOption(commands.getName().getOpt())) {
+            nameValue = cmd.getOptionValue(commands.getName().getOpt());
+        }
+        if (cmd.hasOption(commands.getDescription().getOpt())) {
+            descriptionValue = cmd.getOptionValue(commands.getDescription().getOpt());
+        }
+        if (cmd.hasOption(commands.getLogoLink().getOpt())) {
+            logoLinkValue = cmd.getOptionValue(commands.getLogoLink().getOpt());
+        }
+        Link link = null;
+        if (cmd.hasOption(commands.getAddLink().getOpt())) {
+            String[] linkData = cmd.getOptionValues(commands.getAddLink().getOpt());
+            if (linkData.length &gt;= 1 &amp;&amp; StringUtils.isNotBlank(linkData[0])) {
+                String href = linkData[0];
+                String label = linkData.length &gt; 1 ? linkData[1] : &quot;&quot;;
+                link = new Link(label, href);
+            }
+        }
+
+
+        File root = new File(strRootPath);
+        if (!root.exists()) {
+            LOG.error(&quot;The src root \&quot;&quot; + root.getPath() + &quot;\&quot; does not exist.&quot;);
+            return;
+        }
+
+        File conf = getConfigFile(cmd, root);
+
+        updateDateParam(cmd);
+
+        new ScopeCreator(root, conf, customScopingConventions).createScopeFromConventions(nameValue, descriptionValue, logoLinkValue, link);
+
+        LOG.info(&quot;Configuration stored in &quot; + conf.getPath());
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

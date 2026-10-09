@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>public static String getPercentage()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getPercentage()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java [67:76]</i></p>
+<ul>
+    <li><b>9</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getPercentage(long duration) {
+        String percentageString = &quot;&quot;;
+        if (duration &gt;= 0) {
+            if (referenceTimes != null &amp;&amp; referenceTimes.getDurationMs() &gt; 0) {
+                percentageString = &quot;(&quot; + FormattingUtils.getFormattedPercentage(100.0 * duration / referenceTimes.getDurationMs(), &quot;&lt;1&quot;) + &quot;%)&quot;;
+            }
+        }
+
+        return percentageString;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

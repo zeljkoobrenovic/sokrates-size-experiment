@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>public static String getSvgFromDot()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getSvgFromDot()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java [33:56]</i></p>
+<ul>
+    <li><b>23</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getSvgFromDot(String dotCode, String extraDotArguments[]) {
+        File dotFile = null;
+        double start = System.currentTimeMillis();
+        try {
+            LOG.info(&quot;Calling dot process... &quot;);
+            dotFile = File.createTempFile(&quot;grapviz_dot_graph&quot;, &quot;.dot&quot;);
+            FileUtils.writeStringToFile(dotFile, dotCode, UTF_8);
+            String svgFromDotFile = getSvgFromDotFileExternal(dotFile, extraDotArguments);
+            int svgBeginIndex = svgFromDotFile.indexOf(&quot;&lt;svg&quot;);
+            if (svgBeginIndex &gt;= 0) {
+                svgFromDotFile = svgFromDotFile.substring(svgBeginIndex);
+            }
+            return svgFromDotFile;
+        } catch (IOException e) {
+            LOG.error(e);
+        } finally {
+            LOG.info(&quot; Done after &quot; + ((System.currentTimeMillis() - start) / 1000) + &quot; seconds.&quot;);
+            if (dotFile != null) {
+                dotFile.delete();
+            }
+        }
+
+        return null;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>public static boolean matchesEntirely()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static boolean matchesEntirely()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java [23:37]</i></p>
+<ul>
+    <li><b>15</b> lines of code</li>
+    <li><b>3</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static boolean matchesEntirely(String regexPattern, String content) {
+        try {
+            String key = regexPattern + &quot; ::-&gt;:: &quot; + content;
+            Pattern pattern = compiledPatterns.get(regexPattern);
+            if (pattern == null) {
+                pattern = Pattern.compile(regexPattern);
+                compiledPatterns.put(regexPattern, pattern);
+            }
+            boolean matches = pattern.matcher(content).matches();
+            return matches;
+        } catch (PatternSyntaxException e) {
+            LOG.debug(e);
+            return false;
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

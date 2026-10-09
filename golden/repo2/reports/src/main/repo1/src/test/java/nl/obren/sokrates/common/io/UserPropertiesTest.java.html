@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java (<b>24</b> lines of code) (<a href="UserPropertiesTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.io;
+
+import org.junit.Test;
+
+import java.io.File;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class UserPropertiesTest {
+    @Test
+    public void addAndGetListProperty() throws Exception {
+        UserProperties userProperties = UserProperties.getInstance(&quot;sokrates&quot;);
+        userProperties.setReadOnly(true);
+
+        File tempFile1 = File.createTempFile(&quot;test&quot;, &quot;test&quot;);
+
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).size(), 0);
+
+        userProperties.addToListProperty(&quot;testFileList&quot;, tempFile1);
+
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).size(), 1);
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).get(0).getPath(), tempFile1.getPath());
+
+        File tempFile2 = File.createTempFile(&quot;test&quot;, &quot;test&quot;);
+        File tempFile3 = File.createTempFile(&quot;test&quot;, &quot;test&quot;);
+        userProperties.addToListProperty(&quot;testFileList&quot;, tempFile2);
+        userProperties.addToListProperty(&quot;testFileList&quot;, tempFile3);
+
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).size(), 3);
+
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).get(0).getPath(), tempFile3.getPath());
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).get(1).getPath(), tempFile2.getPath());
+        assertEquals(userProperties.getFileListProperty(&quot;testFileList&quot;).get(2).getPath(), tempFile1.getPath());
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

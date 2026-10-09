@@ -1,0 +1,261 @@
+<html>
+<head>
+    <title>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java (<b>195</b> lines of code) (<a href="PathStringsToTreeStructure.java">raw</a>):</h3>
+<div id="editor">package nl.obren.sokrates.cli;
+
+import nl.obren.sokrates.common.renderingutils.VisualizationItem;
+import nl.obren.sokrates.common.renderingutils.charts.Palette;
+import nl.obren.sokrates.sourcecode.SourceFile;
+import nl.obren.sokrates.sourcecode.filehistory.CommitInfo;
+import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+import nl.obren.sokrates.sourcecode.threshold.Thresholds;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+public class PathStringsToTreeStructure {
+    public static DirectoryNode createDirectoryTree(final List&lt;SourceFile&gt; list) {
+        DirectoryNode treeRootNode = null;
+        for (final SourceFile sourceFile : list) {
+            final String path = &quot;ROOT/&quot; + sourceFile.getRelativePath();
+            final String[] pathElements = path.split(&quot;/&quot;);
+            DirectoryNode movingNode = null;
+            for (final String pathElement : pathElements) {
+                movingNode = new DirectoryNode(movingNode, pathElement);
+                if (pathElement == pathElements[pathElements.length - 1]) movingNode.setSourceFile(sourceFile);
+            }
+
+            if (treeRootNode == null) {
+                treeRootNode = movingNode.getRoot();
+            } else {
+                treeRootNode.merge(movingNode.getRoot());
+            }
+        }
+
+        return treeRootNode;
+    }
+
+    public static String getColor(Thresholds thresholds, Palette palette, int size) {
+        List&lt;String&gt; colors = palette.getColors();
+        if (colors.size() &lt; 5) return &quot;&quot;;
+
+        if (size &lt;= thresholds.getLow()) return colors.get(4);
+        if (size &lt;= thresholds.getMedium()) return colors.get(3);
+        if (size &lt;= thresholds.getHigh()) return colors.get(2);
+        if (size &lt;= thresholds.getVeryHigh()) return colors.get(1);
+
+        return colors.get(0);
+    }
+
+}
+
+class DirectoryNode {
+
+    private final Set&lt;DirectoryNode&gt; children = new LinkedHashSet&lt;&gt;();
+
+    private final String value;
+
+    private final DirectoryNode parent;
+    private SourceFile sourceFile;
+
+    public DirectoryNode(final DirectoryNode parent, final String value) {
+        this.parent = parent;
+        if (this.parent != null) {
+            this.parent.children.add(this);
+        }
+
+        this.value = value;
+    }
+
+    public Set&lt;DirectoryNode&gt; getChildren() {
+        return this.children;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+    public DirectoryNode getParent() {
+        return this.parent;
+    }
+
+    public boolean isLeaf() {
+        return this.children.isEmpty();
+    }
+
+    public DirectoryNode getRoot() {
+        return this.parent == null ? this : this.parent.getRoot();
+    }
+
+    public SourceFile getSourceFile() {
+        return sourceFile;
+    }
+
+    public void setSourceFile(SourceFile sourceFile) {
+        this.sourceFile = sourceFile;
+    }
+
+    public void merge(final DirectoryNode that) {
+        if (!this.value.equals(that.value)) {
+            return;
+        } else if (this.children.isEmpty()) {
+            this.children.addAll(that.children);
+            return;
+        }
+
+        final DirectoryNode[] thisChildren = this.children
+                .toArray(new DirectoryNode[this.children.size()]);
+        for (final DirectoryNode thisChild : thisChildren) {
+            for (final DirectoryNode thatChild : that.children) {
+                if (thisChild.value.equals(thatChild.value)) {
+                    thisChild.merge(thatChild);
+                } else if (!this.children.contains(thatChild)) {
+                    this.children.add(thatChild);
+                }
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final DirectoryNode that = (DirectoryNode) o;
+        return Objects.equals(this.value, that.value)
+                &amp;&amp; Objects.equals(this.parent, that.parent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.value, this.parent);
+    }
+
+
+    @Override
+    public String toString() {
+        return &quot;{&quot; + &quot;value='&quot; + this.value + '\'' + &quot;, children=&quot; + this.children + '}';
+    }
+
+    public List&lt;VisualizationItem&gt; toVisualizationItems() {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int size = child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name) ? child.getSourceFile().getLinesOfCode() : 0;
+            VisualizationItem item = new VisualizationItem(name, size);
+            items.add(item);
+            item.getChildren().addAll(child.toVisualizationItems());
+        });
+
+        return items;
+    }
+
+    public List&lt;VisualizationItem&gt; toVisualizationCommitItems(int daysAgo) {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int size = child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name) &amp;&amp; child.getSourceFile().getFileModificationHistory() != null
+                    ? (int) child.getSourceFile().getFileModificationHistory().getCommits().stream().filter(c -&gt; DateUtils.isCommittedLessThanDaysAgo(c.getDate(), daysAgo)).count()
+                    : 0;
+            VisualizationItem item = new VisualizationItem(name + (size &gt; 0 ? &quot; (&quot; + size + &quot;)&quot; : &quot;&quot;), size);
+            List&lt;VisualizationItem&gt; children = child.toVisualizationCommitItems(daysAgo);
+            if (size &gt; 0 || children.size() &gt; 0) {
+                if (size == 1) {
+                    item.setColor(&quot;grey&quot;);
+                }
+                items.add(item);
+                item.getChildren().addAll(children);
+            }
+        });
+
+        return items;
+    }
+
+    public List&lt;VisualizationItem&gt; toVisualizationContributorItems(int daysAgo) {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int size;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name) &amp;&amp; child.getSourceFile().getFileModificationHistory() != null) {
+                Stream&lt;CommitInfo&gt; commitInfoStream = child.getSourceFile().getFileModificationHistory().getCommits().stream().filter(c -&gt; DateUtils.isCommittedLessThanDaysAgo(c.getDate(), daysAgo));
+                Set&lt;String&gt; emails = new HashSet&lt;&gt;();
+                commitInfoStream.forEach(commitInfo -&gt; emails.add(commitInfo.getEmail()));
+                size = emails.size();
+            } else {
+                size = 0;
+            }
+            VisualizationItem item = new VisualizationItem(name + (size &gt; 0 ? &quot; (&quot; + size + &quot;)&quot; : &quot;&quot;), size);
+            List&lt;VisualizationItem&gt; children = child.toVisualizationContributorItems(daysAgo);
+            if (size &gt; 0 || children.size() &gt; 0) {
+                if (size == 1) {
+                    item.setColor(&quot;grey&quot;);
+                }
+                items.add(item);
+                item.getChildren().addAll(children);
+            }
+        });
+
+        return items;
+    }
+
+    public List&lt;VisualizationItem&gt; toVisualizationRiskColoringItems(Thresholds thresholds, Palette palette, SourceFileValueExtractor colorValueExtractor, SourceFileValueExtractor sizeValueExtractor) {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int valueForSize;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name)) {
+                valueForSize = sizeValueExtractor.getValue(child.getSourceFile());
+            } else {
+                valueForSize = 0;
+            }
+            int valueForColoring;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name)) {
+                valueForColoring = colorValueExtractor.getValue(child.getSourceFile());
+            } else {
+                valueForColoring = 0;
+            }
+            VisualizationItem item = new VisualizationItem(name + (valueForColoring &gt; 0 ? &quot; (&quot; + valueForColoring + &quot;)&quot; : &quot;&quot;), valueForSize);
+            List&lt;VisualizationItem&gt; children = child.toVisualizationRiskColoringItems(thresholds, palette, colorValueExtractor, sizeValueExtractor);
+            if (valueForColoring &gt; 0 || children.size() &gt; 0) {
+                item.setColor(PathStringsToTreeStructure.getColor(thresholds, palette, valueForColoring));
+                items.add(item);
+                item.getChildren().addAll(children);
+            }
+        });
+
+        return items;
+    }
+
+    public interface SourceFileValueExtractor {
+        int getValue(SourceFile sourceFile);
+    }
+}</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

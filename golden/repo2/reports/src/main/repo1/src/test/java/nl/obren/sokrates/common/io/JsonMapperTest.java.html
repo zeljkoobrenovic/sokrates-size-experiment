@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java (<b>18</b> lines of code) (<a href="JsonMapperTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.io;
+
+import com.fasterxml.jackson.core.JsonLocation;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class JsonMapperTest {
+
+    @Rule
+    public ExpectedException expectedEx = ExpectedException.none();
+
+    @Test
+    public void testGetMessage() throws Exception {
+        JsonMapper mapper = new JsonMapper();
+        String originalMessage = &quot;An error message&quot;;
+        JsonLocation jsonLocation = new JsonLocation(null, 0l, 10, 20);
+
+        String message = mapper.getMessage(originalMessage, jsonLocation);
+
+        assertEquals(originalMessage + &quot; (line 10, column 20)&quot;, message);
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

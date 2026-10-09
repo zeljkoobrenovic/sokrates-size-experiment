@@ -1,0 +1,54 @@
+<html>
+<head>
+    <title>public void usage()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void usage()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/Commands.java [126:157]</i></p>
+<ul>
+    <li><b>32</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void usage() {
+        List&lt;CommandUsage&gt; commandUsages = usageInfo();
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Usage: java -jar sokrates.jar &lt;command&gt; &lt;options&gt;&quot;);
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Help: java -jar sokrates.jar &lt;command&gt; -help&quot;);
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Commands: &quot; + commandUsages.stream().map(c -&gt; c.getName()).collect(Collectors.joining(&quot;, &quot;)));
+        commandUsages.forEach(commandUsage -&gt; {
+            printlnUsage(&quot;&quot;);
+            printlnUsage(&quot;* &quot; + commandUsage.getName() + &quot;: &quot; + commandUsage.getDescription());
+            if (commandUsage.getOptions() != null) {
+                String options = commandUsage.getOptions().getOptions().stream().map(o -&gt; {
+                    String text = &quot;&quot;;
+                    if (o.hasArg()) {
+                        text = &quot;-&quot; + o.getOpt() + &quot; &lt;arg&gt;&quot;;
+                    } else if (o.hasArgs()) {
+                        text = &quot;-&quot; + o.getOpt() + &quot; &lt;args&gt;&quot;;
+                    } else {
+                        text = &quot;-&quot; + o.getOpt() + &quot;&quot;;
+                    }
+                    if (!o.isRequired()) {
+                        text = &quot;[&quot; + text + &quot;]&quot;;
+                    }
+                    return text;
+                }).collect(Collectors.joining(&quot; &quot;));
+                printlnUsage(&quot;   - options: &quot; + options);
+            }
+        });
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;&quot;);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

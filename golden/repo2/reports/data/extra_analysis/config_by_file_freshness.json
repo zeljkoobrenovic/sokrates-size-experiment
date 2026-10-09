@@ -1,0 +1,472 @@
+{
+ "analysis": {
+  "analyzeConcernOverlaps": false,
+  "analyzerOverrides": [],
+  "conditionalComplexityThresholds": {
+   "high": 25,
+   "low": 5,
+   "medium": 10,
+   "veryHigh": 50
+  },
+  "customHtmlReportHeaderFragment": "",
+  "fileAgeThresholds": {
+   "high": 180,
+   "low": 30,
+   "medium": 90,
+   "veryHigh": 365
+  },
+  "fileConditionalComplexityThresholds": {
+   "high": 25,
+   "low": 5,
+   "medium": 10,
+   "veryHigh": 50
+  },
+  "fileContributorsCountThresholds": {
+   "high": 10,
+   "low": 1,
+   "medium": 5,
+   "veryHigh": 25
+  },
+  "fileSizeThresholds": {
+   "high": 500,
+   "low": 100,
+   "medium": 200,
+   "veryHigh": 1000
+  },
+  "fileUpdateFrequencyThresholds": {
+   "high": 50,
+   "low": 5,
+   "medium": 20,
+   "veryHigh": 100
+  },
+  "locDuplicationThreshold": 10000000,
+  "maxFileSizeBytes": 1000000,
+  "maxLineLength": 1000,
+  "maxLines": 10000,
+  "maxTemporalDependenciesDepthDays": 180,
+  "maxTopListSize": 50,
+  "minDuplicationBlockLoc": 6,
+  "saveCodeFragments": true,
+  "saveSourceFiles": true,
+  "skipCorrelations": false,
+  "skipDependencies": false,
+  "skipDuplication": false,
+  "unitSizeThresholds": {
+   "high": 50,
+   "low": 10,
+   "medium": 20,
+   "veryHigh": 100
+  }
+ },
+ "buildAndDeployment": {
+  "files": [],
+  "name": "build and deployment",
+  "sourceFileFilters": [
+   {
+    "contentPattern": "",
+    "exception": false,
+    "note": "Maven configuration",
+    "pathPattern": ".*/pom[.]xml"
+   }
+  ]
+ },
+ "concernGroups": [
+  {
+   "concerns": [
+    {
+     "files": [],
+     "name": "TODOs",
+     "sourceFileFilters": [
+      {
+       "contentPattern": ".*(TODO|FIXME)( |:|\t).*",
+       "exception": false,
+       "note": "",
+       "pathPattern": ""
+      }
+     ],
+     "textOperations": []
+    }
+   ],
+   "metaConcerns": [],
+   "name": "general"
+  }
+ ],
+ "extensions": [
+  "java",
+  "txt",
+  "xml"
+ ],
+ "fileHistoryAnalysis": {
+  "anonymizeContributors": false,
+  "bots": [
+   ".*\\[bot\\].*",
+   ".*[-]bot[@].*"
+  ],
+  "ignoreContributors": [],
+  "importPath": "",
+  "transformContributorEmails": []
+ },
+ "generated": {
+  "files": [],
+  "name": "generated",
+  "sourceFileFilters": []
+ },
+ "goalsAndControls": [
+  {
+   "controls": [
+    {
+     "description": "Total number of lines of main code",
+     "desiredRange": {
+      "max": "200000",
+      "min": "0",
+      "tolerance": "20000"
+     },
+     "metric": "LINES_OF_CODE_MAIN"
+    },
+    {
+     "description": "System duplication",
+     "desiredRange": {
+      "max": "5",
+      "min": "0",
+      "tolerance": "1"
+     },
+     "metric": "DUPLICATION_PERCENTAGE"
+    },
+    {
+     "description": "The number of very large files",
+     "desiredRange": {
+      "max": "0",
+      "min": "0",
+      "tolerance": "1"
+     },
+     "metric": "VERY_HIGH_RISK_FILE_SIZE_COUNT"
+    },
+    {
+     "description": "Number of very complex units",
+     "desiredRange": {
+      "max": "0",
+      "min": "0",
+      "tolerance": "1"
+     },
+     "metric": "CONDITIONAL_COMPLEXITY_VERY_HIGH_RISK_COUNT"
+    }
+   ],
+   "description": "Aim at keeping the system size modest (less than 200,000 LOC is good), duplication low (less than 5% is good), files small (no files longer than 1000 LOC is good), and units simple (no units with more than 25 decision points is good).",
+   "goal": "Keep the system simple and easy to change"
+  }
+ ],
+ "ignore": [
+  {
+   "contentPattern": "",
+   "exception": false,
+   "note": "Git history",
+   "pathPattern": ".*/git[-]history[.]txt"
+  },
+  {
+   "contentPattern": "",
+   "exception": false,
+   "note": "Git data exports for sokrates analyses",
+   "pathPattern": ".*/git[-][a-zA-Z0-9_]+[.]txt"
+  }
+ ],
+ "logicalDecompositions": [
+  {
+   "components": [
+    {
+     "files": [],
+     "name": "1-30 days old",
+     "sourceFileFilters": []
+    },
+    {
+     "files": [],
+     "name": "31-90 days old",
+     "sourceFileFilters": []
+    },
+    {
+     "files": [],
+     "name": "91-180 days old",
+     "sourceFileFilters": []
+    },
+    {
+     "files": [],
+     "name": "181-365 year old",
+     "sourceFileFilters": []
+    },
+    {
+     "files": [],
+     "name": "366+ year old",
+     "sourceFileFilters": []
+    }
+   ],
+   "componentsFolderDepth": 0,
+   "dependenciesFinder": {
+    "metaRules": [],
+    "rules": [],
+    "useBuiltInDependencyFinders": false
+   },
+   "dependencyLinkThreshold": 1,
+   "duplicationLinkThreshold": 50,
+   "filters": [],
+   "groups": [],
+   "includeExternalComponents": true,
+   "includeRemainingFiles": true,
+   "maxSearchDepthLines": 200,
+   "metaComponents": [],
+   "minComponentsCount": 0,
+   "name": "file freshness",
+   "renderingOptions": {
+    "maxNumberOfDependencies": 100,
+    "orientation": "TB",
+    "renderComponentsWithoutDependencies": true,
+    "renderIndirectDependencies": false,
+    "renderInternalIndirectDependencies": false,
+    "reverseDirection": false
+   },
+   "scope": "main",
+   "temporalLinkThreshold": 1
+  }
+ ],
+ "main": {
+  "files": [],
+  "name": "main",
+  "sourceFileFilters": [
+   {
+    "contentPattern": "",
+    "exception": false,
+    "note": "",
+    "pathPattern": ".*"
+   }
+  ]
+ },
+ "metadata": {
+  "description": "",
+  "links": [],
+  "logoLink": "",
+  "name": "repo2",
+  "tooltip": ""
+ },
+ "other": {
+  "files": [],
+  "name": "other",
+  "sourceFileFilters": [
+   {
+    "contentPattern": "",
+    "exception": false,
+    "note": "Text files",
+    "pathPattern": ".*[.]txt"
+   }
+  ]
+ },
+ "srcRoot": "..",
+ "summary": [],
+ "tagRules": [
+  {
+   "color": "#7CB9E8",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)Jenkinsfile",
+    "(|.*/)Jenkinsfile[.][a-z0-9_]+"
+   ],
+   "tag": "jenkins"
+  },
+  {
+   "color": "#7CB9E8",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]travis[.]ya?ml"
+   ],
+   "tag": "travis"
+  },
+  {
+   "color": "#7CB9E8",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]github[/]workflows[/].*"
+   ],
+   "tag": "github actions"
+  },
+  {
+   "color": "#7CB9E8",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]circleci.*"
+   ],
+   "tag": "circleci"
+  },
+  {
+   "color": "#7CB9E8",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]gitlab.*"
+   ],
+   "tag": "gitlab"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)pom[.]xml"
+   ],
+   "tag": "maven"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)pnpm.*[.](ya?ml|json)"
+   ],
+   "tag": "pnpm"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)package[.]json"
+   ],
+   "tag": "npm"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]yarnrc",
+    "(|.*/)yarn[.]lock"
+   ],
+   "tag": "yarn"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)jest[.].*"
+   ],
+   "tag": "jest"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]babel[.]config[.]json"
+   ],
+   "tag": "babel"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)build[.]gradle"
+   ],
+   "tag": "gradle"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)build[.]sbt"
+   ],
+   "tag": "sbt"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)BUILD[.]bazel"
+   ],
+   "tag": "bazel"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)pip[.]conf",
+    "(|.*/)Pipfile"
+   ],
+   "tag": "pip"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)[.]nuget/.*",
+    "(|.*/)[.]nuget[.]config"
+   ],
+   "tag": "nuget"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)buildspec[.]yml"
+   ],
+   "tag": "aws codebuild"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)renovate[.]json5?"
+   ],
+   "tag": "renovate"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)dependabot[.]ya?ml"
+   ],
+   "tag": "dependabot"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)Gemfile"
+   ],
+   "tag": "gemfile"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)Podfile"
+   ],
+   "tag": "podfile"
+  },
+  {
+   "color": "#B9D9EB",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)Makefile"
+   ],
+   "tag": "make"
+  },
+  {
+   "color": "#A3C1AD",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)Dockerfile"
+   ],
+   "tag": "docker"
+  },
+  {
+   "color": "#A3C1AD",
+   "excludePathPatterns": [],
+   "pathPatterns": [
+    "(|.*/)helmfile[.]ya?ml",
+    "(|.*/)[.]helmignore"
+   ],
+   "tag": "helm"
+  }
+ ],
+ "test": {
+  "files": [],
+  "name": "test",
+  "sourceFileFilters": []
+ },
+ "trendAnalysis": {
+  "frequency": "weekly",
+  "historyFolder": "history",
+  "maxReferencePointsForAnalysis": 20,
+  "saveHistory": false
+ }
+}

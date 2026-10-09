@@ -1,0 +1,310 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/templates/files-explorer.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/templates/files-explorer.html (<b>240</b> lines of code) (<a href="files-explorer.html">raw</a>):</h3>
+<div id="editor">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Files Explorer&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+        }
+
+        .group {
+            display: inline-block;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+            margin: 8px 18px 8px 8px;
+            padding: 5px;
+            background-color: #f8f8f8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .icon {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 26px;
+            margin-bottom: 20px;
+            filter: grayscale(100%);
+        }
+
+        body {
+            margin: 40px;
+        }
+
+        ::placeholder {
+            color: lightgrey;
+            opacity: 1;
+        }
+
+        :-ms-input-placeholder {
+            color: lightgrey;
+        }
+
+        ::-ms-input-placeholder {
+            color: lightgrey;
+        }
+
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    &lt;/style&gt;
+    &lt;link rel=&quot;stylesheet&quot; target=&quot;_blank&quot; href=&quot;https://fonts.googleapis.com/css?family=Ubuntu&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; target=&quot;_blank&quot; href=&quot;https://fonts.googleapis.com/css?family=Lato&quot;&gt;
+&lt;/head&gt;
+&lt;body style=&quot;margin: 12px&quot;&gt;
+
+&lt;div style=&quot;margin: 0; color: grey&quot;&gt;
+    &lt;div&gt;
+        &lt;div style=&quot;padding: 0px; margin-bottom: 26px; white-space: nowrap&quot;&gt;
+            Scope: &amp;nbsp;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;main&quot; checked onchange=&quot;update()&quot;&gt;&lt;span
+                    id=&quot;label_main&quot;&gt;main&lt;/span&gt;&lt;/label&gt;&amp;nbsp;&amp;nbsp;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;test&quot; checked onchange=&quot;update()&quot;&gt;&lt;span
+                    id=&quot;label_test&quot;&gt;test&lt;/span&gt;&lt;/label&gt;&amp;nbsp;&amp;nbsp;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;generated&quot; checked onchange=&quot;update()&quot;&gt;&lt;span id=&quot;label_generated&quot;&gt;generated&lt;/span&gt;&lt;/label&gt;&amp;nbsp;&amp;nbsp;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;build&quot; checked onchange=&quot;update()&quot;&gt;&lt;span
+                    id=&quot;label_build&quot;&gt;build&lt;/span&gt;&lt;/label&gt;&amp;nbsp;&amp;nbsp;
+            &lt;label&gt;&lt;input type=&quot;checkbox&quot; id=&quot;other&quot; checked onchange=&quot;update()&quot;&gt;&lt;span
+                    id=&quot;label_other&quot;&gt;other&lt;/span&gt;&lt;/label&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+            &lt;span id=&quot;scope-summary&quot; style=&quot;background-color: #f8f8f8&quot;&gt;&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;input id=&quot;filter&quot; type=&quot;text&quot; placeholder=&quot;search...&quot;
+               style=&quot;font-size: 16px; height: 32px; width: 320px; margin-bottom: 10px&quot;
+               onkeyup=&quot;update()&quot;&gt;
+        &lt;div id=&quot;search-summary&quot; style=&quot;display: inline-block&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    let importedFiles = ${data};
+
+    importedFiles.forEach(file =&gt; {
+        let key = file.scope.replace('.txt', '').replace('aspect_', '').trim().toLowerCase();
+        if (key == 'build_and_deployment') {
+            key = 'build';
+        }
+        if (!document.getElementById(key)) {
+            key = 'other';
+        }
+        file.scope = key;
+    });
+
+
+    const importedFileMap = {};
+
+    let files = [];
+
+    importedFiles.forEach(file =&gt; {
+        const key = file.repository + '/' + file.path;
+        if (!importedFileMap[key]) {
+            importedFileMap[key] = true;
+            files.push(file);
+        }
+    });
+
+    function getScopes(files) {
+        const scopeMap = {};
+        const scopes = [];
+        files.forEach(file =&gt; {
+            const key = file.scope;
+            if (!scopeMap[key]) {
+                scopeMap[key] = {scope: key, filesCount: 0};
+                scopes.push(scopeMap[key]);
+            }
+
+            scopeMap[key].filesCount += 1;
+        });
+
+        scopes.sort((a, b) =&gt; b.filesCount - a.filesCount);
+        return scopes;
+    }
+
+
+    files = files.sort((a, b) =&gt; b.linesOfCode - a.linesOfCode);
+
+    function getReposCount(files) {
+        const allReposMap = {};
+        let reposCount = 0;
+
+        files.forEach(file =&gt; {
+            if (file.repository &amp;&amp; !allReposMap[file.repository]) {
+                allReposMap[file.repository] = true;
+                reposCount++;
+            }
+        });
+
+        return reposCount;
+    }
+
+    function getLoc(files) {
+        return files.map(item =&gt; item.linesOfCode).reduce((a, b) =&gt; a + b, 0);
+    }
+
+    let lastSort = 'loc';
+
+    function update(sortBy) {
+        if (!sortBy) sortBy = lastSort || 'loc';
+        lastSort = sortBy;
+        files = files.sort((a, b) =&gt; {
+            if (sortBy === 'name') {
+                return (a.repository + '/' + a.path).localeCompare(b.repository + '/' + b.path);
+            } else {
+                return b.linesOfCode - a.linesOfCode;
+            }
+        });
+        const filter = document.getElementById('filter').value.toLowerCase().trim();
+        let html = '';
+
+        const scopedData = files
+            .filter(item =&gt; document.getElementById(item.scope).checked);
+
+        let scopedCount = scopedData.length;
+        let scopedLoc = scopedData.map(item =&gt; item.linesOfCode).reduce((a, b) =&gt; a + b, 0);
+        const scopedReposCount = getReposCount(scopedData)
+
+        const scopedRepoInfo = scopedReposCount ? ', ' + scopedReposCount + ' repositories' : '';
+        let totalReposCount = getReposCount(files);
+        const totalRepoInfo = totalReposCount ? ', ' + totalReposCount + ' repositories' : '';
+        document.getElementById('scope-summary').innerHTML = '[' + scopedCount.toLocaleString('en-US') + ' ' + (scopedCount === 1 ? 'file' : 'files') + '; ' + scopedLoc.toLocaleString('en-US') + ' LOC' + scopedRepoInfo + '] of ' + '[' + files.length.toLocaleString('en-US') + ' ' + (files.length === 1 ? 'file' : 'files') + '; ' + getLoc(files).toLocaleString('en-US') + ' LOC' + totalRepoInfo + ']';
+
+        const filteredData = scopedData
+            .filter(item =&gt; item.path &amp;&amp; (!filter || (item.repository + ' ' + item.path).toLowerCase().includes(filter)));
+
+        let maxLoc = 1;
+        filteredData.forEach(item =&gt; maxLoc = Math.max(maxLoc, item.linesOfCode));
+
+        let filteredCount = filteredData.length;
+        let filteredLoc = filteredData.map(item =&gt; item.linesOfCode).reduce((a, b) =&gt; a + b, 0);
+        const filteredReposCount = getReposCount(filteredData)
+
+        const repoInfo = filteredReposCount ? ', ' + filteredReposCount + ' repositories' : '';
+
+        document.getElementById('search-summary').innerHTML = ' = ' + filteredCount.toLocaleString('en-US') + ' ' + (filteredCount === 1 ? 'file' : 'files') + ' (' + filteredLoc.toLocaleString('en-US') + ' LOC' + repoInfo + ')';
+
+        if (scopedLoc &gt; filteredLoc) {
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+            const w1count = Math.round(100 * filteredCount / scopedCount);
+            const w2count = 100 - w1count;
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1count + '%; background-color: #303030; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2count + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (filteredLoc == 0 || w1count &gt; 0 ? w1count : '&lt;1') + '% of scoped files&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+            if (filteredReposCount) {
+                html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+                const w1repo = Math.round(100 * filteredReposCount / scopedReposCount);
+                const w2repo = 100 - w1repo;
+                html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1repo + '%; background-color: #303030; height: 12px&quot;&gt;&lt;/div&gt;';
+                html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2repo + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+                html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (filteredLoc == 0 || w1repo &gt; 0 ? w1repo : '&lt;1') + '% of scoped repositories&lt;/div&gt;';
+                html += '&lt;/div&gt;';
+            }
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+            const w1loc = Math.round(100 * filteredLoc / scopedLoc);
+            const w2loc = 100 - w1loc;
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1loc + '%; background-color: skyblue; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2loc + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (filteredLoc == 0 || w1loc &gt; 0 ? w1loc : '&lt;1') + '% of scoped LOC&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+
+        }
+
+        html += '&lt;table style=&quot;width: 100%&quot;&gt;';
+
+        html += '&lt;tr style=&quot;color: #777777; background-color: #f8f8f8&quot;&gt;';
+        if (filteredReposCount) {
+            html += '&lt;td style=&quot;text-align: left&quot;&gt;repo&lt;/td&gt;';
+        }
+        html += '&lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;#&quot; onclick=&quot;update(\'name\');&quot;&gt;file&lt;/a&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: left&quot;&gt;&lt;a href=&quot;#&quot; onclick=&quot;update(\'loc\');&quot;&gt;&amp;nbsp;LOC&lt;/a&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center&quot;&gt;scope&lt;/td&gt;';
+        html += '&lt;/tr&gt;';
+
+        let displayCounter = 0;
+
+        filteredData.forEach(item =&gt; {
+            if (displayCounter &gt; 1000) {
+                return;
+            }
+            displayCounter++;
+            html += '&lt;tr&gt;';
+            if (filteredReposCount) {
+                html += '&lt;td&gt;';
+                html += item.repository;
+                html += '&lt;/td&gt;';
+            }
+            html += '&lt;td&gt;';
+            const paths = item.path.split('/');
+            const fileName = paths[paths.length - 1];
+            const folder = paths.slice(0, paths.length - 1).join('/');
+            html += '&lt;span style=&quot;color: #afafaf&quot;&gt;' + (folder + folder ? folder + '/' : '') + '&lt;/span&gt;';
+            html += '&lt;span style=&quot;color: black; font-weight: bold&quot;&gt;' + fileName + '&lt;/span&gt;';
+            html += '&lt;/td&gt;';
+
+            let scope = item.scope;
+            html += '&lt;td style=&quot;text-align: left; padding-right: 5px; padding-left: 5px&quot;&gt;';
+            html += '&lt;div style=&quot; border-radius: 4px; padding 2px;&quot;&gt;';
+            const w = maxLoc &gt; 0 ? Math.round(50 * item.linesOfCode / maxLoc + 1) : 0;
+            if (scope === 'main') {
+                html += '&lt;div style=&quot;vertical-align: top; display: inline-block; height: 16px; background-color: blue; width: ' + w + 'px&quot;&gt;&lt;/div&gt;';
+            } else {
+                html += '&lt;div style=&quot;vertical-align: top; display: inline-block; height: 16px; background-color: lightgrey; width: ' + w + 'px&quot;&gt;&lt;/div&gt;';
+            }
+            html += '&lt;div style=&quot;margin-left: 2px; vertical-align: top; display: inline-block; font-size: 80%&quot;&gt;' + item.linesOfCode.toLocaleString(&quot;en-US&quot;) + '&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            if (scope === 'main') {
+                html += '&lt;div style=&quot;border: 1px solid #d0d0d0; border-radius: 4px; padding 2px; color: blue&quot;&gt;';
+            } else {
+                html += '&lt;div style=&quot;border: 1px solid #d0d0d0; background-color: #f4f4f4; border-radius: 4px; padding 2px;&quot;&gt;';
+            }
+            html += scope;
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: left; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;/tr&gt;';
+        });
+
+        html += '&lt;/table&gt;';
+
+        document.getElementById('content').innerHTML = html;
+    }
+
+    update();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>public static DirectoryNode createDirectoryTree()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static DirectoryNode createDirectoryTree()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java [14:33]</i></p>
+<ul>
+    <li><b>18</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static DirectoryNode createDirectoryTree(final List&lt;SourceFile&gt; list) {
+        DirectoryNode treeRootNode = null;
+        for (final SourceFile sourceFile : list) {
+            final String path = &quot;ROOT/&quot; + sourceFile.getRelativePath();
+            final String[] pathElements = path.split(&quot;/&quot;);
+            DirectoryNode movingNode = null;
+            for (final String pathElement : pathElements) {
+                movingNode = new DirectoryNode(movingNode, pathElement);
+                if (pathElement == pathElements[pathElements.length - 1]) movingNode.setSourceFile(sourceFile);
+            }
+
+            if (treeRootNode == null) {
+                treeRootNode = movingNode.getRoot();
+            } else {
+                treeRootNode.merge(movingNode.getRoot());
+            }
+        }
+
+        return treeRootNode;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

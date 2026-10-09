@@ -1,0 +1,127 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (<b>75</b> lines of code) (<a href="VisualizationTemplate.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.renderingutils;
+
+import nl.obren.sokrates.common.io.JsonGenerator;
+import nl.obren.sokrates.common.renderingutils.force3d.Force3DObject;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
+
+public class VisualizationTemplate {
+    private static final Log LOG = LogFactory.getLog(VisualizationTemplate.class);
+
+    public String render(String templateFileName, List&lt;VisualizationItem&gt; data) {
+        ClassLoader clazz = this.getClass().getClassLoader();
+        InputStream inputStream = clazz.getResourceAsStream(&quot;vis_templates/&quot; + templateFileName);
+
+        try {
+            String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            content = content.replace(&quot;${data}&quot;, new JsonGenerator().generate(data));
+
+            return content;
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+
+        return null;
+    }
+
+    public String renderBubbleChart(List&lt;VisualizationItem&gt; items) {
+        return render(&quot;bubble_chart.html&quot;, items).replace(&quot;,\&quot;children\&quot;:[]&quot;, &quot;&quot;);
+    }
+
+    public String renderTreeMap(List&lt;VisualizationItem&gt; items) {
+        return render(&quot;treemap.html&quot;, items).replace(&quot;,\&quot;children\&quot;:[]&quot;, &quot;&quot;);
+    }
+
+    public String renderZoomableCircles(List&lt;VisualizationItem&gt; items) {
+        return render(&quot;zoomable_circles.html&quot;, items).replace(&quot;,\&quot;children\&quot;:[]&quot;, &quot;&quot;);
+    }
+
+    public String renderZoomableSunburst(List&lt;VisualizationItem&gt; items) {
+        return render(&quot;zoomable_sunburst.html&quot;, items).replace(&quot;,\&quot;children\&quot;:[]&quot;, &quot;&quot;);
+    }
+
+    public String render2DForceGraph(Force3DObject data) {
+        ClassLoader clazz = this.getClass().getClassLoader();
+        InputStream inputStream = clazz.getResourceAsStream(&quot;vis_templates/force_2d.html&quot;);
+
+        try {
+            String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            content = content.replace(&quot;${data}&quot;, new JsonGenerator().generate(data));
+
+            return content;
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+
+        return null;
+    }
+
+    public String render3DForceGraph(Force3DObject data) {
+        ClassLoader clazz = this.getClass().getClassLoader();
+        InputStream inputStream = clazz.getResourceAsStream(&quot;vis_templates/force_3d.html&quot;);
+
+        try {
+            String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            content = content.replace(&quot;${data}&quot;, new JsonGenerator().generate(data));
+
+            return content;
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+
+        return null;
+    }
+    public String renderRacingCharts(List&lt;RacingChartItem&gt; items, String startYear, String title) {
+        ClassLoader clazz = this.getClass().getClassLoader();
+        InputStream inputStream = clazz.getResourceAsStream(&quot;vis_templates/bar_chart_races.html&quot;);
+
+        try {
+            String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            content = content.replace(&quot;${title}&quot;, title);
+            content = content.replace(&quot;${startYear}&quot;, startYear + &quot;&quot;);
+            content = content.replace(&quot;${data}&quot;, new JsonGenerator().generateCompressed(items));
+
+            return content;
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+
+        return null;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

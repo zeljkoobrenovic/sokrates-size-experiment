@@ -1,0 +1,32 @@
+<html>
+<head>
+    <title>protected String getMessage()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">protected String getMessage()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java [56:65]</i></p>
+<ul>
+    <li><b>10</b> lines of code</li>
+    <li><b>3</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    protected String getMessage(String message, JsonLocation jsonLocation) {
+        String[] lines = message.split(&quot;\n&quot;);
+        if (jsonLocation != null &amp;&amp; lines.length &gt; 0) {
+            String line = lines[0];
+            line += &quot; (line &quot; + jsonLocation.getLineNr();
+            line += (&quot;, column &quot; + jsonLocation.getColumnNr() + &quot;)&quot;);
+            return line;
+        }
+        return message;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

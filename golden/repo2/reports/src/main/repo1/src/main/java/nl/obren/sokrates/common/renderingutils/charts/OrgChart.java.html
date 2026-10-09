@@ -1,0 +1,85 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java (<b>45</b> lines of code) (<a href="OrgChart.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.renderingutils.charts;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class OrgChart {
+    private List&lt;OrgChartItem&gt; data = new ArrayList&lt;&gt;();
+
+    public OrgChart(List&lt;OrgChartItem&gt; data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder dataString = new StringBuilder();
+
+        data.forEach(row -&gt; {
+            dataString.append(&quot;[&quot;
+                    + &quot;'&quot; + row.getItem() + &quot;',&quot;
+                    + &quot;'&quot; + row.getParent() + &quot;',&quot;
+                    + &quot;'&quot; + row.getTooltip() + &quot;'&quot;
+                    + &quot;],&quot;);
+        });
+
+
+        String pieChartScript = getScriptString(StringUtils.removeEnd(dataString.toString(), &quot;,&quot;));
+
+        return pieChartScript;
+    }
+
+    private String getScriptString(String dataString) {
+        return &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot; +
+                &quot;      google.charts.load(\&quot;current\&quot;, {packages:[\&quot;orgchart\&quot;]});\n&quot; +
+                &quot;      google.charts.setOnLoadCallback(drawChart);\n&quot; +
+                &quot;      function drawChart() {\n&quot; +
+                &quot;var data = new google.visualization.DataTable();\n&quot; +
+                &quot;        data.addColumn('string', 'Name');\n&quot; +
+                &quot;        data.addColumn('string', 'Manager');\n&quot; +
+                &quot;        data.addColumn('string', 'ToolTip');\n&quot; +
+                &quot;\n&quot; +
+                &quot;        data.addRows([\n&quot; +
+                dataString +
+                &quot;        ]);\n&quot; +
+                &quot;\n&quot; +
+                &quot;        // Create the chart.\n&quot; +
+                &quot;        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));\n&quot; +
+                &quot;        // Draw the chart, setting the allowHtml option to true for the tooltips.\n&quot; +
+                &quot;        chart.draw(data, {allowHtml:true});&quot; +
+                &quot;      }\n&quot; +
+                &quot;&lt;/script&gt;&quot; +
+                &quot;&lt;div id=\&quot;chart_div\&quot; style=\&quot;width: 800px; height: 500px;\&quot;&gt;&lt;/div&gt;&quot;;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

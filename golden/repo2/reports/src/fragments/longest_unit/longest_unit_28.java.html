@@ -1,0 +1,41 @@
+<html>
+<head>
+    <title>public void getSmallTextForNumber()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void getSmallTextForNumber()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java [53:71]</i></p>
+<ul>
+    <li><b>19</b> lines of code</li>
+    <li><b>1</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void getSmallTextForNumber() {
+        assertEquals(FormattingUtils.getSmallTextForNumber(100), &quot;&lt;b&gt;100&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(999), &quot;&lt;b&gt;999&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1000), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1807), &quot;&lt;b&gt;1.8&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1999), &quot;&lt;b&gt;2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9999), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9899), &quot;&lt;b&gt;9.9&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(10000), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(18070), &quot;&lt;b&gt;18&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(19990), &quot;&lt;b&gt;20&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(89990), &quot;&lt;b&gt;90&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(99990), &quot;&lt;b&gt;100&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1000000), &quot;&lt;b&gt;1&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1807000), &quot;&lt;b&gt;1.8&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1999000), &quot;&lt;b&gt;2&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9800000), &quot;&lt;b&gt;9.8&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(19800000), &quot;&lt;b&gt;20&lt;/b&gt;M&quot;);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,18 @@
+from: repo2
+to: repo1
+evidence:
+ - file: "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+   contains "import nl.obren.sokrates.common.renderingutils.Thresholds;"
+
+from: repo2
+to: repo1
+evidence:
+ - file: "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java"
+   contains "import nl.obren.sokrates.common.renderingutils.VisualizationItem;"
+
+from: repo2
+to: repo1
+evidence:
+ - file: "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java"
+   contains "import nl.obren.sokrates.common.utils.RegexUtils;"
+

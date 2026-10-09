@@ -1,0 +1,416 @@
+{
+ "duplicates": [
+  {
+   "blockSize": 8,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 73,
+     "cleanedStartLine": 66,
+     "endLine": 156,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 145
+    },
+    {
+     "cleanedEndLine": 89,
+     "cleanedStartLine": 82,
+     "endLine": 181,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 170
+    }
+   ]
+  },
+  {
+   "blockSize": 8,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 22,
+     "cleanedStartLine": 15,
+     "endLine": 44,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 100,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 78,
+     "startLine": 31
+    },
+    {
+     "cleanedEndLine": 26,
+     "cleanedStartLine": 19,
+     "endLine": 52,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 94,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 72,
+     "startLine": 39
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 102,
+     "cleanedStartLine": 96,
+     "endLine": 173,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 195,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java"
+     },
+     "sourceFileCleanedLinesOfCode": 147,
+     "startLine": 164
+    },
+    {
+     "cleanedEndLine": 123,
+     "cleanedStartLine": 117,
+     "endLine": 201,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 195,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java"
+     },
+     "sourceFileCleanedLinesOfCode": 147,
+     "startLine": 192
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 12,
+     "cleanedStartLine": 6,
+     "endLine": 34,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 25
+    },
+    {
+     "cleanedEndLine": 40,
+     "cleanedStartLine": 34,
+     "endLine": 82,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 73
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 12,
+     "cleanedStartLine": 6,
+     "endLine": 34,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 25
+    },
+    {
+     "cleanedEndLine": 30,
+     "cleanedStartLine": 24,
+     "endLine": 66,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 57
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 89,
+     "cleanedStartLine": 83,
+     "endLine": 181,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 173
+    },
+    {
+     "cleanedEndLine": 133,
+     "cleanedStartLine": 127,
+     "endLine": 249,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 241
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 73,
+     "cleanedStartLine": 67,
+     "endLine": 156,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 148
+    },
+    {
+     "cleanedEndLine": 133,
+     "cleanedStartLine": 127,
+     "endLine": 249,
+     "file": {
+      "components": [
+       "primary::repo2"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 744,
+      "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     "sourceFileCleanedLinesOfCode": 576,
+     "startLine": 241
+    }
+   ]
+  },
+  {
+   "blockSize": 7,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 30,
+     "cleanedStartLine": 24,
+     "endLine": 66,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 57
+    },
+    {
+     "cleanedEndLine": 40,
+     "cleanedStartLine": 34,
+     "endLine": 82,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 75,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+     },
+     "sourceFileCleanedLinesOfCode": 52,
+     "startLine": 73
+    }
+   ]
+  },
+  {
+   "blockSize": 6,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 40,
+     "cleanedStartLine": 35,
+     "endLine": 80,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 100,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 78,
+     "startLine": 71
+    },
+    {
+     "cleanedEndLine": 40,
+     "cleanedStartLine": 35,
+     "endLine": 80,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 94,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 72,
+     "startLine": 71
+    }
+   ]
+  },
+  {
+   "blockSize": 6,
+   "duplicatedFileBlocks": [
+    {
+     "cleanedEndLine": 60,
+     "cleanedStartLine": 55,
+     "endLine": 106,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 100,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 78,
+     "startLine": 101
+    },
+    {
+     "cleanedEndLine": 56,
+     "cleanedStartLine": 51,
+     "endLine": 101,
+     "file": {
+      "components": [
+       "primary::repo1"
+      ],
+      "concerns": [
+       "::Unclassified"
+      ],
+      "extension": "java",
+      "linesOfCode": 94,
+      "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java"
+     },
+     "sourceFileCleanedLinesOfCode": 72,
+     "startLine": 96
+    }
+   ]
+  }
+ ],
+ "overallDuplication": null,
+ "title": "Duplication"
+}

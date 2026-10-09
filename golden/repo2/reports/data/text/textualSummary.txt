@@ -1,0 +1,42 @@
+Start of analysis
+Found 67 files
+50 are in the main's scope  (3674 lines of code)
+  *.java: 50 files, (3674 lines of code)
+0 are in the test's scope  (0 lines of code)
+0 are in the generated's scope  (0 lines of code)
+2 are in the build and deployment's scope  (77 lines of code)
+  *.xml: 2 files, (77 lines of code)
+0 are in the other's scope  (0 lines of code)
+Excluded from analyses 15 files
+Analysing dependencies...
+44 are in the DECOMPOSITION_primary/repo1's scope  (2223 lines of code)
+  *.java: 44 files, (2223 lines of code)
+6 are in the DECOMPOSITION_primary/repo2's scope  (1451 lines of code)
+  *.java: 6 files, (1451 lines of code)
+  - "primary", found 12 dependencies (1 component dependencies)
+0 are in the CONCERN_general/TODOs's scope  (0 lines of code)
+50 are in the CONCERN_general/Unclassified's scope  (3674 lines of code)
+  *.java: 50 files, (3674 lines of code)
+Analysing units...
+Basic unit metrics...
+  - found 399 units (2910 lines of code in units)
+Unit size 1200 / 913 / 635 / 162 / 0
+Unit size per component:
+Unit Size Component repo1: 861 / 657 / 168 / 0 / 0
+Unit Size Component repo2: 339 / 256 / 467 / 162 / 0
+Unit size per extension:
+Unit Size Extension java: 1200 / 913 / 635 / 162 / 0
+Conditional complexity: 2301 / 482 / 127 / 0 / 0
+Conditional complexity per component:
+Conditional Complexity Component repo1 1620 / 66 / 0 / 0 / 0
+Conditional Complexity Component repo2 681 / 416 / 127 / 0 / 0
+Conditional complexity per extension:
+Conditional Complexity Component java: 2301 / 482 / 127 / 0 / 0
+Analysing duplication...
+  - found 10 duplicates (98 duplicated lines vs. 2684 cleaned lines) in 5 files
+  - per component:primary
+     - "repo1": 61 duplicated lines vs. 1579 total lines
+     - "repo2": 37 duplicated lines vs. 1105 total lines
+  - per extension:
+     - "java": 98 duplicated lines vs. 2684 total lines
+

@@ -1,0 +1,102 @@
+duplicated block id: 1
+size: 37 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/files-explorer.html (6:49)
+ - repo1/src/main/resources/templates/repository-explorer.html (6:49)
+
+duplicated block id: 2
+size: 11 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/codepreview.html (5:15)
+ - repo1/src/main/resources/templates/editor.html (5:15)
+
+duplicated block id: 3
+size: 8 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java (31:44)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java (39:52)
+
+duplicated block id: 4
+size: 8 cleaned lines of code
+in 2 files:
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (145:156)
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (170:181)
+
+duplicated block id: 5
+size: 7 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (25:34)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (73:82)
+
+duplicated block id: 6
+size: 7 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/codepreview.html (44:52)
+ - repo1/src/main/resources/templates/editor.html (29:37)
+
+duplicated block id: 7
+size: 7 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (25:34)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (57:66)
+
+duplicated block id: 8
+size: 7 cleaned lines of code
+in 2 files:
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (173:181)
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (241:249)
+
+duplicated block id: 9
+size: 7 cleaned lines of code
+in 2 files:
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (148:156)
+ - repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java (241:249)
+
+duplicated block id: 10
+size: 7 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (57:66)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java (73:82)
+
+duplicated block id: 11
+size: 7 cleaned lines of code
+in 2 files:
+ - repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java (164:173)
+ - repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java (192:201)
+
+duplicated block id: 12
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/files-explorer.html (273:280)
+ - repo1/src/main/resources/templates/repository-explorer.html (239:246)
+
+duplicated block id: 13
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java (101:106)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java (96:101)
+
+duplicated block id: 14
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/vis_templates/bubble_chart.html (10:18)
+ - repo1/src/main/resources/vis_templates/treemap.html (10:18)
+
+duplicated block id: 15
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/codepreview.html (22:28)
+ - repo1/src/main/resources/templates/editor.html (23:29)
+
+duplicated block id: 16
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java (71:80)
+ - repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java (71:80)
+
+duplicated block id: 17
+size: 6 cleaned lines of code
+in 2 files:
+ - repo1/src/main/resources/templates/files-explorer.html (76:85)
+ - repo1/src/main/resources/templates/repository-explorer.html (82:91)
+

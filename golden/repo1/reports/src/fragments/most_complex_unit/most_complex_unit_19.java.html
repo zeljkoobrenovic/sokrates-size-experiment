@@ -1,0 +1,33 @@
+<html>
+<head>
+    <title>public static String getColor()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getColor()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java [35:45]</i></p>
+<ul>
+    <li><b>9</b> lines of code</li>
+    <li><b>6</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getColor(Thresholds thresholds, Palette palette, int size) {
+        List&lt;String&gt; colors = palette.getColors();
+        if (colors.size() &lt; 5) return &quot;&quot;;
+
+        if (size &lt;= thresholds.getLow()) return colors.get(4);
+        if (size &lt;= thresholds.getMedium()) return colors.get(3);
+        if (size &lt;= thresholds.getHigh()) return colors.get(2);
+        if (size &lt;= thresholds.getVeryHigh()) return colors.get(1);
+
+        return colors.get(0);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

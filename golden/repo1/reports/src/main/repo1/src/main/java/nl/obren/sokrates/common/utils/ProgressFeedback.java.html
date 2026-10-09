@@ -1,0 +1,45 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java (<b>13</b> lines of code) (<a href="ProgressFeedback.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.utils;
+
+public class ProgressFeedback {
+    public void clear() {}
+    public void start() {}
+    public void end() {}
+    public void setText(String text) {}
+    public void setDetailedText(String text) {}
+    public boolean canceled() {
+        return false;
+    }
+
+    public void progress(int currentValue, int endValue) {
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

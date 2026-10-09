@@ -1,0 +1,131 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/templates/editor.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/templates/editor.html (<b>89</b> lines of code) (<a href="editor.html">raw</a>):</h3>
+<div id="editor">&lt;!--
+  ~ Copyright (c) 2021 Željko Obrenović. All rights reserved.
+  --&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&gt;
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    &lt;/style&gt;
+    &lt;script src=&quot;../components/ace/src/ace.js&quot;
+            type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;script&gt;
+    var editor = ace.edit(&quot;editor&quot;);
+
+    function pasteContent(content) {
+        editor.onPaste(content);
+    }
+
+    function getValue() {
+        return editor.getValue();
+    }
+
+    function openEditorFindDialog() {
+        return editor.execCommand(&quot;find&quot;);
+    }
+
+    function openEditorReplaceDialog() {
+        return editor.execCommand(&quot;replace&quot;);
+    }
+
+    function setValue(content) {
+        var currentLine = editor.getSelectionRange().start.row;
+        var formattedContent = JSON.stringify(JSON.parse(content), null, &quot;  &quot;);
+        editor.setValue(formattedContent);
+        editor.session.selection.clearSelection();
+        editor.scrollToRow(currentLine == 0 ? 0 : currentLine - 1);
+        editor.selection.moveCursorToPosition({row: currentLine, column: 0});
+        editor.getSession().foldAll(1, 0, 0);
+        editor.getSession().unfold(currentLine, true);
+        editor.selection.selectLine();
+        editor.scrollToLine(currentLine + 2, true, true, function () {});
+        editor.gotoLine(currentLine + 2, 0, true);
+    }
+
+    function setTextValue(content) {
+        editor.setValue(content);
+    }
+
+    function find(text) {
+        var lineIndex = getLineIndex(text, 0);
+        if (lineIndex &gt;= 0) {
+            editor.gotoLine(parseInt(lineIndex) + 1);
+        }
+    }
+
+    function findAfter(textAfterWhichToFind, textToFind) {
+        var lineIndex1 = getLineIndex(textAfterWhichToFind, 0);
+        if (lineIndex1 &gt;= 0) {
+            var lineIndex2 = getLineIndex(textToFind, lineIndex1 + 1);
+            if (lineIndex2 &gt;= 0) {
+                editor.gotoLine(parseInt(lineIndex2) + 1);
+            }
+        }
+    }
+
+    function getLineIndex(text, start) {
+        var lines = editor.session.doc.getAllLines();
+        var lineIndex = -1;
+
+        for (l in lines) {
+            if (l &gt;= start) {
+                var line = lines[l];
+                if (line.indexOf(text) &gt;= 0) {
+                    lineIndex = l;
+                    break;
+                }
+            }
+        }
+
+        return lineIndex;
+    }
+
+    function gotoLine(lineIndex) {
+        editor.gotoLine(lineIndex);
+    }
+&lt;/script&gt;
+&lt;body&gt;
+&lt;div id=&quot;error&quot; style=&quot;color:darkred&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+    var editor = ace.edit(&quot;editor&quot;);
+    editor.getSession().setMode(&quot;ace/mode/json&quot;);
+    //editor.setTheme(&quot;ace/theme/clouds&quot;);
+    editor.setOption(&quot;wrap&quot;, true);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

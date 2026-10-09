@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>public static String getSmallTextForNumber()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getSmallTextForNumber()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java [57:69]</i></p>
+<ul>
+    <li><b>13</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getSmallTextForNumber(int number) {
+        if (number &lt; 1000) {
+            return &quot;&lt;b&gt;&quot; + number + &quot;&lt;/b&gt;&quot; + &quot;&quot;;
+        } else if (number &lt; 10000) {
+            return &quot;&lt;b&gt;&quot; + removeZeroDecimalIfNecessary(String.format(Locale.US, &quot;%.1f&quot;, number / 1000f)) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+        } else if (number &lt; 1000000) {
+            return &quot;&lt;b&gt;&quot; + Math.round(number / 1000f) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+        } else if (number &lt; 10000000) {
+            return &quot;&lt;b&gt;&quot; + removeZeroDecimalIfNecessary(String.format(Locale.US, &quot;%.1f&quot;, number / 1000000f)) + &quot;&lt;/b&gt;&quot; + &quot;M&quot;;
+        } else {
+            return &quot;&lt;b&gt;&quot; + Math.round(number / 1000000f) + &quot;&lt;/b&gt;&quot; + &quot;M&quot;;
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

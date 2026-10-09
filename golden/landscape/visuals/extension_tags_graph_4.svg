@@ -1,0 +1,25 @@
+<svg width="185pt" height="152pt"
+ viewBox="0.00 0.00 184.50 152.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 148)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-148 180.5,-148 180.5,4 -4,4"/>
+<!-- all file extensions / html -->
+<g id="node1" class="node">
+<title>all file extensions / html</title>
+<polygon fill="#00b2ee" stroke="white" points="169,-36 7.5,-36 7.5,0 169,0 169,-36"/>
+<text text-anchor="middle" x="88.25" y="-13.32" font-family="Tahoma" font-size="14.00">all file extensions / html</text>
+</g>
+<!-- main file extensions / java -->
+<g id="node2" class="node">
+<title>main file extensions / java</title>
+<polygon fill="#00b2ee" stroke="white" points="176.5,-90 0,-90 0,-54 176.5,-54 176.5,-90"/>
+<text text-anchor="middle" x="88.25" y="-67.33" font-family="Tahoma" font-size="14.00">main file extensions / java</text>
+</g>
+<!-- all file extensions / java -->
+<g id="node3" class="node">
+<title>all file extensions / java</title>
+<polygon fill="#00b2ee" stroke="white" points="168.25,-144 8.25,-144 8.25,-108 168.25,-108 168.25,-144"/>
+<text text-anchor="middle" x="88.25" y="-121.33" font-family="Tahoma" font-size="14.00">all file extensions / java</text>
+</g>
+</g>
+</svg>

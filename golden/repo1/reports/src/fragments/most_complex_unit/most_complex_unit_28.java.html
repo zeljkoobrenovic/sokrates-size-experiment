@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>private List getZoomableCirclesRiskProfileItemsCategories()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private List getZoomableCirclesRiskProfileItemsCategories()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [791:824]</i></p>
+<ul>
+    <li><b>30</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private List&lt;VisualizationItem&gt; getZoomableCirclesRiskProfileItemsCategories(
+            List&lt;SourceFile&gt; sourceFiles, nl.obren.sokrates.sourcecode.threshold.Thresholds thresholds, Palette palette, DirectoryNode.SourceFileValueExtractor valueExtractor) {
+
+        VisualizationItem item1 = new VisualizationItem(thresholds.getNegligibleRiskLabel(), 0);
+        VisualizationItem item2 = new VisualizationItem(thresholds.getLowRiskLabel(), 0);
+        VisualizationItem item3 = new VisualizationItem(thresholds.getMediumRiskLabel(), 0);
+        VisualizationItem item4 = new VisualizationItem(thresholds.getHighRiskLabel(), 0);
+        VisualizationItem item5 = new VisualizationItem(thresholds.getVeryHighRiskLabel(), 0);
+
+        sourceFiles.forEach(sourceFile -&gt; {
+            int value = valueExtractor.getValue(sourceFile);
+            String path = sourceFile.getRelativePath();
+            int loc = sourceFile.getLinesOfCode();
+            if (value &lt;= thresholds.getLow()) {
+                item1.getChildren().add(new VisualizationItem(path, loc, PathStringsToTreeStructure.getColor(thresholds, palette, value)));
+            } else if (value &lt;= thresholds.getMedium()) {
+                item2.getChildren().add(new VisualizationItem(path, loc, PathStringsToTreeStructure.getColor(thresholds, palette, value)));
+            } else if (value &lt;= thresholds.getHigh()) {
+                item3.getChildren().add(new VisualizationItem(path, loc, PathStringsToTreeStructure.getColor(thresholds, palette, value)));
+            } else if (value &lt;= thresholds.getVeryHigh()) {
+                item4.getChildren().add(new VisualizationItem(path, loc, PathStringsToTreeStructure.getColor(thresholds, palette, value)));
+            } else {
+                item5.getChildren().add(new VisualizationItem(path, loc, PathStringsToTreeStructure.getColor(thresholds, palette, value)));
+            }
+        });
+
+        item1.setName(item1.getName() + &quot; (&quot; + item1.getChildren().size() + &quot;)&quot;);
+        item2.setName(item2.getName() + &quot; (&quot; + item2.getChildren().size() + &quot;)&quot;);
+        item3.setName(item3.getName() + &quot; (&quot; + item3.getChildren().size() + &quot;)&quot;);
+        item4.setName(item4.getName() + &quot; (&quot; + item4.getChildren().size() + &quot;)&quot;);
+        item5.setName(item5.getName() + &quot; (&quot; + item5.getChildren().size() + &quot;)&quot;);
+
+        return new ArrayList&lt;&gt;(Arrays.asList(item1, item2, item3, item4, item5));
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

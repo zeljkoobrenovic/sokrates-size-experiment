@@ -1,0 +1,163 @@
+[
+ {
+  "componentDependencies": [
+   {
+    "color": "",
+    "count": 3,
+    "dependencyString": "repo2 -> repo1",
+    "evidence": [
+     {
+      "evidence": "import nl.obren.sokrates.common.renderingutils.Thresholds;",
+      "pathFrom": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+     },
+     {
+      "evidence": "import nl.obren.sokrates.common.renderingutils.VisualizationItem;",
+      "pathFrom": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java"
+     },
+     {
+      "evidence": "import nl.obren.sokrates.common.utils.RegexUtils;",
+      "pathFrom": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java"
+     }
+    ],
+    "fromComponent": "repo2",
+    "locFrom": 1017,
+    "text": null,
+    "toComponent": "repo1",
+    "valueFrom": 0.0,
+    "valueTo": 0.0
+   }
+  ],
+  "componentDependenciesErrors": [],
+  "components": [
+   {
+    "fileCountPerExtension": [
+     {
+      "description": [],
+      "name": "  *.java",
+      "value": 36
+     },
+     {
+      "description": [],
+      "name": "  *.html",
+      "value": 11
+     }
+    ],
+    "filesCount": 47,
+    "linesOfCode": 3394,
+    "linesOfCodePerExtension": [
+     {
+      "description": [],
+      "name": "  *.java",
+      "value": 1953
+     },
+     {
+      "description": [],
+      "name": "  *.html",
+      "value": 1441
+     }
+    ],
+    "name": "repo1",
+    "numberOfRegexLineMatches": 0
+   },
+   {
+    "fileCountPerExtension": [
+     {
+      "description": [],
+      "name": "  *.java",
+      "value": 6
+     }
+    ],
+    "filesCount": 6,
+    "linesOfCode": 1451,
+    "linesOfCodePerExtension": [
+     {
+      "description": [],
+      "name": "  *.java",
+      "value": 1451
+     }
+    ],
+    "name": "repo2",
+    "numberOfRegexLineMatches": 0
+   }
+  ],
+  "fileCountPerComponent": [
+   {
+    "description": [],
+    "name": "repo1",
+    "value": 47
+   },
+   {
+    "description": [],
+    "name": "repo2",
+    "value": 6
+   }
+  ],
+  "key": "primary",
+  "linesOfCodePerComponent": [
+   {
+    "description": [],
+    "name": "repo1",
+    "value": 3394
+   },
+   {
+    "description": [],
+    "name": "repo2",
+    "value": 1451
+   }
+  ],
+  "logicalDecomposition": {
+   "components": [
+    {
+     "files": [],
+     "name": "repo1",
+     "sourceFileFilters": [
+      {
+       "contentPattern": "",
+       "exception": false,
+       "note": "",
+       "pathPattern": "../repo1/.*"
+      }
+     ]
+    },
+    {
+     "files": [],
+     "name": "repo2",
+     "sourceFileFilters": [
+      {
+       "contentPattern": "",
+       "exception": false,
+       "note": "",
+       "pathPattern": "../repo2/.*"
+      }
+     ]
+    }
+   ],
+   "componentsFolderDepth": 1,
+   "dependenciesFinder": {
+    "metaRules": [],
+    "rules": [],
+    "useBuiltInDependencyFinders": true
+   },
+   "dependencyLinkThreshold": 1,
+   "duplicationLinkThreshold": 50,
+   "filters": [],
+   "groups": [],
+   "includeExternalComponents": true,
+   "includeRemainingFiles": true,
+   "maxSearchDepthLines": 200,
+   "metaComponents": [],
+   "minComponentsCount": 0,
+   "name": "primary",
+   "renderingOptions": {
+    "maxNumberOfDependencies": 100,
+    "orientation": "TB",
+    "renderComponentsWithoutDependencies": true,
+    "renderIndirectDependencies": false,
+    "renderInternalIndirectDependencies": false,
+    "reverseDirection": false
+   },
+   "scope": "main",
+   "temporalLinkThreshold": 1
+  }
+ }
+]

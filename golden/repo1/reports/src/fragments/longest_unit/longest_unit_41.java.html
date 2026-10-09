@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>public String toString()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public String toString()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java [80:97]</i></p>
+<ul>
+    <li><b>15</b> lines of code</li>
+    <li><b>2</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public String toString() {
+        StringBuilder labelsString = new StringBuilder();
+        labels.forEach(label -&gt; labelsString.append(&quot;'&quot; + label + &quot;',&quot;));
+        StringBuilder dataString = new StringBuilder();
+        dataString.append(&quot;[&quot; + StringUtils.removeEnd(labelsString.toString(), &quot;,&quot;) + &quot;],&quot;);
+        for (int i = 0; i &lt; rowLabels.size(); i++) {
+            dataString.append(&quot;['&quot; + rowLabels.get(i) + &quot;', &quot;);
+            rows.get(i).forEach(value -&gt; dataString.append(&quot;&quot; + value + &quot;,&quot;));
+            dataString.append(&quot;],&quot;);
+        }
+
+        StringBuilder colorsString = new StringBuilder();
+        colors.forEach(color -&gt; colorsString.append(&quot;'&quot; + color + &quot;',&quot;));
+
+        String pieChartScript = getScriptString(dataString, colorsString);
+
+        return pieChartScript;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,6 @@
+Team	# commits (all time)	# commits (30 days)	# commits (90 days)	# commits (180 days)	# commits (365 days)	First commit	Latest commit	Repositories
+zeljkoobrenovic@yahoo.com	85	0	0	2	11	DATE	DATE	repo1, repo2
+zeljko@incision.care	51	0	0	0	0	DATE	DATE	repo1, repo2
+emhol@7n.com	2	0	0	0	0	DATE	DATE	repo1, repo2
+thefunkycowboy@gmail.com	2	0	0	0	0	DATE	DATE	repo1, repo2
+49699333+dependabot[bot]@users.noreply.github.com	1	0	0	0	1	DATE	DATE	repo2

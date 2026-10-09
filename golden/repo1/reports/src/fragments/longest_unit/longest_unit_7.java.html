@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>public void run()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void run()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [86:135]</i></p>
+<ul>
+    <li><b>47</b> lines of code</li>
+    <li><b>13</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void run(String[] args) throws IOException {
+        if (args.length == 0) {
+            helpMode = true;
+            commands.usage();
+            return;
+        }
+
+        if (progressFeedback != null) {
+            progressFeedback.clear();
+        }
+
+        try {
+            if (args[0].equalsIgnoreCase(Commands.INIT)) {
+                init(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_CONFIG)) {
+                updateConfig(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.EXPORT_STANDARD_CONVENTIONS)) {
+                exportConventions(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)) {
+                updateLandscape(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.INIT_CONVENTIONS)) {
+                createNewConventionsFile(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_GIT_SUB_HISTORY)) {
+                extractGitSubHistory(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_FILES)) {
+                extractFiles(args);
+                return;
+            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_GIT_HISTORY)) {
+                extractGitHistory(args);
+                return;
+            } else if (!args[0].equalsIgnoreCase(Commands.GENERATE_REPORTS)) {
+                helpMode = true;
+                commands.usage();
+                return;
+            }
+
+            generateReports(args);
+        } catch (ParseException e) {
+            LOG.info(&quot;ERROR: &quot; + e.getMessage() + &quot;\n&quot;);
+            e.printStackTrace();
+            helpMode = true;
+            commands.usage();
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

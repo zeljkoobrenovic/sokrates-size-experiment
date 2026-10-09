@@ -1,0 +1,60 @@
+<html>
+<head>
+    <title>private void generateAndSaveReports()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void generateAndSaveReports()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [614:651]</i></p>
+<ul>
+    <li><b>37</b> lines of code</li>
+    <li><b>6</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void generateAndSaveReports(File inputFile, File reportsFolder, File sokratesConfigFolder, CodeAnalyzer codeAnalyzer, CodeAnalysisResults analysisResults) {
+        File htmlReports = getHtmlFolder(reportsFolder);
+        File dataReports = dataExporter.getDataFolder();
+        File srcCache = dataExporter.getCodeCacheFolder();
+        CodeAnalyzerSettings codeAnalyzerSettings = codeAnalyzer.getCodeAnalyzerSettings();
+        if (new File(htmlReports, &quot;index.html&quot;).exists() || codeAnalyzerSettings.isUpdateIndex()) {
+            info(&quot;HTML reports: &lt;a href='&quot; + htmlReports.getPath() + &quot;/index.html'&gt;&quot; + htmlReports.getPath() + &quot;&lt;/a&gt;&quot;);
+        } else {
+            info(&quot;HTML reports: &lt;a href='&quot; + htmlReports.getPath() + &quot;'&gt;&quot; + htmlReports.getPath() + &quot;&lt;/a&gt;&quot;);
+        }
+        info(&quot;Raw data: &lt;a href='&quot; + dataReports.getPath() + &quot;'&gt;&quot; + dataReports.getPath() + &quot;&lt;/a&gt;&quot;);
+        if (analysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles()) {
+            info(&quot;Source code cache : &lt;a href='&quot; + srcCache.getPath() + &quot;'&gt;&quot; + srcCache.getPath() + &quot;&lt;/a&gt;&quot;);
+        }
+        ProcessingStopwatch.start(&quot;reporting&quot;);
+        BasicSourceCodeReportGenerator generator = new BasicSourceCodeReportGenerator(codeAnalyzerSettings, analysisResults, inputFile, reportsFolder);
+        List&lt;RichTextReport&gt; reports = generator.report();
+        ProcessingStopwatch.end(&quot;reporting&quot;);
+
+        ProcessingStopwatch.start(&quot;saving report&quot;);
+        reports.forEach(report -&gt; {
+            info(&quot;Generating the '&quot; + report.getId().toUpperCase() + &quot;' report...&quot;);
+            String processingName = &quot;saving report/&quot; + report.getId().toLowerCase() + &quot;&quot;;
+            ProcessingStopwatch.start(processingName);
+            ReportFileExporter.exportHtml(reportsFolder, &quot;html&quot;, report, analysisResults.getCodeConfiguration().getAnalysis().getCustomHtmlReportHeaderFragment());
+            ProcessingStopwatch.end(processingName);
+        });
+        ProcessingStopwatch.start(&quot;saving report/index&quot;);
+        if (!codeAnalyzerSettings.isDataOnly() &amp;&amp; codeAnalyzerSettings.isUpdateIndex()) {
+            ReportFileExporter.exportReportsIndexFile(reportsFolder, analysisResults, sokratesConfigFolder);
+        }
+        ProcessingStopwatch.end(&quot;saving report/index&quot;);
+        ProcessingStopwatch.start(&quot;saving report/explorer&quot;);
+        FilesExplorerGenerators filesExplorerGenerators = new FilesExplorerGenerators(reportsFolder);
+        filesExplorerGenerators.exportJson(analysisResults);
+        ProcessingStopwatch.end(&quot;saving report/explorer&quot;);
+        ProcessingStopwatch.end(&quot;saving report&quot;);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

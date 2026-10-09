@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>public static int firstIndexOfAny()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static int firstIndexOfAny()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java [11:24]</i></p>
+<ul>
+    <li><b>14</b> lines of code</li>
+    <li><b>3</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static int firstIndexOfAny(List&lt;String&gt; lookupStrings, String content, int startIndex) {
+        int index[] = {-1};
+        lookupStrings.forEach(lookupString -&gt; {
+            int indexOfLookupString = content.indexOf(lookupString, startIndex);
+            if (indexOfLookupString &gt;= 0) {
+                if (index[0] == -1) {
+                    index[0] = indexOfLookupString;
+                } else {
+                    index[0] = Math.min(index[0], indexOfLookupString);
+                }
+            }
+        });
+        return index[0];
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

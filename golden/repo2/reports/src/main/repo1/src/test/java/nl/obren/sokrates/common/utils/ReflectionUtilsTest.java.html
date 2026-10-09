@@ -1,0 +1,97 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java (<b>52</b> lines of code) (<a href="ReflectionUtilsTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.utils;
+
+import nl.obren.sokrates.common.io.JsonGenerator;
+import org.junit.Test;
+
+import static junit.framework.TestCase.*;
+
+public class ReflectionUtilsTest {
+    @Test
+    public void compareWithDefaultJson() throws Exception {
+        assertTrue(ReflectionUtils.compareWithDefaultJson(TestClassA.class, new JsonGenerator().generate(new TestClassA())));
+        assertFalse(ReflectionUtils.compareWithDefaultJson(TestClassA.class, new JsonGenerator().generate(new TestClassA(&quot;b&quot;))));
+    }
+
+    @Test
+    public void getAllFields() throws Exception {
+        class A {
+        }
+        class B extends A {
+            private String b;
+        }
+        class C extends B {
+            private String c;
+        }
+
+        assertEquals(ReflectionUtils.getAllFields(A.class).size(), 0);
+        assertEquals(ReflectionUtils.getAllFields(B.class).size(), 1);
+        assertEquals(ReflectionUtils.getAllFields(C.class).size(), 2);
+    }
+
+    @Test
+    public void getFieldValue() throws Exception {
+        class A {
+        }
+        class C {
+        }
+        class B {
+            private A a = new A();
+        }
+
+        B b = new B();
+
+        assertNotNull(ReflectionUtils.getFieldValue(b, A.class));
+        assertNull(ReflectionUtils.getFieldValue(b, C.class));
+    }
+
+
+}
+
+class TestClassA {
+    private String a = &quot;a&quot;;
+
+    public TestClassA() {
+    }
+
+    public TestClassA(String a) {
+        this.a = a;
+    }
+
+    public String getA() {
+        return a;
+    }
+
+    public void setA(String a) {
+        this.a = a;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

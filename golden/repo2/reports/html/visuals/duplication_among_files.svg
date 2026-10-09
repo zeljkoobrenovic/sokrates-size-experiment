@@ -1,0 +1,61 @@
+<svg width="2231pt" height="130pt"
+ viewBox="0.00 0.00 2231.00 130.25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 126.25)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-126.25 2227,-126.25 2227,4 -4,4"/>
+<!-- [repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java] -->
+<g id="node1" class="node">
+<title>[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]</title>
+<polygon fill="#00b2ee" stroke="white" points="459.25,-122.25 0,-122.25 0,-86.25 459.25,-86.25 459.25,-122.25"/>
+<text text-anchor="middle" x="229.62" y="-99.58" font-family="Tahoma" font-size="14.00">[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]</text>
+</g>
+<!-- [repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]&#45;&#45;[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java] -->
+<g id="edge1" class="edge">
+<title>[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]&#45;&#45;[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]</title>
+<path fill="none" stroke="#dc143c" stroke-width="10" d="M459.55,-109.41C470.7,-108.12 477.25,-106.4 477.25,-104.25 477.25,-102.1 470.7,-100.38 459.55,-99.09"/>
+<text text-anchor="middle" x="487" y="-99.97" font-family="Arial" font-size="12.00"> 44 </text>
+</g>
+<!-- [repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java] -->
+<g id="node2" class="node">
+<title>[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]</title>
+<polygon fill="#00b2ee" stroke="white" points="1090,-122.25 515.25,-122.25 515.25,-86.25 1090,-86.25 1090,-122.25"/>
+<text text-anchor="middle" x="802.62" y="-99.58" font-family="Tahoma" font-size="14.00">[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]</text>
+</g>
+<!-- [repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]&#45;&#45;[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java] -->
+<g id="edge2" class="edge">
+<title>[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]&#45;&#45;[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]</title>
+<path fill="none" stroke="#dc143c" stroke-width="9" stroke-opacity="0.929412" d="M1090.42,-108.98C1101.57,-107.74 1108,-106.17 1108,-104.25 1108,-102.33 1101.57,-100.76 1090.42,-99.52"/>
+<text text-anchor="middle" x="1117.75" y="-99.97" font-family="Arial" font-size="12.00"> 42 </text>
+</g>
+<!-- [repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java] -->
+<g id="node3" class="node">
+<title>[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]</title>
+<polygon fill="#00b2ee" stroke="white" points="1686.12,-122.25 1145.12,-122.25 1145.12,-86.25 1686.12,-86.25 1686.12,-122.25"/>
+<text text-anchor="middle" x="1415.62" y="-99.58" font-family="Tahoma" font-size="14.00">[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]</text>
+</g>
+<!-- [repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java] -->
+<g id="node4" class="node">
+<title>[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]</title>
+<polygon fill="#00b2ee" stroke="white" points="1684.62,-36 1146.62,-36 1146.62,0 1684.62,0 1684.62,-36"/>
+<text text-anchor="middle" x="1415.62" y="-13.32" font-family="Tahoma" font-size="14.00">[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]</text>
+</g>
+<!-- [repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]&#45;&#45;[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java] -->
+<g id="edge3" class="edge">
+<title>[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]&#45;&#45;[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]</title>
+<path fill="none" stroke="#dc143c" stroke-width="9" stroke-opacity="0.929412" d="M1415.62,-85.79C1415.62,-71.33 1415.62,-50.89 1415.62,-36.43"/>
+<text text-anchor="middle" x="1425.38" y="-56.85" font-family="Arial" font-size="12.00"> 40 </text>
+</g>
+<!-- [repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java] -->
+<g id="node5" class="node">
+<title>[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]</title>
+<polygon fill="#00b2ee" stroke="white" points="2185.5,-122.25 1703.75,-122.25 1703.75,-86.25 2185.5,-86.25 2185.5,-122.25"/>
+<text text-anchor="middle" x="1944.62" y="-99.58" font-family="Tahoma" font-size="14.00">[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]</text>
+</g>
+<!-- [repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]&#45;&#45;[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java] -->
+<g id="edge4" class="edge">
+<title>[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]&#45;&#45;[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]</title>
+<path fill="none" stroke="#dc143c" stroke-width="3" stroke-opacity="0.509804" d="M2185.68,-109.33C2196.92,-108.05 2203.5,-106.36 2203.5,-104.25 2203.5,-102.14 2196.92,-100.45 2185.68,-99.17"/>
+<text text-anchor="middle" x="2213.25" y="-99.97" font-family="Arial" font-size="12.00"> 14 </text>
+</g>
+</g>
+</svg>

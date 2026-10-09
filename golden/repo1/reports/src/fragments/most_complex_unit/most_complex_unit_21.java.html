@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>private String getX3DBody()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private String getX3DBody()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java [121:136]</i></p>
+<ul>
+    <li><b>16</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private String getX3DBody(List&lt;X3DomNodeInfo&gt; nodes) {
+        StringBuilder body = new StringBuilder();
+        int index = 0;
+        int rows = getSqrtRows(nodes);
+        boolean flipDirection = false;
+        for (int row = 0; row &lt; rows; row++) {
+            for (int col = 0; col &lt; rows; col++) {
+                if (nodes.size() &gt; index) {
+                    body.append(get3DBody(index, row, flipDirection ? col : rows - col - 1, nodes.get(index)) + &quot;\n&quot;);
+                    index++;
+                }
+            }
+            flipDirection = !flipDirection;
+        }
+        return body.toString();
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

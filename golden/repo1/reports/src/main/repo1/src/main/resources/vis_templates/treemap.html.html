@@ -1,0 +1,171 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/vis_templates/treemap.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/vis_templates/treemap.html (<b>121</b> lines of code) (<a href="treemap.html">raw</a>):</h3>
+<div id="editor">&lt;!--
+  ~ Copyright (c) 2021 Željko Obrenović. All rights reserved.
+  --&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;A treeview view on componets&lt;/title&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;https://d3js.org/d3.v4.min.js&quot;&gt;&lt;/script&gt;
+
+    &lt;style type=&quot;text/css&quot;&gt;
+        svg {
+            font: 14px sans-serif;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;svg width=&quot;960&quot; height=&quot;570&quot;&gt;&lt;/svg&gt;
+&lt;script&gt;
+
+    var svg = d3.select(&quot;svg&quot;),
+            width = +svg.attr(&quot;width&quot;),
+            height = +svg.attr(&quot;height&quot;);
+
+    var fader = function (color) {
+                return d3.interpolateRgb(color, &quot;#fff&quot;)(0.2);
+            },
+            color = d3.scaleOrdinal(d3.schemeCategory20.map(fader)),
+            format = d3.format(&quot;,d&quot;);
+
+    var treemap = d3.treemap()
+            .tile(d3.treemapResquarify)
+            .size([width, height])
+            .round(true)
+            .paddingInner(1);
+
+    var data = {
+        &quot;name&quot;: &quot;cluster&quot;,
+        &quot;children&quot;: ${data}
+    }
+
+    var root = d3.hierarchy(data)
+            .eachBefore(function (d) {
+                d.data.id = (d.parent ? d.parent.data.id + &quot;.&quot; : &quot;&quot;) + d.data.name;
+            })
+            .sum(sumBySize)
+            .sort(function (a, b) {
+                return b.height - a.height || b.value - a.value;
+            });
+
+    treemap(root);
+
+    var cell = svg.selectAll(&quot;g&quot;)
+            .data(root.leaves())
+            .enter().append(&quot;g&quot;)
+            .attr(&quot;transform&quot;, function (d) {
+                return &quot;translate(&quot; + d.x0 + &quot;,&quot; + d.y0 + &quot;)&quot;;
+            });
+
+    cell.append(&quot;rect&quot;)
+            .attr(&quot;id&quot;, function (d) {
+                return d.data.id;
+            })
+            .attr(&quot;width&quot;, function (d) {
+                return d.x1 - d.x0;
+            })
+            .attr(&quot;height&quot;, function (d) {
+                return d.y1 - d.y0;
+            })
+            .style(&quot;fill&quot;, &quot;#c0deed&quot;);
+
+    cell.append(&quot;clipPath&quot;)
+            .attr(&quot;id&quot;, function (d) {
+                return &quot;clip-&quot; + d.data.id;
+            })
+            .append(&quot;use&quot;)
+            .attr(&quot;xlink:href&quot;, function (d) {
+                return &quot;#&quot; + d.data.id;
+            });
+
+    cell.append(&quot;text&quot;)
+            .attr(&quot;clip-path&quot;, function (d) {
+                return &quot;url(#clip-&quot; + d.data.id + &quot;)&quot;;
+            })
+            .selectAll(&quot;tspan&quot;)
+            .data(function (d) {
+                return d.data.name.split(/(?=[A-Z][^A-Z])/g);
+            })
+            .enter().append(&quot;tspan&quot;)
+            .attr(&quot;x&quot;, 4)
+            .attr(&quot;y&quot;, function (d, i) {
+                return 13 + i * 10;
+            })
+            .text(function (d) {
+                return d;
+            });
+
+    cell.append(&quot;title&quot;)
+            .text(function (d) {
+                return d.data.name + &quot;: &quot; + format(d.value);
+            });
+
+    d3.selectAll(&quot;input&quot;)
+            .data([sumBySize, sumByCount], function (d) {
+                return d ? d.name : this.value;
+            })
+            .on(&quot;change&quot;, changed);
+
+    var timeout = d3.timeout(function () {
+        d3.select(&quot;input[value=\&quot;sumByCount\&quot;]&quot;)
+                .property(&quot;checked&quot;, true)
+                .dispatch(&quot;change&quot;);
+    }, 2000);
+
+    function changed(sum) {
+        timeout.stop();
+
+        treemap(root.sum(sum));
+
+        cell.transition()
+                .duration(750)
+                .attr(&quot;transform&quot;, function (d) {
+                    return &quot;translate(&quot; + d.x0 + &quot;,&quot; + d.y0 + &quot;)&quot;;
+                })
+                .select(&quot;rect&quot;)
+                .attr(&quot;width&quot;, function (d) {
+                    return d.x1 - d.x0;
+                })
+                .attr(&quot;height&quot;, function (d) {
+                    return d.y1 - d.y0;
+                });
+    }
+
+    function sumByCount(d) {
+        return d.children ? 0 : 1;
+    }
+
+    function sumBySize(d) {
+        return d.size;
+    }
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

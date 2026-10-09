@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>public static List getAllFields()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static List getAllFields()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java [20:33]</i></p>
+<ul>
+    <li><b>12</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static List&lt;Field&gt; getAllFields(Class&lt;?&gt; type) {
+        List&lt;Field&gt; fields = new ArrayList&lt;&gt;();
+        for (Field field : type.getDeclaredFields()) {
+            if (!field.getName().equals(&quot;this$0&quot;)) {
+                fields.add(field);
+            }
+        }
+
+        if (type.getSuperclass() != null) {
+            fields.addAll(getAllFields(type.getSuperclass()));
+        }
+
+        return fields;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

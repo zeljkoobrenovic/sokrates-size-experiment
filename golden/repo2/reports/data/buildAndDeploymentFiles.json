@@ -1,0 +1,18 @@
+[
+ {
+  "extension": "xml",
+  "linesOfCode": 16,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/pom.xml",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "xml",
+  "linesOfCode": 61,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo2/pom.xml",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ }
+]

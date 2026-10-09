@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>public void export()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void export()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java [66:85]</i></p>
+<ul>
+    <li><b>17</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void export(List&lt;Unit3D&gt; units, boolean groupPerComponent, double divideBy) {
+        if (units == null) {
+            return;
+        }
+        this.groupPerComponent = groupPerComponent;
+        List&lt;X3DomNodeInfo&gt; nodes = new ArrayList&lt;X3DomNodeInfo&gt;();
+
+        if (divideBy == 0) {
+            divideBy = 1;
+        }
+
+        for (Unit3D unit : getSortedUnits(units)) {
+            X3DomNodeInfo nodeInfo = new X3DomNodeInfo(unit.getName());
+            nodeInfo.setSize((int) (unit.getValue().doubleValue() / divideBy));
+            nodeInfo.setColor(unit.getColor());
+            nodes.add(nodeInfo);
+        }
+
+        exportNodesPerComponent(nodes);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

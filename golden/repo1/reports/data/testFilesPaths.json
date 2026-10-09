@@ -1,0 +1,10 @@
+[
+ "repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java",
+ "repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java"
+]

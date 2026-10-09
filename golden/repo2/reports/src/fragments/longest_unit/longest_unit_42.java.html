@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>public static String getMatchedRegex()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getMatchedRegex()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java [56:72]</i></p>
+<ul>
+    <li><b>16</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getMatchedRegex(String text, String regex) {
+        try {
+            Pattern soe = Pattern.compile(regex);
+            Matcher matcher = soe.matcher(StringUtils.left(text, MAX_TEXT_LENGTH));
+
+            if (matcher.find()) {
+                int start = matcher.start();
+                int end = matcher.end();
+                return unifyEndOfLineCharacters(text.substring(start, end));
+            }
+        } catch (PatternSyntaxException e) {
+            LOG.debug(e);
+        } catch (StackOverflowError e) {
+            LOG.error(e);
+        }
+        return null;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

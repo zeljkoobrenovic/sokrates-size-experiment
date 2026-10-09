@@ -1,0 +1,77 @@
+[
+ {
+  "buildAndDeployFilesCount": 3,
+  "buildAndDeployLinesOfCode": 78,
+  "commitsCount": 66,
+  "commitsCount30Days": 0,
+  "commitsCount90Days": 0,
+  "contributors": [
+   "zeljkoobrenovic@yahoo.com",
+   "zeljko@incision.care",
+   "emhol@7n.com",
+   "thefunkycowboy@gmail.com"
+  ],
+  "contributors30Days": [],
+  "contributors90Days": [],
+  "generatedFilesCount": 0,
+  "generatedLinesOfCode": 0,
+  "latestCommitDate": "DATE",
+  "mainFilesCount": 53,
+  "mainLinesOfCode": 4845,
+  "metadata": {
+   "description": "",
+   "links": [],
+   "logoLink": "",
+   "name": "repo1",
+   "tooltip": ""
+  },
+  "metrics": null,
+  "otherFilesCount": 0,
+  "otherLinesOfCode": 0,
+  "sokratesRepositoryLink": {
+   "analysisResultsPath": "repo1/_sokrates/reports/data/analysisResults.json",
+   "htmlReportsRoot": "repo1/_sokrates/reports/html",
+   "note": ""
+  },
+  "testFilesCount": 8,
+  "testLinesOfCode": 270
+ },
+ {
+  "buildAndDeployFilesCount": 2,
+  "buildAndDeployLinesOfCode": 77,
+  "commitsCount": 75,
+  "commitsCount30Days": 0,
+  "commitsCount90Days": 0,
+  "contributors": [
+   "zeljkoobrenovic@yahoo.com",
+   "zeljko@incision.care",
+   "49699333+dependabot[bot]@users.noreply.github.com",
+   "emhol@7n.com",
+   "thefunkycowboy@gmail.com"
+  ],
+  "contributors30Days": [],
+  "contributors90Days": [],
+  "generatedFilesCount": 0,
+  "generatedLinesOfCode": 0,
+  "latestCommitDate": "DATE",
+  "mainFilesCount": 50,
+  "mainLinesOfCode": 3674,
+  "metadata": {
+   "description": "",
+   "links": [],
+   "logoLink": "",
+   "name": "repo2",
+   "tooltip": ""
+  },
+  "metrics": null,
+  "otherFilesCount": 0,
+  "otherLinesOfCode": 0,
+  "sokratesRepositoryLink": {
+   "analysisResultsPath": "repo2/_sokrates/reports/data/analysisResults.json",
+   "htmlReportsRoot": "repo2/_sokrates/reports/html",
+   "note": ""
+  },
+  "testFilesCount": 0,
+  "testLinesOfCode": 0
+ }
+]

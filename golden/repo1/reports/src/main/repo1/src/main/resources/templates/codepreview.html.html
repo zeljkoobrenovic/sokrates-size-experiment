@@ -1,0 +1,121 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/templates/codepreview.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/templates/codepreview.html (<b>77</b> lines of code) (<a href="codepreview.html">raw</a>):</h3>
+<div id="editor">&lt;!--
+  ~ Copyright (c) 2021 Željko Obrenović. All rights reserved.
+  --&gt;
+
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;style type=&quot;text/css&quot; media=&quot;screen&quot;&gt;
+        #editor {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;script&gt;
+    var editor = ace.edit(&quot;editor&quot;);
+    var markerId = undefined;
+
+    function pasteContent(content) {
+        editor.onPaste(content);
+    }
+
+    function getValue() {
+        return editor.getValue();
+    }
+
+    function getSelectedText() {
+        return editor.getSelectedText();
+    }
+
+    function getSelectedRange() {
+        selectionRange = editor.getSelectionRange();
+
+        if (selectionRange &amp;&amp; selectionRange.start &amp;&amp; selectionRange.end) {
+            startLine = selectionRange.start.row;
+            endLine = selectionRange.end.row;
+            return [startLine, endLine];
+        }
+
+        return null;
+    }
+
+    function openEditorFindDialog() {
+        return editor.execCommand(&quot;find&quot;);
+    }
+
+    function openEditorReplaceDialog() {
+        return editor.execCommand(&quot;replace&quot;);
+    }
+
+    function gotoLine(lineIndex) {
+        return editor.gotoLine(parseInt(lineIndex));
+    }
+
+    function selectLines(startLine, endLine) {
+        var Range = ace.require('ace/range').Range;
+
+        if (markerId != undefined) {
+            editor.session.removeMarker(markerId);
+        }
+
+        markerId = editor.session.addMarker(new Range(startLine, 0, endLine, 0), &quot;ace_active-line&quot;, &quot;fullLine&quot;);
+    }
+
+    function setValue(content, path) {
+        try {
+            var modelist = ace.require(&quot;ace/ext/modelist&quot;);
+            var mode = modelist.getModeForPath(path).mode;
+            editor.getSession().setMode(mode);
+            editor.setValue(content);
+            editor.scrollToRow(0);
+            editor.session.selection.clearSelection();
+        } catch (err) {
+            editor.setValue(err + &quot;\n&quot; + content);
+            document.getElementById(&quot;error&quot;).innerHTML = err;
+        }
+    }
+
+&lt;/script&gt;
+&lt;body&gt;
+&lt;div id=&quot;error&quot; style=&quot;color:darkred&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;editor&quot;&gt;&lt;/div&gt;
+&lt;script src=&quot;../components/ace/src/ace.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../components/ace/src/ext-modelist.js&quot; type=&quot;text/javascript&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+    var editor = ace.edit(&quot;editor&quot;);
+    editor.setTheme(&quot;ace/theme/xcode&quot;);
+    editor.setReadOnly(true);
+    editor.setOption(&quot;wrap&quot;, true);
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

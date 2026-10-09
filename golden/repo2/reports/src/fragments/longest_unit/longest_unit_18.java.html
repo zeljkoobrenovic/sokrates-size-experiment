@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>public List toVisualizationContributorItems()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public List toVisualizationContributorItems()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java [176:202]</i></p>
+<ul>
+    <li><b>25</b> lines of code</li>
+    <li><b>8</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public List&lt;VisualizationItem&gt; toVisualizationContributorItems(int daysAgo) {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int size;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name) &amp;&amp; child.getSourceFile().getFileModificationHistory() != null) {
+                Stream&lt;CommitInfo&gt; commitInfoStream = child.getSourceFile().getFileModificationHistory().getCommits().stream().filter(c -&gt; DateUtils.isCommittedLessThanDaysAgo(c.getDate(), daysAgo));
+                Set&lt;String&gt; emails = new HashSet&lt;&gt;();
+                commitInfoStream.forEach(commitInfo -&gt; emails.add(commitInfo.getEmail()));
+                size = emails.size();
+            } else {
+                size = 0;
+            }
+            VisualizationItem item = new VisualizationItem(name + (size &gt; 0 ? &quot; (&quot; + size + &quot;)&quot; : &quot;&quot;), size);
+            List&lt;VisualizationItem&gt; children = child.toVisualizationContributorItems(daysAgo);
+            if (size &gt; 0 || children.size() &gt; 0) {
+                if (size == 1) {
+                    item.setColor(&quot;grey&quot;);
+                }
+                items.add(item);
+                item.getChildren().addAll(children);
+            }
+        });
+
+        return items;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style type="text/css" media="all">
+    body {
+      font-family: Roboto, Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+      margin-left:5%;
+      margin-right:5%;
+    }
+    table {
+      color: #333;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    td, th {
+      border: 1px solid #CCC;
+      height: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    th {
+      background: #F3F3F3;
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    td {
+      background: #FFFFFF;
+      text-align: left;
+    }
+    h3 {
+      margin-top: 0
+    }
+    h1 {
+      margin-bottom: 6px;
+    }
+    p {
+      margin-top: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    .reportSubtitle {
+      color: grey;
+    }
+    .group {
+      margin-bottom: 10px;
+      border: solid lightgrey 1px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 2px;
+    }
+    .section {
+      margin-bottom: 30px;
+      border: solid lightgrey 1px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 2px;
+      padding: 0;
+    }
+    .sectionHeader {
+      margin-bottom: 30px;
+      padding: 20px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      background-color: lightskyblue;
+    }
+    .sectionTitle {
+      font-size: 140%;
+    }
+    .sectionSubtitle {
+      font-size: 90%; color: grey;
+    }
+    .subSectionTitle {
+      font-size: 140%;
+    }
+    .subSectionSubtitle {
+      font-size: 90%; color: grey;
+    }
+    .subSection {
+      margin-bottom: 30px;
+      border: solid lightgrey 1px;
+      padding-top: 0;
+      padding-bottom: 0;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 1px 9px 0 rgba(0, 0, 0, 0.19);
+    }
+    .subSectionHeader {
+      border: solid lightgrey 1px;
+      padding: 6px;
+      background-color: lightgrey;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 9px 0 rgba(0, 0, 0, 0.19);
+    }
+    .sectionBody {
+      margin: 20px;
+    }
+.tab {
+ overflow: hidden;
+ border: 1px solid #ccc;
+ background-color: #f1f1f1;
+}
+.tab button {
+ font-family: Roboto, Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+ font-size: 100%;
+ background-color: inherit;
+ float: left;
+ border: none;
+ outline: none;
+ cursor: pointer;
+ padding: 14px 16px;
+ transition: 0.3s;
+}
+.tab button:hover {
+ background-color: #ddd;
+}
+.tab button.active {
+ background-color: #ccc;
+}
+.tabcontent {
+ display: none;
+ padding: 6px 12px;
+ border: 1px solid #ccc;
+ overflow-y: auto;
+ border-top: none;
+}
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <script type="text/javascript">
+    function showHide(id) {
+      var e = document.getElementById(id);
+      e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+    }
+    function showHideDisappear(id) {
+      var e = document.getElementById(id);
+      e.style.display = '';      var eTrigger = document.getElementById(id + '_trigger');
+      eTrigger.style.display = 'none';
+    }
+    function openTab(evt, tabName) {
+     var i, tabcontent, tablinks;
+     tabcontent = document.getElementsByClassName("tabcontent");
+     for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+     }
+     tablinks = document.getElementsByClassName("tablinks");
+     for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+     }
+     document.getElementById(tabName).style.display = "block";
+     evt.currentTarget.className += " active";
+    }
+  </script>
+  
+</head>
+
+<body><div id="report">
+
+
+
+<div style="position: absolute; left: 1px">
+<table>
+<th>Tag</th>
+<th># repositories</th>
+<th>LOC<br>(main)</th>
+<th>LOC<br>(test)</th>
+<th>LOC<br>(active)</th>
+<th>LOC<br>(new)</th>
+<th># commits<br>(30 days)</th>
+<th># contributors<br>(30 days)</th>
+<p>1 group (1 tag):</p>
+<ul>
+<li><a href='#tag_group_1'><b>build and dependencies management tools</b></a> (1)</li>
+</ul>
+<br/>
+<tr>
+<td colspan='8' style=''>
+<a name="tag_group_1"></a>
+<div style="border-radius: 9px; padding: 6px; margin-top: 16px; border: 1px solid lightgrey; background-color: #B9D9EB">
+build and dependencies management tools (1)
+<div style="margin: 5px; font-size: 80%">
+<div style="">
+<b>2 repositories</b>, <b><b>8.5</b>K</b> lines of main code, <b><b>425</b></b> lines of other code
+</div>
+</div>
+<div style="margin: 5px; font-size: 80%">
+tag dependencies: 
+<a style='text-decoration: none' target='_blank' href='visuals/custom_tags_graph_1_force_3d.html'>3D graph (via repositories)</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/custom_tags_graph_1_direct_force_3d.html'>3D graph (excluding repositories)</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/custom_tags_graph_1.svg'>2D graph (via repositories)</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/custom_tags_graph_1_direct.svg'>2D graph (excluding repositories)</a>
+<a style='text-decoration: none' target='_blank' href='visuals/custom_tags_graph_1_direct.svg'>2D graph (excluding repositories)</a>
+</div>
+</td>
+</tr>
+<tr style='text-align: center'>
+<td style="vertical-align: top; white-space: nowrap;">
+<div style="cursor: help;vertical-align: top; cursor: help; padding: 4px; border-radius: 6px; border: 1px solid lightgrey; background-color: #B9D9EB" title="includes repositories with at least one file matching:
+ - (|.*/)pom[.]xml
+">
+<img title='maven' style="border: 1px solid grey; border-radius: 50%; padding: 1px; background-color: #fcfcfc; vertical-align: middle; margin-right: 5px; width: 36px; height: 36px; object-fit: contain;" src="https://zeljkoobrenovic.github.io/sokrates-media/general/maven.png"><div style='vertical-align: middle; display: inline-block;'>maven</div>
+</div>
+</td>
+<td style="text-align: left">
+ <a href="javascript:showHide('showMoreBlock_3');")><b>2</b> repositories <span style='color: grey; font-size: 90%'>(100%)</span></a><span id="showMoreBlock_3" style="display: none;">
+<div style="border-left: 2px solid lightgrey; margin-left: 5px; font-size: 80%">
+<div style="">
+<a href='../repo1/_sokrates/reports/html/index.html' target='_blank' style='margin-left: 6px'>repo1</a> <span color='lightgrey'>(<b>4,845</b> LOC)</span>
+</div>
+<div style="">
+<a href='../repo2/_sokrates/reports/html/index.html' target='_blank' style='margin-left: 6px'>repo2</a> <span color='lightgrey'>(<b>3,674</b> LOC)</span>
+</div>
+<div style="margin-top: 12px; margin-left: 5px; margin-bottom: 8px">
+<a style='text-decoration: none' target='_blank' href='data/tag_build_and_dependencies_management_tools___maven_repositories.txt'>see details...</a>
+</div>
+</div>
+</span>
+</td>
+<td style="">8,519 <span style='color: grey; font-size: 90%'>(100%)</span></td>
+<td style="">270</td>
+<td style="r">-</td>
+<td style="">-</td>
+<td style="">-</td>
+<td style="vertical-align: middle">-</td>
+</tr>
+</table>
+<div style="margin: 2px; margin-top: 18px; margin-bottom: 42px;">
+ <a href="javascript:showHide('showMoreBlock_4');")>show visuals...</a><span id="showMoreBlock_4" style="display: none;">
+<div style="margin: 18px;">
+<div style="margin-bottom: 5px">
+<b>build and dependencies management tools / maven</b> (2)
+</div>
+<a target='_blank' href='../repo1/_sokrates/reports/html/index.html' style=''>
+<div style="cursor: help;border: 1px solid grey; border-radius: 50%;display: inline-block; padding: 0;vertical-align: middle; overflow: none; width: 75px; height: 75px; " title="repo1
+0 commits (30 days)
+0 contributors (30 days)
+4,845 LOC">
+<div style=" margin: 0;border-radius: 50%;opacity: 0.0;background-color: #B9D9EB; border: 1px solid lightgrey; cursor: pointer;width: 73px; height: 73px; ">
+</div>
+</div>
+</a>
+<a target='_blank' href='../repo2/_sokrates/reports/html/index.html' style=''>
+<div style="cursor: help;border: 1px solid grey; border-radius: 50%;display: inline-block; padding: 0;vertical-align: middle; overflow: none; width: 66px; height: 66px; " title="repo2
+0 commits (30 days)
+0 contributors (30 days)
+3,674 LOC">
+<div style=" margin: 0;border-radius: 50%;opacity: 0.0;background-color: #B9D9EB; border: 1px solid lightgrey; cursor: pointer;width: 64px; height: 64px; ">
+</div>
+</div>
+</a>
+</div>
+</span>
+</div>
+</div>
+</div>
+</body>
+</html>

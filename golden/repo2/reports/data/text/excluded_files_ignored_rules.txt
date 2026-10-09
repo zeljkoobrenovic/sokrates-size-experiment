@@ -1,0 +1,11 @@
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Git history
+path like ".*/git[-]history[.]txt"
+2 files:
+
+repo1/git-history.txt
+repo2/git-history.txt
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+

@@ -1,0 +1,6 @@
+Contributor	#commits (all time)	#commits (30 days)	#commits (90 days)	#commits (180 days)	#commits (365 days)	first commit	last commit
+zeljkoobrenovic@yahoo.com	45	0	0	2	6	DATE	DATE	60%
+zeljko@incision.care	27	0	0	0	0	DATE	DATE	36%
+49699333+dependabot[bot]@users.noreply.github.com	1	0	0	0	1	DATE	DATE	1%
+emhol@7n.com	1	0	0	0	0	DATE	DATE	1%
+thefunkycowboy@gmail.com	1	0	0	0	0	DATE	DATE	1%

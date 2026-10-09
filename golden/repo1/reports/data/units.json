@@ -1,0 +1,6394 @@
+[
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 723,
+  "fileLinesCount": 904,
+  "linesOfCode": 59,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generateVisuals()",
+  "startLine": 654
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 362,
+  "fileLinesCount": 904,
+  "linesOfCode": 52,
+  "longName": "",
+  "mcCabeIndex": 13,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void init()",
+  "startLine": 301
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 565,
+  "fileLinesCount": 904,
+  "linesOfCode": 51,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generateReports()",
+  "startLine": 502
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 83,
+  "fileLinesCount": 94,
+  "linesOfCode": 49,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java",
+  "shortName": "public void extractGitHistory()",
+  "startLine": 34
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 283,
+  "fileLinesCount": 904,
+  "linesOfCode": 48,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void updateLandscape()",
+  "startLine": 228
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 442,
+  "fileLinesCount": 904,
+  "linesOfCode": 48,
+  "longName": "",
+  "mcCabeIndex": 10,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void updateConfig()",
+  "startLine": 381
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 135,
+  "fileLinesCount": 904,
+  "linesOfCode": 47,
+  "longName": "",
+  "mcCabeIndex": 13,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "public void run()",
+  "startLine": 86
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 651,
+  "fileLinesCount": 904,
+  "linesOfCode": 37,
+  "longName": "",
+  "mcCabeIndex": 6,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 5,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generateAndSaveReports()",
+  "startLine": 614
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 157,
+  "fileLinesCount": 393,
+  "linesOfCode": 32,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public void usage()",
+  "startLine": 126
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 824,
+  "fileLinesCount": 904,
+  "linesOfCode": 30,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private List getZoomableCirclesRiskProfileItemsCategories()",
+  "startLine": 791
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 51,
+  "fileLinesCount": 89,
+  "linesOfCode": 28,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "shortName": "public static void extractFiles()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 474,
+  "fileLinesCount": 904,
+  "linesOfCode": 28,
+  "longName": "",
+  "mcCabeIndex": 11,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void updateMetadataFromCommandLine()",
+  "startLine": 444
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 125,
+  "fileLinesCount": 126,
+  "linesOfCode": 27,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "private String getScriptString()",
+  "startLine": 99
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 114,
+  "fileLinesCount": 115,
+  "linesOfCode": 26,
+  "longName": "",
+  "mcCabeIndex": 9,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String formatPeriod()",
+  "startLine": 83
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 218,
+  "fileLinesCount": 904,
+  "linesOfCode": 26,
+  "longName": "",
+  "mcCabeIndex": 6,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void extractFiles()",
+  "startLine": 189
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 231,
+  "fileLinesCount": 236,
+  "linesOfCode": 26,
+  "longName": "",
+  "mcCabeIndex": 8,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public List toVisualizationRiskColoringItems()",
+  "startLine": 204
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 118,
+  "fileLinesCount": 119,
+  "linesOfCode": 25,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "private String getScriptString()",
+  "startLine": 94
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 202,
+  "fileLinesCount": 236,
+  "linesOfCode": 25,
+  "longName": "",
+  "mcCabeIndex": 8,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public List toVisualizationContributorItems()",
+  "startLine": 176
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 119,
+  "fileLinesCount": 171,
+  "linesOfCode": 24,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "public void exportNodesPerComponent()",
+  "startLine": 96
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 56,
+  "fileLinesCount": 102,
+  "linesOfCode": 23,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "public static String getSvgFromDot()",
+  "startLine": 33
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 58,
+  "fileLinesCount": 59,
+  "linesOfCode": 22,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java",
+  "shortName": "private String getScriptString()",
+  "startLine": 37
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 853,
+  "fileLinesCount": 904,
+  "linesOfCode": 22,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generate3DUnitsView()",
+  "startLine": 826
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 80,
+  "fileLinesCount": 102,
+  "linesOfCode": 21,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "public static String getSvgFromDotFileExternal()",
+  "startLine": 58
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 187,
+  "fileLinesCount": 904,
+  "linesOfCode": 21,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void extractGitSubHistory()",
+  "startLine": 162
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 230,
+  "fileLinesCount": 393,
+  "linesOfCode": 20,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getUpdateConfigOptions()",
+  "startLine": 209
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 289,
+  "fileLinesCount": 393,
+  "linesOfCode": 20,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getUpdateLandscapeOptions()",
+  "startLine": 267
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 160,
+  "fileLinesCount": 904,
+  "linesOfCode": 20,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void extractGitHistory()",
+  "startLine": 137
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 44,
+  "linesOfCode": 19,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java",
+  "shortName": "public static void unzip()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 114,
+  "fileLinesCount": 236,
+  "linesOfCode": 19,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public void merge()",
+  "startLine": 95
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 174,
+  "fileLinesCount": 236,
+  "linesOfCode": 19,
+  "longName": "",
+  "mcCabeIndex": 8,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public List toVisualizationCommitItems()",
+  "startLine": 154
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 101,
+  "fileLinesCount": 136,
+  "linesOfCode": 18,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public List getFileListProperty()",
+  "startLine": 84
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 111,
+  "fileLinesCount": 120,
+  "linesOfCode": 18,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static String getLastMatchedRegex()",
+  "startLine": 93
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 236,
+  "linesOfCode": 18,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public static DirectoryNode createDirectoryTree()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 85,
+  "fileLinesCount": 171,
+  "linesOfCode": 17,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "public void export()",
+  "startLine": 66
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 91,
+  "fileLinesCount": 120,
+  "linesOfCode": 17,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static List getMatchedRegexesNoLimits()",
+  "startLine": 74
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 78,
+  "fileLinesCount": 100,
+  "linesOfCode": 16,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "shortName": "public static String getGraphVizDotPath()",
+  "startLine": 62
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 99,
+  "fileLinesCount": 100,
+  "linesOfCode": 16,
+  "longName": "",
+  "mcCabeIndex": 6,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "shortName": "private static String getSystemVariableOrProperty()",
+  "startLine": 80
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 136,
+  "fileLinesCount": 171,
+  "linesOfCode": 16,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "private String getX3DBody()",
+  "startLine": 121
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 72,
+  "fileLinesCount": 120,
+  "linesOfCode": 16,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static String getMatchedRegex()",
+  "startLine": 56
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 379,
+  "fileLinesCount": 904,
+  "linesOfCode": 16,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void startTimeoutIfDefined()",
+  "startLine": 364
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 97,
+  "fileLinesCount": 126,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public String toString()",
+  "startLine": 80
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 82,
+  "fileLinesCount": 136,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public void addToListProperty()",
+  "startLine": 68
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 120,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static boolean matchesEntirely()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 50,
+  "fileLinesCount": 83,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "shortName": "public static Object getFieldValue()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 67,
+  "fileLinesCount": 83,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "shortName": "public static Object getFieldValue()",
+  "startLine": 52
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 88,
+  "fileLinesCount": 89,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "shortName": "public static String extractSubHistory()",
+  "startLine": 72
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 207,
+  "fileLinesCount": 393,
+  "linesOfCode": 15,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getInitOptions()",
+  "startLine": 191
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 100,
+  "fileLinesCount": 101,
+  "linesOfCode": 14,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String renderRacingCharts()",
+  "startLine": 84
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 24,
+  "fileLinesCount": 25,
+  "linesOfCode": 14,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java",
+  "shortName": "public static int firstIndexOfAny()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 66,
+  "linesOfCode": 13,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "shortName": "public Object getObject()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 127,
+  "fileLinesCount": 136,
+  "linesOfCode": 13,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public void save()",
+  "startLine": 114
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 45,
+  "linesOfCode": 13,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java",
+  "shortName": "private static File getResourceFolder()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 115,
+  "linesOfCode": 13,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getSmallTextForNumber()",
+  "startLine": 57
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 867,
+  "fileLinesCount": 904,
+  "linesOfCode": 13,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "public BasicColorInfo getFileSizeColor()",
+  "startLine": 855
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 35,
+  "fileLinesCount": 38,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java",
+  "shortName": "public String render()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 35,
+  "fileLinesCount": 101,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String render()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 67,
+  "fileLinesCount": 101,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String render2DForceGraph()",
+  "startLine": 53
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 83,
+  "fileLinesCount": 101,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String render3DForceGraph()",
+  "startLine": 69
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 101,
+  "fileLinesCount": 122,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getLinkWikiStyle()",
+  "startLine": 90
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 35,
+  "fileLinesCount": 59,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java",
+  "shortName": "public String toString()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 136,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public File getFileProperty()",
+  "startLine": 50
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 68,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 7,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "public static String getSafeFileName()",
+  "startLine": 22
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 55,
+  "fileLinesCount": 68,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "public static Process exec()",
+  "startLine": 42
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 78,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static void print()",
+  "startLine": 54
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 55,
+  "fileLinesCount": 115,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 6,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getSmallTextForNumberMinK()",
+  "startLine": 44
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 54,
+  "fileLinesCount": 120,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static boolean matchesAnyPattern()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 83,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "shortName": "public static List getAllFields()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 82,
+  "fileLinesCount": 83,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "shortName": "public static boolean compareWithDefaultJson()",
+  "startLine": 70
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 124,
+  "fileLinesCount": 393,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "private List usageInfo()",
+  "startLine": 110
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 174,
+  "fileLinesCount": 393,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public void usage()",
+  "startLine": 163
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 299,
+  "fileLinesCount": 904,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generateReports()",
+  "startLine": 285
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 580,
+  "fileLinesCount": 904,
+  "linesOfCode": 12,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void saveExecutionStats()",
+  "startLine": 567
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 92,
+  "fileLinesCount": 119,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public String toString()",
+  "startLine": 80
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 71,
+  "fileLinesCount": 72,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java",
+  "shortName": "public static BasicColorInfo getColor()",
+  "startLine": 61
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 168,
+  "fileLinesCount": 171,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "private String get3DBody()",
+  "startLine": 158
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 48,
+  "fileLinesCount": 78,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static void end()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 189,
+  "fileLinesCount": 393,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getReportingOptions()",
+  "startLine": 177
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 127,
+  "fileLinesCount": 236,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 5,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public boolean equals()",
+  "startLine": 117
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 152,
+  "fileLinesCount": 236,
+  "linesOfCode": 11,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public List toVisualizationItems()",
+  "startLine": 140
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 66,
+  "linesOfCode": 10,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "shortName": "protected String getMessage()",
+  "startLine": 56
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 112,
+  "fileLinesCount": 136,
+  "linesOfCode": 10,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public void load()",
+  "startLine": 103
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 243,
+  "fileLinesCount": 393,
+  "linesOfCode": 10,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getExtractFilesOption()",
+  "startLine": 232
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 84,
+  "fileLinesCount": 904,
+  "linesOfCode": 10,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "public static void main()",
+  "startLine": 72
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 90,
+  "fileLinesCount": 102,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "private static void runDot()",
+  "startLine": 82
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 64,
+  "fileLinesCount": 122,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getShowMoreParagraph()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 84,
+  "fileLinesCount": 122,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getStartShowMoreParagraphDisappear()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 44,
+  "fileLinesCount": 66,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "shortName": "public static  T getObject()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 68,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "public static void createAndOpenTempFile()",
+  "startLine": 57
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 78,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static ProcessingTimes start()",
+  "startLine": 25
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 76,
+  "fileLinesCount": 78,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 4,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static String getPercentage()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 43,
+  "fileLinesCount": 44,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java",
+  "shortName": "private static void extractFile()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 89,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "shortName": "public static List listFiles()",
+  "startLine": 53
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 500,
+  "fileLinesCount": 904,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private File getConfigFile()",
+  "startLine": 492
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 45,
+  "fileLinesCount": 236,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 6,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public static String getColor()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 93,
+  "fileLinesCount": 94,
+  "linesOfCode": 9,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java",
+  "shortName": "private AbstractTreeIterator getCanonicalTreeParser()",
+  "startLine": 85
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 101,
+  "fileLinesCount": 102,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "private static List getDotParameters()",
+  "startLine": 92
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 62,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public String nextColor()",
+  "startLine": 50
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 94,
+  "fileLinesCount": 171,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "private List getSortedUnits()",
+  "startLine": 87
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 54,
+  "fileLinesCount": 66,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "shortName": "private ObjectMapper getObjectMapper()",
+  "startLine": 46
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 254,
+  "fileLinesCount": 393,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getExtractGitHistoryOption()",
+  "startLine": 245
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 265,
+  "fileLinesCount": 393,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Options getExtractGitSubHistoryOption()",
+  "startLine": 256
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 597,
+  "fileLinesCount": 904,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private boolean noReportingOptions()",
+  "startLine": 590
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 789,
+  "fileLinesCount": 904,
+  "linesOfCode": 8,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 5,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private List getZoomableCirclesRiskProfileItems()",
+  "startLine": 781
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 122,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getStartShowMoreParagraph()",
+  "startLine": 66
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 44,
+  "fileLinesCount": 136,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public static UserProperties getInstance()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 44,
+  "fileLinesCount": 45,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java",
+  "shortName": "private static File createTempFolder()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 22,
+  "fileLinesCount": 115,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getFormattedPercentage()",
+  "startLine": 16
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 226,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void updateDateParam()",
+  "startLine": 220
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 588,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private boolean noFileError()",
+  "startLine": 582
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 605,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void info()",
+  "startLine": 599
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 752,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 7,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void addRiskColoredZoomableCircles()",
+  "startLine": 745
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 761,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private List getZoomableCirclesItems()",
+  "startLine": 754
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 770,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private List getZoomableCirclesCommitItems()",
+  "startLine": 763
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 779,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private List getZoomableCirclesContributorItems()",
+  "startLine": 772
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 896,
+  "fileLinesCount": 904,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private CodeAnalyzerSettings getCodeAnalyzerSettings()",
+  "startLine": 888
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 236,
+  "linesOfCode": 7,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public DirectoryNode()",
+  "startLine": 58
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 60,
+  "fileLinesCount": 100,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "shortName": "public static GraphvizSettings getInstance()",
+  "startLine": 54
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 80,
+  "fileLinesCount": 115,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "private static String removeZeroDecimalIfNecessary()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 70,
+  "fileLinesCount": 89,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "shortName": "public static void extractSubHistory()",
+  "startLine": 63
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 612,
+  "fileLinesCount": 904,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "public void detailedInfo()",
+  "startLine": 607
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 736,
+  "fileLinesCount": 904,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void addCommitZoomableCircles()",
+  "startLine": 731
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 743,
+  "fileLinesCount": 904,
+  "linesOfCode": 6,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 4,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void addContributorsZoomableCircles()",
+  "startLine": 738
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 58,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public VisualizationItem()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 122,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String renderNumber()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 31,
+  "fileLinesCount": 122,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String renderNumberStrong()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 122,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String renderNumber()",
+  "startLine": 33
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 43,
+  "fileLinesCount": 122,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String renderNumberStrong()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 122,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String renderNumberStrongWithSuffix()",
+  "startLine": 45
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 18,
+  "fileLinesCount": 43,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public Threshold()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 119,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void addItem()",
+  "startLine": 25
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 48,
+  "fileLinesCount": 62,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getDefaultPalette()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 22,
+  "fileLinesCount": 47,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public Force3DLink()",
+  "startLine": 18
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 18,
+  "fileLinesCount": 43,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public Unit3D()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 32,
+  "fileLinesCount": 115,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String formatCount()",
+  "startLine": 28
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 42,
+  "fileLinesCount": 115,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String formatCount()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 19,
+  "fileLinesCount": 44,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public BasicColorInfo()",
+  "startLine": 15
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 17,
+  "fileLinesCount": 42,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public CommandUsage()",
+  "startLine": 13
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 482,
+  "fileLinesCount": 904,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void exportConventions()",
+  "startLine": 476
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 490,
+  "fileLinesCount": 904,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void createNewConventionsFile()",
+  "startLine": 484
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 729,
+  "fileLinesCount": 904,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void generateFileStructureExplorers()",
+  "startLine": 725
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 874,
+  "fileLinesCount": 904,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private File getHtmlFolder()",
+  "startLine": 870
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 886,
+  "fileLinesCount": 904,
+  "linesOfCode": 5,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private File prepareReportsFolder()",
+  "startLine": 881
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 19,
+  "fileLinesCount": 58,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public VisualizationItem()",
+  "startLine": 16
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 31,
+  "fileLinesCount": 102,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "public static String getSvgFromDot()",
+  "startLine": 28
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 126,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void addRow()",
+  "startLine": 26
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 15,
+  "fileLinesCount": 40,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public OrgChartItem()",
+  "startLine": 12
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 17,
+  "fileLinesCount": 34,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public Force3DNode()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 59,
+  "fileLinesCount": 171,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "public X3DomExporter()",
+  "startLine": 56
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 64,
+  "fileLinesCount": 171,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "public X3DomExporter()",
+  "startLine": 61
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 106,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Finding()",
+  "startLine": 33
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 106,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Finding detailedDescription()",
+  "startLine": 46
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 82,
+  "fileLinesCount": 106,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Finding setType()",
+  "startLine": 79
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 91,
+  "fileLinesCount": 106,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Finding setSearchPhrase()",
+  "startLine": 88
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 105,
+  "fileLinesCount": 106,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String toString()",
+  "startLine": 102
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 21,
+  "fileLinesCount": 38,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public ValidationMessage()",
+  "startLine": 18
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 66,
+  "fileLinesCount": 136,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public void setProperty()",
+  "startLine": 63
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 11,
+  "fileLinesCount": 49,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public ProcessingTimes()",
+  "startLine": 8
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 16,
+  "fileLinesCount": 49,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public void start()",
+  "startLine": 13
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 23,
+  "fileLinesCount": 78,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static void startAsReference()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 879,
+  "fileLinesCount": 904,
+  "linesOfCode": 4,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "private void saveTextualSummary()",
+  "startLine": 876
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public String getName()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public void setName()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public Integer getSize()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public void setSize()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 45,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public List getChildren()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public void setChildren()",
+  "startLine": 47
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public String getColor()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 58,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "shortName": "public void setColor()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 39,
+  "fileLinesCount": 101,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String renderBubbleChart()",
+  "startLine": 37
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 43,
+  "fileLinesCount": 101,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String renderTreeMap()",
+  "startLine": 41
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 47,
+  "fileLinesCount": 101,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String renderZoomableCircles()",
+  "startLine": 45
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 51,
+  "fileLinesCount": 101,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "shortName": "public String renderZoomableSunburst()",
+  "startLine": 49
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 19,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static double getPercentage()",
+  "startLine": 17
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String link()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 88,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getEndShowMoreParagraph()",
+  "startLine": 86
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 105,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String getStyledContent()",
+  "startLine": 103
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 109,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String bold()",
+  "startLine": 107
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 113,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String bold()",
+  "startLine": 111
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 117,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String italic()",
+  "startLine": 115
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 121,
+  "fileLinesCount": 122,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "shortName": "public static String paragraph()",
+  "startLine": 119
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 13,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public RacingChartItem()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 17,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public String getName()",
+  "startLine": 15
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 21,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public void setName()",
+  "startLine": 19
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public double getYear()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public void setYear()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public double getValue()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public void setValue()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 22,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public String getTitle()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 26,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public void setTitle()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 30,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public Number getThreshold()",
+  "startLine": 28
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 34,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public void setThreshold()",
+  "startLine": 32
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 38,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public BasicColorInfo getColor()",
+  "startLine": 36
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 42,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "shortName": "public void setColor()",
+  "startLine": 40
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 24,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public BarChart()",
+  "startLine": 22
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public int getWidth()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setWidth()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public int getHeight()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 45,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setHeight()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public String getTitle()",
+  "startLine": 47
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setTitle()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public List getLabels()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setLabels()",
+  "startLine": 59
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setRows()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public List getColors()",
+  "startLine": 71
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 77,
+  "fileLinesCount": 126,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "shortName": "public void setColors()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 23,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public PieChart()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public String getTitle()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setTitle()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public int getWidth()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 45,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setWidth()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public int getHeight()",
+  "startLine": 47
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setHeight()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public List getLabels()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setLabels()",
+  "startLine": 59
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public List getValues()",
+  "startLine": 63
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setValues()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public List getColors()",
+  "startLine": 71
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 77,
+  "fileLinesCount": 119,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "shortName": "public void setColors()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 18,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "private Palette()",
+  "startLine": 16
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 22,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getRiskPalette()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 27,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getHeatPalette()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getAgePalette()",
+  "startLine": 29
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getFreshnessPalette()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public static Palette getDuplicationPalette()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 62,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "shortName": "public List getColors()",
+  "startLine": 59
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 17,
+  "fileLinesCount": 59,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java",
+  "shortName": "public OrgChart()",
+  "startLine": 15
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 19,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public String getItem()",
+  "startLine": 17
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 23,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public void setItem()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 27,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public String getParent()",
+  "startLine": 25
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 31,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public void setParent()",
+  "startLine": 29
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 35,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public String getTooltip()",
+  "startLine": 33
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 39,
+  "fileLinesCount": 40,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "shortName": "public void setTooltip()",
+  "startLine": 37
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 46,
+  "fileLinesCount": 72,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java",
+  "shortName": "private static BasicColorInfo getBasicColorInfo()",
+  "startLine": 44
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 12,
+  "fileLinesCount": 25,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "shortName": "public List getNodes()",
+  "startLine": 10
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 16,
+  "fileLinesCount": 25,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "shortName": "public void setNodes()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 20,
+  "fileLinesCount": 25,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "shortName": "public List getLinks()",
+  "startLine": 18
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 24,
+  "fileLinesCount": 25,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "shortName": "public void setLinks()",
+  "startLine": 22
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 21,
+  "fileLinesCount": 34,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public String getId()",
+  "startLine": 19
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 34,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public void setId()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 34,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public Integer getSize()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 34,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public void setSize()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 26,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public String getSource()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 30,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public void setSource()",
+  "startLine": 28
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 34,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public String getTarget()",
+  "startLine": 32
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 38,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public void setTarget()",
+  "startLine": 36
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 42,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public int getCount()",
+  "startLine": 40
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 46,
+  "fileLinesCount": 47,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public void setCount()",
+  "startLine": 44
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public String getName()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setName()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public int getSize()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setSize()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public String getColor()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 45,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setColor()",
+  "startLine": 43
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 49,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public File getFile()",
+  "startLine": 47
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setFile()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public String getComponent()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setComponent()",
+  "startLine": 59
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public String getInfo()",
+  "startLine": 63
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 70,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "shortName": "public void setInfo()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 22,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public String getName()",
+  "startLine": 20
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 26,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public void setName()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 30,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public Number getValue()",
+  "startLine": 28
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 34,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public void setValue()",
+  "startLine": 32
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 38,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public BasicColorInfo getColor()",
+  "startLine": 36
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 42,
+  "fileLinesCount": 43,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "shortName": "public void setColor()",
+  "startLine": 40
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 140,
+  "fileLinesCount": 171,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "shortName": "private int getSqrtRows()",
+  "startLine": 138
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 21,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String getDisplayText()",
+  "startLine": 19
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 40,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public static Finding newPositiveFinding()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 44,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public static Finding newFindingWithoutOpinion()",
+  "startLine": 42
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 53,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public static Finding newNegativeFinding()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 57,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public static Finding newNeutralFinding()",
+  "startLine": 55
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 61,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Assessment getAssessment()",
+  "startLine": 59
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 65,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public void setAssessment()",
+  "startLine": 63
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String getShortDescription()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public void setShortDescription()",
+  "startLine": 71
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 77,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String getType()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 86,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String getSearchPhrase()",
+  "startLine": 84
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 95,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public String getDetailedDescription()",
+  "startLine": 93
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 99,
+  "fileLinesCount": 106,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public void setDetailedDescription()",
+  "startLine": 97
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 16,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public ValidationMessage()",
+  "startLine": 14
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public String getMessage()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public void setMessage()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public String getSearchPhrase()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 38,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public void setSearchPhrase()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 13,
+  "fileLinesCount": 18,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java",
+  "shortName": "public String generate()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 17,
+  "fileLinesCount": 18,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java",
+  "shortName": "public String generateCompressed()",
+  "startLine": 15
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 28,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public UserProperties()",
+  "startLine": 26
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 32,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public static File getUserPropertiesFolder()",
+  "startLine": 30
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public static File getUserPropertiesFile()",
+  "startLine": 34
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 48,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public static void setInstance()",
+  "startLine": 46
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 131,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public boolean isReadOnly()",
+  "startLine": 129
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 135,
+  "fileLinesCount": 136,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "shortName": "public void setReadOnly()",
+  "startLine": 133
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 68,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "public static void openFile()",
+  "startLine": 34
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 40,
+  "fileLinesCount": 68,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "public static void openFile()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 20,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public void end()",
+  "startLine": 18
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 24,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public long getDurationMs()",
+  "startLine": 22
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 28,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public String getProcessing()",
+  "startLine": 26
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 32,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public void setProcessing()",
+  "startLine": 30
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public long getStartMs()",
+  "startLine": 34
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 40,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public void setStartMs()",
+  "startLine": 38
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 44,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public long getEndMs()",
+  "startLine": 42
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 48,
+  "fileLinesCount": 49,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "shortName": "public void setEndMs()",
+  "startLine": 46
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 52,
+  "fileLinesCount": 78,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "shortName": "public static List getMonitors()",
+  "startLine": 50
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 14,
+  "fileLinesCount": 115,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getFormattedPercentage()",
+  "startLine": 12
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 26,
+  "fileLinesCount": 115,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 3,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getFormattedRemainderPercentage()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 36,
+  "fileLinesCount": 115,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 3,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String formatCountPlural()",
+  "startLine": 34
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 115,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "shortName": "public static String getPlainTextForNumber()",
+  "startLine": 71
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 23,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public double getRed()",
+  "startLine": 21
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 27,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public void setRed()",
+  "startLine": 25
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 31,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public double getGreen()",
+  "startLine": 29
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 35,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public void setGreen()",
+  "startLine": 33
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 39,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public double getBlue()",
+  "startLine": 37
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 43,
+  "fileLinesCount": 44,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public void setBlue()",
+  "startLine": 41
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 120,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static boolean doesNotMatchAnyPattern()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 115,
+  "fileLinesCount": 120,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "private static String unifyEndOfLineCharacters()",
+  "startLine": 113
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 119,
+  "fileLinesCount": 120,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "shortName": "public static void reset()",
+  "startLine": 117
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 15,
+  "fileLinesCount": 19,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public boolean canceled()",
+  "startLine": 13
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 21,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public String getName()",
+  "startLine": 19
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 25,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public void setName()",
+  "startLine": 23
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 29,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public String getDescription()",
+  "startLine": 27
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 33,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public void setDescription()",
+  "startLine": 31
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 37,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public Options getOptions()",
+  "startLine": 35
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 41,
+  "fileLinesCount": 42,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public void setOptions()",
+  "startLine": 39
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 161,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "private void printlnUsage()",
+  "startLine": 159
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 293,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSrcRoot()",
+  "startLine": 291
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 297,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getConventionsFile()",
+  "startLine": 295
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 301,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getName()",
+  "startLine": 299
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 305,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getDescription()",
+  "startLine": 303
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 309,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getLogoLink()",
+  "startLine": 307
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 313,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getConfFile()",
+  "startLine": 311
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 317,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getDate()",
+  "startLine": 315
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 321,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getAnalysisRoot()",
+  "startLine": 319
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 325,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getTimeout()",
+  "startLine": 323
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 329,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getPrefix()",
+  "startLine": 327
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 333,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getPattern()",
+  "startLine": 331
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 337,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getDestRoot()",
+  "startLine": 335
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 341,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getDestParent()",
+  "startLine": 339
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 345,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getInternalGraphviz()",
+  "startLine": 343
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 349,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getOutputFolder()",
+  "startLine": 347
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 353,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSkipComplexAnalyses()",
+  "startLine": 351
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 357,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSkipDuplicationAnalyses()",
+  "startLine": 355
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 360,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSkipCorrelationAnalyses()",
+  "startLine": 358
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 364,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getEnableDuplicationAnalyses()",
+  "startLine": 362
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 368,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSetName()",
+  "startLine": 366
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 372,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSetDescription()",
+  "startLine": 370
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 376,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSetLogoLink()",
+  "startLine": 374
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 380,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getSetCacheFiles()",
+  "startLine": 378
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 384,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getAddLink()",
+  "startLine": 382
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 388,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getHelp()",
+  "startLine": 386
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 392,
+  "fileLinesCount": 393,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "shortName": "public Option getRecursive()",
+  "startLine": 390
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 901,
+  "fileLinesCount": 904,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "shortName": "public void setProgressFeedback()",
+  "startLine": 899
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 69,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public Set getChildren()",
+  "startLine": 67
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 73,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public String getValue()",
+  "startLine": 71
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 77,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public DirectoryNode getParent()",
+  "startLine": 75
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 81,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public boolean isLeaf()",
+  "startLine": 79
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 85,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 2,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public DirectoryNode getRoot()",
+  "startLine": 83
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 89,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public SourceFile getSourceFile()",
+  "startLine": 87
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 93,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public void setSourceFile()",
+  "startLine": 91
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 132,
+  "fileLinesCount": 236,
+  "linesOfCode": 3,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public int hashCode()",
+  "startLine": 130
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 26,
+  "fileLinesCount": 102,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "shortName": "private GraphvizUtil()",
+  "startLine": 24
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 9,
+  "fileLinesCount": 38,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "shortName": "public RacingChartItem()",
+  "startLine": 8
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 12,
+  "fileLinesCount": 34,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "shortName": "public Force3DNode()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 16,
+  "fileLinesCount": 47,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "shortName": "public Force3DLink()",
+  "startLine": 15
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 52,
+  "fileLinesCount": 100,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "shortName": "private GraphvizSettings()",
+  "startLine": 51
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 31,
+  "fileLinesCount": 106,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "shortName": "public Finding()",
+  "startLine": 30
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 12,
+  "fileLinesCount": 38,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "shortName": "public ValidationMessage()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 20,
+  "fileLinesCount": 68,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "shortName": "private SystemUtils()",
+  "startLine": 19
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 13,
+  "fileLinesCount": 44,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "shortName": "public BasicColorInfo()",
+  "startLine": 12
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 18,
+  "fileLinesCount": 19,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 2,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void progress()",
+  "startLine": 17
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 11,
+  "fileLinesCount": 42,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "shortName": "public CommandUsage()",
+  "startLine": 10
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "endLine": 137,
+  "fileLinesCount": 236,
+  "linesOfCode": 2,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "shortName": "public String toString()",
+  "startLine": 136
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 8,
+  "fileLinesCount": 19,
+  "linesOfCode": 1,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void clear()",
+  "startLine": 8
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 9,
+  "fileLinesCount": 19,
+  "linesOfCode": 1,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void start()",
+  "startLine": 9
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 10,
+  "fileLinesCount": 19,
+  "linesOfCode": 1,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 0,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void end()",
+  "startLine": 10
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 11,
+  "fileLinesCount": 19,
+  "linesOfCode": 1,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void setText()",
+  "startLine": 11
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "endLine": 12,
+  "fileLinesCount": 19,
+  "linesOfCode": 1,
+  "longName": "",
+  "mcCabeIndex": 1,
+  "numberOfExpressions": 0,
+  "numberOfLiterals": 0,
+  "numberOfParameters": 1,
+  "numberOfStatements": 0,
+  "relativeFileName": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "shortName": "public void setDetailedText()",
+  "startLine": 12
+ }
+]

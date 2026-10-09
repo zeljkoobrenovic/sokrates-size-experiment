@@ -1,0 +1,15 @@
+{
+ "repositories": [
+  {
+   "analysisResultsPath": "repo1/_sokrates/reports/data/analysisResults.json",
+   "htmlReportsRoot": "repo1/_sokrates/reports/html",
+   "note": ""
+  },
+  {
+   "analysisResultsPath": "repo2/_sokrates/reports/data/analysisResults.json",
+   "htmlReportsRoot": "repo2/_sokrates/reports/html",
+   "note": ""
+  }
+ ],
+ "subLandscapes": []
+}

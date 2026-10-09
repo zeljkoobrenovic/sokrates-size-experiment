@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>public List toVisualizationRiskColoringItems()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public List toVisualizationRiskColoringItems()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java [204:231]</i></p>
+<ul>
+    <li><b>26</b> lines of code</li>
+    <li><b>8</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public List&lt;VisualizationItem&gt; toVisualizationRiskColoringItems(Thresholds thresholds, Palette palette, SourceFileValueExtractor colorValueExtractor, SourceFileValueExtractor sizeValueExtractor) {
+        List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+
+        children.forEach(child -&gt; {
+            String name = child.value;
+            int valueForSize;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name)) {
+                valueForSize = sizeValueExtractor.getValue(child.getSourceFile());
+            } else {
+                valueForSize = 0;
+            }
+            int valueForColoring;
+            if (child.getSourceFile() != null &amp;&amp; child.getSourceFile().getRelativePath().endsWith(name)) {
+                valueForColoring = colorValueExtractor.getValue(child.getSourceFile());
+            } else {
+                valueForColoring = 0;
+            }
+            VisualizationItem item = new VisualizationItem(name + (valueForColoring &gt; 0 ? &quot; (&quot; + valueForColoring + &quot;)&quot; : &quot;&quot;), valueForSize);
+            List&lt;VisualizationItem&gt; children = child.toVisualizationRiskColoringItems(thresholds, palette, colorValueExtractor, sizeValueExtractor);
+            if (valueForColoring &gt; 0 || children.size() &gt; 0) {
+                item.setColor(PathStringsToTreeStructure.getColor(thresholds, palette, valueForColoring));
+                items.add(item);
+                item.getChildren().addAll(children);
+            }
+        });
+
+        return items;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

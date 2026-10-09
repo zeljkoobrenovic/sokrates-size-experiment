@@ -1,0 +1,3384 @@
+id: 1
+unit: private void generateVisuals()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 654
+end line: 723
+size: 59 LOC
+McCabe index: 7
+number of parameters: 2
+
+id: 2
+unit: private void init()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 301
+end line: 362
+size: 52 LOC
+McCabe index: 13
+number of parameters: 1
+
+id: 3
+unit: private void generateReports()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 502
+end line: 565
+size: 51 LOC
+McCabe index: 7
+number of parameters: 1
+
+id: 4
+unit: public void extractGitHistory()
+file: repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
+start line: 34
+end line: 83
+size: 49 LOC
+McCabe index: 7
+number of parameters: 1
+
+id: 5
+unit: private void updateLandscape()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 228
+end line: 283
+size: 48 LOC
+McCabe index: 7
+number of parameters: 1
+
+id: 6
+unit: private void updateConfig()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 381
+end line: 442
+size: 48 LOC
+McCabe index: 10
+number of parameters: 1
+
+id: 7
+unit: public void run()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 86
+end line: 135
+size: 47 LOC
+McCabe index: 13
+number of parameters: 1
+
+id: 8
+unit: private void generateAndSaveReports()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 614
+end line: 651
+size: 37 LOC
+McCabe index: 6
+number of parameters: 5
+
+id: 9
+unit: public void usage()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 126
+end line: 157
+size: 32 LOC
+McCabe index: 5
+number of parameters: 0
+
+id: 10
+unit: private List getZoomableCirclesRiskProfileItemsCategories()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 791
+end line: 824
+size: 30 LOC
+McCabe index: 5
+number of parameters: 4
+
+id: 11
+unit: public static void extractFiles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java
+start line: 24
+end line: 51
+size: 28 LOC
+McCabe index: 5
+number of parameters: 4
+
+id: 12
+unit: private void updateMetadataFromCommandLine()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 444
+end line: 474
+size: 28 LOC
+McCabe index: 11
+number of parameters: 2
+
+id: 13
+unit: private String getScriptString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 99
+end line: 125
+size: 27 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 14
+unit: public static String formatPeriod()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 83
+end line: 114
+size: 26 LOC
+McCabe index: 9
+number of parameters: 1
+
+id: 15
+unit: private void extractFiles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 189
+end line: 218
+size: 26 LOC
+McCabe index: 6
+number of parameters: 1
+
+id: 16
+unit: public List toVisualizationRiskColoringItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 204
+end line: 231
+size: 26 LOC
+McCabe index: 8
+number of parameters: 4
+
+id: 17
+unit: private String getScriptString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 94
+end line: 118
+size: 25 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 18
+unit: public List toVisualizationContributorItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 176
+end line: 202
+size: 25 LOC
+McCabe index: 8
+number of parameters: 1
+
+id: 19
+unit: public void exportNodesPerComponent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 96
+end line: 119
+size: 24 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 20
+unit: public static String getSvgFromDot()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 33
+end line: 56
+size: 23 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 21
+unit: private String getScriptString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java
+start line: 37
+end line: 58
+size: 22 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 22
+unit: private void generate3DUnitsView()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 826
+end line: 853
+size: 22 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 23
+unit: public static String getSvgFromDotFileExternal()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 58
+end line: 80
+size: 21 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 24
+unit: private void extractGitSubHistory()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 162
+end line: 187
+size: 21 LOC
+McCabe index: 4
+number of parameters: 1
+
+id: 25
+unit: public Options getUpdateConfigOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 209
+end line: 230
+size: 20 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 26
+unit: public Options getUpdateLandscapeOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 267
+end line: 289
+size: 20 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 27
+unit: private void extractGitHistory()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 137
+end line: 160
+size: 20 LOC
+McCabe index: 4
+number of parameters: 1
+
+id: 28
+unit: public static void unzip()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java
+start line: 14
+end line: 33
+size: 19 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 29
+unit: public void merge()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 95
+end line: 114
+size: 19 LOC
+McCabe index: 7
+number of parameters: 1
+
+id: 30
+unit: public List toVisualizationCommitItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 154
+end line: 174
+size: 19 LOC
+McCabe index: 8
+number of parameters: 1
+
+id: 31
+unit: public List getFileListProperty()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 84
+end line: 101
+size: 18 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 32
+unit: public static String getLastMatchedRegex()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 93
+end line: 111
+size: 18 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 33
+unit: public static DirectoryNode createDirectoryTree()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 14
+end line: 33
+size: 18 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 34
+unit: public void export()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 66
+end line: 85
+size: 17 LOC
+McCabe index: 4
+number of parameters: 3
+
+id: 35
+unit: public static List getMatchedRegexesNoLimits()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 74
+end line: 91
+size: 17 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 36
+unit: public static String getGraphVizDotPath()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java
+start line: 62
+end line: 78
+size: 16 LOC
+McCabe index: 4
+number of parameters: 0
+
+id: 37
+unit: private static String getSystemVariableOrProperty()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java
+start line: 80
+end line: 99
+size: 16 LOC
+McCabe index: 6
+number of parameters: 2
+
+id: 38
+unit: private String getX3DBody()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 121
+end line: 136
+size: 16 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 39
+unit: public static String getMatchedRegex()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 56
+end line: 72
+size: 16 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 40
+unit: private void startTimeoutIfDefined()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 364
+end line: 379
+size: 16 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 41
+unit: public String toString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 80
+end line: 97
+size: 15 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 42
+unit: public void addToListProperty()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 68
+end line: 82
+size: 15 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 43
+unit: public static boolean matchesEntirely()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 23
+end line: 37
+size: 15 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 44
+unit: public static Object getFieldValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java
+start line: 35
+end line: 50
+size: 15 LOC
+McCabe index: 5
+number of parameters: 2
+
+id: 45
+unit: public static Object getFieldValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java
+start line: 52
+end line: 67
+size: 15 LOC
+McCabe index: 5
+number of parameters: 2
+
+id: 46
+unit: public static String extractSubHistory()
+file: repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java
+start line: 72
+end line: 88
+size: 15 LOC
+McCabe index: 3
+number of parameters: 3
+
+id: 47
+unit: public Options getInitOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 191
+end line: 207
+size: 15 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 48
+unit: public String renderRacingCharts()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 84
+end line: 100
+size: 14 LOC
+McCabe index: 2
+number of parameters: 3
+
+id: 49
+unit: public static int firstIndexOfAny()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java
+start line: 11
+end line: 24
+size: 14 LOC
+McCabe index: 3
+number of parameters: 3
+
+id: 50
+unit: public Object getObject()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java
+start line: 21
+end line: 33
+size: 13 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 51
+unit: public void save()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 114
+end line: 127
+size: 13 LOC
+McCabe index: 4
+number of parameters: 0
+
+id: 52
+unit: private static File getResourceFolder()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java
+start line: 23
+end line: 36
+size: 13 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 53
+unit: public static String getSmallTextForNumber()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 57
+end line: 69
+size: 13 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 54
+unit: public BasicColorInfo getFileSizeColor()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 855
+end line: 867
+size: 13 LOC
+McCabe index: 5
+number of parameters: 2
+
+id: 55
+unit: public String render()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java
+start line: 21
+end line: 35
+size: 12 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 56
+unit: public String render()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 21
+end line: 35
+size: 12 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 57
+unit: public String render2DForceGraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 53
+end line: 67
+size: 12 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 58
+unit: public String render3DForceGraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 69
+end line: 83
+size: 12 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 59
+unit: public static String getLinkWikiStyle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 90
+end line: 101
+size: 12 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 60
+unit: public String toString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java
+start line: 20
+end line: 35
+size: 12 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 61
+unit: public File getFileProperty()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 50
+end line: 61
+size: 12 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 62
+unit: public static String getSafeFileName()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 22
+end line: 33
+size: 12 LOC
+McCabe index: 7
+number of parameters: 1
+
+id: 63
+unit: public static Process exec()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 42
+end line: 55
+size: 12 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 64
+unit: public static void print()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 54
+end line: 65
+size: 12 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 65
+unit: public static String getSmallTextForNumberMinK()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 44
+end line: 55
+size: 12 LOC
+McCabe index: 6
+number of parameters: 1
+
+id: 66
+unit: public static boolean matchesAnyPattern()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 43
+end line: 54
+size: 12 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 67
+unit: public static List getAllFields()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java
+start line: 20
+end line: 33
+size: 12 LOC
+McCabe index: 4
+number of parameters: 1
+
+id: 68
+unit: public static boolean compareWithDefaultJson()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java
+start line: 70
+end line: 82
+size: 12 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 69
+unit: private List usageInfo()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 110
+end line: 124
+size: 12 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 70
+unit: public void usage()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 163
+end line: 174
+size: 12 LOC
+McCabe index: 2
+number of parameters: 3
+
+id: 71
+unit: private void generateReports()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 285
+end line: 299
+size: 12 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 72
+unit: private void saveExecutionStats()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 567
+end line: 580
+size: 12 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 73
+unit: public String toString()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 80
+end line: 92
+size: 11 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 74
+unit: public static BasicColorInfo getColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java
+start line: 61
+end line: 71
+size: 11 LOC
+McCabe index: 4
+number of parameters: 2
+
+id: 75
+unit: private String get3DBody()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 158
+end line: 168
+size: 11 LOC
+McCabe index: 1
+number of parameters: 4
+
+id: 76
+unit: public static void end()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 38
+end line: 48
+size: 11 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 77
+unit: public Options getReportingOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 177
+end line: 189
+size: 11 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 78
+unit: public boolean equals()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 117
+end line: 127
+size: 11 LOC
+McCabe index: 5
+number of parameters: 1
+
+id: 79
+unit: public List toVisualizationItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 140
+end line: 152
+size: 11 LOC
+McCabe index: 3
+number of parameters: 0
+
+id: 80
+unit: protected String getMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java
+start line: 56
+end line: 65
+size: 10 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 81
+unit: public void load()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 103
+end line: 112
+size: 10 LOC
+McCabe index: 3
+number of parameters: 0
+
+id: 82
+unit: public Options getExtractFilesOption()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 232
+end line: 243
+size: 10 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 83
+unit: public static void main()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 72
+end line: 84
+size: 10 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 84
+unit: private static void runDot()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 82
+end line: 90
+size: 9 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 85
+unit: public static String getShowMoreParagraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 55
+end line: 64
+size: 9 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 86
+unit: public static String getStartShowMoreParagraphDisappear()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 75
+end line: 84
+size: 9 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 87
+unit: public static  T getObject()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java
+start line: 35
+end line: 44
+size: 9 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 88
+unit: public static void createAndOpenTempFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 57
+end line: 65
+size: 9 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 89
+unit: public static ProcessingTimes start()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 25
+end line: 36
+size: 9 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 90
+unit: public static String getPercentage()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 67
+end line: 76
+size: 9 LOC
+McCabe index: 4
+number of parameters: 1
+
+id: 91
+unit: private static void extractFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java
+start line: 35
+end line: 43
+size: 9 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 92
+unit: public static List listFiles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java
+start line: 53
+end line: 61
+size: 9 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 93
+unit: private File getConfigFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 492
+end line: 500
+size: 9 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 94
+unit: public static String getColor()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 35
+end line: 45
+size: 9 LOC
+McCabe index: 6
+number of parameters: 3
+
+id: 95
+unit: private AbstractTreeIterator getCanonicalTreeParser()
+file: repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
+start line: 85
+end line: 93
+size: 9 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 96
+unit: private static List getDotParameters()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 92
+end line: 101
+size: 8 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 97
+unit: public String nextColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 50
+end line: 57
+size: 8 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 98
+unit: private List getSortedUnits()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 87
+end line: 94
+size: 8 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 99
+unit: private ObjectMapper getObjectMapper()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java
+start line: 46
+end line: 54
+size: 8 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 100
+unit: public Options getExtractGitHistoryOption()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 245
+end line: 254
+size: 8 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 101
+unit: public Options getExtractGitSubHistoryOption()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 256
+end line: 265
+size: 8 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 102
+unit: private boolean noReportingOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 590
+end line: 597
+size: 8 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 103
+unit: private List getZoomableCirclesRiskProfileItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 781
+end line: 789
+size: 8 LOC
+McCabe index: 2
+number of parameters: 5
+
+id: 104
+unit: public static String getStartShowMoreParagraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 66
+end line: 73
+size: 7 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 105
+unit: public static UserProperties getInstance()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 38
+end line: 44
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 106
+unit: private static File createTempFolder()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java
+start line: 38
+end line: 44
+size: 7 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 107
+unit: public static String getFormattedPercentage()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 16
+end line: 22
+size: 7 LOC
+McCabe index: 3
+number of parameters: 2
+
+id: 108
+unit: private void updateDateParam()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 220
+end line: 226
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 109
+unit: private boolean noFileError()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 582
+end line: 588
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 110
+unit: private void info()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 599
+end line: 605
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 111
+unit: private void addRiskColoredZoomableCircles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 745
+end line: 752
+size: 7 LOC
+McCabe index: 1
+number of parameters: 7
+
+id: 112
+unit: private List getZoomableCirclesItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 754
+end line: 761
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 113
+unit: private List getZoomableCirclesCommitItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 763
+end line: 770
+size: 7 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 114
+unit: private List getZoomableCirclesContributorItems()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 772
+end line: 779
+size: 7 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 115
+unit: private CodeAnalyzerSettings getCodeAnalyzerSettings()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 888
+end line: 896
+size: 7 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 116
+unit: public DirectoryNode()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 58
+end line: 65
+size: 7 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 117
+unit: public static GraphvizSettings getInstance()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java
+start line: 54
+end line: 60
+size: 6 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 118
+unit: private static String removeZeroDecimalIfNecessary()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 75
+end line: 80
+size: 6 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 119
+unit: public static void extractSubHistory()
+file: repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java
+start line: 63
+end line: 70
+size: 6 LOC
+McCabe index: 1
+number of parameters: 4
+
+id: 120
+unit: public void detailedInfo()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 607
+end line: 612
+size: 6 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 121
+unit: private void addCommitZoomableCircles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 731
+end line: 736
+size: 6 LOC
+McCabe index: 3
+number of parameters: 4
+
+id: 122
+unit: private void addContributorsZoomableCircles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 738
+end line: 743
+size: 6 LOC
+McCabe index: 3
+number of parameters: 4
+
+id: 123
+unit: public VisualizationItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 21
+end line: 25
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 124
+unit: public static String renderNumber()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 21
+end line: 25
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 125
+unit: public static String renderNumberStrong()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 27
+end line: 31
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 126
+unit: public static String renderNumber()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 33
+end line: 37
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 127
+unit: public static String renderNumberStrong()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 39
+end line: 43
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 128
+unit: public static String renderNumberStrongWithSuffix()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 45
+end line: 49
+size: 5 LOC
+McCabe index: 2
+number of parameters: 3
+
+id: 129
+unit: public Threshold()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 14
+end line: 18
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 130
+unit: public void addItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 25
+end line: 29
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 131
+unit: public static Palette getDefaultPalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 43
+end line: 48
+size: 5 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 132
+unit: public Force3DLink()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 18
+end line: 22
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 133
+unit: public Unit3D()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 14
+end line: 18
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 134
+unit: public static String formatCount()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 28
+end line: 32
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 135
+unit: public static String formatCount()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 38
+end line: 42
+size: 5 LOC
+McCabe index: 2
+number of parameters: 2
+
+id: 136
+unit: public BasicColorInfo()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 15
+end line: 19
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 137
+unit: public CommandUsage()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 13
+end line: 17
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 138
+unit: private void exportConventions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 476
+end line: 482
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 139
+unit: private void createNewConventionsFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 484
+end line: 490
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 140
+unit: private void generateFileStructureExplorers()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 725
+end line: 729
+size: 5 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 141
+unit: private File getHtmlFolder()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 870
+end line: 874
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 142
+unit: private File prepareReportsFolder()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 881
+end line: 886
+size: 5 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 143
+unit: public VisualizationItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 16
+end line: 19
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 144
+unit: public static String getSvgFromDot()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 28
+end line: 31
+size: 4 LOC
+McCabe index: 2
+number of parameters: 1
+
+id: 145
+unit: public void addRow()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 26
+end line: 29
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 146
+unit: public OrgChartItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 12
+end line: 15
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 147
+unit: public Force3DNode()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 14
+end line: 17
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 148
+unit: public X3DomExporter()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 56
+end line: 59
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 149
+unit: public X3DomExporter()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 61
+end line: 64
+size: 4 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 150
+unit: public Finding()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 33
+end line: 36
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 151
+unit: public Finding detailedDescription()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 46
+end line: 49
+size: 4 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 152
+unit: public Finding setType()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 79
+end line: 82
+size: 4 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 153
+unit: public Finding setSearchPhrase()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 88
+end line: 91
+size: 4 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 154
+unit: public String toString()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 102
+end line: 105
+size: 4 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 155
+unit: public ValidationMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 18
+end line: 21
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 156
+unit: public void setProperty()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 63
+end line: 66
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 157
+unit: public ProcessingTimes()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 8
+end line: 11
+size: 4 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 158
+unit: public void start()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 13
+end line: 16
+size: 4 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 159
+unit: public static void startAsReference()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 20
+end line: 23
+size: 4 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 160
+unit: private void saveTextualSummary()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 876
+end line: 879
+size: 4 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 161
+unit: public String getName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 162
+unit: public void setName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 163
+unit: public Integer getSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 164
+unit: public void setSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 165
+unit: public List getChildren()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 43
+end line: 45
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 166
+unit: public void setChildren()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 47
+end line: 49
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 167
+unit: public String getColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 168
+unit: public void setColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+start line: 55
+end line: 57
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 169
+unit: public String renderBubbleChart()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 37
+end line: 39
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 170
+unit: public String renderTreeMap()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 41
+end line: 43
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 171
+unit: public String renderZoomableCircles()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 45
+end line: 47
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 172
+unit: public String renderZoomableSunburst()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+start line: 49
+end line: 51
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 173
+unit: public static double getPercentage()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 17
+end line: 19
+size: 3 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 174
+unit: public static String link()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 175
+unit: public static String getEndShowMoreParagraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 86
+end line: 88
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 176
+unit: public static String getStyledContent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 103
+end line: 105
+size: 3 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 177
+unit: public static String bold()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 107
+end line: 109
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 178
+unit: public static String bold()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 111
+end line: 113
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 179
+unit: public static String italic()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 115
+end line: 117
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 180
+unit: public static String paragraph()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+start line: 119
+end line: 121
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 181
+unit: public RacingChartItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 11
+end line: 13
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 182
+unit: public String getName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 15
+end line: 17
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 183
+unit: public void setName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 19
+end line: 21
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 184
+unit: public double getYear()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 23
+end line: 25
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 185
+unit: public void setYear()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 186
+unit: public double getValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 187
+unit: public void setValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 188
+unit: public String getTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 20
+end line: 22
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 189
+unit: public void setTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 24
+end line: 26
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 190
+unit: public Number getThreshold()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 28
+end line: 30
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 191
+unit: public void setThreshold()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 32
+end line: 34
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 192
+unit: public BasicColorInfo getColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 36
+end line: 38
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 193
+unit: public void setColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+start line: 40
+end line: 42
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 194
+unit: public BarChart()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 22
+end line: 24
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 195
+unit: public int getWidth()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 196
+unit: public void setWidth()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 197
+unit: public int getHeight()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 198
+unit: public void setHeight()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 43
+end line: 45
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 199
+unit: public String getTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 47
+end line: 49
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 200
+unit: public void setTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 201
+unit: public List getLabels()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 55
+end line: 57
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 202
+unit: public void setLabels()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 59
+end line: 61
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 203
+unit: public void setRows()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 67
+end line: 69
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 204
+unit: public List getColors()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 71
+end line: 73
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 205
+unit: public void setColors()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+start line: 75
+end line: 77
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 206
+unit: public PieChart()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 21
+end line: 23
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 207
+unit: public String getTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 208
+unit: public void setTitle()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 209
+unit: public int getWidth()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 210
+unit: public void setWidth()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 43
+end line: 45
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 211
+unit: public int getHeight()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 47
+end line: 49
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 212
+unit: public void setHeight()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 213
+unit: public List getLabels()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 55
+end line: 57
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 214
+unit: public void setLabels()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 59
+end line: 61
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 215
+unit: public List getValues()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 63
+end line: 65
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 216
+unit: public void setValues()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 67
+end line: 69
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 217
+unit: public List getColors()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 71
+end line: 73
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 218
+unit: public void setColors()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+start line: 75
+end line: 77
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 219
+unit: private Palette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 16
+end line: 18
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 220
+unit: public static Palette getRiskPalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 20
+end line: 22
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 221
+unit: public static Palette getHeatPalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 24
+end line: 27
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 222
+unit: public static Palette getAgePalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 29
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 223
+unit: public static Palette getFreshnessPalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 224
+unit: public static Palette getDuplicationPalette()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 225
+unit: public List getColors()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+start line: 59
+end line: 61
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 226
+unit: public OrgChart()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java
+start line: 15
+end line: 17
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 227
+unit: public String getItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 17
+end line: 19
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 228
+unit: public void setItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 21
+end line: 23
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 229
+unit: public String getParent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 25
+end line: 27
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 230
+unit: public void setParent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 29
+end line: 31
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 231
+unit: public String getTooltip()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 33
+end line: 35
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 232
+unit: public void setTooltip()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+start line: 37
+end line: 39
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 233
+unit: private static BasicColorInfo getBasicColorInfo()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java
+start line: 44
+end line: 46
+size: 3 LOC
+McCabe index: 1
+number of parameters: 3
+
+id: 234
+unit: public List getNodes()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java
+start line: 10
+end line: 12
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 235
+unit: public void setNodes()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java
+start line: 14
+end line: 16
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 236
+unit: public List getLinks()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java
+start line: 18
+end line: 20
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 237
+unit: public void setLinks()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java
+start line: 22
+end line: 24
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 238
+unit: public String getId()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 19
+end line: 21
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 239
+unit: public void setId()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 23
+end line: 25
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 240
+unit: public Integer getSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 241
+unit: public void setSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 242
+unit: public String getSource()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 24
+end line: 26
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 243
+unit: public void setSource()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 28
+end line: 30
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 244
+unit: public String getTarget()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 32
+end line: 34
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 245
+unit: public void setTarget()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 36
+end line: 38
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 246
+unit: public int getCount()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 40
+end line: 42
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 247
+unit: public void setCount()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 44
+end line: 46
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 248
+unit: public String getName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 23
+end line: 25
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 249
+unit: public void setName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 250
+unit: public int getSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 251
+unit: public void setSize()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 252
+unit: public String getColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 253
+unit: public void setColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 43
+end line: 45
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 254
+unit: public File getFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 47
+end line: 49
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 255
+unit: public void setFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 256
+unit: public String getComponent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 55
+end line: 57
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 257
+unit: public void setComponent()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 59
+end line: 61
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 258
+unit: public String getInfo()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 63
+end line: 65
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 259
+unit: public void setInfo()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+start line: 67
+end line: 69
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 260
+unit: public String getName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 20
+end line: 22
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 261
+unit: public void setName()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 24
+end line: 26
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 262
+unit: public Number getValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 28
+end line: 30
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 263
+unit: public void setValue()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 32
+end line: 34
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 264
+unit: public BasicColorInfo getColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 36
+end line: 38
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 265
+unit: public void setColor()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+start line: 40
+end line: 42
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 266
+unit: private int getSqrtRows()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+start line: 138
+end line: 140
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 267
+unit: public String getDisplayText()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 19
+end line: 21
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 268
+unit: public static Finding newPositiveFinding()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 38
+end line: 40
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 269
+unit: public static Finding newFindingWithoutOpinion()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 42
+end line: 44
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 270
+unit: public static Finding newNegativeFinding()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 51
+end line: 53
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 271
+unit: public static Finding newNeutralFinding()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 55
+end line: 57
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 272
+unit: public Assessment getAssessment()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 59
+end line: 61
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 273
+unit: public void setAssessment()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 63
+end line: 65
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 274
+unit: public String getShortDescription()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 67
+end line: 69
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 275
+unit: public void setShortDescription()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 71
+end line: 73
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 276
+unit: public String getType()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 75
+end line: 77
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 277
+unit: public String getSearchPhrase()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 84
+end line: 86
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 278
+unit: public String getDetailedDescription()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 93
+end line: 95
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 279
+unit: public void setDetailedDescription()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 97
+end line: 99
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 280
+unit: public ValidationMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 14
+end line: 16
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 281
+unit: public String getMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 23
+end line: 25
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 282
+unit: public void setMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 283
+unit: public String getSearchPhrase()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 284
+unit: public void setSearchPhrase()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 285
+unit: public String generate()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java
+start line: 11
+end line: 13
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 286
+unit: public String generateCompressed()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java
+start line: 15
+end line: 17
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 287
+unit: public UserProperties()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 26
+end line: 28
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 288
+unit: public static File getUserPropertiesFolder()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 30
+end line: 32
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 289
+unit: public static File getUserPropertiesFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 34
+end line: 36
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 290
+unit: public static void setInstance()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 46
+end line: 48
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 291
+unit: public boolean isReadOnly()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 129
+end line: 131
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 292
+unit: public void setReadOnly()
+file: repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+start line: 133
+end line: 135
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 293
+unit: public static void openFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 34
+end line: 36
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 294
+unit: public static void openFile()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 38
+end line: 40
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 295
+unit: public void end()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 18
+end line: 20
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 296
+unit: public long getDurationMs()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 22
+end line: 24
+size: 3 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 297
+unit: public String getProcessing()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 26
+end line: 28
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 298
+unit: public void setProcessing()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 30
+end line: 32
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 299
+unit: public long getStartMs()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 34
+end line: 36
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 300
+unit: public void setStartMs()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 38
+end line: 40
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 301
+unit: public long getEndMs()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 42
+end line: 44
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 302
+unit: public void setEndMs()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+start line: 46
+end line: 48
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 303
+unit: public static List getMonitors()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+start line: 50
+end line: 52
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 304
+unit: public static String getFormattedPercentage()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 12
+end line: 14
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 305
+unit: public static String getFormattedRemainderPercentage()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 24
+end line: 26
+size: 3 LOC
+McCabe index: 3
+number of parameters: 1
+
+id: 306
+unit: public static String formatCountPlural()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 34
+end line: 36
+size: 3 LOC
+McCabe index: 2
+number of parameters: 3
+
+id: 307
+unit: public static String getPlainTextForNumber()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+start line: 71
+end line: 73
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 308
+unit: public double getRed()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 21
+end line: 23
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 309
+unit: public void setRed()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 25
+end line: 27
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 310
+unit: public double getGreen()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 29
+end line: 31
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 311
+unit: public void setGreen()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 33
+end line: 35
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 312
+unit: public double getBlue()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 37
+end line: 39
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 313
+unit: public void setBlue()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 41
+end line: 43
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 314
+unit: public static boolean doesNotMatchAnyPattern()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 315
+unit: private static String unifyEndOfLineCharacters()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 113
+end line: 115
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 316
+unit: public static void reset()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+start line: 117
+end line: 119
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 317
+unit: public boolean canceled()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 13
+end line: 15
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 318
+unit: public String getName()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 19
+end line: 21
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 319
+unit: public void setName()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 23
+end line: 25
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 320
+unit: public String getDescription()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 27
+end line: 29
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 321
+unit: public void setDescription()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 31
+end line: 33
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 322
+unit: public Options getOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 35
+end line: 37
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 323
+unit: public void setOptions()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 39
+end line: 41
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 324
+unit: private void printlnUsage()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 159
+end line: 161
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 325
+unit: public Option getSrcRoot()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 291
+end line: 293
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 326
+unit: public Option getConventionsFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 295
+end line: 297
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 327
+unit: public Option getName()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 299
+end line: 301
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 328
+unit: public Option getDescription()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 303
+end line: 305
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 329
+unit: public Option getLogoLink()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 307
+end line: 309
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 330
+unit: public Option getConfFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 311
+end line: 313
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 331
+unit: public Option getDate()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 315
+end line: 317
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 332
+unit: public Option getAnalysisRoot()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 319
+end line: 321
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 333
+unit: public Option getTimeout()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 323
+end line: 325
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 334
+unit: public Option getPrefix()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 327
+end line: 329
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 335
+unit: public Option getPattern()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 331
+end line: 333
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 336
+unit: public Option getDestRoot()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 335
+end line: 337
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 337
+unit: public Option getDestParent()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 339
+end line: 341
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 338
+unit: public Option getInternalGraphviz()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 343
+end line: 345
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 339
+unit: public Option getOutputFolder()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 347
+end line: 349
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 340
+unit: public Option getSkipComplexAnalyses()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 351
+end line: 353
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 341
+unit: public Option getSkipDuplicationAnalyses()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 355
+end line: 357
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 342
+unit: public Option getSkipCorrelationAnalyses()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 358
+end line: 360
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 343
+unit: public Option getEnableDuplicationAnalyses()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 362
+end line: 364
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 344
+unit: public Option getSetName()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 366
+end line: 368
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 345
+unit: public Option getSetDescription()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 370
+end line: 372
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 346
+unit: public Option getSetLogoLink()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 374
+end line: 376
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 347
+unit: public Option getSetCacheFiles()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 378
+end line: 380
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 348
+unit: public Option getAddLink()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 382
+end line: 384
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 349
+unit: public Option getHelp()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 386
+end line: 388
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 350
+unit: public Option getRecursive()
+file: repo2/src/main/java/nl/obren/sokrates/cli/Commands.java
+start line: 390
+end line: 392
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 351
+unit: public void setProgressFeedback()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+start line: 899
+end line: 901
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 352
+unit: public Set getChildren()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 67
+end line: 69
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 353
+unit: public String getValue()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 71
+end line: 73
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 354
+unit: public DirectoryNode getParent()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 75
+end line: 77
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 355
+unit: public boolean isLeaf()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 79
+end line: 81
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 356
+unit: public DirectoryNode getRoot()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 83
+end line: 85
+size: 3 LOC
+McCabe index: 2
+number of parameters: 0
+
+id: 357
+unit: public SourceFile getSourceFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 87
+end line: 89
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 358
+unit: public void setSourceFile()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 91
+end line: 93
+size: 3 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 359
+unit: public int hashCode()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 130
+end line: 132
+size: 3 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 360
+unit: private GraphvizUtil()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+start line: 24
+end line: 26
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 361
+unit: public RacingChartItem()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+start line: 8
+end line: 9
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 362
+unit: public Force3DNode()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+start line: 11
+end line: 12
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 363
+unit: public Force3DLink()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+start line: 15
+end line: 16
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 364
+unit: private GraphvizSettings()
+file: repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java
+start line: 51
+end line: 52
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 365
+unit: public Finding()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+start line: 30
+end line: 31
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 366
+unit: public ValidationMessage()
+file: repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+start line: 11
+end line: 12
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 367
+unit: private SystemUtils()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+start line: 19
+end line: 20
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 368
+unit: public BasicColorInfo()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+start line: 12
+end line: 13
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 369
+unit: public void progress()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 17
+end line: 18
+size: 2 LOC
+McCabe index: 1
+number of parameters: 2
+
+id: 370
+unit: public CommandUsage()
+file: repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+start line: 10
+end line: 11
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 371
+unit: public String toString()
+file: repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+start line: 136
+end line: 137
+size: 2 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 372
+unit: public void clear()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 8
+end line: 8
+size: 1 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 373
+unit: public void start()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 9
+end line: 9
+size: 1 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 374
+unit: public void end()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 10
+end line: 10
+size: 1 LOC
+McCabe index: 1
+number of parameters: 0
+
+id: 375
+unit: public void setText()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 11
+end line: 11
+size: 1 LOC
+McCabe index: 1
+number of parameters: 1
+
+id: 376
+unit: public void setDetailedText()
+file: repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+start line: 12
+end line: 12
+size: 1 LOC
+McCabe index: 1
+number of parameters: 1
+

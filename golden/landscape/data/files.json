@@ -1,0 +1,698 @@
+[
+ {
+  "linesOfCode": 78,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 26,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 11,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 53,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 115,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 25,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 80,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 81,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 29,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 95,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 30,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 57,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 42,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 75,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 100,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 45,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 28,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 41,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 94,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 33,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 23,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 19,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 30,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 149,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 50,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 31,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 18,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 92,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 62,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 38,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 13,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 66,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 103,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 52,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 34,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 35,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 77,
+  "path": "repo1/src/main/resources/templates/codepreview.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 89,
+  "path": "repo1/src/main/resources/templates/editor.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 240,
+  "path": "repo1/src/main/resources/templates/files-explorer.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 230,
+  "path": "repo1/src/main/resources/templates/repository-explorer.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 295,
+  "path": "repo1/src/main/resources/vis_templates/bar_chart_races.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 73,
+  "path": "repo1/src/main/resources/vis_templates/bubble_chart.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 32,
+  "path": "repo1/src/main/resources/vis_templates/force_2d.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 26,
+  "path": "repo1/src/main/resources/vis_templates/force_3d.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 121,
+  "path": "repo1/src/main/resources/vis_templates/treemap.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 120,
+  "path": "repo1/src/main/resources/vis_templates/zoomable_circles.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 138,
+  "path": "repo1/src/main/resources/vis_templates/zoomable_sunburst.html",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 744,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 32,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 314,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 195,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 78,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 88,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java",
+  "repository": "repo1",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 17,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 19,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 18,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 24,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 31,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 94,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 52,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 15,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java",
+  "repository": "repo1",
+  "scope": "aspect_test.txt"
+ },
+ {
+  "linesOfCode": 16,
+  "path": "repo1/pom.xml",
+  "repository": "repo1",
+  "scope": "aspect_build_and_deployment.txt"
+ },
+ {
+  "linesOfCode": 1,
+  "path": "repo1/src/main/resources/archive.sh",
+  "repository": "repo1",
+  "scope": "aspect_build_and_deployment.txt"
+ },
+ {
+  "linesOfCode": 61,
+  "path": "repo2/pom.xml",
+  "repository": "repo1",
+  "scope": "aspect_build_and_deployment.txt"
+ },
+ {
+  "linesOfCode": 78,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 26,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 11,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 53,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 115,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 25,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 80,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 81,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 29,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 95,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 30,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 57,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 42,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 75,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 100,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 45,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 28,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 41,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 94,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 33,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 23,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 19,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 30,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 149,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 50,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 31,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 18,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 92,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 62,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 38,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 13,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 66,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 103,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 52,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 34,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 35,
+  "path": "repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 17,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 19,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 18,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 24,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 31,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 94,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 52,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 15,
+  "path": "repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 744,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 32,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 314,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 195,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 78,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 88,
+  "path": "repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java",
+  "repository": "repo2",
+  "scope": "aspect_main.txt"
+ },
+ {
+  "linesOfCode": 16,
+  "path": "repo1/pom.xml",
+  "repository": "repo2",
+  "scope": "aspect_build_and_deployment.txt"
+ },
+ {
+  "linesOfCode": 61,
+  "path": "repo2/pom.xml",
+  "repository": "repo2",
+  "scope": "aspect_build_and_deployment.txt"
+ }
+]

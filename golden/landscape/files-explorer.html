@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Files Explorer</title>
+    <style>
+        body {
+            font-family: Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+        }
+
+        .group {
+            display: inline-block;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+            margin: 8px 18px 8px 8px;
+            padding: 5px;
+            background-color: #f8f8f8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .icon {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 26px;
+            margin-bottom: 20px;
+            filter: grayscale(100%);
+        }
+
+        body {
+            margin: 40px;
+        }
+
+        ::placeholder {
+            color: lightgrey;
+            opacity: 1;
+        }
+
+        :-ms-input-placeholder {
+            color: lightgrey;
+        }
+
+        ::-ms-input-placeholder {
+            color: lightgrey;
+        }
+
+        td {
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    </style>
+    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
+    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
+</head>
+<body style="margin: 12px">
+
+<div style="margin: 0; color: grey">
+    <div>
+        <div style="padding: 0px; margin-bottom: 26px; white-space: nowrap">
+            Scope: &nbsp;
+            <label><input type="checkbox" id="main" checked onchange="update()"><span
+                    id="label_main">main</span></label>&nbsp;&nbsp;
+            <label><input type="checkbox" id="test" checked onchange="update()"><span
+                    id="label_test">test</span></label>&nbsp;&nbsp;
+            <label><input type="checkbox" id="generated" checked onchange="update()"><span id="label_generated">generated</span></label>&nbsp;&nbsp;
+            <label><input type="checkbox" id="build" checked onchange="update()"><span
+                    id="label_build">build</span></label>&nbsp;&nbsp;
+            <label><input type="checkbox" id="other" checked onchange="update()"><span
+                    id="label_other">other</span></label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span id="scope-summary" style="background-color: #f8f8f8"></span>
+        </div>
+        <input id="filter" type="text" placeholder="search..."
+               style="font-size: 16px; height: 32px; width: 320px; margin-bottom: 10px"
+               onkeyup="update()">
+        <div id="search-summary" style="display: inline-block"></div>
+    </div>
+</div>
+
+<div id="content"></div>
+
+<script>
+    let importedFiles = [{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java","scope":"aspect_main.txt","linesOfCode":78},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java","scope":"aspect_main.txt","linesOfCode":26},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java","scope":"aspect_main.txt","linesOfCode":11},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java","scope":"aspect_main.txt","linesOfCode":53},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java","scope":"aspect_main.txt","linesOfCode":115},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java","scope":"aspect_main.txt","linesOfCode":25},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java","scope":"aspect_main.txt","linesOfCode":80},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java","scope":"aspect_main.txt","linesOfCode":81},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java","scope":"aspect_main.txt","linesOfCode":29},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java","scope":"aspect_main.txt","linesOfCode":95},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java","scope":"aspect_main.txt","linesOfCode":30},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java","scope":"aspect_main.txt","linesOfCode":57},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java","scope":"aspect_main.txt","linesOfCode":42},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java","scope":"aspect_main.txt","linesOfCode":75},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java","scope":"aspect_main.txt","linesOfCode":100},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java","scope":"aspect_main.txt","linesOfCode":45},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java","scope":"aspect_main.txt","linesOfCode":28},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java","scope":"aspect_main.txt","linesOfCode":41},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java","scope":"aspect_main.txt","linesOfCode":94},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java","scope":"aspect_main.txt","linesOfCode":33},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java","scope":"aspect_main.txt","linesOfCode":23},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java","scope":"aspect_main.txt","linesOfCode":19},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java","scope":"aspect_main.txt","linesOfCode":30},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java","scope":"aspect_main.txt","linesOfCode":149},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java","scope":"aspect_main.txt","linesOfCode":50},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java","scope":"aspect_main.txt","linesOfCode":31},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java","scope":"aspect_main.txt","linesOfCode":18},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java","scope":"aspect_main.txt","linesOfCode":92},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java","scope":"aspect_main.txt","linesOfCode":62},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java","scope":"aspect_main.txt","linesOfCode":38},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java","scope":"aspect_main.txt","linesOfCode":13},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java","scope":"aspect_main.txt","linesOfCode":66},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java","scope":"aspect_main.txt","linesOfCode":103},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java","scope":"aspect_main.txt","linesOfCode":52},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java","scope":"aspect_main.txt","linesOfCode":34},{"repository":"repo1","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java","scope":"aspect_main.txt","linesOfCode":35},{"repository":"repo1","path":"repo1/src/main/resources/templates/codepreview.html","scope":"aspect_main.txt","linesOfCode":77},{"repository":"repo1","path":"repo1/src/main/resources/templates/editor.html","scope":"aspect_main.txt","linesOfCode":89},{"repository":"repo1","path":"repo1/src/main/resources/templates/files-explorer.html","scope":"aspect_main.txt","linesOfCode":240},{"repository":"repo1","path":"repo1/src/main/resources/templates/repository-explorer.html","scope":"aspect_main.txt","linesOfCode":230},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/bar_chart_races.html","scope":"aspect_main.txt","linesOfCode":295},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/bubble_chart.html","scope":"aspect_main.txt","linesOfCode":73},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/force_2d.html","scope":"aspect_main.txt","linesOfCode":32},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/force_3d.html","scope":"aspect_main.txt","linesOfCode":26},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/treemap.html","scope":"aspect_main.txt","linesOfCode":121},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/zoomable_circles.html","scope":"aspect_main.txt","linesOfCode":120},{"repository":"repo1","path":"repo1/src/main/resources/vis_templates/zoomable_sunburst.html","scope":"aspect_main.txt","linesOfCode":138},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java","scope":"aspect_main.txt","linesOfCode":744},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java","scope":"aspect_main.txt","linesOfCode":32},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/Commands.java","scope":"aspect_main.txt","linesOfCode":314},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java","scope":"aspect_main.txt","linesOfCode":195},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java","scope":"aspect_main.txt","linesOfCode":78},{"repository":"repo1","path":"repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java","scope":"aspect_main.txt","linesOfCode":88},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java","scope":"aspect_test.txt","linesOfCode":17},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java","scope":"aspect_test.txt","linesOfCode":19},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java","scope":"aspect_test.txt","linesOfCode":18},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java","scope":"aspect_test.txt","linesOfCode":24},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java","scope":"aspect_test.txt","linesOfCode":31},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java","scope":"aspect_test.txt","linesOfCode":94},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java","scope":"aspect_test.txt","linesOfCode":52},{"repository":"repo1","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java","scope":"aspect_test.txt","linesOfCode":15},{"repository":"repo1","path":"repo1/pom.xml","scope":"aspect_build_and_deployment.txt","linesOfCode":16},{"repository":"repo1","path":"repo1/src/main/resources/archive.sh","scope":"aspect_build_and_deployment.txt","linesOfCode":1},{"repository":"repo1","path":"repo2/pom.xml","scope":"aspect_build_and_deployment.txt","linesOfCode":61},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java","scope":"aspect_main.txt","linesOfCode":78},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java","scope":"aspect_main.txt","linesOfCode":26},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java","scope":"aspect_main.txt","linesOfCode":11},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java","scope":"aspect_main.txt","linesOfCode":53},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java","scope":"aspect_main.txt","linesOfCode":115},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java","scope":"aspect_main.txt","linesOfCode":25},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java","scope":"aspect_main.txt","linesOfCode":80},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java","scope":"aspect_main.txt","linesOfCode":81},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java","scope":"aspect_main.txt","linesOfCode":29},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java","scope":"aspect_main.txt","linesOfCode":95},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java","scope":"aspect_main.txt","linesOfCode":30},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java","scope":"aspect_main.txt","linesOfCode":57},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java","scope":"aspect_main.txt","linesOfCode":42},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java","scope":"aspect_main.txt","linesOfCode":75},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java","scope":"aspect_main.txt","linesOfCode":100},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java","scope":"aspect_main.txt","linesOfCode":45},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java","scope":"aspect_main.txt","linesOfCode":28},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java","scope":"aspect_main.txt","linesOfCode":41},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java","scope":"aspect_main.txt","linesOfCode":94},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java","scope":"aspect_main.txt","linesOfCode":33},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java","scope":"aspect_main.txt","linesOfCode":23},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java","scope":"aspect_main.txt","linesOfCode":19},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java","scope":"aspect_main.txt","linesOfCode":30},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java","scope":"aspect_main.txt","linesOfCode":149},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java","scope":"aspect_main.txt","linesOfCode":50},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java","scope":"aspect_main.txt","linesOfCode":31},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java","scope":"aspect_main.txt","linesOfCode":18},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java","scope":"aspect_main.txt","linesOfCode":92},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java","scope":"aspect_main.txt","linesOfCode":62},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java","scope":"aspect_main.txt","linesOfCode":38},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java","scope":"aspect_main.txt","linesOfCode":13},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java","scope":"aspect_main.txt","linesOfCode":66},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java","scope":"aspect_main.txt","linesOfCode":103},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java","scope":"aspect_main.txt","linesOfCode":52},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java","scope":"aspect_main.txt","linesOfCode":34},{"repository":"repo2","path":"repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java","scope":"aspect_main.txt","linesOfCode":35},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java","scope":"aspect_main.txt","linesOfCode":17},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java","scope":"aspect_main.txt","linesOfCode":19},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java","scope":"aspect_main.txt","linesOfCode":18},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java","scope":"aspect_main.txt","linesOfCode":24},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java","scope":"aspect_main.txt","linesOfCode":31},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java","scope":"aspect_main.txt","linesOfCode":94},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java","scope":"aspect_main.txt","linesOfCode":52},{"repository":"repo2","path":"repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java","scope":"aspect_main.txt","linesOfCode":15},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java","scope":"aspect_main.txt","linesOfCode":744},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java","scope":"aspect_main.txt","linesOfCode":32},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/Commands.java","scope":"aspect_main.txt","linesOfCode":314},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java","scope":"aspect_main.txt","linesOfCode":195},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java","scope":"aspect_main.txt","linesOfCode":78},{"repository":"repo2","path":"repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java","scope":"aspect_main.txt","linesOfCode":88},{"repository":"repo2","path":"repo1/pom.xml","scope":"aspect_build_and_deployment.txt","linesOfCode":16},{"repository":"repo2","path":"repo2/pom.xml","scope":"aspect_build_and_deployment.txt","linesOfCode":61}];
+
+    importedFiles.forEach(file => {
+        let key = file.scope.replace('.txt', '').replace('aspect_', '').trim().toLowerCase();
+        if (key == 'build_and_deployment') {
+            key = 'build';
+        }
+        if (!document.getElementById(key)) {
+            key = 'other';
+        }
+        file.scope = key;
+    });
+
+
+    const importedFileMap = {};
+
+    let files = [];
+
+    importedFiles.forEach(file => {
+        const key = file.repository + '/' + file.path;
+        if (!importedFileMap[key]) {
+            importedFileMap[key] = true;
+            files.push(file);
+        }
+    });
+
+    function getScopes(files) {
+        const scopeMap = {};
+        const scopes = [];
+        files.forEach(file => {
+            const key = file.scope;
+            if (!scopeMap[key]) {
+                scopeMap[key] = {scope: key, filesCount: 0};
+                scopes.push(scopeMap[key]);
+            }
+
+            scopeMap[key].filesCount += 1;
+        });
+
+        scopes.sort((a, b) => b.filesCount - a.filesCount);
+        return scopes;
+    }
+
+
+    files = files.sort((a, b) => b.linesOfCode - a.linesOfCode);
+
+    function getReposCount(files) {
+        const allReposMap = {};
+        let reposCount = 0;
+
+        files.forEach(file => {
+            if (file.repository && !allReposMap[file.repository]) {
+                allReposMap[file.repository] = true;
+                reposCount++;
+            }
+        });
+
+        return reposCount;
+    }
+
+    function getLoc(files) {
+        return files.map(item => item.linesOfCode).reduce((a, b) => a + b, 0);
+    }
+
+    let lastSort = 'loc';
+
+    function update(sortBy) {
+        if (!sortBy) sortBy = lastSort || 'loc';
+        lastSort = sortBy;
+        files = files.sort((a, b) => {
+            if (sortBy === 'name') {
+                return (a.repository + '/' + a.path).localeCompare(b.repository + '/' + b.path);
+            } else {
+                return b.linesOfCode - a.linesOfCode;
+            }
+        });
+        const filter = document.getElementById('filter').value.toLowerCase().trim();
+        let html = '';
+
+        const scopedData = files
+            .filter(item => document.getElementById(item.scope).checked);
+
+        let scopedCount = scopedData.length;
+        let scopedLoc = scopedData.map(item => item.linesOfCode).reduce((a, b) => a + b, 0);
+        const scopedReposCount = getReposCount(scopedData)
+
+        const scopedRepoInfo = scopedReposCount ? ', ' + scopedReposCount + ' repositories' : '';
+        let totalReposCount = getReposCount(files);
+        const totalRepoInfo = totalReposCount ? ', ' + totalReposCount + ' repositories' : '';
+        document.getElementById('scope-summary').innerHTML = '[' + scopedCount.toLocaleString('en-US') + ' ' + (scopedCount === 1 ? 'file' : 'files') + '; ' + scopedLoc.toLocaleString('en-US') + ' LOC' + scopedRepoInfo + '] of ' + '[' + files.length.toLocaleString('en-US') + ' ' + (files.length === 1 ? 'file' : 'files') + '; ' + getLoc(files).toLocaleString('en-US') + ' LOC' + totalRepoInfo + ']';
+
+        const filteredData = scopedData
+            .filter(item => item.path && (!filter || (item.repository + ' ' + item.path).toLowerCase().includes(filter)));
+
+        let maxLoc = 1;
+        filteredData.forEach(item => maxLoc = Math.max(maxLoc, item.linesOfCode));
+
+        let filteredCount = filteredData.length;
+        let filteredLoc = filteredData.map(item => item.linesOfCode).reduce((a, b) => a + b, 0);
+        const filteredReposCount = getReposCount(filteredData)
+
+        const repoInfo = filteredReposCount ? ', ' + filteredReposCount + ' repositories' : '';
+
+        document.getElementById('search-summary').innerHTML = ' = ' + filteredCount.toLocaleString('en-US') + ' ' + (filteredCount === 1 ? 'file' : 'files') + ' (' + filteredLoc.toLocaleString('en-US') + ' LOC' + repoInfo + ')';
+
+        if (scopedLoc > filteredLoc) {
+            html += '<div style="width: 400px; margin: 0; padding: 0; white-space: nowrap">';
+            const w1count = Math.round(100 * filteredCount / scopedCount);
+            const w2count = 100 - w1count;
+            html += '<div style="margin: 0; display: inline-block; width: ' + w1count + '%; background-color: #303030; height: 12px"></div>';
+            html += '<div style="margin: 0; display: inline-block; width: ' + w2count + '%; background-color: #c0c0c0; height: 12px"></div>';
+            html += '<div style="margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top">&nbsp;' + (filteredLoc == 0 || w1count > 0 ? w1count : '<1') + '% of scoped files</div>';
+            html += '</div>';
+            if (filteredReposCount) {
+                html += '<div style="width: 400px; margin: 0; padding: 0; white-space: nowrap">';
+                const w1repo = Math.round(100 * filteredReposCount / scopedReposCount);
+                const w2repo = 100 - w1repo;
+                html += '<div style="margin: 0; display: inline-block; width: ' + w1repo + '%; background-color: #303030; height: 12px"></div>';
+                html += '<div style="margin: 0; display: inline-block; width: ' + w2repo + '%; background-color: #c0c0c0; height: 12px"></div>';
+                html += '<div style="margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top">&nbsp;' + (filteredLoc == 0 || w1repo > 0 ? w1repo : '<1') + '% of scoped repositories</div>';
+                html += '</div>';
+            }
+            html += '<div style="width: 400px; margin: 0; padding: 0; white-space: nowrap">';
+            const w1loc = Math.round(100 * filteredLoc / scopedLoc);
+            const w2loc = 100 - w1loc;
+            html += '<div style="margin: 0; display: inline-block; width: ' + w1loc + '%; background-color: skyblue; height: 12px"></div>';
+            html += '<div style="margin: 0; display: inline-block; width: ' + w2loc + '%; background-color: #c0c0c0; height: 12px"></div>';
+            html += '<div style="margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top">&nbsp;' + (filteredLoc == 0 || w1loc > 0 ? w1loc : '<1') + '% of scoped LOC</div>';
+            html += '</div>';
+            html += '<div style="width: 400px; margin: 0; padding: 0; white-space: nowrap">';
+
+        }
+
+        html += '<table style="width: 100%">';
+
+        html += '<tr style="color: #777777; background-color: #f8f8f8">';
+        if (filteredReposCount) {
+            html += '<td style="text-align: left">repo</td>';
+        }
+        html += '<td style="text-align: left"><a href="#" onclick="update(\'name\');">file</a></td>';
+        html += '<td style="text-align: left"><a href="#" onclick="update(\'loc\');">&nbsp;LOC</a></td>';
+        html += '<td style="text-align: center">scope</td>';
+        html += '</tr>';
+
+        let displayCounter = 0;
+
+        filteredData.forEach(item => {
+            if (displayCounter > 1000) {
+                return;
+            }
+            displayCounter++;
+            html += '<tr>';
+            if (filteredReposCount) {
+                html += '<td>';
+                html += item.repository;
+                html += '</td>';
+            }
+            html += '<td>';
+            const paths = item.path.split('/');
+            const fileName = paths[paths.length - 1];
+            const folder = paths.slice(0, paths.length - 1).join('/');
+            html += '<span style="color: #afafaf">' + (folder + folder ? folder + '/' : '') + '</span>';
+            html += '<span style="color: black; font-weight: bold">' + fileName + '</span>';
+            html += '</td>';
+
+            let scope = item.scope;
+            html += '<td style="text-align: left; padding-right: 5px; padding-left: 5px">';
+            html += '<div style=" border-radius: 4px; padding 2px;">';
+            const w = maxLoc > 0 ? Math.round(50 * item.linesOfCode / maxLoc + 1) : 0;
+            if (scope === 'main') {
+                html += '<div style="vertical-align: top; display: inline-block; height: 16px; background-color: blue; width: ' + w + 'px"></div>';
+            } else {
+                html += '<div style="vertical-align: top; display: inline-block; height: 16px; background-color: lightgrey; width: ' + w + 'px"></div>';
+            }
+            html += '<div style="margin-left: 2px; vertical-align: top; display: inline-block; font-size: 80%">' + item.linesOfCode.toLocaleString("en-US") + '</div>';
+            html += '</div>';
+            html += '</td>';
+            html += '<td style="text-align: center; padding-right: 5px; padding-left: 5px;">';
+            if (scope === 'main') {
+                html += '<div style="border: 1px solid #d0d0d0; border-radius: 4px; padding 2px; color: blue">';
+            } else {
+                html += '<div style="border: 1px solid #d0d0d0; background-color: #f4f4f4; border-radius: 4px; padding 2px;">';
+            }
+            html += scope;
+            html += '</div>';
+            html += '</td>';
+            html += '<td style="text-align: left; padding-right: 5px; padding-left: 5px;">';
+            html += '</td>';
+            html += '</tr>';
+        });
+
+        html += '</table>';
+
+        document.getElementById('content').innerHTML = html;
+    }
+
+    update();
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>public void getSmallTextForNumberMinK()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void getSmallTextForNumberMinK()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java [89:106]</i></p>
+<ul>
+    <li><b>18</b> lines of code</li>
+    <li><b>1</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void getSmallTextForNumberMinK() {
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(0), &quot;&lt;b&gt;0&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(5), &quot;&lt;b&gt;0.01&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10), &quot;&lt;b&gt;0.01&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(22), &quot;&lt;b&gt;0.02&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(53), &quot;&lt;b&gt;0.05&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(100), &quot;&lt;b&gt;0.1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(230), &quot;&lt;b&gt;0.2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(520), &quot;&lt;b&gt;0.5&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(570), &quot;&lt;b&gt;0.6&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(998), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(1000), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(2000), &quot;&lt;b&gt;2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10000), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(100000), &quot;&lt;b&gt;100&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(1000000), &quot;&lt;b&gt;1&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10000000), &quot;&lt;b&gt;10&lt;/b&gt;M&quot;);
+        }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

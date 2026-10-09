@@ -1,0 +1,67 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java (<b>31</b> lines of code) (<a href="RichTextRenderingUtilsTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.renderingutils;
+
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class RichTextRenderingUtilsTest {
+    @Test
+    public void getLinkWikiStyle() throws Exception {
+        assertEquals(RichTextRenderingUtils.getLinkWikiStyle(&quot;http://link.witout.title.com&quot;), &quot;&lt;a href='http://link.witout.title.com'&gt;http://link.witout.title.com&lt;/a&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.getLinkWikiStyle(&quot;http://link.with.title.com My Title&quot;), &quot;&lt;a href='http://link.with.title.com'&gt;My Title&lt;/a&gt;&quot;);
+    }
+
+    @Test
+    public void testGetPercentage() throws Exception {
+        assertEquals(RichTextRenderingUtils.getPercentage(100, 20), 20.0);
+        assertEquals(RichTextRenderingUtils.getPercentage(100, 0), 0.0);
+        assertEquals(RichTextRenderingUtils.getPercentage(100, 100), 100.0);
+        assertEquals(RichTextRenderingUtils.getPercentage(100, 50), 50.0);
+    }
+
+    @Test
+    public void testRenderDouble() throws Exception {
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(1.0), &quot;&lt;b&gt;1.0&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(10.0), &quot;&lt;b&gt;10.0&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(25.6), &quot;&lt;b&gt;25.6&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(-1.0), &quot;&lt;b&gt;-1.0&lt;/b&gt;&quot;);
+    }
+
+    @Test
+    public void testRenderInteger() throws Exception {
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(1), &quot;&lt;b&gt;1&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(10), &quot;&lt;b&gt;10&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(25), &quot;&lt;b&gt;25&lt;/b&gt;&quot;);
+        assertEquals(RichTextRenderingUtils.renderNumberStrong(-1), &quot;&lt;b&gt;-1&lt;/b&gt;&quot;);
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

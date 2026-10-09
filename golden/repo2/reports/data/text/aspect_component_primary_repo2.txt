@@ -1,0 +1,7 @@
+Path	Lines of Code
+repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java	744
+repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java	32
+repo2/src/main/java/nl/obren/sokrates/cli/Commands.java	314
+repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java	195
+repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java	78
+repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java	88

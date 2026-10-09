@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title>public List getFileListProperty()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public List getFileListProperty()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java [84:101]</i></p>
+<ul>
+    <li><b>18</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public List&lt;File&gt; getFileListProperty(String propertyName) {
+        List&lt;File&gt; files = new ArrayList&lt;&gt;();
+        String property = properties.getProperty(propertyName);
+        if (property != null) {
+            try {
+                List list = (List) new JsonMapper().getObject(property, List.class);
+                list.forEach(item -&gt; {
+                    File file = new File(item.toString());
+                    if (file.exists() &amp;&amp; !files.contains(file)) {
+                        files.add(file);
+                    }
+                });
+            } catch (IOException e) {
+                LOG.error(e);
+            }
+        }
+        return files;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

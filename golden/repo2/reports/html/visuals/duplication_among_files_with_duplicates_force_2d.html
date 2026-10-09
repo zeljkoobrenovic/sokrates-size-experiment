@@ -1,0 +1,247 @@
+<head>
+    <style> body {
+        margin: 0;
+    } </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/force-graph"></script>
+</head>
+
+<body>
+<div id="graph"></div>
+
+<script>
+    const gData = {
+  "nodes" : [ {
+    "id" : "duplicate4",
+    "size" : 2
+  }, {
+    "id" : "duplicate3",
+    "size" : 2
+  }, {
+    "id" : "duplicate6",
+    "size" : 2
+  }, {
+    "id" : "duplicate5",
+    "size" : 2
+  }, {
+    "id" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "size" : 2
+  }, {
+    "id" : "duplicate8",
+    "size" : 2
+  }, {
+    "id" : "duplicate7",
+    "size" : 2
+  }, {
+    "id" : "duplicate9",
+    "size" : 2
+  }, {
+    "id" : "duplicate10",
+    "size" : 2
+  }, {
+    "id" : "duplicate2",
+    "size" : 2
+  }, {
+    "id" : "duplicate1",
+    "size" : 2
+  }, {
+    "id" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "size" : 6
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "size" : 3
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "size" : 3
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "size" : 6
+  } ],
+  "links" : [ {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate1",
+    "count" : 1
+  }, {
+    "source" : "duplicate1",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate1",
+    "count" : 1
+  }, {
+    "source" : "duplicate1",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "target" : "duplicate2",
+    "count" : 1
+  }, {
+    "source" : "duplicate2",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "target" : "duplicate2",
+    "count" : 1
+  }, {
+    "source" : "duplicate2",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "target" : "duplicate3",
+    "count" : 1
+  }, {
+    "source" : "duplicate3",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "target" : "duplicate3",
+    "count" : 1
+  }, {
+    "source" : "duplicate3",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate4",
+    "count" : 1
+  }, {
+    "source" : "duplicate4",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate4",
+    "count" : 1
+  }, {
+    "source" : "duplicate4",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate5",
+    "count" : 1
+  }, {
+    "source" : "duplicate5",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate5",
+    "count" : 1
+  }, {
+    "source" : "duplicate5",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate6",
+    "count" : 1
+  }, {
+    "source" : "duplicate6",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate6",
+    "count" : 1
+  }, {
+    "source" : "duplicate6",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate7",
+    "count" : 1
+  }, {
+    "source" : "duplicate7",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "duplicate7",
+    "count" : 1
+  }, {
+    "source" : "duplicate7",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate8",
+    "count" : 1
+  }, {
+    "source" : "duplicate8",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "duplicate8",
+    "count" : 1
+  }, {
+    "source" : "duplicate8",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "target" : "duplicate9",
+    "count" : 1
+  }, {
+    "source" : "duplicate9",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "target" : "duplicate9",
+    "count" : 1
+  }, {
+    "source" : "duplicate9",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "target" : "duplicate10",
+    "count" : 1
+  }, {
+    "source" : "duplicate10",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "count" : 1
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "target" : "duplicate10",
+    "count" : 1
+  }, {
+    "source" : "duplicate10",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "count" : 1
+  } ]
+}
+
+    const maxNodeSize = gData.nodes.map(n => n.size).reduce((a, b) => Math.max(a, b));
+    const maxCount = gData.links.map(l => l.count).reduce((a, b) => Math.max(a, b));
+
+    gData.links = gData.links.map(l => {
+        return {source: l.target, target: l.source, count: l.count}
+    });
+    const colorOf = (node) => {
+        if (!node.id.startsWith("[")) return "rgba(135, 206, 235, 0.6)";
+        return "rgba(100,100,100,0.6)";
+    }
+
+    const elem = document.getElementById('graph');
+    const Graph = ForceGraph()(elem)
+        .graphData(gData)
+        .nodeRelSize(4)
+        .nodeVal(n => Math.max(20 * n.size / maxNodeSize, 0.001))
+        .nodeLabel(n => n.id + " (" + n.size + ")")
+        .nodeColor(n => colorOf(n))
+        .linkDirectionalParticles(1)
+        .linkDirectionalParticleSpeed(d => d.count / maxCount * 0.01)
+        .linkOpacity(0.1)
+        .linkWidth(d => 3 * d.count / maxCount + 0.1);
+
+</script>
+</body>

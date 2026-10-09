@@ -1,0 +1,34 @@
+<html>
+<head>
+    <title>public static String getSafeFileName()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static String getSafeFileName()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java [22:33]</i></p>
+<ul>
+    <li><b>12</b> lines of code</li>
+    <li><b>7</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static String getSafeFileName(String string) {
+        StringBuilder sb = new StringBuilder(string.length());
+        string = Normalizer.normalize(string, Normalizer.Form.NFD);
+        for (char c : string.toCharArray()) {
+            if (c == '.' || (c &gt;= 'a' &amp;&amp; c &lt;= 'z') || (c &gt;= 'A' &amp;&amp; c &lt;= 'Z') || (c &gt;= '0' &amp;&amp; c &lt;= '9')) {
+                sb.append(c);
+            } else {
+                sb.append(&quot;_&quot;);
+            }
+        }
+        return sb.toString();
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

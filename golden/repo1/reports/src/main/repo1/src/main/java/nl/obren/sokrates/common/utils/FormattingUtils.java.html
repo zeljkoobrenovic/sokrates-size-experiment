@@ -1,0 +1,141 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java (<b>92</b> lines of code) (<a href="FormattingUtils.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.utils;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+public class FormattingUtils {
+    public static String getFormattedPercentage(double percentage) {
+        return getFormattedPercentage(percentage, &quot;0&quot;);
+    }
+
+    public static String getFormattedPercentage(double percentage, String textForZero) {
+        return percentage &lt; 0.0000000000000000000001
+                ? textForZero
+                : percentage &lt; 1.0
+                ? &quot;&lt;1&quot;
+                : (&quot;&quot; + (int) percentage);
+    }
+
+    public static String getFormattedRemainderPercentage(double percentage) {
+        return percentage == 0 ? &quot;100&quot; : percentage &lt; 1 ? &quot;&gt;99&quot; : &quot;&quot; + (100 - (int) percentage);
+    }
+
+    public static String formatCount(int value) {
+        DecimalFormat decimalFormat = new DecimalFormat(&quot;#,###&quot;);
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return decimalFormat.format(value);
+    }
+
+    public static String formatCountPlural(int value, String singleSuffix, String pluralSuffix) {
+        return formatCount(value) + &quot; &quot; + (value == 1 ? singleSuffix : pluralSuffix);
+    }
+
+    public static String formatCount(int value, String textForZero) {
+        DecimalFormat decimalFormat = new DecimalFormat(&quot;#,###&quot;);
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return value == 0 ? textForZero : decimalFormat.format(value);
+    }
+
+    public static String getSmallTextForNumberMinK(int number) {
+        if (number == 0) {
+            return &quot;&lt;b&gt;0&lt;/b&gt;&quot;;
+        } else if (number &lt; 1000) {
+            if (number &lt;= 10) return &quot;&lt;b&gt;0.01&lt;/b&gt;K&quot;;
+            else if (number &lt;= 100) return &quot;&lt;b&gt;&quot; + (Math.round(number / 10.0) / 100.0) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+            else if ((int) Math.round(number / 100.0) == 10) return &quot;&lt;b&gt;1&lt;/b&gt;K&quot;;
+            else return &quot;&lt;b&gt;&quot; + (Math.round(number / 100.0) / 10.0) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+        } else {
+            return getSmallTextForNumber(number);
+        }
+    }
+
+    public static String getSmallTextForNumber(int number) {
+        if (number &lt; 1000) {
+            return &quot;&lt;b&gt;&quot; + number + &quot;&lt;/b&gt;&quot; + &quot;&quot;;
+        } else if (number &lt; 10000) {
+            return &quot;&lt;b&gt;&quot; + removeZeroDecimalIfNecessary(String.format(Locale.US, &quot;%.1f&quot;, number / 1000f)) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+        } else if (number &lt; 1000000) {
+            return &quot;&lt;b&gt;&quot; + Math.round(number / 1000f) + &quot;&lt;/b&gt;&quot; + &quot;K&quot;;
+        } else if (number &lt; 10000000) {
+            return &quot;&lt;b&gt;&quot; + removeZeroDecimalIfNecessary(String.format(Locale.US, &quot;%.1f&quot;, number / 1000000f)) + &quot;&lt;/b&gt;&quot; + &quot;M&quot;;
+        } else {
+            return &quot;&lt;b&gt;&quot; + Math.round(number / 1000000f) + &quot;&lt;/b&gt;&quot; + &quot;M&quot;;
+        }
+    }
+
+    public static String getPlainTextForNumber(int number) {
+        return getSmallTextForNumber(number).replaceAll(&quot;&lt;.*?&gt;&quot;, &quot;&quot;);
+    }
+
+    private static String removeZeroDecimalIfNecessary(String formattedNumber) {
+        if (formattedNumber.endsWith(&quot;.0&quot;)) {
+            formattedNumber = formattedNumber.substring(0, formattedNumber.length() - 2);
+        }
+        return formattedNumber;
+    }
+
+
+    public static String formatPeriod(int ageInDays) {
+        int years = ageInDays / 365;
+        int rest = ageInDays % 365;
+        int months = rest / 30;
+
+
+        if (years == 0 &amp;&amp; months == 0) {
+            return &quot;less than a month&quot;;
+        }
+
+        String text = &quot;&quot;;
+        if (years == 1) {
+            text += &quot;1 year&quot;;
+        } else if (years &gt; 1) {
+            text += years + &quot; years&quot;;
+        }
+
+        if (months &gt; 0) {
+            if (text.length() &gt; 0) {
+                text += &quot;, &quot;;
+            }
+            if (months == 1) {
+                text += &quot;1 month&quot;;
+            } else if (months &gt; 1) {
+                text += months + &quot; months&quot;;
+            } else {
+
+            }
+        }
+
+        return text;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

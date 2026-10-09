@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java (<b>17</b> lines of code) (<a href="FindingTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.analysis;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class FindingTest {
+
+    @Test
+    public void testToString() throws Exception {
+        assertEquals(Finding.newNegativeFinding(&quot;This is bad.&quot;).toString(), &quot;- This is bad.&quot;);
+        assertEquals(Finding.newPositiveFinding(&quot;This is rather good.&quot;).toString(), &quot;+ This is rather good.&quot;);
+        assertEquals(Finding.newNeutralFinding(&quot;This is OK.&quot;).toString(), &quot;&plusmn; This is OK.&quot;);
+    }
+
+    @Test
+    public void testToStringWithType() throws Exception {
+        assertEquals(Finding.newNegativeFinding(&quot;This is bad.&quot;).setType(&quot;GROUP&quot;).toString(), &quot;- (GROUP) This is bad.&quot;);
+        assertEquals(Finding.newPositiveFinding(&quot;This is rather good.&quot;).setType(&quot;GROUP&quot;).toString(), &quot;+ (GROUP) This is rather good.&quot;);
+        assertEquals(Finding.newNeutralFinding(&quot;This is OK.&quot;).setType(&quot;GROUP&quot;).toString(), &quot;&plusmn; (GROUP) This is OK.&quot;);
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

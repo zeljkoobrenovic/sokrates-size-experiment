@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>public void merge()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void merge()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java [95:114]</i></p>
+<ul>
+    <li><b>19</b> lines of code</li>
+    <li><b>7</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void merge(final DirectoryNode that) {
+        if (!this.value.equals(that.value)) {
+            return;
+        } else if (this.children.isEmpty()) {
+            this.children.addAll(that.children);
+            return;
+        }
+
+        final DirectoryNode[] thisChildren = this.children
+                .toArray(new DirectoryNode[this.children.size()]);
+        for (final DirectoryNode thisChild : thisChildren) {
+            for (final DirectoryNode thatChild : that.children) {
+                if (thisChild.value.equals(thatChild.value)) {
+                    thisChild.merge(thatChild);
+                } else if (!this.children.contains(thatChild)) {
+                    this.children.add(thatChild);
+                }
+            }
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,4 @@
+Path	Lines of Code
+repo1/pom.xml	16
+repo1/src/main/resources/archive.sh	1
+repo2/pom.xml	61

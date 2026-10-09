@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java (<b>94</b> lines of code) (<a href="FormattingUtilsTest.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.utils;
+
+import junit.framework.TestCase;
+import org.junit.Test;
+
+import static junit.framework.TestCase.assertEquals;
+
+public class FormattingUtilsTest {
+    @Test
+    public void getFormattedPercentage() throws Exception {
+        TestCase.assertEquals(FormattingUtils.getFormattedPercentage(100), &quot;100&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(1), &quot;1&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(0), &quot;0&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(0.4), &quot;&lt;1&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(0.5), &quot;&lt;1&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(0.6), &quot;&lt;1&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(25), &quot;25&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(25.5), &quot;25&quot;);
+        assertEquals(FormattingUtils.getFormattedPercentage(25.55467456), &quot;25&quot;);
+    }
+
+    @Test
+    public void getFormattedRemainderPercentage() throws Exception {
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(100), &quot;0&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(1), &quot;99&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(0), &quot;100&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(0.4), &quot;&gt;99&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(0.5), &quot;&gt;99&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(0.6), &quot;&gt;99&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(25), &quot;75&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(25.5), &quot;75&quot;);
+        assertEquals(FormattingUtils.getFormattedRemainderPercentage(25.55467456), &quot;75&quot;);
+    }
+
+    @Test
+    public void getFormattedCount() throws Exception {
+        assertEquals(FormattingUtils.formatCount(100), &quot;100&quot;);
+        assertEquals(FormattingUtils.formatCount(1000), &quot;1,000&quot;);
+        assertEquals(FormattingUtils.formatCount(10000), &quot;10,000&quot;);
+        assertEquals(FormattingUtils.formatCount(100000), &quot;100,000&quot;);
+        assertEquals(FormattingUtils.formatCount(1000000), &quot;1,000,000&quot;);
+        assertEquals(FormattingUtils.formatCount(10000000), &quot;10,000,000&quot;);
+        assertEquals(FormattingUtils.formatCount(10), &quot;10&quot;);
+        assertEquals(FormattingUtils.formatCount(1), &quot;1&quot;);
+        assertEquals(FormattingUtils.formatCount(0), &quot;0&quot;);
+    }
+
+    @Test
+    public void getSmallTextForNumber() {
+        assertEquals(FormattingUtils.getSmallTextForNumber(100), &quot;&lt;b&gt;100&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(999), &quot;&lt;b&gt;999&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1000), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1807), &quot;&lt;b&gt;1.8&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1999), &quot;&lt;b&gt;2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9999), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9899), &quot;&lt;b&gt;9.9&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(10000), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(18070), &quot;&lt;b&gt;18&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(19990), &quot;&lt;b&gt;20&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(89990), &quot;&lt;b&gt;90&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(99990), &quot;&lt;b&gt;100&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1000000), &quot;&lt;b&gt;1&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1807000), &quot;&lt;b&gt;1.8&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(1999000), &quot;&lt;b&gt;2&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(9800000), &quot;&lt;b&gt;9.8&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumber(19800000), &quot;&lt;b&gt;20&lt;/b&gt;M&quot;);
+    }
+
+
+    @Test
+    public void formatPeriod() {
+        assertEquals(FormattingUtils.formatPeriod(0), &quot;less than a month&quot;);
+        assertEquals(FormattingUtils.formatPeriod(10), &quot;less than a month&quot;);
+        assertEquals(FormattingUtils.formatPeriod(30), &quot;1 month&quot;);
+        assertEquals(FormattingUtils.formatPeriod(60), &quot;2 months&quot;);
+        assertEquals(FormattingUtils.formatPeriod(91), &quot;3 months&quot;);
+        assertEquals(FormattingUtils.formatPeriod(365), &quot;1 year&quot;);
+        assertEquals(FormattingUtils.formatPeriod(367), &quot;1 year&quot;);
+        assertEquals(FormattingUtils.formatPeriod(400), &quot;1 year, 1 month&quot;);
+        assertEquals(FormattingUtils.formatPeriod(440), &quot;1 year, 2 months&quot;);
+        assertEquals(FormattingUtils.formatPeriod(1440), &quot;3 years, 11 months&quot;);
+    }
+
+    @Test
+    public void getSmallTextForNumberMinK() {
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(0), &quot;&lt;b&gt;0&lt;/b&gt;&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(5), &quot;&lt;b&gt;0.01&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10), &quot;&lt;b&gt;0.01&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(22), &quot;&lt;b&gt;0.02&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(53), &quot;&lt;b&gt;0.05&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(100), &quot;&lt;b&gt;0.1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(230), &quot;&lt;b&gt;0.2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(520), &quot;&lt;b&gt;0.5&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(570), &quot;&lt;b&gt;0.6&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(998), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(1000), &quot;&lt;b&gt;1&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(2000), &quot;&lt;b&gt;2&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10000), &quot;&lt;b&gt;10&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(100000), &quot;&lt;b&gt;100&lt;/b&gt;K&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(1000000), &quot;&lt;b&gt;1&lt;/b&gt;M&quot;);
+        assertEquals(FormattingUtils.getSmallTextForNumberMinK(10000000), &quot;&lt;b&gt;10&lt;/b&gt;M&quot;);
+        }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

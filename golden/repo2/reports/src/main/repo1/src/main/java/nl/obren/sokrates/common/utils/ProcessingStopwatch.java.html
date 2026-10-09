@@ -1,0 +1,103 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java (<b>62</b> lines of code) (<a href="ProcessingStopwatch.java">raw</a>):</h3>
+<div id="editor">package nl.obren.sokrates.common.utils;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ProcessingStopwatch {
+    private static final Log LOG = LogFactory.getLog(ProcessingStopwatch.class);
+
+    public static final String EVERYTHING = &quot;everything&quot;;
+
+    private static List&lt;ProcessingTimes&gt; monitors = new ArrayList&lt;&gt;();
+    private static Map&lt;String, ProcessingTimes&gt; monitorsMap = new HashMap&lt;&gt;();
+    private static ProcessingTimes referenceTimes = null;
+
+    public static void startAsReference(String processingName) {
+        ProcessingTimes times = start(processingName);
+        referenceTimes = times;
+    }
+
+    public static ProcessingTimes start(String processingName) {
+        ProcessingTimes times = new ProcessingTimes(processingName);
+
+        monitors.add(times);
+        monitorsMap.put(processingName, times);
+
+        if (!processingName.equalsIgnoreCase(EVERYTHING)) {
+            LOG.info(&quot;Starting &quot; + processingName);
+        }
+
+        return times;
+    }
+
+    public static void end(String processingName) {
+        if (monitorsMap.containsKey(processingName)) {
+            ProcessingTimes times = monitorsMap.get(processingName);
+            times.end();
+            if (!processingName.equalsIgnoreCase(EVERYTHING)) {
+                LOG.info(&quot;Done '&quot; + times.getProcessing() + &quot;' in &quot; + times.getDurationMs() + &quot;ms&quot;);
+            }
+        } else {
+            LOG.error(&quot;No processing with the name '&quot; + processingName + &quot;'&quot;);
+        }
+    }
+
+    public static List&lt;ProcessingTimes&gt; getMonitors() {
+        return monitors;
+    }
+
+    public static void print() {
+        LOG.info(&quot;Processing times summary:&quot;);
+        monitors.forEach(monitor -&gt; {
+            long duration = monitor.getDurationMs();
+            if (duration &gt;= 0) {
+                String percentageString = getPercentage(duration);
+            } else {
+                LOG.info(&quot;Executing '&quot; + monitor.getProcessing() + &quot;' not finished&quot;);
+            }
+        });
+    }
+
+    public static String getPercentage(long duration) {
+        String percentageString = &quot;&quot;;
+        if (duration &gt;= 0) {
+            if (referenceTimes != null &amp;&amp; referenceTimes.getDurationMs() &gt; 0) {
+                percentageString = &quot;(&quot; + FormattingUtils.getFormattedPercentage(100.0 * duration / referenceTimes.getDurationMs(), &quot;&lt;1&quot;) + &quot;%)&quot;;
+            }
+        }
+
+        return percentageString;
+    }
+}
+
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

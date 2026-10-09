@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java (<b>66</b> lines of code) (<a href="ReflectionUtils.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.utils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import nl.obren.sokrates.common.io.JsonGenerator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReflectionUtils {
+    private static final Log LOG = LogFactory.getLog(ReflectionUtils.class);
+
+    public static List&lt;Field&gt; getAllFields(Class&lt;?&gt; type) {
+        List&lt;Field&gt; fields = new ArrayList&lt;&gt;();
+        for (Field field : type.getDeclaredFields()) {
+            if (!field.getName().equals(&quot;this$0&quot;)) {
+                fields.add(field);
+            }
+        }
+
+        if (type.getSuperclass() != null) {
+            fields.addAll(getAllFields(type.getSuperclass()));
+        }
+
+        return fields;
+    }
+
+    public static Object getFieldValue(Object object, Class fieldClass) {
+        for (Field field : ReflectionUtils.getAllFields(object.getClass())) {
+            Object fieldValue;
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(object);
+                if (fieldValue != null &amp;&amp; fieldValue.getClass() == fieldClass) {
+                    return fieldValue;
+                }
+            } catch (IllegalAccessException e) {
+                LOG.error(e);
+            }
+        }
+
+        return null;
+    }
+
+    public static Object getFieldValue(Object object, String fieldName) {
+        for (Field field : ReflectionUtils.getAllFields(object.getClass())) {
+            Object fieldValue;
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(object);
+                if (fieldValue != null &amp;&amp; field.getName().equals(fieldName)) {
+                    return fieldValue;
+                }
+            } catch (IllegalAccessException e) {
+                LOG.error(e);
+            }
+        }
+
+        return null;
+    }
+
+
+    public static boolean compareWithDefaultJson(Class objectClass, String json) {
+        try {
+            Object defaultObject = objectClass.getConstructor().newInstance();
+            String defaultJson = new JsonGenerator().generate(defaultObject);
+            return defaultJson.equals(json);
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            LOG.error(e);
+        } catch (JsonProcessingException e) {
+            LOG.error(e);
+        }
+
+        return false;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

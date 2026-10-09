@@ -1,0 +1,88 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java (<b>41</b> lines of code) (<a href="Palette.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.renderingutils.charts;
+
+import java.util.Arrays;
+import java.util.List;
+
+// https://colorbrewer2.org/#type=sequential&amp;scheme=BuGn&amp;n=5
+
+public class Palette {
+    private int index = 0;
+    private List&lt;String&gt; colors;
+
+    private Palette(List&lt;String&gt; colors) {
+        this.colors = colors;
+    }
+
+    public static Palette getRiskPalette() {
+        return new Palette(Arrays.asList(&quot;#d7191c&quot;, &quot;#fdae61&quot;, &quot;#ffffbf&quot;, &quot;#a6d96a&quot;, &quot;#1a9641&quot;));
+    }
+
+    public static Palette getHeatPalette() {
+        //return new Palette(Arrays.asList(&quot;#bd0026&quot;, &quot;#f03b20&quot;, &quot;#fd8d3c&quot;, &quot;#fed98e&quot;, &quot;#ffffd4&quot;));
+        return new Palette(Arrays.asList(&quot;#b21227&quot;, &quot;#f7844e&quot;, &quot;#e6f5df&quot;, &quot;#b0d8e9&quot;, &quot;#6192c3&quot;));
+    }
+
+    public static Palette getAgePalette() {
+        // return new Palette(Arrays.asList(&quot;#252525&quot;, &quot;#636363&quot;, &quot;#969696&quot;, &quot;#cccccc&quot;, &quot;#f7f7f7&quot;));
+        // return new Palette(Arrays.asList( &quot;#041E02&quot;, &quot;#a12424&quot;, &quot;#ee7b06&quot;, &quot;#ffa904&quot;, &quot;#ffdb00&quot;));
+        return new Palette(Arrays.asList( &quot;#4a3c31&quot;, &quot;#fac831&quot;, &quot;#ffdf44&quot;, &quot;#fff18e&quot;, &quot;#fcf4cb&quot;));
+    }
+
+    public static Palette getFreshnessPalette() {
+        return new Palette(Arrays.asList( &quot;#041E02&quot;, &quot;#006d2c&quot;, &quot;#31a354&quot;, &quot;#74c476&quot;, &quot;#bae4b3&quot;));
+    }
+
+    public static Palette getDuplicationPalette() {
+        return new Palette(Arrays.asList(&quot;#9DC034&quot;, &quot;#F2021B&quot;));
+    }
+
+    public static Palette getDefaultPalette() {
+        return new Palette(Arrays.asList(&quot;#75ADD2&quot;, &quot;#584982&quot;, &quot;#FFFD98&quot;, &quot;#FCF7FF&quot;,
+                &quot;#61A99B&quot;, &quot;#567E99&quot;, &quot;#41365F&quot;, &quot;#BAB96F&quot;, &quot;#B8B4BA&quot;,
+                &quot;#B0EFE3&quot;, &quot;#A7CAE2&quot;, &quot;#948BAF&quot;, &quot;#FFFDBD&quot;, &quot;#FDF9FF&quot;, &quot;#84E7D4&quot;));
+        //return new Palette(Arrays.asList(&quot;grey&quot;, &quot;lightgrey&quot;));
+    }
+
+    public String nextColor() {
+        String color = colors.get(index);
+        index++;
+        if (index &gt;= colors.size()) {
+            index = 0;
+        }
+        return color;
+    }
+
+    public List&lt;String&gt; getColors() {
+        return colors;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

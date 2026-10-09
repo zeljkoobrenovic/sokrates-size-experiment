@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>public static void unzip()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public static void unzip()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java [14:33]</i></p>
+<ul>
+    <li><b>19</b> lines of code</li>
+    <li><b>4</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public static void unzip(InputStream inputStream, File destDirectory) throws IOException {
+        if (!destDirectory.exists()) {
+            destDirectory.mkdirs();
+        }
+        ZipInputStream zipIn = new ZipInputStream(inputStream);
+        ZipEntry entry = zipIn.getNextEntry();
+
+        while (entry != null) {
+            File file = new File(destDirectory, entry.getName());
+            file.deleteOnExit();
+            if (!entry.isDirectory()) {
+                extractFile(zipIn, file);
+            } else {
+                file.mkdirs();
+            }
+            zipIn.closeEntry();
+            entry = zipIn.getNextEntry();
+        }
+        zipIn.close();
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java (<b>53</b> lines of code) (<a href="JsonMapper.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.io;
+
+import com.fasterxml.jackson.core.JsonLocation;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+
+public class JsonMapper {
+    private static final Log LOG = LogFactory.getLog(JsonMapper.class);
+
+    public Object getObject(String json, Class clazz) throws IOException {
+        try {
+            return getObjectMapper().readValue(json, clazz);
+        } catch (JsonParseException e) {
+            String message = getMessage(e.getMessage(), e.getLocation());
+            throw new IllegalArgumentException(message);
+        } catch (JsonMappingException e) {
+            String message = getMessage(e.getMessage(), e.getLocation());
+            LOG.error(&quot;\nJSON:\n&quot; + json + &quot;\n==================\n&quot;);
+            LOG.error(e);
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static &lt;T&gt; T getObject(final String json, final TypeReference&lt;T&gt; type) {
+        T data = null;
+
+        try {
+            data = new ObjectMapper().readValue(json, type);
+        } catch (Exception e) {
+            LOG.error(e);
+        }
+        return data;
+    }
+
+    private ObjectMapper getObjectMapper() {
+        ObjectMapper mapper = new ObjectMapper()
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false)
+                .configure(DeserializationFeature.FAIL_ON_UNRESOLVED_OBJECT_IDS, false)
+                .configure(DeserializationFeature.FAIL_ON_MISSING_EXTERNAL_TYPE_ID_PROPERTY, false);
+
+        return mapper;
+    }
+
+    protected String getMessage(String message, JsonLocation jsonLocation) {
+        String[] lines = message.split(&quot;\n&quot;);
+        if (jsonLocation != null &amp;&amp; lines.length &gt; 0) {
+            String line = lines[0];
+            line += &quot; (line &quot; + jsonLocation.getLineNr();
+            line += (&quot;, column &quot; + jsonLocation.getColumnNr() + &quot;)&quot;);
+            return line;
+        }
+        return message;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

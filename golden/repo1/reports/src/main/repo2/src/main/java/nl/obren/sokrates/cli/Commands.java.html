@@ -1,0 +1,419 @@
+<html>
+<head>
+    <title>repo2/src/main/java/nl/obren/sokrates/cli/Commands.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo2/src/main/java/nl/obren/sokrates/cli/Commands.java (<b>314</b> lines of code) (<a href="Commands.java">raw</a>):</h3>
+<div id="editor">package nl.obren.sokrates.cli;
+
+import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Commands {
+    private static final Log LOG = LogFactory.getLog(Commands.class);
+
+    // commands
+    public static final String INIT = &quot;init&quot;;
+    public static final String INIT_DESCRIPTION = &quot;Creates a new Sokrates analysis configuration file based on standard and optional custom conventions&quot;;
+
+    public static final String GENERATE_REPORTS = &quot;generateReports&quot;;
+    public static final String GENERATE_REPORTS_DESCRIPTION = &quot;Generates Sokrates reports based on the analysis configuration&quot;;
+
+    public static final String UPDATE_CONFIG = &quot;updateConfig&quot;;
+    public static final String UPDATE_CONFIG_DESCRIPTION = &quot;Updates an analysis configuration file and completes missing fields&quot;;
+
+    public static final String UPDATE_LANDSCAPE = &quot;updateLandscape&quot;;
+    public static final String UPDATE_LANDSCAPE_DESCRIPTION = &quot;Updates or creates a Sokrates landscape report, aggregating results of multiple analyses&quot;;
+
+    public static final String INIT_CONVENTIONS = &quot;createConventionsFile&quot;;
+    public static final String INIT_CONVENTIONS_DESCRIPTION = &quot;Create a new analysis conventions file and saves it in &lt;current-folder&gt;/analysis_conventions.json &quot;;
+
+    public static final String EXPORT_STANDARD_CONVENTIONS = &quot;exportStandardConventions&quot;;
+    public static final String EXPORT_STANDARD_CONVENTIONS_DESCRIPTION = &quot;Export standard Sokrates analysis convention to &lt;current-folder&gt;/standard_analysis_conventions.json.&quot;;
+
+    public static final String EXTRACT_GIT_HISTORY = &quot;extractGitHistory&quot;;
+    public static final String EXTRACT_GIT_HISTORY_DESCRIPTION = &quot;Extract a git history in a format used by Sokrates and saves it in the git-history.txt file&quot;;
+
+    public static final String EXTRACT_GIT_SUB_HISTORY = &quot;extractGitSubHistory&quot;;
+    public static final String EXTRACT_GIT_SUB_HISTORY_DESCRIPTION = &quot;A utility function to split a git history file (git-history.txt) into smaller ones based on a commit file path prefix, removing the prefix from file path in split files&quot;;
+
+    public static final String EXTRACT_FILES = &quot;extractFiles&quot;;
+    public static final String EXTRACT_FILES_DESCRIPTION = &quot;A utility function to extract specific files from a code based based on a path regex pattern. Used to simplify new analysis on a subset of the code base (e.g. only on files with a specific extension).&quot;;
+
+    // arguments
+    public static final String ARG_SRC_ROOT = &quot;srcRoot&quot;;
+    public static final String ARG_CONVENTIONS_FILE = &quot;conventionsFile&quot;;
+    public static final String ARG_NAME = &quot;name&quot;;
+    public static final String ARG_DESCRIPTION = &quot;description&quot;;
+    public static final String ARG_LOGO_LINK = &quot;logoLink&quot;;
+    public static final String ARG_CONF_FILE = &quot;confFile&quot;;
+    public static final String ARG_DATE = &quot;date&quot;;
+    public static final String ARG_OUTPUT_FOLDER = &quot;outputFolder&quot;;
+    public static final String ARG_USE_INTERNAL_GRAPHVIZ = &quot;internalGraphviz&quot;;
+    public static final String ARG_HTML_REPORTS_FOLDER_NAME = &quot;html&quot;;
+    public static final String ARG_ANALYSIS_ROOT = &quot;analysisRoot&quot;;
+    public static final String ARG_TIMEOUT = &quot;timeout&quot;;
+    public static final String ARG_PREFIX = &quot;prefix&quot;;
+    public static final String ARG_PATTERN = &quot;pattern&quot;;
+    public static final String ARG_DEST_FOLDER = &quot;destFolder&quot;;
+    public static final String ARG_DEST_PARENT = &quot;destParent&quot;;
+    public static final String ARG_HELP = &quot;help&quot;;
+
+    public static final String ARG_SKIP_DUPLICATION_ANALYSES = &quot;skipDuplication&quot;;
+    public static final String ARG_SKIP_CORRELATION_ANALYSES = &quot;skipCorrelations&quot;;
+    public static final String ARG_ENABLE_DUPLICATION_ANALYSES = &quot;enableDuplication&quot;;
+    public static final String ARG_SKIP_COMPLEX_ANALYSES = &quot;skipComplexAnalyses&quot;;
+    public static final String ARG_SET_CACHE_FILES = &quot;setCacheFiles&quot;;
+
+    public static final String RECURSIVE = &quot;recursive&quot;;
+
+    public static final String ARG_SET_NAME = &quot;setName&quot;;
+    public static final String ARG_SET_LOGO_LINK = &quot;setLogoLink&quot;;
+    public static final String ARG_SET_DESCRIPTION = &quot;setDescription&quot;;
+    public static final String ARG_ADD_LINK = &quot;addLink&quot;;
+
+    // options
+    private Option srcRoot = new Option(ARG_SRC_ROOT, true, &quot;[OPTIONAL] the folder where reports will be stored (default is \&quot;&lt;currentFolder&gt;/_sokrates/reports/)&quot;);
+    private Option conventionsFile = new Option(ARG_CONVENTIONS_FILE, true, &quot;[OPTIONAL] the custom conventions JSON file path&quot;);
+    private Option name = new Option(ARG_NAME, true, &quot;[OPTIONAL] the repository name&quot;);
+    private Option description = new Option(ARG_DESCRIPTION, true, &quot;[OPTIONAL] the repository description&quot;);
+    private Option logoLink = new Option(ARG_LOGO_LINK, true, &quot;[OPTIONAL] the repository logo link&quot;);
+    private Option confFile = new Option(ARG_CONF_FILE, true, &quot;[OPTIONAL] the path to configuration file (default is \&quot;&lt;currentFolder&gt;/_sokrates/config.json\&quot;)&quot;);
+    private Option date = new Option(ARG_DATE, true, &quot;[OPTIONAL] last date of source code update (default today), used for reports on active contributors. &quot; +
+            &quot;You can also specify this date via the system variable \&quot;&quot; + DateUtils.ENV_SOKRATES_ANALYSIS_DATE + &quot;\&quot;.&quot;);
+    private Option analysisRoot = new Option(ARG_ANALYSIS_ROOT, true, &quot;[OPTIONAL] the path to configuration file (default is \&quot;&lt;currentFolder&gt;/_sokrates/config.json\&quot;)&quot;);
+    private Option timeout = new Option(ARG_TIMEOUT, true, &quot;[OPTIONAL] timeout in seconds&quot;);
+    private Option prefix = new Option(ARG_PREFIX, true, &quot;the path prefix&quot;);
+    private Option pattern = new Option(ARG_PATTERN, true, &quot;the file path regex pattern&quot;);
+    private Option destRoot = new Option(ARG_DEST_FOLDER, true, &quot;the destination folder&quot;);
+    private Option destParent = new Option(ARG_DEST_PARENT, true, &quot;[OPTIONAL] the destination parent folder&quot;);
+    private Option internalGraphviz = new Option(ARG_USE_INTERNAL_GRAPHVIZ, false, &quot;[OPTIONAL] use internal Graphviz library (by default external dot program is used, you may specify the external dot path via the system variable GRAPHVIZ_DOT)&quot;);
+
+    private Option outputFolder = new Option(ARG_OUTPUT_FOLDER, true, &quot;[OPTIONAL] the folder where reports will be stored (default value is &lt;currentFolder/_sokrates/reports&gt;)&quot;);
+
+    private Option skipComplexAnalyses = new Option(ARG_SKIP_COMPLEX_ANALYSES, false, &quot;[OPTIONAL] skips complex analyses (duplication, dependencies, file caching)&quot;);
+    private Option recursive = new Option(RECURSIVE, false, &quot;[OPTIONAL] performs the operation recursively in all sub-folders&quot;);
+
+    private Option skipDuplicationAnalyses = new Option(ARG_SKIP_DUPLICATION_ANALYSES, false, &quot;[OPTIONAL] skips duplication analyses&quot;);
+    private Option skipCorrelationAnalyses = new Option(ARG_SKIP_CORRELATION_ANALYSES, false, &quot;[OPTIONAL] skips correlations analyses&quot;);
+    private Option enableDuplicationAnalyses = new Option(ARG_ENABLE_DUPLICATION_ANALYSES, false, &quot;[OPTIONAL] enables duplication analyses&quot;);
+
+    private Option setName = new Option(ARG_SET_NAME, true, &quot;[OPTIONAL] sets a repository name&quot;);
+    private Option setDescription = new Option(ARG_SET_DESCRIPTION, true, &quot;[OPTIONAL] sets a repository description&quot;);
+    private Option setLogoLink = new Option(ARG_SET_LOGO_LINK, true, &quot;[OPTIONAL] sets a repository logo link&quot;);
+    private Option setCacheFiles = new Option(ARG_SET_CACHE_FILES, true, &quot;[OPTIONAL] sets a cache file flag ('true' or 'false')&quot;);
+    private Option addLink = new Option(ARG_ADD_LINK, true, &quot;[OPTIONAL] adds a new link&quot;);
+    private Option help = new Option(ARG_HELP, true, &quot;[OPTIONAL] gives extra details about a command usage&quot;);
+
+    private List&lt;CommandUsage&gt; usageInfo() {
+        List&lt;CommandUsage&gt; commands = new ArrayList&lt;&gt;();
+
+        commands.add(new CommandUsage(INIT, INIT_DESCRIPTION, getInitOptions()));
+        commands.add(new CommandUsage(GENERATE_REPORTS, GENERATE_REPORTS_DESCRIPTION, getReportingOptions()));
+        commands.add(new CommandUsage(UPDATE_LANDSCAPE, UPDATE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+        commands.add(new CommandUsage(UPDATE_CONFIG, UPDATE_CONFIG_DESCRIPTION, getUpdateConfigOptions()));
+        commands.add(new CommandUsage(EXTRACT_GIT_HISTORY, EXTRACT_GIT_HISTORY_DESCRIPTION, getExtractGitHistoryOption()));
+
+        commands.add(new CommandUsage(INIT_CONVENTIONS, INIT_CONVENTIONS_DESCRIPTION, null));
+        commands.add(new CommandUsage(EXPORT_STANDARD_CONVENTIONS, EXPORT_STANDARD_CONVENTIONS_DESCRIPTION, null));
+        commands.add(new CommandUsage(EXTRACT_GIT_SUB_HISTORY, EXTRACT_GIT_SUB_HISTORY_DESCRIPTION, getExtractGitSubHistoryOption()));
+
+        return commands;
+    }
+
+    public void usage() {
+        List&lt;CommandUsage&gt; commandUsages = usageInfo();
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Usage: java -jar sokrates.jar &lt;command&gt; &lt;options&gt;&quot;);
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Help: java -jar sokrates.jar &lt;command&gt; -help&quot;);
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;Commands: &quot; + commandUsages.stream().map(c -&gt; c.getName()).collect(Collectors.joining(&quot;, &quot;)));
+        commandUsages.forEach(commandUsage -&gt; {
+            printlnUsage(&quot;&quot;);
+            printlnUsage(&quot;* &quot; + commandUsage.getName() + &quot;: &quot; + commandUsage.getDescription());
+            if (commandUsage.getOptions() != null) {
+                String options = commandUsage.getOptions().getOptions().stream().map(o -&gt; {
+                    String text = &quot;&quot;;
+                    if (o.hasArg()) {
+                        text = &quot;-&quot; + o.getOpt() + &quot; &lt;arg&gt;&quot;;
+                    } else if (o.hasArgs()) {
+                        text = &quot;-&quot; + o.getOpt() + &quot; &lt;args&gt;&quot;;
+                    } else {
+                        text = &quot;-&quot; + o.getOpt() + &quot;&quot;;
+                    }
+                    if (!o.isRequired()) {
+                        text = &quot;[&quot; + text + &quot;]&quot;;
+                    }
+                    return text;
+                }).collect(Collectors.joining(&quot; &quot;));
+                printlnUsage(&quot;   - options: &quot; + options);
+            }
+        });
+        printlnUsage(&quot;&quot;);
+        printlnUsage(&quot;&quot;);
+    }
+
+    private void printlnUsage(String line) {
+        System.out.println(line);
+    }
+
+    public void usage(String prefix, Options options, String description) {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.setWidth(80);
+        String cmdLineSyntax = &quot;java -jar sokrates.jar &quot; + prefix + &quot;\n\ndescription: &quot; + description + &quot;\n\noptions:\n&quot;;
+        printlnUsage(&quot;&quot;);
+        if (options != null) {
+            formatter.printHelp(cmdLineSyntax + &quot;&quot;, options);
+        } else {
+            formatter.printHelp(cmdLineSyntax, new Options());
+        }
+        printlnUsage(&quot;&quot;);
+    }
+
+
+    public Options getReportingOptions() {
+        Options options = new Options();
+        options.addOption(confFile);
+        options.addOption(outputFolder);
+        options.addOption(internalGraphviz);
+        options.addOption(timeout);
+        options.addOption(date);
+        options.addOption(help);
+
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getInitOptions() {
+        Options options = new Options();
+        options.addOption(srcRoot);
+        options.addOption(confFile);
+        options.addOption(conventionsFile);
+        options.addOption(name);
+        options.addOption(description);
+        options.addOption(logoLink);
+        options.addOption(addLink);
+        options.addOption(timeout);
+        options.addOption(help);
+
+        addLink.setArgs(2);
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getUpdateConfigOptions() {
+        Options options = new Options();
+        options.addOption(confFile);
+        options.addOption(skipComplexAnalyses);
+        options.addOption(setCacheFiles);
+        options.addOption(setName);
+        options.addOption(setDescription);
+        options.addOption(setLogoLink);
+        options.addOption(addLink);
+        options.addOption(timeout);
+        options.addOption(help);
+
+        addLink.setArgs(2);
+        confFile.setRequired(false);
+        skipComplexAnalyses.setRequired(false);
+        setName.setRequired(false);
+        setDescription.setRequired(false);
+        setLogoLink.setRequired(false);
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getExtractFilesOption() {
+        Options options = new Options();
+        options.addOption(analysisRoot);
+        options.addOption(pattern);
+        options.addOption(destRoot);
+        options.addOption(destParent);
+        options.addOption(help);
+
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getExtractGitHistoryOption() {
+        Options options = new Options();
+        options.addOption(analysisRoot);
+        options.addOption(help);
+
+        analysisRoot.setRequired(false);
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getExtractGitSubHistoryOption() {
+        Options options = new Options();
+        options.addOption(prefix);
+        options.addOption(analysisRoot);
+        options.addOption(help);
+
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Options getUpdateLandscapeOptions() {
+        Options options = new Options();
+        options.addOption(analysisRoot);
+        options.addOption(confFile);
+        options.addOption(recursive);
+        options.addOption(setName);
+        options.addOption(setDescription);
+        options.addOption(setLogoLink);
+        options.addOption(addLink);
+        options.addOption(timeout);
+        options.addOption(date);
+        options.addOption(help);
+
+        setName.setRequired(false);
+        setDescription.setRequired(false);
+        setLogoLink.setRequired(false);
+        addLink.setRequired(false);
+
+        addLink.setArgs(2);
+        help.setArgs(0);
+
+        return options;
+    }
+
+    public Option getSrcRoot() {
+        return srcRoot;
+    }
+
+    public Option getConventionsFile() {
+        return conventionsFile;
+    }
+
+    public Option getName() {
+        return name;
+    }
+
+    public Option getDescription() {
+        return description;
+    }
+
+    public Option getLogoLink() {
+        return logoLink;
+    }
+
+    public Option getConfFile() {
+        return confFile;
+    }
+
+    public Option getDate() {
+        return date;
+    }
+
+    public Option getAnalysisRoot() {
+        return analysisRoot;
+    }
+
+    public Option getTimeout() {
+        return timeout;
+    }
+
+    public Option getPrefix() {
+        return prefix;
+    }
+
+    public Option getPattern() {
+        return pattern;
+    }
+
+    public Option getDestRoot() {
+        return destRoot;
+    }
+
+    public Option getDestParent() {
+        return destParent;
+    }
+
+    public Option getInternalGraphviz() {
+        return internalGraphviz;
+    }
+
+    public Option getOutputFolder() {
+        return outputFolder;
+    }
+
+    public Option getSkipComplexAnalyses() {
+        return skipComplexAnalyses;
+    }
+
+    public Option getSkipDuplicationAnalyses() {
+        return skipDuplicationAnalyses;
+    }
+    public Option getSkipCorrelationAnalyses() {
+        return skipCorrelationAnalyses;
+    }
+
+    public Option getEnableDuplicationAnalyses() {
+        return enableDuplicationAnalyses;
+    }
+
+    public Option getSetName() {
+        return setName;
+    }
+
+    public Option getSetDescription() {
+        return setDescription;
+    }
+
+    public Option getSetLogoLink() {
+        return setLogoLink;
+    }
+
+    public Option getSetCacheFiles() {
+        return setCacheFiles;
+    }
+
+    public Option getAddLink() {
+        return addLink;
+    }
+
+    public Option getHelp() {
+        return help;
+    }
+
+    public Option getRecursive() {
+        return recursive;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

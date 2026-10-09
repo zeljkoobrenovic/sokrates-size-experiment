@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>public void exportNodesPerComponent()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void exportNodesPerComponent()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java [96:119]</i></p>
+<ul>
+    <li><b>24</b> lines of code</li>
+    <li><b>5</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void exportNodesPerComponent(List&lt;X3DomNodeInfo&gt; nodes) {
+        try {
+            File file = exportFile != null ? exportFile : File.createTempFile(&quot;3d_&quot;, &quot;.html&quot;);
+            StringBuilder body = new StringBuilder();
+            Map&lt;String, List&lt;X3DomNodeInfo&gt;&gt; nodesPerComponent = getNodesPerComponent(nodes);
+            double position = 0.0;
+            for (String component : nodesPerComponent.keySet()) {
+                List&lt;X3DomNodeInfo&gt; nodesInComponent = nodesPerComponent.get(component);
+                body.append(&quot;&lt;Transform translation=\&quot;&quot; + position + &quot; 0 0\&quot;&gt;\n&quot;);
+                body.append(getX3DBody(nodesInComponent));
+                body.append(&quot;&lt;/Transform&gt;\n&quot;);
+                position += getSqrtRows(nodesInComponent) + 2;
+            }
+            String headSectionFragment = &quot;&lt;h1&gt;&quot; + title + &quot;&lt;/h1&gt;&quot;;
+            headSectionFragment += &quot;&lt;p&gt;&quot; + description + &quot;&lt;/p&gt;&quot;;
+            FileUtils.write(file, &quot;\n&quot; + HTML_3D_HEADER
+                    + headSectionFragment
+                    + body.toString()
+                    + HTML_3D_FOOTER, UTF_8);
+            if (exportFile == null) SystemUtils.openFile(file);
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,281 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/templates/repository-explorer.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/templates/repository-explorer.html (<b>230</b> lines of code) (<a href="repository-explorer.html">raw</a>):</h3>
+<div id="editor">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;Repository Explorer&lt;/title&gt;
+    &lt;style&gt;
+        body {
+            font-family: Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+        }
+
+        .group {
+            display: inline-block;
+            border: 1px solid lightgrey;
+            border-radius: 6px;
+            margin: 8px 18px 8px 8px;
+            padding: 5px;
+            background-color: #f8f8f8;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .icon {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 26px;
+            margin-bottom: 20px;
+            filter: grayscale(100%);
+        }
+
+        body {
+            margin: 40px;
+        }
+
+        ::placeholder {
+            color: lightgrey;
+            opacity: 1;
+        }
+
+        :-ms-input-placeholder {
+            color: lightgrey;
+        }
+
+        ::-ms-input-placeholder {
+            color: lightgrey;
+        }
+    &lt;/style&gt;
+    &lt;link rel=&quot;stylesheet&quot; target=&quot;_blank&quot; href=&quot;https://fonts.googleapis.com/css?family=Ubuntu&quot;&gt;
+    &lt;link rel=&quot;stylesheet&quot; target=&quot;_blank&quot; href=&quot;https://fonts.googleapis.com/css?family=Lato&quot;&gt;
+    &lt;script&gt;
+        function findGetParameter(parameterName) {
+            let result = null, tmp = [];
+            location.search.substring(1).split(&quot;&amp;&quot;).forEach(function (item) {
+                tmp = item.split(&quot;=&quot;);
+                if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+            return result;
+        }
+    &lt;/script&gt;
+    &lt;script&gt;
+        const repositories = ${data};
+
+        const redirectFilter = findGetParameter('redirect');
+        if (redirectFilter) {
+            const redirectToRepo = repositories
+                .filter(item =&gt; item.metadata.name &amp;&amp; (item.metadata.name.toLowerCase().includes(redirectFilter.toLowerCase())));
+
+            // redirect only if there is exactly one match, otherwise show the list
+            if (redirectToRepo.length === 1) {
+                window.location.href = '../' + redirectToRepo[0].sokratesRepositoryLink.htmlReportsRoot + '/index.html'
+            }
+        }
+
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style=&quot;margin-left: 0px; margin-top: 20px; margin-bottom: 0px; color: grey&quot;&gt;
+    &lt;div&gt;
+        &lt;input id=&quot;filter&quot; type=&quot;text&quot; placeholder=&quot;search...&quot;
+               style=&quot;font-size: 16px; height: 32px; width: 320px; margin-bottom: 10px&quot;
+               onkeyup=&quot;update()&quot;&gt;
+        &lt;div id=&quot;search-summary&quot; style=&quot;display: inline-block&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;content&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    function update() {
+        const filters = document.getElementById('filter').value.toLowerCase().trim()
+            .split(',').map(item =&gt; item.trim()).filter(item =&gt; item.length);
+
+        function isFiltered(name) {
+            if (filters.length === 0) {
+                return true;
+            }
+            if (name) {
+                for (let filter of filters) {
+                    if (name.toLowerCase().includes(filter)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        let html = '';
+
+        let count = repositories.length;
+        let mainLoc = repositories.map(item =&gt; item.mainLinesOfCode).reduce((a, b) =&gt; a + b, 0);
+        let commits = repositories.map(item =&gt; item.commitsCount).reduce((a, b) =&gt; a + b, 0);
+
+        const filteredData = repositories
+            .filter(item =&gt; isFiltered(item.metadata.name))
+            .sort((a, b) =&gt; b.commitsCount - a.commitsCount)
+            .sort((a, b) =&gt; b.commitsCount90Days - a.commitsCount90Days)
+            .sort((a, b) =&gt; b.commitsCount30Days - a.commitsCount30Days)
+            .sort((a, b) =&gt; b.latestCommitDate.localeCompare(a.latestCommitDate));
+
+        let totalCount = filteredData.length;
+        let totalMainLoc = filteredData.map(item =&gt; item.mainLinesOfCode).reduce((a, b) =&gt; a + b, 0);
+        let totalCommits = filteredData.map(item =&gt; item.commitsCount).reduce((a, b) =&gt; a + b, 0);
+
+        document.getElementById('search-summary').innerHTML = ' = ' + filteredData.length + ' ' + (filteredData.length === 1 ? 'repository' : 'repositories') + ' (' + totalMainLoc.toLocaleString('en-US') + ' LOC main, ' + totalCommits.toLocaleString('en-US') + ' commits)';
+
+        if (totalMainLoc &lt; mainLoc) {
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+            const w1count = Math.round(100 * totalCount / count);
+            const w2count = 100 - w1count;
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1count + '%; background-color: #303030; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2count + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (totalMainLoc == 0 || w1count &gt; 0 ? w1count : '&lt;1') + '% of repositories&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+            const w1loc = Math.round(100 * totalMainLoc / mainLoc);
+            const w2loc = 100 - w1loc;
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1loc + '%; background-color: skyblue; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2loc + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (totalMainLoc == 0 || w1loc &gt; 0 ? w1loc : '&lt;1') + '% of LOC&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+            html += '&lt;div style=&quot;width: 400px; margin: 0; padding: 0; white-space: nowrap&quot;&gt;';
+            const w1commits = Math.round(100 * totalCommits / commits);
+            const w2commits = 100 - w1commits;
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w1commits + '%; background-color: green; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; width: ' + w2commits + '%; background-color: #c0c0c0; height: 12px&quot;&gt;&lt;/div&gt;';
+            html += '&lt;div style=&quot;margin: 0; display: inline-block; font-size: 80%; width: 100px; color: grey; vertical-align: top&quot;&gt;&amp;nbsp;' + (totalMainLoc == 0 || w1commits &gt; 0 ? w1commits : '&lt;1') + '% of commits&lt;/div&gt;';
+            html += '&lt;/div&gt;';
+        }
+
+        html += '&lt;table&gt;';
+        html += '&lt;tr&gt;';
+        html += '&lt;td&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; border-bottom: 2px solid lightgrey&quot; colspan=&quot;3&quot;&gt;LOC&lt;/td&gt;';
+        html += '&lt;td&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; border-bottom: 2px solid lightgrey&quot; colspan=&quot;4&quot;&gt;Activity&lt;/td&gt;';
+        html += '&lt;td&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; border-bottom: 2px solid lightgrey&quot; colspan=&quot;3&quot;&gt;Contributors&lt;/td&gt;';
+        html += '&lt;/tr&gt;';
+
+        html += '&lt;tr style=&quot;color: #777777&quot;&gt;';
+        html += '&lt;td&gt;';
+        html += '&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;main&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;test&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;other&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; border-left: 1px solid lightgrey; &quot;&gt;last&lt;br&gt;commit&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;commits&lt;br&gt;(30d)&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;commits&lt;br&gt;(90d)&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;commits&lt;br&gt;(all time)&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; border-left: 1px solid lightgrey; &quot;&gt;contributors&lt;br&gt;(30d)&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;contributors&lt;br&gt;(90d)&lt;/td&gt;';
+        html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;contributors&lt;br&gt;(all time)&lt;/td&gt;';
+        html += '&lt;/tr&gt;';
+
+        filteredData.forEach(item =&gt; {
+            let commitsCount30Days = item.commitsCount30Days;
+            if (commitsCount30Days === 0) {
+                html += '&lt;tr style=&quot;opacity: 0.5&quot;&gt;';
+            } else {
+                html += '&lt;tr&gt;';
+            }
+            html += '&lt;td&gt;';
+            const elements = item.metadata.name.split('/');
+            const parent = elements.length == 2 ? elements[0] : null;
+            const name = elements.length == 2 ? elements[1] : item.metadata.name;
+            html += '&lt;div style=&quot;margin: 2px; padding: 2px; border: 1px dashed lightgrey&quot;&gt;';
+            if (parent) {
+                html += '&lt;div style=&quot;font-size: 80%; color: #777777&quot;&gt;' + parent + '&lt;/div&gt;';
+            }
+            html += '&lt;a href=&quot;../' + item.sokratesRepositoryLink.htmlReportsRoot + '/index.html&quot; target=&quot;_blank&quot;&gt;';
+            html += '&lt;div&gt;' + name + '&lt;/div&gt;';
+            html += '&lt;/a&gt;';
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            html += '&lt;div style=&quot;border: 1px solid #d0d0d0; border-radius: 4px; padding 2px;margin: 2px; padding: 2px; &quot;&gt;';
+            html += item.mainLinesOfCode.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            html += '&lt;div style=&quot;border: 1px solid #d0d0d0; border-radius: 4px; padding 2px;margin: 2px; padding: 2px; color: #b0b0b0&quot;&gt;';
+            html += item.testLinesOfCode.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: right; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            html += '&lt;div style=&quot;border: 1px solid #d0d0d0; border-radius: 4px; padding 2px;margin: 2px; padding: 2px; color: #b0b0b0&quot;&gt;';
+            html += (item.buildAndDeployLinesOfCode + item.generatedLinesOfCode + item.otherLinesOfCode).toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/div&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;border-left: 1px solid lightgrey; text-align: right; padding-right: 5px; padding-left: 5px; font-size: 90%; white-space: nowrap&quot;&gt;';
+            html += item.latestCommitDate;
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px;&quot;&gt;';
+            html += commitsCount30Days.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; color: #b0b0b0&quot;&gt;';
+            html += item.commitsCount90Days.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; color: #b0b0b0&quot;&gt;';
+            html += item.commitsCount.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;td&gt;';
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;border-left: 1px solid lightgrey; text-align: center; padding-right: 5px; padding-left: 5px; cursor:help;&quot; title=&quot;' + item.contributors30Days.join('\n') + '&quot;&gt;';
+            html += item.contributors30Days.length.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; cursor:help; color: #b0b0b0&quot; title=&quot;' + item.contributors90Days.join('\n') + '&quot;&gt;';
+            html += item.contributors90Days.length.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;td style=&quot;text-align: center; padding-right: 5px; padding-left: 5px; cursor:help; color: #b0b0b0&quot; title=&quot;' + item.contributors.join('\n') + '&quot;&gt;';
+            html += item.contributors.length.toLocaleString(&quot;en-US&quot;);
+            html += '&lt;/td&gt;';
+            html += '&lt;/tr&gt;';
+        });
+
+        html += '&lt;/table&gt;';
+
+        document.getElementById('content').innerHTML = html;
+    }
+
+    const filterParam = findGetParameter('filter');
+    if (filterParam || redirectFilter) {
+        document.getElementById('filter').value = filterParam || redirectFilter;
+    }
+
+    update();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

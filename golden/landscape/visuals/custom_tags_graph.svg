@@ -1,0 +1,43 @@
+<svg width="447pt" height="152pt"
+ viewBox="0.00 0.00 447.25 152.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 148)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-148 443.25,-148 443.25,4 -4,4"/>
+<!-- build and dependencies management tools / maven -->
+<g id="node1" class="node">
+<title>build and dependencies management tools / maven</title>
+<polygon fill="#00b2ee" stroke="white" points="439.25,-36 106,-36 106,0 439.25,0 439.25,-36"/>
+<text text-anchor="middle" x="272.62" y="-13.32" font-family="Tahoma" font-size="14.00">build and dependencies management tools / maven</text>
+</g>
+<!-- [repo1] -->
+<g id="node2" class="node">
+<title>[repo1]</title>
+<polygon fill="grey" stroke="white" points="303.5,-144 241.75,-144 241.75,-108 303.5,-108 303.5,-144"/>
+<text text-anchor="middle" x="272.62" y="-121.33" font-family="Tahoma" font-size="14.00">[repo1]</text>
+</g>
+<!-- maven -->
+<g id="node3" class="node">
+<title>maven</title>
+<polygon fill="grey" stroke="white" points="57.25,-117 0,-117 0,-81 57.25,-81 57.25,-117"/>
+<text text-anchor="middle" x="28.62" y="-94.33" font-family="Tahoma" font-size="14.00">maven</text>
+</g>
+<!-- [repo1]&#45;&#45;maven -->
+<g id="edge1" class="edge">
+<title>[repo1]&#45;&#45;maven</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M241.46,-122.64C194.2,-117.36 103.37,-107.23 57.54,-102.11"/>
+<text text-anchor="middle" x="81.62" y="-107.68" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+<!-- [repo2] -->
+<g id="node4" class="node">
+<title>[repo2]</title>
+<polygon fill="grey" stroke="white" points="303.5,-90 241.75,-90 241.75,-54 303.5,-54 303.5,-90"/>
+<text text-anchor="middle" x="272.62" y="-67.33" font-family="Tahoma" font-size="14.00">[repo2]</text>
+</g>
+<!-- [repo2]&#45;&#45;maven -->
+<g id="edge2" class="edge">
+<title>[repo2]&#45;&#45;maven</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M241.44,-72.13C202.68,-72.75 133.46,-75.38 75.25,-85.75 69.4,-86.79 63.24,-88.3 57.39,-89.92"/>
+<text text-anchor="middle" x="81.62" y="-88.6" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+</g>
+</svg>

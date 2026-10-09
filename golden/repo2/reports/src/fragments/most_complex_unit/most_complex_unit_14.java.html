@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>public void extractGitHistory()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public void extractGitHistory()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java [34:83]</i></p>
+<ul>
+    <li><b>49</b> lines of code</li>
+    <li><b>7</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public void extractGitHistory(File root) {
+        FileRepositoryBuilder builder = new FileRepositoryBuilder();
+        File gitHistoryFile = new File(root, &quot;git-history.txt&quot;);
+        try {
+            LOG.info(&quot;Extracted git history...&quot;);
+            FileUtils.writeStringToFile(gitHistoryFile, &quot;&quot;, StandardCharsets.UTF_8);
+            Repository repo = builder.setGitDir(new File(root, &quot;.git&quot;)).setMustExist(true).build();
+            Git git = new Git(repo);
+            Iterable&lt;RevCommit&gt; log = git.log().call();
+            AtomicInteger count = new AtomicInteger();
+            for (Iterator&lt;RevCommit&gt; iterator = log.iterator(); iterator.hasNext(); ) {
+                RevCommit rev = iterator.next();
+                if (rev.getParentCount() == 0) {
+                    continue;
+                }
+                RevCommit prev = rev.getParent(0);
+                List&lt;String&gt; paths = new ArrayList&lt;&gt;();
+                FileOutputStream stdout = new FileOutputStream(FileDescriptor.out);
+                try (DiffFormatter diffFormatter = new DiffFormatter(stdout)) {
+                    diffFormatter.setRepository(repo);
+                    for (DiffEntry entry : diffFormatter.scan(prev, rev)) {
+                        String newPath = entry.getNewPath();
+                        if (!newPath.equals(&quot;/dev/null&quot;)) {
+                            paths.add(newPath);
+                        }
+                    }
+                }
+
+                paths.forEach(path -&gt; {
+                    SimpleDateFormat format = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+                    PersonIdent authorIdent = rev.getAuthorIdent();
+                    String safePath = path.replace(&quot; &quot;, &quot;&amp;nbsp;&quot;);
+                    String safeName = authorIdent.getName().replace(&quot; &quot;, &quot;&amp;nbsp;&quot;);
+                    String email = authorIdent.getEmailAddress();
+                    String line = format.format(authorIdent.getWhen()) + &quot; &quot;
+                            + email + &quot; &quot;
+                            + rev.getId().getName() + &quot; &quot; + safePath + &quot; &quot; + safeName;
+                    try {
+                        FileUtils.writeStringToFile(gitHistoryFile, line + &quot;\n&quot;, StandardCharsets.UTF_8, true);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    count.incrementAndGet();
+                });
+            }
+            LOG.info(&quot;Extracted &quot; + count.get() + &quot; commits&quot;);
+        } catch (IOException | GitAPIException e) {
+            e.printStackTrace();
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>private void extractFiles()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void extractFiles()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [189:218]</i></p>
+<ul>
+    <li><b>26</b> lines of code</li>
+    <li><b>6</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void extractFiles(String[] args) throws ParseException, IOException {
+        Options options = commands.getExtractFilesOption();
+        CommandLineParser parser = new DefaultParser();
+        CommandLine cmd = parser.parse(options, args);
+
+        if (cmd.hasOption(commands.getHelp().getOpt())) {
+            helpMode = true;
+            commands.usage(Commands.EXTRACT_FILES, commands.getExtractFilesOption(), Commands.EXTRACT_FILES_DESCRIPTION);
+            return;
+        }
+
+        File root = cmd.hasOption(commands.getAnalysisRoot().getOpt()) ? new File(cmd.getOptionValue(commands.getAnalysisRoot().getOpt())) : new File(&quot;.&quot;);
+        String patternValue = cmd.getOptionValue(commands.getPattern().getOpt());
+        String dest = cmd.getOptionValue(commands.getDestRoot().getOpt());
+        String destParentValue = cmd.getOptionValue(commands.getDestParent().getOpt());
+
+        if (patternValue == null) {
+            LOG.info(&quot;the pattern value is missing&quot;);
+            return;
+        }
+        if (dest == null) {
+            LOG.info(&quot;the destination folder value is missing&quot;);
+            return;
+        }
+        if (destParentValue == null) {
+            destParentValue = dest;
+        }
+
+        SokratesFileUtils.extractFiles(root, new File(root, dest), new File(root, destParentValue), patternValue);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

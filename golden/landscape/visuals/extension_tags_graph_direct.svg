@@ -1,0 +1,43 @@
+<svg width="671pt" height="78pt"
+ viewBox="0.00 0.00 671.00 78.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 74)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-74 667,-74 667,4 -4,4"/>
+<!-- main file extensions / java (2) -->
+<g id="node1" class="node">
+<title>main file extensions / java (2)</title>
+<polygon fill="grey" stroke="white" points="430.25,-70 231.25,-70 231.25,-34 430.25,-34 430.25,-70"/>
+<text text-anchor="middle" x="330.75" y="-47.33" font-family="Tahoma" font-size="14.00">main file extensions / java (2)</text>
+</g>
+<!-- all file extensions / java (2) -->
+<g id="node2" class="node">
+<title>all file extensions / java (2)</title>
+<polygon fill="grey" stroke="white" points="182.5,-36 0,-36 0,0 182.5,0 182.5,-36"/>
+<text text-anchor="middle" x="91.25" y="-13.32" font-family="Tahoma" font-size="14.00">all file extensions / java (2)</text>
+</g>
+<!-- main file extensions / java (2)&#45;&#45;all file extensions / java (2) -->
+<g id="edge1" class="edge">
+<title>main file extensions / java (2)&#45;&#45;all file extensions / java (2)</title>
+<path fill="none" stroke="#00688b" stroke-width="2" stroke-opacity="0.439216" d="M231.09,-37.88C215.03,-35.58 198.47,-33.21 182.62,-30.94"/>
+<text text-anchor="middle" x="206.88" y="-37.85" font-family="Arial" font-size="12.00"> 2 </text>
+</g>
+<!-- all file extensions / html (1) -->
+<g id="node3" class="node">
+<title>all file extensions / html (1)</title>
+<polygon fill="grey" stroke="white" points="663,-40 479,-40 479,-4 663,-4 663,-40"/>
+<text text-anchor="middle" x="571" y="-17.32" font-family="Tahoma" font-size="14.00">all file extensions / html (1)</text>
+</g>
+<!-- all file extensions / html (1)&#45;&#45;main file extensions / java (2) -->
+<g id="edge2" class="edge">
+<title>all file extensions / html (1)&#45;&#45;main file extensions / java (2)</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M478.57,-33.51C462.82,-35.5 446.39,-37.56 430.46,-39.57"/>
+<text text-anchor="middle" x="454.62" y="-39.85" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+<!-- all file extensions / html (1)&#45;&#45;all file extensions / java (2) -->
+<g id="edge3" class="edge">
+<title>all file extensions / html (1)&#45;&#45;all file extensions / java (2)</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M478.73,-13.59C462.59,-12.41 445.94,-11.38 430.25,-10.75 341.88,-7.2 319.66,-8.45 231.25,-10.75 215.55,-11.16 198.86,-11.83 182.7,-12.6"/>
+<text text-anchor="middle" x="330.75" y="-13.6" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,5 @@
+[
+ "repo1/pom.xml",
+ "repo1/src/main/resources/archive.sh",
+ "repo2/pom.xml"
+]

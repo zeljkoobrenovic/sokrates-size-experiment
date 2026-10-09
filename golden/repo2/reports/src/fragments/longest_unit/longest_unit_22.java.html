@@ -1,0 +1,50 @@
+<html>
+<head>
+    <title>private void generate3DUnitsView()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void generate3DUnitsView()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [826:853]</i></p>
+<ul>
+    <li><b>22</b> lines of code</li>
+    <li><b>1</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void generate3DUnitsView(File visualsFolder, CodeAnalysisResults analysisResults) {
+        AnalysisConfig analysisConfig = analysisResults.getCodeConfiguration().getAnalysis();
+
+        List&lt;Unit3D&gt; unit3DConditionalComplexity = new ArrayList&lt;&gt;();
+        analysisResults.getUnitsAnalysisResults().getAllUnits().forEach(unit -&gt; {
+            BasicColorInfo color = Thresholds.getColor(Thresholds.UNIT_MCCABE, unit.getMcCabeIndex());
+            unit3DConditionalComplexity.add(new Unit3D(unit.getLongName(), unit.getLinesOfCode(), color));
+        });
+
+        List&lt;Unit3D&gt; unit3DSize = new ArrayList&lt;&gt;();
+        analysisResults.getUnitsAnalysisResults().getAllUnits().forEach(unit -&gt; {
+            BasicColorInfo color = Thresholds.getColor(Thresholds.UNIT_LINES, unit.getLinesOfCode());
+            unit3DSize.add(new Unit3D(unit.getLongName(), unit.getLinesOfCode(), color));
+        });
+
+        List&lt;Unit3D&gt; files3D = new ArrayList&lt;&gt;();
+        analysisResults.getCodeConfiguration().getMain().getSourceFiles().forEach(file -&gt; {
+            SourceFileSizeDistribution sourceFileSizeDistribution = new SourceFileSizeDistribution(analysisConfig.getFileSizeThresholds());
+            BasicColorInfo color = getFileSizeColor(sourceFileSizeDistribution, file.getLinesOfCode());
+            files3D.add(new Unit3D(file.getFile().getPath(), file.getLinesOfCode(), color));
+        });
+
+        new X3DomExporter(new File(visualsFolder, &quot;units_3d_complexity.html&quot;), &quot;A 3D View of All Units (Conditional Complexity)&quot;, &quot;Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its conditional complexity category.&quot;).export(unit3DConditionalComplexity, false, 10);
+
+        new X3DomExporter(new File(visualsFolder, &quot;units_3d_size.html&quot;), &quot;A 3D View of All Units (Unit Size)&quot;, &quot;Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its size category.&quot;).export(unit3DSize, false, 10);
+
+        new X3DomExporter(new File(visualsFolder, &quot;files_3d.html&quot;), &quot;A 3D View of All Files&quot;, &quot;Each block is one file. The height of the block represents the file relative size in lines of code. The color of the file represents its size category.&quot;).export(files3D, false, 50);
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

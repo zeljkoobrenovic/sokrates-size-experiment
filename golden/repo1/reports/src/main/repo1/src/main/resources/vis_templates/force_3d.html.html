@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/vis_templates/force_3d.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/vis_templates/force_3d.html (<b>26</b> lines of code) (<a href="force_3d.html">raw</a>):</h3>
+<div id="editor">&lt;head&gt;
+    &lt;style&gt; body {
+        margin: 0;
+    } &lt;/style&gt;
+
+    &lt;script src=&quot;https://cdn.jsdelivr.net/npm/3d-force-graph&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div id=&quot;3d-graph&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+    const gData = ${data}
+
+    const maxNodeSize = gData.nodes.map(n =&gt; n.size).reduce((a, b) =&gt; Math.max(a, b));
+    const maxCount = gData.links.map(l =&gt; l.count).reduce((a, b) =&gt; Math.max(a, b));
+
+    gData.links = gData.links.map(l =&gt; { return {source: l.target, target: l.source, count: l.count} });
+
+    const Graph = ForceGraph3D()
+    (document.getElementById('3d-graph'))
+        .graphData(gData)
+        .nodeRelSize(4)
+        .nodeVal(n =&gt; Math.max(20 * n.size / maxNodeSize, 0.001))
+        .nodeLabel(n =&gt; n.id + &quot; (&quot; + n.size + &quot;)&quot;)
+        .nodeColor(n =&gt; n.id.startsWith(&quot;[&quot;) ? &quot;skyblue&quot; : &quot;&quot;)
+        .linkDirectionalParticles(6)
+        .linkDirectionalParticleSpeed(d =&gt; d.count / maxCount * 0.01)
+        .linkOpacity(0.1)
+        .linkWidth(d =&gt; 3 * d.count / maxCount + 0.1);
+
+&lt;/script&gt;
+&lt;/body&gt;
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

@@ -1,0 +1,200 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/vis_templates/zoomable_sunburst.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/vis_templates/zoomable_sunburst.html (<b>138</b> lines of code) (<a href="zoomable_sunburst.html">raw</a>):</h3>
+<div id="editor">&lt;head&gt;
+    &lt;style&gt;
+        body {
+            font-family: Sans-serif;
+            font-size: 11px;
+        }
+
+        .slice {
+            cursor: pointer;
+        }
+
+        .slice .main-arc {
+            stroke: #fff;
+            stroke-width: 1px;
+        }
+
+        .slice .hidden-arc {
+            fill: none;
+        }
+
+        .slice text {
+            pointer-events: none;
+            dominant-baseline: middle;
+            text-anchor: middle;
+        }
+    &lt;/style&gt;
+
+    &lt;script src='https://d3js.org/d3.v4.min.js'&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;script&gt;
+    const width = window.innerWidth,
+        height = window.innerHeight,
+        maxRadius = (Math.min(width, height) / 2) - 5;
+
+    const formatNumber = d3.format(',d');
+
+    const x = d3.scaleLinear()
+        .range([0, 2 * Math.PI])
+        .clamp(true);
+
+    const y = d3.scaleSqrt()
+        .range([maxRadius * .1, maxRadius]);
+
+    const color = d3.scaleOrdinal(d3.schemeCategory20);
+
+    const partition = d3.partition();
+
+    const arc = d3.arc()
+        .startAngle(d =&gt; x(d.x0))
+        .endAngle(d =&gt; x(d.x1))
+        .innerRadius(d =&gt; Math.max(0, y(d.y0)))
+        .outerRadius(d =&gt; Math.max(0, y(d.y1)));
+
+    const middleArcLine = d =&gt; {
+        const halfPi = Math.PI / 2;
+        const angles = [x(d.x0) - halfPi, x(d.x1) - halfPi];
+        const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
+
+        const middleAngle = (angles[1] + angles[0]) / 2;
+        const invertDirection = middleAngle &gt; 0 &amp;&amp; middleAngle &lt; Math.PI; // On lower quadrants write text ccw
+        if (invertDirection) {
+            angles.reverse();
+        }
+
+        const path = d3.path();
+        path.arc(0, 0, r, angles[0], angles[1], invertDirection);
+        return path.toString();
+    };
+
+    const textFits = d =&gt; {
+        const CHAR_SPACE = 6;
+
+        const deltaAngle = x(d.x1) - x(d.x0);
+        const r = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
+        const perimeter = r * deltaAngle;
+
+        return d.data.name.length * CHAR_SPACE &lt; perimeter;
+    };
+
+    const svg = d3.select('body').append('svg')
+        .style('width', '100vw')
+        .style('height', '100vh')
+        .attr('viewBox', `${-width / 2} ${-height / 2} ${width} ${height}`)
+        .on('click', () =&gt; focusOn()); // Reset zoom on canvas click
+
+    var rootData = {
+        &quot;name&quot;: &quot;&quot;,
+        &quot;children&quot;: ${data}
+    }
+
+
+    root = d3.hierarchy(rootData);
+    root.sum(d =&gt; d.size);
+
+    const slice = svg.selectAll('g.slice')
+        .data(partition(root).descendants());
+
+    slice.exit().remove();
+
+    const newSlice = slice.enter()
+        .append('g').attr('class', 'slice')
+        .on('click', d =&gt; {
+            d3.event.stopPropagation();
+            focusOn(d);
+        });
+
+    newSlice.append('title')
+        .text(d =&gt; d.data.name + '\n' + formatNumber(d.value));
+
+    newSlice.append('path')
+        .attr('class', 'main-arc')
+        .style('fill', d =&gt; color((d.children ? d : d.parent).data.name))
+        .attr('d', arc);
+
+    newSlice.append('path')
+        .attr('class', 'hidden-arc')
+        .attr('id', (_, i) =&gt; `hiddenArc${i}`)
+        .attr('d', middleArcLine);
+
+    const text = newSlice.append('text')
+        .attr('display', d =&gt; textFits(d) ? null : 'none');
+
+    // Add white contour
+    text.append('textPath')
+        .attr('startOffset', '50%')
+        .attr('xlink:href', (_, i) =&gt; `#hiddenArc${i}`)
+        .text(d =&gt; d.data.name)
+        .style('fill', 'none')
+        .style('stroke', '#fff')
+        .style('stroke-width', 5)
+        .style('stroke-linejoin', 'round');
+
+    text.append('textPath')
+        .attr('startOffset', '50%')
+        .attr('xlink:href', (_, i) =&gt; `#hiddenArc${i}`)
+        .text(d =&gt; d.data.name);
+
+    function focusOn(d = {x0: 0, x1: 1, y0: 0, y1: 1}) {
+        const transition = svg.transition()
+            .duration(750)
+            .tween('scale', () =&gt; {
+                const xd = d3.interpolate(x.domain(), [d.x0, d.x1]),
+                    yd = d3.interpolate(y.domain(), [d.y0, 1]);
+                return t =&gt; {
+                    x.domain(xd(t));
+                    y.domain(yd(t));
+                };
+            });
+
+        transition.selectAll('path.main-arc')
+            .attrTween('d', d =&gt; () =&gt; arc(d));
+
+        transition.selectAll('path.hidden-arc')
+            .attrTween('d', d =&gt; () =&gt; middleArcLine(d));
+
+        transition.selectAll('text')
+            .attrTween('display', d =&gt; () =&gt; textFits(d) ? null : 'none');
+
+        moveStackToFront(d);
+
+        //
+
+        function moveStackToFront(elD) {
+            svg.selectAll('.slice').filter(d =&gt; d === elD)
+                .each(function (d) {
+                    this.parentNode.appendChild(this);
+                    if (d.parent) {
+                        moveStackToFront(d.parent);
+                    }
+                })
+        }
+    }
+&lt;/script&gt;
+&lt;/body&gt;</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

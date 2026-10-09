@@ -1,0 +1,86 @@
+<html>
+<head>
+    <title>private void generateReports()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void generateReports()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [502:565]</i></p>
+<ul>
+    <li><b>51</b> lines of code</li>
+    <li><b>7</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void generateReports(CommandLine cmd) throws IOException {
+        updateDateParam(cmd);
+
+        File sokratesConfigFile;
+        if (!cmd.hasOption(commands.getConfFile().getOpt())) {
+            String confFilePath = &quot;./_sokrates/config.json&quot;;
+            sokratesConfigFile = new File(confFilePath);
+        } else {
+            sokratesConfigFile = new File(cmd.getOptionValue(commands.getConfFile().getOpt()));
+        }
+
+        LOG.info(&quot;Configuration file: &quot; + sokratesConfigFile.getPath());
+        if (noFileError(sokratesConfigFile)) return;
+
+        ProcessingStopwatch.start(&quot;configuring&quot;);
+        String jsonContent = FileUtils.readFileToString(sokratesConfigFile, UTF_8);
+        this.codeConfiguration = (CodeConfiguration) new JsonMapper().getObject(jsonContent, CodeConfiguration.class);
+        LanguageAnalyzerFactory.getInstance().setOverrides(codeConfiguration.getAnalysis().getAnalyzerOverrides());
+
+        detailedInfo(&quot;Starting analysis based on the configuration file &quot; + sokratesConfigFile.getPath());
+
+        File reportsFolder;
+
+        if (!cmd.hasOption(commands.getOutputFolder().getOpt())) {
+            reportsFolder = prepareReportsFolder(&quot;./_sokrates/reports&quot;);
+        } else {
+            reportsFolder = prepareReportsFolder(cmd.getOptionValue(commands.getOutputFolder().getOpt()));
+        }
+
+        LOG.info(&quot;Reports folder: &quot; + reportsFolder.getPath());
+        ProcessingStopwatch.end(&quot;configuring&quot;);
+        if (noFileError(reportsFolder)) return;
+
+        if (this.progressFeedback == null) {
+            this.progressFeedback = new ProgressFeedback() {
+                public void setText(String text) {
+                    LOG.info(text.replaceAll(&quot;&lt;.*?&gt;&quot;, &quot;&quot;));
+                }
+
+                public void setDetailedText(String text) {
+                    LOG.info(text.replaceAll(&quot;&lt;.*?&gt;&quot;, &quot;&quot;));
+                }
+            };
+        }
+
+        try {
+            CodeAnalyzer codeAnalyzer = new CodeAnalyzer(getCodeAnalyzerSettings(cmd), codeConfiguration, sokratesConfigFile);
+            CodeAnalysisResults analysisResults = codeAnalyzer.analyze(progressFeedback);
+
+            ProcessingStopwatch.start(&quot;saving data&quot;);
+            dataExporter.saveData(sokratesConfigFile, codeConfiguration, reportsFolder, analysisResults);
+            saveTextualSummary(reportsFolder, analysisResults);
+            ProcessingStopwatch.end(&quot;saving data&quot;);
+
+            ProcessingStopwatch.start(&quot;generating visuals&quot;);
+            generateVisuals(reportsFolder, analysisResults);
+            ProcessingStopwatch.end(&quot;generating visuals&quot;);
+
+            generateAndSaveReports(sokratesConfigFile, reportsFolder, sokratesConfigFile.getParentFile(), codeAnalyzer, analysisResults);
+            saveExecutionStats(dataExporter.getDataFolder());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

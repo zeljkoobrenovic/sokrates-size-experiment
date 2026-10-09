@@ -1,0 +1,66 @@
+[
+ {
+  "extension": "java",
+  "linesOfCode": 31,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 17,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 19,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 24,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 18,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 15,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 94,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ },
+ {
+  "extension": "java",
+  "linesOfCode": 52,
+  "linesOfCodeInUnits": 0,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java",
+  "unitsCount": 0,
+  "unitsMcCabeIndexSum": 0
+ }
+]

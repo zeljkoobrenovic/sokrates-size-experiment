@@ -1,0 +1,92 @@
+<html>
+<head>
+    <title>private void generateVisuals()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void generateVisuals()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [654:723]</i></p>
+<ul>
+    <li><b>59</b> lines of code</li>
+    <li><b>7</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void generateVisuals(File reportsFolder, CodeAnalysisResults analysisResults) {
+        AtomicInteger index = new AtomicInteger();
+        analysisResults.getLogicalDecompositionsAnalysisResults().forEach(logicalDecomposition -&gt; {
+            index.getAndIncrement();
+            List&lt;VisualizationItem&gt; items = new ArrayList&lt;&gt;();
+            Force3DObject force3DObject = new Force3DObject();
+            logicalDecomposition.getComponents().forEach(component -&gt; {
+                items.add(new VisualizationItem(component.getName(), component.getLinesOfCode()));
+                force3DObject.getNodes().add(new Force3DNode(component.getName(), component.getLinesOfCode()));
+            });
+            logicalDecomposition.getComponentDependencies().forEach(dependency -&gt; {
+                force3DObject.getLinks().add(new Force3DLink(dependency.getFromComponent(), dependency.getToComponent(), dependency.getCount()));
+            });
+            try {
+                String nameSuffix = &quot;components_&quot; + index.toString() + &quot;.html&quot;;
+                String nameSuffixDependencies = &quot;dependencies_&quot; + index.toString() + &quot;.html&quot;;
+                File folder = new File(reportsFolder, &quot;html/visuals&quot;);
+                folder.mkdirs();
+                FileUtils.write(new File(folder, &quot;bubble_chart_&quot; + nameSuffix), new VisualizationTemplate().renderBubbleChart(items), UTF_8);
+                FileUtils.write(new File(folder, &quot;tree_map_&quot; + nameSuffix), new VisualizationTemplate().renderTreeMap(items), UTF_8);
+                FileUtils.write(new File(folder, &quot;force_2d_&quot; + nameSuffixDependencies), new VisualizationTemplate().render2DForceGraph(force3DObject), UTF_8);
+                FileUtils.write(new File(folder, &quot;force_3d_&quot; + nameSuffixDependencies), new VisualizationTemplate().render3DForceGraph(force3DObject), UTF_8);
+
+                generate3DUnitsView(folder, analysisResults);
+            } catch (IOException e) {
+                LOG.warn(e);
+            }
+        });
+
+        try {
+            File folder = new File(reportsFolder, &quot;html/visuals&quot;);
+            folder.mkdirs();
+
+            List&lt;SourceFile&gt; mainSourceFiles = analysisResults.getMainAspectAnalysisResults().getAspect().getSourceFiles();
+            generateFileStructureExplorers(&quot;main&quot;, folder, mainSourceFiles);
+            generateFileStructureExplorers(&quot;test&quot;, folder, analysisResults.getTestAspectAnalysisResults().getAspect().getSourceFiles());
+            generateFileStructureExplorers(&quot;generated&quot;, folder, analysisResults.getGeneratedAspectAnalysisResults().getAspect().getSourceFiles());
+            generateFileStructureExplorers(&quot;build&quot;, folder, analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect().getSourceFiles());
+            generateFileStructureExplorers(&quot;other&quot;, folder, analysisResults.getOtherAspectAnalysisResults().getAspect().getSourceFiles());
+
+            addCommitZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 30);
+            addCommitZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 90);
+            addCommitZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 180);
+            addCommitZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 365);
+            addCommitZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 0);
+
+            addContributorsZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 30);
+            addContributorsZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 90);
+            addContributorsZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 180);
+            addContributorsZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 365);
+            addContributorsZoomableCircles(&quot;main&quot;, folder, mainSourceFiles, 0);
+
+            addRiskColoredZoomableCircles(folder, mainSourceFiles, &quot;loc&quot;, codeConfiguration.getAnalysis().getFileSizeThresholds(), Palette.getRiskPalette(), (sourceFile) -&gt; sourceFile.getLinesOfCode(), (sourceFile) -&gt; sourceFile.getLinesOfCode());
+
+            addRiskColoredZoomableCircles(folder, mainSourceFiles, &quot;age&quot;, codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getAgePalette(), (sourceFile) -&gt; sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().daysSinceFirstUpdate() : 0, (sourceFile) -&gt; sourceFile.getLinesOfCode());
+            addRiskColoredZoomableCircles(folder, mainSourceFiles, &quot;freshness&quot;, codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getFreshnessPalette(),
+                    (sourceFile) -&gt; sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().daysSinceLatestUpdate() : 0, (sourceFile) -&gt; sourceFile.getLinesOfCode());
+
+            addRiskColoredZoomableCircles(folder, mainSourceFiles, &quot;update_frequency&quot;, codeConfiguration.getAnalysis().getFileUpdateFrequencyThresholds(), Palette.getHeatPalette(),
+                    (sourceFile) -&gt; sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().getDates().size() : 0, (sourceFile) -&gt; sourceFile.getLinesOfCode());
+
+            addRiskColoredZoomableCircles(folder, mainSourceFiles, &quot;contributors_count&quot;, codeConfiguration.getAnalysis().getFileContributorsCountThresholds(), Palette.getHeatPalette(),
+                    (sourceFile) -&gt; sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().countContributors() : 0, (sourceFile) -&gt; sourceFile.getLinesOfCode());
+
+            generate3DUnitsView(folder, analysisResults);
+        } catch (IOException e) {
+            LOG.warn(e);
+        }
+
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

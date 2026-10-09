@@ -1,0 +1,552 @@
+[
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 31,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 17,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 19,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 24,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 18,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 15,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 94,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 52,
+  "relativePath": "repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 42,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 81,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 25,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 75,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 95,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 29,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 30,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 100,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 94,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 41,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 45,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 28,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 57,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 19,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 23,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 33,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 80,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 50,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 30,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 149,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 78,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 26,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 11,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 53,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 115,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/io/UserProperties.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 52,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 18,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 38,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 62,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 34,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/Templates.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 92,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 31,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 103,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 35,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 13,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java"
+ },
+ {
+  "components": [
+   "primary::repo1"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 66,
+  "relativePath": "repo1/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 78,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 32,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandUsage.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 314,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/Commands.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 744,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 195,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java"
+ },
+ {
+  "components": [
+   "primary::repo2"
+  ],
+  "concerns": [
+   "::Unclassified"
+  ],
+  "extension": "java",
+  "linesOfCode": 88,
+  "relativePath": "repo2/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java"
+ }
+]

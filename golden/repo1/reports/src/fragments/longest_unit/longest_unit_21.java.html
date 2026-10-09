@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>private String getScriptString()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private String getScriptString()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java [37:58]</i></p>
+<ul>
+    <li><b>22</b> lines of code</li>
+    <li><b>1</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private String getScriptString(String dataString) {
+        return &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot; +
+                &quot;      google.charts.load(\&quot;current\&quot;, {packages:[\&quot;orgchart\&quot;]});\n&quot; +
+                &quot;      google.charts.setOnLoadCallback(drawChart);\n&quot; +
+                &quot;      function drawChart() {\n&quot; +
+                &quot;var data = new google.visualization.DataTable();\n&quot; +
+                &quot;        data.addColumn('string', 'Name');\n&quot; +
+                &quot;        data.addColumn('string', 'Manager');\n&quot; +
+                &quot;        data.addColumn('string', 'ToolTip');\n&quot; +
+                &quot;\n&quot; +
+                &quot;        data.addRows([\n&quot; +
+                dataString +
+                &quot;        ]);\n&quot; +
+                &quot;\n&quot; +
+                &quot;        // Create the chart.\n&quot; +
+                &quot;        var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));\n&quot; +
+                &quot;        // Draw the chart, setting the allowHtml option to true for the tooltips.\n&quot; +
+                &quot;        chart.draw(data, {allowHtml:true});&quot; +
+                &quot;      }\n&quot; +
+                &quot;&lt;/script&gt;&quot; +
+                &quot;&lt;div id=\&quot;chart_div\&quot; style=\&quot;width: 800px; height: 500px;\&quot;&gt;&lt;/div&gt;&quot;;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

@@ -1,0 +1,169 @@
+<html>
+<head>
+    <title>repo1/src/main/resources/vis_templates/zoomable_circles.html</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/resources/vis_templates/zoomable_circles.html (<b>120</b> lines of code) (<a href="zoomable_circles.html">raw</a>):</h3>
+<div id="editor">&lt;!DOCTYPE html&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;style&gt;
+
+    .node {
+        cursor: pointer;
+    }
+
+    .node:hover {
+        stroke: #000;
+        stroke-width: 1.5px;
+    }
+
+    .node--leaf {
+        fill: white;
+    }
+
+    .label {
+        font: 11px &quot;Helvetica Neue&quot;, Helvetica, Arial, sans-serif;
+        text-anchor: middle;
+        text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+    }
+
+    .label,
+    .node--root,
+    .node--leaf {
+        pointer-events: none;
+    }
+
+&lt;/style&gt;
+&lt;svg width=&quot;960&quot; height=&quot;960&quot;&gt;&lt;/svg&gt;
+&lt;script src=&quot;https://d3js.org/d3.v4.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+
+    var svg = d3.select(&quot;svg&quot;),
+        margin = 20,
+        diameter = +svg.attr(&quot;width&quot;),
+        g = svg.append(&quot;g&quot;).attr(&quot;transform&quot;, &quot;translate(&quot; + diameter / 2 + &quot;,&quot; + diameter / 2 + &quot;)&quot;);
+
+    var color = d3.scaleLinear()
+        .domain([-1, 5])
+        .range([&quot;hsl(152,80%,100%)&quot;, &quot;hsl(228,30%,40%)&quot;])
+        .interpolate(d3.interpolateHcl);
+
+    var pack = d3.pack()
+        .size([diameter - margin, diameter - margin])
+        .padding(2);
+
+
+    var root = {
+        &quot;name&quot;: &quot;cluster&quot;,
+        &quot;children&quot;: ${data}
+    }
+
+    root = d3.hierarchy(root)
+        .sum(function (d) {
+            return d.size;
+        })
+        .sort(function (a, b) {
+            return b.value - a.value;
+        });
+
+    var focus = root,
+        nodes = pack(root).descendants(),
+        view;
+
+    var circle = g.selectAll(&quot;circle&quot;)
+        .data(nodes)
+        .enter().append(&quot;circle&quot;)
+        .attr(&quot;class&quot;, function (d) {
+            return d.parent ? d.children ? &quot;node&quot; : &quot;node node--leaf&quot; : &quot;node node--root&quot;;
+        })
+        .style(&quot;fill&quot;, function (d) {
+            return d.children ? color(d.depth) : (d.data.color ? d.data.color : null);
+        })
+        .on(&quot;click&quot;, function (d) {
+            if (focus !== d) zoom(d), d3.event.stopPropagation();
+        });
+
+    var text = g.selectAll(&quot;text&quot;)
+        .data(nodes)
+        .enter().append(&quot;text&quot;)
+        .attr(&quot;class&quot;, &quot;label&quot;)
+        .style(&quot;fill-opacity&quot;, function (d) {
+            return d.parent === root ? 1 : 0;
+        })
+        .style(&quot;display&quot;, function (d) {
+            return d.parent === root ? &quot;inline&quot; : &quot;none&quot;;
+        })
+        .text(function (d) {
+            return d.data.name.length &gt; 33 ? (d.data.name.substr(0, 14) + &quot;...&quot; + d.data.name.substr(d.data.name.length - 14))  : d.data.name;
+        });
+
+    var node = g.selectAll(&quot;circle,text&quot;);
+
+    svg
+        .style(&quot;background&quot;, color(-1))
+        .on(&quot;click&quot;, function () {
+            zoom(root);
+        });
+
+    zoomTo([root.x, root.y, root.r * 2 + margin]);
+
+    function zoom(d) {
+        var focus0 = focus;
+        focus = d;
+
+        var transition = d3.transition()
+            .duration(d3.event.altKey ? 7500 : 750)
+            .tween(&quot;zoom&quot;, function (d) {
+                var i = d3.interpolateZoom(view, [focus.x, focus.y, focus.r * 2 + margin]);
+                return function (t) {
+                    zoomTo(i(t));
+                };
+            });
+
+        transition.selectAll(&quot;text&quot;)
+            .filter(function (d) {
+                return d.parent === focus || this.style.display === &quot;inline&quot;;
+            })
+            .style(&quot;fill-opacity&quot;, function (d) {
+                return d.parent === focus ? 1 : 0;
+            })
+            .on(&quot;start&quot;, function (d) {
+                if (d.parent === focus) this.style.display = &quot;inline&quot;;
+            })
+            .on(&quot;end&quot;, function (d) {
+                if (d.parent !== focus) this.style.display = &quot;none&quot;;
+            });
+    }
+
+    function zoomTo(v) {
+        var k = diameter / v[2];
+        view = v;
+        node.attr(&quot;transform&quot;, function (d) {
+            return &quot;translate(&quot; + (d.x - v[0]) * k + &quot;,&quot; + (d.y - v[1]) * k + &quot;)&quot;;
+        });
+        circle.attr(&quot;r&quot;, function (d) {
+            return d.r * k;
+        });
+    }
+
+&lt;/script&gt;
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/html");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

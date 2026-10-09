@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>public String renderRacingCharts()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">public String renderRacingCharts()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java [84:100]</i></p>
+<ul>
+    <li><b>14</b> lines of code</li>
+    <li><b>2</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    public String renderRacingCharts(List&lt;RacingChartItem&gt; items, String startYear, String title) {
+        ClassLoader clazz = this.getClass().getClassLoader();
+        InputStream inputStream = clazz.getResourceAsStream(&quot;vis_templates/bar_chart_races.html&quot;);
+
+        try {
+            String content = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            content = content.replace(&quot;${title}&quot;, title);
+            content = content.replace(&quot;${startYear}&quot;, startYear + &quot;&quot;);
+            content = content.replace(&quot;${data}&quot;, new JsonGenerator().generateCompressed(items));
+
+            return content;
+        } catch (IOException e) {
+            LOG.error(e);
+        }
+
+        return null;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

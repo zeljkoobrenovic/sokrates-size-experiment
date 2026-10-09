@@ -1,0 +1,9 @@
+Path	Lines of Code
+repo1/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java	17
+repo1/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java	19
+repo1/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java	18
+repo1/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java	24
+repo1/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java	31
+repo1/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java	94
+repo1/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java	52
+repo1/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java	15

@@ -1,0 +1,53 @@
+<html>
+<head>
+    <title>private void updateMetadataFromCommandLine()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private void updateMetadataFromCommandLine()</h3>
+<p style="margin-top: 4px">in <i>repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java [444:474]</i></p>
+<ul>
+    <li><b>28</b> lines of code</li>
+    <li><b>11</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private void updateMetadataFromCommandLine(CommandLine cmd, Metadata metadata) {
+        if (cmd.hasOption(commands.getSetName().getOpt())) {
+            String name = cmd.getOptionValue(commands.getSetName().getOpt());
+            if (StringUtils.isNotBlank(name)) {
+                metadata.setName(name);
+            }
+        }
+
+        if (cmd.hasOption(commands.getSetDescription().getOpt())) {
+            String description = cmd.getOptionValue(commands.getSetDescription().getOpt());
+            if (StringUtils.isNotBlank(description)) {
+                metadata.setDescription(description);
+            }
+        }
+
+        if (cmd.hasOption(commands.getSetLogoLink().getOpt())) {
+            String logoLink = cmd.getOptionValue(commands.getSetLogoLink().getOpt());
+            if (StringUtils.isNotBlank(logoLink)) {
+                metadata.setLogoLink(logoLink);
+            }
+        }
+
+        if (cmd.hasOption(commands.getAddLink().getOpt())) {
+            String[] linkData = cmd.getOptionValues(commands.getAddLink().getOpt());
+            if (linkData.length &gt;= 1 &amp;&amp; StringUtils.isNotBlank(linkData[0])) {
+                String href = linkData[0];
+                String label = linkData.length &gt; 1 ? linkData[1] : &quot;&quot;;
+                metadata.getLinks().add(new Link(label, href));
+            }
+        }
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

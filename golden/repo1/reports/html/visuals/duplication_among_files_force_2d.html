@@ -1,0 +1,131 @@
+<head>
+    <style> body {
+        margin: 0;
+    } </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/force-graph"></script>
+</head>
+
+<body>
+<div id="graph"></div>
+
+<script>
+    const gData = {
+  "nodes" : [ {
+    "id" : "[repo1/src/main/resources/templates/codepreview.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/resources/templates/files-explorer.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/resources/vis_templates/treemap.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/resources/vis_templates/bubble_chart.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/resources/templates/repository-explorer.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "size" : 2
+  }, {
+    "id" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "size" : 2
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/resources/templates/editor.html]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "size" : 1
+  }, {
+    "id" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "size" : 2
+  } ],
+  "links" : [ {
+    "source" : "[repo1/src/main/resources/templates/files-explorer.html]",
+    "target" : "[repo1/src/main/resources/templates/repository-explorer.html]",
+    "count" : 98
+  }, {
+    "source" : "[repo1/src/main/resources/templates/repository-explorer.html]",
+    "target" : "[repo1/src/main/resources/templates/files-explorer.html]",
+    "count" : 98
+  }, {
+    "source" : "[repo1/src/main/resources/templates/codepreview.html]",
+    "target" : "[repo1/src/main/resources/templates/editor.html]",
+    "count" : 48
+  }, {
+    "source" : "[repo1/src/main/resources/templates/editor.html]",
+    "target" : "[repo1/src/main/resources/templates/codepreview.html]",
+    "count" : 48
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "count" : 40
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java]",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java]",
+    "count" : 40
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 44
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java]",
+    "count" : 44
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 42
+  }, {
+    "source" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "target" : "[repo1/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java]",
+    "count" : 42
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "count" : 14
+  }, {
+    "source" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "target" : "[repo2/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java]",
+    "count" : 14
+  }, {
+    "source" : "[repo1/src/main/resources/vis_templates/bubble_chart.html]",
+    "target" : "[repo1/src/main/resources/vis_templates/treemap.html]",
+    "count" : 12
+  }, {
+    "source" : "[repo1/src/main/resources/vis_templates/treemap.html]",
+    "target" : "[repo1/src/main/resources/vis_templates/bubble_chart.html]",
+    "count" : 12
+  } ]
+}
+
+    const maxNodeSize = gData.nodes.map(n => n.size).reduce((a, b) => Math.max(a, b));
+    const maxCount = gData.links.map(l => l.count).reduce((a, b) => Math.max(a, b));
+
+    gData.links = gData.links.map(l => {
+        return {source: l.target, target: l.source, count: l.count}
+    });
+    const colorOf = (node) => {
+        if (!node.id.startsWith("[")) return "rgba(135, 206, 235, 0.6)";
+        return "rgba(100,100,100,0.6)";
+    }
+
+    const elem = document.getElementById('graph');
+    const Graph = ForceGraph()(elem)
+        .graphData(gData)
+        .nodeRelSize(4)
+        .nodeVal(n => Math.max(20 * n.size / maxNodeSize, 0.001))
+        .nodeLabel(n => n.id + " (" + n.size + ")")
+        .nodeColor(n => colorOf(n))
+        .linkDirectionalParticles(1)
+        .linkDirectionalParticleSpeed(d => d.count / maxCount * 0.01)
+        .linkOpacity(0.1)
+        .linkWidth(d => 3 * d.count / maxCount + 0.1);
+
+</script>
+</body>

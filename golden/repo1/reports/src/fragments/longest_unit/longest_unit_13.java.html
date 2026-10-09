@@ -1,0 +1,49 @@
+<html>
+<head>
+    <title>private String getScriptString()</title>
+    <link rel="stylesheet" charset="UTF-8" href="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/styles/docco.min.css">
+    <script charset="UTF-8" type="application/javascript" src="https://d2bb1mtyn3kglb.cloudfront.net/lib/highlight/highlight.min.js"></script>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">private String getScriptString()</h3>
+<p style="margin-top: 4px">in <i>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java [99:125]</i></p>
+<ul>
+    <li><b>27</b> lines of code</li>
+    <li><b>1</b> McCabe index (conditional complexity)</li>
+</ul>
+<pre>
+<code class="java">
+    private String getScriptString(StringBuilder dataString, StringBuilder colorsString) {
+        String id = &quot;bar&quot; + chartCounter++;
+        String functionId = &quot;draw_&quot; + id;
+        return &quot;&lt;script type=\&quot;text/javascript\&quot;&gt;\n&quot; +
+                &quot;      google.charts.load(\&quot;current\&quot;, {packages:[\&quot;corechart\&quot;]});\n&quot; +
+                &quot;      google.charts.setOnLoadCallback(&quot; + functionId + &quot;);\n&quot; +
+                &quot;      function &quot; + functionId + &quot;() {\n&quot; +
+                &quot;        var data = google.visualization.arrayToDataTable([\n&quot; +
+                StringUtils.removeEnd(dataString.toString().replace(&quot;,]&quot;, &quot;]&quot;), &quot;,&quot;) +
+                &quot;        ]);\n&quot; +
+                &quot;        var options = {\n&quot; +
+                &quot;          title: '&quot; + title + &quot;',\n&quot; +
+                &quot;          fontName: 'Tahoma', &quot; +
+                &quot;          isStacked: true,&quot; +
+                &quot;          height: &quot; + height + &quot;,&quot; +
+                &quot;          legend: { position: 'top', maxLines: 3 }, &quot; +
+                &quot;          colors: [\n&quot; +
+                StringUtils.removeEnd(colorsString.toString(), &quot;,&quot;) +
+                &quot;          ]\n&quot; +
+                &quot;        };\n&quot; +
+                &quot;\n&quot; +
+                &quot;        var chart = new google.visualization.BarChart(document.getElementById('&quot; + id + &quot;'));\n&quot; +
+                &quot;        chart.draw(data, options);\n&quot; +
+                &quot;      }\n&quot; +
+                &quot;&lt;/script&gt;&quot; +
+                &quot;&lt;div id=\&quot;&quot; + id + &quot;\&quot; style=\&quot;width: &quot; + width + &quot;px; height: &quot; + height + &quot;px;\&quot;&gt;&lt;/div&gt;&quot;;
+    }
+
+</code>
+</pre>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+</body>

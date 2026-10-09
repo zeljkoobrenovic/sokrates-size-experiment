@@ -1,0 +1,148 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java (<b>95</b> lines of code) (<a href="RichTextRenderingUtils.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.renderingutils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
+public class RichTextRenderingUtils {
+    @JsonIgnore
+    private static int showMoreBlockId = 1;
+
+    public static double getPercentage(double total, double count) {
+        return (int) (count * 100 * 100 / total) / 100.0;
+    }
+
+    public static String renderNumber(int number) {
+        DecimalFormat decimalFormat = new DecimalFormat(&quot;###,###&quot;);
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return decimalFormat.format(number);
+    }
+
+    public static String renderNumberStrong(int number) {
+        DecimalFormat decimalFormat = new DecimalFormat(&quot;###,###&quot;);
+        decimalFormat.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return &quot;&lt;b&gt;&quot; + decimalFormat.format(number) + &quot;&lt;/b&gt;&quot;;
+    }
+
+    public static String renderNumber(double number) {
+        DecimalFormat format = new DecimalFormat(&quot;0.0&quot;);
+        format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return format.format(number);
+    }
+
+    public static String renderNumberStrong(double number) {
+        DecimalFormat format = new DecimalFormat(&quot;0.0&quot;);
+        format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return &quot;&lt;b&gt;&quot; + format.format(number) + &quot;&lt;/b&gt;&quot;;
+    }
+
+    public static String renderNumberStrongWithSuffix(int number, String singularSuffix, String pluralSuffix) {
+        DecimalFormat format = new DecimalFormat(&quot;###,###&quot;);
+        format.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.ENGLISH));
+        return &quot;&lt;b&gt;&quot; + format.format(number) + &quot;&lt;/b&gt; &quot; + (number == 1 ? singularSuffix : pluralSuffix);
+    }
+
+    public static String link(String title, String link) {
+        return &quot;&lt;a href='&quot; + link + &quot;'&gt;&quot; + title + &quot;&lt;/a&gt;&quot;;
+    }
+
+    public static String getShowMoreParagraph(String visibleContent, String hiddenContent, String linkLabel) {
+        StringBuilder content = new StringBuilder();
+        String id = &quot;showMoreBlock_&quot; + showMoreBlockId++;
+        content.append(visibleContent + &quot; &quot; + &quot;&lt;a href=\&quot;javascript:showHide('&quot; + id + &quot;');\&quot;)&gt;&quot; + linkLabel + &quot;&lt;/a&gt;&quot;);
+        content.append(&quot;&lt;span id=\&quot;&quot; + id + &quot;\&quot; style=\&quot;display: none;\&quot;&gt;&quot;);
+        content.append(hiddenContent);
+        content.append(&quot;&lt;/span&gt;&quot;);
+
+        return content.toString();
+    }
+
+    public static String getStartShowMoreParagraph(String visibleContent, String linkLabel) {
+        StringBuilder content = new StringBuilder();
+        String id = &quot;showMoreBlock_&quot; + showMoreBlockId++;
+        content.append(visibleContent + &quot; &quot; + &quot;&lt;a href=\&quot;javascript:showHide('&quot; + id + &quot;');\&quot;)&gt;&quot; + linkLabel + &quot;&lt;/a&gt;&quot;);
+        content.append(&quot;&lt;span id=\&quot;&quot; + id + &quot;\&quot; style=\&quot;display: none;\&quot;&gt;&quot;);
+
+        return content.toString();
+    }
+
+    public static String getStartShowMoreParagraphDisappear(String visibleContent, String linkLabel) {
+        StringBuilder content = new StringBuilder();
+        String id = &quot;showMoreBlock_&quot; + showMoreBlockId++;
+        content.append(&quot;&lt;span id='&quot; + id + &quot;_trigger' style='display: inline-block;'&gt;&quot;
+                + visibleContent + &quot; &quot; + &quot;&lt;a href=\&quot;javascript:showHideDisappear('&quot; + id + &quot;');\&quot;)&gt;&quot;
+                + linkLabel + &quot;&lt;/a&gt;&lt;/span&gt;&quot;);
+        content.append(&quot;&lt;span id='&quot; + id + &quot;' style='display: none;'&gt;&quot;);
+
+        return content.toString();
+    }
+
+    public static String getEndShowMoreParagraph() {
+        return &quot;&lt;/span&gt;&quot;;
+    }
+
+    public static String getLinkWikiStyle(String link) {
+        link = link.trim();
+        String title, url;
+        if (link.contains(&quot; &quot;)) {
+            title = link.substring(link.indexOf(&quot; &quot;) + 1).trim();
+            url = link.substring(0, link.indexOf(&quot; &quot;)).trim();
+        } else {
+            title = link;
+            url = link;
+        }
+        return &quot;&lt;a href='&quot; + url + &quot;'&gt;&quot; + title + &quot;&lt;/a&gt;&quot;;
+    }
+
+    public static String getStyledContent(String content, String style) {
+        return &quot;&lt;span style=\&quot;&quot; + style + &quot;\&quot;&gt;&quot; + content + &quot;&lt;/style&gt;&quot;;
+    }
+
+    public static String bold(String text) {
+        return &quot;&lt;b&gt;&quot; + text + &quot;&lt;/b&gt;&quot;;
+    }
+
+    public static String bold(int number) {
+        return bold(number + &quot;&quot;);
+    }
+
+    public static String italic(String text) {
+        return &quot;&lt;i&gt;&quot; + text + &quot;&lt;/i&gt;&quot;;
+    }
+
+    public static String paragraph(String context) {
+        return &quot;&lt;p&gt;&quot; + context + &quot;&lt;/p&gt;&quot;;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>

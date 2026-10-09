@@ -1,0 +1,132 @@
+<html>
+<head>
+    <title>repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java</title>
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+<h3 style="margin-bottom: 0">repo1/src/main/java/nl/obren/sokrates/common/analysis/Finding.java (<b>78</b> lines of code) (<a href="Finding.java">raw</a>):</h3>
+<div id="editor">/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.common.analysis;
+
+import org.apache.commons.lang3.StringUtils;
+
+public class Finding {
+
+    public enum Assessment {
+        POSITIVE(&quot;+&quot;), NEGATIVE(&quot;-&quot;), NEUTRAL(&quot;&plusmn;&quot;), NONE(&quot;&quot;);
+        private String displayText;
+
+        Assessment(String displayText) {
+            this.displayText = displayText;
+        }
+
+        public String getDisplayText() {
+            return displayText;
+        }
+    }
+
+    private Assessment assessment = Assessment.NEUTRAL;
+    private String shortDescription = &quot;&quot;;
+    private String detailedDescription = &quot;&quot;;
+    private String type = &quot;&quot;;
+    private String searchPhrase = &quot;&quot;;
+
+    public Finding() {
+    }
+
+    public Finding(Assessment assessment, String shortDescription) {
+        this.assessment = assessment;
+        this.shortDescription = shortDescription;
+    }
+
+    public static Finding newPositiveFinding(String description) {
+        return new Finding(Assessment.POSITIVE, description);
+    }
+
+    public static Finding newFindingWithoutOpinion(String description) {
+        return new Finding(Assessment.NONE, description);
+    }
+
+    public Finding detailedDescription(String details) {
+        this.detailedDescription = details;
+        return this;
+    }
+
+    public static Finding newNegativeFinding(String description) {
+        return new Finding(Assessment.NEGATIVE, description);
+    }
+
+    public static Finding newNeutralFinding(String description) {
+        return new Finding(Assessment.NEUTRAL, description);
+    }
+
+    public Assessment getAssessment() {
+        return assessment;
+    }
+
+    public void setAssessment(Assessment assessment) {
+        this.assessment = assessment;
+    }
+
+    public String getShortDescription() {
+        return shortDescription;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Finding setType(String type) {
+        this.type = type;
+        return this;
+    }
+
+    public String getSearchPhrase() {
+        return searchPhrase;
+    }
+
+    public Finding setSearchPhrase(String searchPhrase) {
+        this.searchPhrase = searchPhrase;
+        return this;
+    }
+
+    public String getDetailedDescription() {
+        return detailedDescription;
+    }
+
+    public void setDetailedDescription(String detailedDescription) {
+        this.detailedDescription = detailedDescription;
+    }
+
+    @Override
+    public String toString() {
+        String typeString = StringUtils.isNotBlank(type) ? &quot; (&quot; + type + &quot;)&quot; : &quot;&quot;;
+        return assessment.getDisplayText() + typeString + &quot; &quot; + shortDescription;
+    }
+}
+</div>
+<script src="https://www.zeljkoobrenovic.com/tools/common/lib/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.session.setMode("ace/mode/java");
+    editor.setTheme("ace/theme/xcode");
+    editor.setReadOnly(true);
+    editor.setOption("wrap", true);
+    editor.setPrintMarginColumn(120);
+</script>
+</body>
