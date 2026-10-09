@@ -42,6 +42,10 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 12px; widt
 .grid thead th.total { text-align: right; padding: 0 10px; border-left: 1px solid var(--border); }
 .grid tr.token td.cell { height: 82px; position: relative; }
 .grid tr.token td.cell:hover::after { content: attr(data-v); position: absolute; left: 50%; top: 2px; transform: translateX(-50%); font-size: 10px; line-height: 14px; padding: 0 4px; border-radius: 3px; background: var(--text); color: var(--bg); white-space: nowrap; pointer-events: none; z-index: 1; }
+.grid tr.sub { display: none; }
+.grid tr.sub.shown { display: table-row; }
+.tg { font: inherit; font-size: 11px; line-height: 16px; width: 18px; padding: 0; margin: 0 4px 0 -4px; border: 0; background: none; color: var(--muted); cursor: pointer; border-radius: 4px; }
+.tg:hover { background: var(--surface-2); color: var(--text); }
 .grid tr.group th { background: var(--surface-2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; height: 22px; }
 .grid tr.group td { background: var(--surface-2); }
 .bar { display: inline-block; width: calc(var(--col) - 8px); margin: 0 4px 3px; border-radius: 3px 3px 0 0; background: var(--c); vertical-align: bottom; min-height: 1px; }
@@ -84,7 +88,7 @@ a { color: var(--read); }
 <body>
 <main>
 <h1>Agent turn traces</h1>
-<p class="lead">One column per API call (a turn); the agent's tools in that turn below the token bars. The top rows show what each turn costs: the context re-sent from the prompt cache, the new context written to it (tool results, the agent's own words) and the output. The file rows show where the agent read, searched and edited. Hover a cell for details, click a turn to list its commands.</p>
+<p class="lead">One column per API call (a turn); the agent's tools in that turn below the token bars. The top rows show what each turn costs: the context re-sent from the prompt cache, the new context written to it (tool results, the agent's own words) and the output. The file rows show where the agent read, searched and edited. Hover a cell for details, click a turn to list its commands; the ▸ next to "New, written to cache" and "Tool calls" opens their breakdown.</p>
 
 <div class="controls">
   <label>Example <select id="pick"></select></label>
@@ -117,6 +121,9 @@ a { color: var(--read); }
   var detail = document.getElementById('detail'), summary = document.getElementById('summary');
   var hideHits = document.getElementById('hideHits'), cumulative = document.getElementById('cumulative');
   var current = null, selected = null;
+  var open = {new: false, tools: false};
+  try { var stored = JSON.parse(localStorage.getItem('trace-open') || '{}'); open.new = !!stored.new; open.tools = !!stored.tools; } catch (e) {}
+  function toggle(which) { return '<button class="tg" data-toggle="' + which + '" aria-expanded="' + open[which] + '" title="show or hide the breakdown">' + (open[which] ? '\u25BE' : '\u25B8') + '</button>'; }
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
   function fmt(n) { return n == null ? '–' : Math.round(n).toLocaleString('en-US'); }
@@ -131,9 +138,9 @@ a { color: var(--read); }
 
   var NEW_PARTS = [['tool_results', 'tool results', 'var(--write)'], ['prev_output', "the agent's previous output", 'var(--output)'], ['other', 'prompt, reminders, injected instructions', 'var(--faint)']];
 
-  function tokenRow(label, key, color, turns, total, max) {
+  function tokenRow(label, key, color, turns, total, max, rowClass, headExtra) {
     var vals = tokenValues(turns, key);
-    var h = '<tr class="token"><th class="head">' + esc(label) + '<span class="n">max ' + fmt(Math.max.apply(null, vals.concat([0]))) + '</span></th>';
+    var h = '<tr class="token' + (rowClass ? ' ' + rowClass : '') + '"><th class="head">' + (headExtra || '') + esc(label) + '<span class="n">max ' + fmt(Math.max.apply(null, vals.concat([0]))) + '</span></th>';
     vals.forEach(function (v, i) {
       var t = turns[i], tip = 'turn ' + (i + 1) + ': ' + fmt(v) + ' tokens — ' + label.replace(/^\u2003/, '').toLowerCase();
       if (key === 'cache_write' && t.new && !cumulative.checked) {
@@ -176,16 +183,17 @@ a { color: var(--read); }
     var max = Math.max.apply(null, ['cache_read', 'cache_write', 'input', 'output'].reduce(function (a, k) { return a.concat(tokenValues(turns, k)); }, [1]));
     h += '<tr class="group"><th class="head">Context per turn (tokens, one scale: ' + fmt(max) + ' = full bar)</th><td colspan="' + (n + 1) + '"></td></tr>';
     h += tokenRow('Re-sent from cache', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
-    h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max);
-    if (turns.some(function (t) { return t.new; })) {
+    var hasNew = turns.some(function (t) { return t.new; });
+    h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max, hasNew ? 'parent' + (open.new ? ' open' : '') : '', hasNew ? toggle('new') : '');
+    if (hasNew) {
       var sumNew = function (k) { return turns.reduce(function (a, t) { return a + ((t.new || {})[k] || 0); }, 0); };
-      h += tokenRow('\u2003of which tool results', 'new.tool_results', 'var(--write)', turns, sumNew('tool_results'), max);
-      h += tokenRow("\u2003of which the agent's previous output", 'new.prev_output', 'var(--output)', turns, sumNew('prev_output'), max);
-      h += tokenRow('\u2003of which prompt, reminders, injected instructions', 'new.other', 'var(--faint)', turns, sumNew('other'), max);
+      h += tokenRow('\u2003of which tool results', 'new.tool_results', 'var(--write)', turns, sumNew('tool_results'), max, 'sub sub-new');
+      h += tokenRow("\u2003of which the agent's previous output", 'new.prev_output', 'var(--output)', turns, sumNew('prev_output'), max, 'sub sub-new');
+      h += tokenRow('\u2003of which prompt, reminders, injected instructions', 'new.other', 'var(--faint)', turns, sumNew('other'), max, 'sub sub-new');
     }
     if (sum('input') > n * 10) h += tokenRow('Uncached input', 'input', 'var(--faint)', turns, sum('input'), max);
     h += tokenRow('Output', 'output', 'var(--output)', turns, sum('output'), max);
-    h += '<tr><th class="head">Tool calls</th>';
+    h += '<tr class="parent' + (open.tools ? ' open' : '') + '"><th class="head">' + toggle('tools') + 'Tool calls</th>';
     turns.forEach(function (t, i) {
       h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(t.tools.map(function (x) { return x.kind + (x.error ? ' (failed)' : '') + ': ' + x.detail; }).join('\n')) + '">';
       t.tools.forEach(function (x) { h += '<span class="tool ' + x.kind + (x.error ? ' err' : '') + '">' + (LETTER[x.kind] || '?') + '</span>'; });
@@ -194,7 +202,7 @@ a { color: var(--read); }
     h += '<td class="total">' + turns.reduce(function (a, t) { return a + t.tools.filter(function (x) { return x.kind !== 'text'; }).length; }, 0) + ' calls</td></tr>';
     var outLines = turns.map(function (t) { return t.tools.reduce(function (a, x) { return a + (x.lines || 0); }, 0); });
     var outMax = Math.max.apply(null, outLines.concat([1]));
-    h += '<tr class="token"><th class="head">Tool output (lines)<span class="n">max ' + fmt(outMax) + ', own scale</span></th>';
+    h += '<tr class="token sub sub-tools"><th class="head">\u2003Tool output (lines)<span class="n">max ' + fmt(outMax) + ', own scale</span></th>';
     outLines.forEach(function (v, i) {
       h += '<td class="cell" data-turn="' + i + '" data-v="' + fmt(v) + '" data-tip="' + esc('turn ' + (i + 1) + ': ' + fmt(v) + ' lines of tool output, in the context from the next turn on') + '"><span class="bar" style="--c:var(--write);height:' + Math.max(1, Math.round(76 * v / outMax)) + 'px"></span></td>';
     });
@@ -205,7 +213,7 @@ a { color: var(--read); }
       var calls = turns.map(function (t) { return t.tools.filter(function (x) { return x.kind === k[0]; }); });
       var count = calls.reduce(function (a, c) { return a + c.length; }, 0);
       if (!count) return;
-      h += '<tr><th class="head">' + esc(k[1]) + '</th>';
+      h += '<tr class="sub sub-tools"><th class="head">' + esc(k[1]) + '</th>';
       calls.forEach(function (c, i) {
         h += '<td class="cell" data-turn="' + i + '"' + (c.length ? ' data-tip="' + esc(c.map(function (x) { return (x.error ? '(failed) ' : '') + x.detail + ' → ' + fmt(x.lines) + ' lines'; }).join('\n')) + '"' : '') + '>';
         c.forEach(function (x) { h += '<span class="tool ' + x.kind + (x.error ? ' err' : '') + '">' + (LETTER[x.kind] || '?') + '</span>'; });
@@ -246,6 +254,7 @@ a { color: var(--read); }
     });
     h += '</tbody>';
     grid.innerHTML = h;
+    ['new', 'tools'].forEach(function (w) { if (open[w]) Array.prototype.forEach.call(grid.querySelectorAll('tr.sub-' + w), function (r) { r.classList.add('shown'); }); });
     showTurn(selected);
   }
 
@@ -277,6 +286,17 @@ a { color: var(--read); }
   });
   grid.addEventListener('mouseleave', function () { tip.style.display = 'none'; });
   grid.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-toggle]');
+    if (b) {
+      var which = b.getAttribute('data-toggle');
+      open[which] = !open[which];
+      try { localStorage.setItem('trace-open', JSON.stringify(open)); } catch (err) {}
+      b.textContent = open[which] ? '\u25BE' : '\u25B8';
+      b.setAttribute('aria-expanded', open[which]);
+      b.closest('tr').classList.toggle('open', open[which]);
+      Array.prototype.forEach.call(grid.querySelectorAll('tr.sub-' + which), function (r) { r.classList.toggle('shown', open[which]); });
+      return;
+    }
     var c = e.target.closest('[data-turn]');
     if (c) showTurn(selected === +c.getAttribute('data-turn') ? null : +c.getAttribute('data-turn'));
   });
