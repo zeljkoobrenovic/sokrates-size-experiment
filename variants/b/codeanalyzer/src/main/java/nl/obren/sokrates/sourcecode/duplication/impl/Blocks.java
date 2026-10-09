@@ -162,48 +162,54 @@ public class Blocks {
                 if (foundBlockIDs.size() > 0) {
                     Integer cleanedStartLine2 = foundBlockIDs.get(0);
 
-                    DuplicateRange range1 = new DuplicateRange(cleanedStartLine1, cleanedStartLine1 + blockSize - 1);
-                    DuplicateRange range2 = new DuplicateRange(cleanedStartLine2, cleanedStartLine2 + blockSize - 1);
-
-                    DuplicateRangePair pair1 = new DuplicateRangePair(range1, range2);
-                    DuplicateRangePair pair2 = new DuplicateRangePair(range2, range1);
-
-                    File file1 = fileInfoForDuplication1.getSourceFile().getFile();
-                    File file2 = fileInfoForDuplication2.getSourceFile().getFile();
-                    String key1 = getPairKey(file1.getPath(), file2.getPath());
-                    String key2 = getPairKey(file2.getPath(), file1.getPath());
-
-                    boolean alreadyIncluded = false;
-                    DuplicateRangePairs duplicateRangePairs1 = fileRangePairs.get(key1);
-                    DuplicateRangePairs duplicateRangePairs2 = fileRangePairs.get(key2);
-
-                    if (duplicateRangePairs1 != null && duplicateRangePairs1.includes(pair1)) {
-                        alreadyIncluded = true;
-                    }
-
-                    if (!alreadyIncluded && duplicateRangePairs2 != null && duplicateRangePairs2.includes(pair2)) {
-                        alreadyIncluded = true;
-                    }
-
-                    if (!alreadyIncluded) {
-                        duplicationInstances.put(subBlock1.getStringKey(), currentInstance);
-                        addFileToDuplicationInstance(currentInstance, fileInfoForDuplication2.getSourceFile(), cleanedStartLine2 + 1, blockSize);
-
-                        if (duplicateRangePairs1 == null) {
-                            duplicateRangePairs1 = new DuplicateRangePairs();
-                            fileRangePairs.put(key1, duplicateRangePairs1);
-                        }
-                        duplicateRangePairs1.getRanges().add(pair1);
-
-                        if (duplicateRangePairs2 == null) {
-                            duplicateRangePairs2 = new DuplicateRangePairs();
-                            fileRangePairs.put(key2, duplicateRangePairs2);
-                        }
-                        duplicateRangePairs2.getRanges().add(pair2);
-                    }
+                    addDuplicateRangePair(fileInfoForDuplication1, fileInfoForDuplication2, blockSize, subBlock1, currentInstance, cleanedStartLine1, cleanedStartLine2);
                 }
             });
         });
+    }
+
+    private void addDuplicateRangePair(FileInfoForDuplication fileInfoForDuplication1, FileInfoForDuplication fileInfoForDuplication2,
+                                       final int blockSize, Block subBlock1, DuplicationInstance currentInstance,
+                                       Integer cleanedStartLine1, Integer cleanedStartLine2) {
+        DuplicateRange range1 = new DuplicateRange(cleanedStartLine1, cleanedStartLine1 + blockSize - 1);
+        DuplicateRange range2 = new DuplicateRange(cleanedStartLine2, cleanedStartLine2 + blockSize - 1);
+
+        DuplicateRangePair pair1 = new DuplicateRangePair(range1, range2);
+        DuplicateRangePair pair2 = new DuplicateRangePair(range2, range1);
+
+        File file1 = fileInfoForDuplication1.getSourceFile().getFile();
+        File file2 = fileInfoForDuplication2.getSourceFile().getFile();
+        String key1 = getPairKey(file1.getPath(), file2.getPath());
+        String key2 = getPairKey(file2.getPath(), file1.getPath());
+
+        boolean alreadyIncluded = false;
+        DuplicateRangePairs duplicateRangePairs1 = fileRangePairs.get(key1);
+        DuplicateRangePairs duplicateRangePairs2 = fileRangePairs.get(key2);
+
+        if (duplicateRangePairs1 != null && duplicateRangePairs1.includes(pair1)) {
+            alreadyIncluded = true;
+        }
+
+        if (!alreadyIncluded && duplicateRangePairs2 != null && duplicateRangePairs2.includes(pair2)) {
+            alreadyIncluded = true;
+        }
+
+        if (!alreadyIncluded) {
+            duplicationInstances.put(subBlock1.getStringKey(), currentInstance);
+            addFileToDuplicationInstance(currentInstance, fileInfoForDuplication2.getSourceFile(), cleanedStartLine2 + 1, blockSize);
+
+            if (duplicateRangePairs1 == null) {
+                duplicateRangePairs1 = new DuplicateRangePairs();
+                fileRangePairs.put(key1, duplicateRangePairs1);
+            }
+            duplicateRangePairs1.getRanges().add(pair1);
+
+            if (duplicateRangePairs2 == null) {
+                duplicateRangePairs2 = new DuplicateRangePairs();
+                fileRangePairs.put(key2, duplicateRangePairs2);
+            }
+            duplicateRangePairs2.getRanges().add(pair2);
+        }
     }
 
     private void findDuplicatesWithinFiles() {
