@@ -1,0 +1,29 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/BuildAndDeploymentConventions.java
+  s_0af420b20b4753::t_0b4325d450463f 1-66
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/GeneratedConventions.java
+  s_0af420b20b4753::t_6446c089742d9b 1-87
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/IgnoreConventions.java
+  s_0af420b20b4753::t_f26e4597b3acfe 1-219
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/OtherConventions.java
+  s_0af420b20b4753::t_78a6ada62e0c38 1-174
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+  s_0af420b20b4753::t_05933c9e12d18c 30-34
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/TestConventions.java
+  s_0af420b20b4753::t_aa547c53d3e866 1-84
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "16b334c63f674f4f0eaaaa29242d045d280d22cb",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
