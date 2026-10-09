@@ -1,0 +1,6 @@
+{"t": 1791543819.526, "tool": "Bash", "command": "grep -rn \"90\" --include=*.java -il . | xargs grep -ln \"Past90\\|past90\\|90d\\|getRepositories90\\|180\" | head -20", "lines": 1, "response_chars": 139}
+{"t": 1791543820.958, "tool": "Bash", "command": "grep -rn \"Past90\\|Past180\" --include=*.java . | head -30", "lines": 1, "response_chars": 139}
+{"t": 1791543823.124, "tool": "Bash", "command": "grep -rn -e \"Past90\" -e \"Past180\" . 2>/dev/null | grep \"\\.java\" | head -30", "lines": 0, "response_chars": 95}
+{"t": 1791543824.594, "tool": "Bash", "command": "grep -rln -e \"past 90\" -e \"180\" . 2>/dev/null | grep \"\\.java\" | head -30", "lines": 30, "response_chars": 3026}
+{"t": 1791543826.432, "tool": "Bash", "command": "cd reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml; grep -n -i \"90\\|180\" LandscapeReportGenerator.java | head -30", "lines": 27, "response_chars": 8393}
+{"t": 1791543828.853, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t07-past-90d-block-a-r05-20261009-130316/repo/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "response_chars": 123193}

@@ -1,5 +1,5 @@
 work/
-results/runs/
+
 variants/*/target/
 variants/*/**/target/
 variants/*/_sokrates/

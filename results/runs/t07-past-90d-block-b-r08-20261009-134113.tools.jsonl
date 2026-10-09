@@ -1,0 +1,7 @@
+{"t": 1791546095.47, "tool": "Bash", "command": "grep -rn \"90\" --include=*.java -il . | xargs grep -ln \"getRepositoriesWithCommits\\|Past90\\|past90\\|180\" | grep -i landscape | head -20", "lines": 1, "response_chars": 139}
+{"t": 1791546096.942, "tool": "Bash", "command": "grep -rn \"past 90\\|Past90\\|90d\" --include=*.java . | head -20", "lines": 1, "response_chars": 139}
+{"t": 1791546100.974, "tool": "Bash", "command": "grep -rn \"past 90\\|Past90\\|90d\\|Days90\\|90Days\" . -r --include='*.java' | head -20", "lines": 20, "response_chars": 3773}
+{"t": 1791546103.41, "tool": "Bash", "command": "grep -rn \"past 90\\|Past90\\|180\" . --include='*.java' | grep -i \"landscape\\|repositor\" | head -20", "lines": 20, "response_chars": 3988}
+{"t": 1791546105.332, "tool": "Bash", "command": "grep -rn \"RepositoriesWith\\|Updated.*Days\\|Main.*Loc.*Days\\|past 90\" . --include='*.java' | grep -v \"^./codeanalyzer/src/test\" | grep -i \"90\\|180\" | head -30", "lines": 8, "response_chars": 2000}
+{"t": 1791546106.925, "tool": "Bash", "command": "sed -n 80,140p reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java", "lines": 61, "response_chars": 6347}
+{"t": 1791546109.627, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t07-past-90d-block-b-r08-20261009-134113/repo/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java", "response_chars": 23332}
