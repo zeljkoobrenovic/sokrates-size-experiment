@@ -49,6 +49,7 @@ if [ "$MODE" = "--store" ]; then
   echo "golden output stored in $GOLDEN ($(find "$GOLDEN" -type f | wc -l | tr -d ' ') files)"
 else
   [ -d "$GOLDEN" ] || { echo "no golden output yet: run scripts/golden.sh a --store"; exit 1; }
+  find "$GOLDEN" -type d -empty -delete   # a freshly stored golden/ may still hold them
   if diff -r -q "$GOLDEN" "$NORM" >"$OUT/diff.txt" 2>&1; then
     echo "golden output identical ($(find "$NORM" -type f | wc -l | tr -d ' ') files)"
   else
