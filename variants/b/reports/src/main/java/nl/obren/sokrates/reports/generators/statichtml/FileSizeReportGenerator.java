@@ -38,6 +38,34 @@ public class FileSizeReportGenerator {
 
     public void addFileSizeToReport(RichTextReport report) {
         report.addParagraph("The distribution of size of files (measured in lines of code).", "margin-top: 12px; color: grey");
+        addIntroSection(report);
+
+        ProcessingStopwatch.start("reporting/file size/overall");
+        addGraphOverall(report, codeAnalysisResults.getFilesAnalysisResults().getOverallFileSizeDistribution());
+        ProcessingStopwatch.end("reporting/file size/overall");
+        ProcessingStopwatch.start("reporting/file size/per extension");
+        addGraphPerExtension(report, codeAnalysisResults.getFilesAnalysisResults().getFileSizeDistributionPerExtension());
+        ProcessingStopwatch.end("reporting/file size/per extension");
+        ProcessingStopwatch.start("reporting/file size/per logical component");
+        addGraphsPerLogicalComponents(report, codeAnalysisResults.getFilesAnalysisResults().getFileSizeDistributionPerLogicalDecomposition());
+        ProcessingStopwatch.end("reporting/file size/per logical component");
+
+        ProcessingStopwatch.start("reporting/file size/longest files");
+        addLongestFilesList(report);
+        ProcessingStopwatch.end("reporting/file size/longest files");
+        ProcessingStopwatch.start("reporting/file size/files with most units");
+        addFilesWithMostUnitsList(report);
+        ProcessingStopwatch.end("reporting/file size/files with most units");
+        ProcessingStopwatch.start("reporting/file size/files with most long lines");
+        addFilesWithMostLongLines(report);
+        ProcessingStopwatch.end("reporting/file size/files with most long lines");
+
+        if (!codeAnalysisResults.getCodeConfiguration().getAnalysis().isSkipCorrelations() && codeAnalysisResults.getContributorsAnalysisResults().getContributors().size() > 0) {
+            addCorrelationsSection(report);
+        }
+    }
+
+    private void addIntroSection(RichTextReport report) {
         report.startSection("Intro", "");
         report.startUnorderedList();
         report.addListItem("File size measurements show the distribution of size of files.");
@@ -62,78 +90,58 @@ public class FileSizeReportGenerator {
         report.endUnorderedList();
         report.endShowMoreBlock();
         report.endSection();
+    }
 
-        ProcessingStopwatch.start("reporting/file size/overall");
-        addGraphOverall(report, codeAnalysisResults.getFilesAnalysisResults().getOverallFileSizeDistribution());
-        ProcessingStopwatch.end("reporting/file size/overall");
-        ProcessingStopwatch.start("reporting/file size/per extension");
-        addGraphPerExtension(report, codeAnalysisResults.getFilesAnalysisResults().getFileSizeDistributionPerExtension());
-        ProcessingStopwatch.end("reporting/file size/per extension");
-        ProcessingStopwatch.start("reporting/file size/per logical component");
-        addGraphsPerLogicalComponents(report, codeAnalysisResults.getFilesAnalysisResults().getFileSizeDistributionPerLogicalDecomposition());
-        ProcessingStopwatch.end("reporting/file size/per logical component");
+    private void addCorrelationsSection(RichTextReport report) {
+        report.startSection("Correlations", "");
+        CorrelationDiagramGenerator<FileModificationHistory> correlationDiagramGenerator = new CorrelationDiagramGenerator<>(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getHistory(Integer.MAX_VALUE));
 
-        ProcessingStopwatch.start("reporting/file size/longest files");
-        addLongestFilesList(report);
-        ProcessingStopwatch.end("reporting/file size/longest files");
-        ProcessingStopwatch.start("reporting/file size/files with most units");
-        addFilesWithMostUnitsList(report);
-        ProcessingStopwatch.end("reporting/file size/files with most units");
-        ProcessingStopwatch.start("reporting/file size/files with most long lines");
-        addFilesWithMostLongLines(report);
-        ProcessingStopwatch.end("reporting/file size/files with most long lines");
+        final Map<String,Integer> linesOfCodeMap = new HashMap<>();
 
-        if (!codeAnalysisResults.getCodeConfiguration().getAnalysis().isSkipCorrelations() && codeAnalysisResults.getContributorsAnalysisResults().getContributors().size() > 0) {
-            report.startSection("Correlations", "");
-            CorrelationDiagramGenerator<FileModificationHistory> correlationDiagramGenerator = new CorrelationDiagramGenerator<>(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getHistory(Integer.MAX_VALUE));
+        codeAnalysisResults.getFilesAnalysisResults().getAllFiles().forEach(sourceFile -> {
+            linesOfCodeMap.put(sourceFile.getRelativePath(), sourceFile.getLinesOfCode());
+        });
 
-            final Map<String,Integer> linesOfCodeMap = new HashMap<>();
+        ProcessingStopwatch.start("reporting/file size/correlations");
+        correlationDiagramGenerator.addCorrelations("File Size vs. Commits (all time)", "commits (all time)", "lines of code",
+                p -> p.getCommits().size(),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
 
-            codeAnalysisResults.getFilesAnalysisResults().getAllFiles().forEach(sourceFile -> {
-                linesOfCodeMap.put(sourceFile.getRelativePath(), sourceFile.getLinesOfCode());
-            });
-
-            ProcessingStopwatch.start("reporting/file size/correlations");
-            correlationDiagramGenerator.addCorrelations("File Size vs. Commits (all time)", "commits (all time)", "lines of code",
-                    p -> p.getCommits().size(),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
-
-            correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (all time)", "contributors (all time)", "lines of code",
-                    p -> p.countContributors(),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
+        correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (all time)", "contributors (all time)", "lines of code",
+                p -> p.countContributors(),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
 
 
-            report.addHorizontalLine();
+        report.addHorizontalLine();
 
-            correlationDiagramGenerator.addCorrelations("File Size vs. Commits (30 days)", "commits (30d)", "lines of code",
-                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 30)).count(),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
+        correlationDiagramGenerator.addCorrelations("File Size vs. Commits (30 days)", "commits (30d)", "lines of code",
+                p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 30)).count(),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
 
-            correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (30 days)", "contributors (30d)", "lines of code",
-                    p -> countContributors(p, 30),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
+        correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (30 days)", "contributors (30d)", "lines of code",
+                p -> countContributors(p, 30),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
 
-            report.addHorizontalLine();
+        report.addHorizontalLine();
 
-            correlationDiagramGenerator.addCorrelations("File Size vs. Commits (90 days)", "commits (90d)", "lines of code",
-                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 90)).count(),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
-
-
-            correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (90 days)", "contributors (90d)", "lines of code",
-                    p -> countContributors(p, 90),
-                    p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
-                    p -> p.getPath());
+        correlationDiagramGenerator.addCorrelations("File Size vs. Commits (90 days)", "commits (90d)", "lines of code",
+                p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 90)).count(),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
 
 
-            ProcessingStopwatch.end("reporting/file size/correlations");
-            report.endSection();
-        }
+        correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (90 days)", "contributors (90d)", "lines of code",
+                p -> countContributors(p, 90),
+                p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                p -> p.getPath());
+
+
+        ProcessingStopwatch.end("reporting/file size/correlations");
+        report.endSection();
     }
 
     private long countContributors(FileModificationHistory p, int rangeInDays) {
