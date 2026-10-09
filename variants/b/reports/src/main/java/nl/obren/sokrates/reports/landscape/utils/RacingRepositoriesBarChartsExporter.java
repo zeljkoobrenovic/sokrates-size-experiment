@@ -60,14 +60,8 @@ public class RacingRepositoriesBarChartsExporter {
                 String key = name + "::" + year + "-" + (month < 10 ? "0" : "") + month;
                 int monthCommitsValue = commitsMap.containsKey(key) ? commitsMap.get(key) : 0;
                 int monthContributorsValue = contributorsMap.containsKey(key) ? contributorsMap.get(key) : 0;
-                cumulativeCommitsList.add(monthCommitsValue);
-                cumulativeContributorsList.add(monthContributorsValue);
-                if (cumulativeCommitsList.size() > windowSize) {
-                    cumulativeCommitsList.remove(0);
-                }
-                if (cumulativeContributorsList.size() > windowSize) {
-                    cumulativeContributorsList.remove(0);
-                }
+                addToWindow(cumulativeCommitsList, monthCommitsValue);
+                addToWindow(cumulativeContributorsList, monthContributorsValue);
                 int valueCommits = monthCommitsValue;
                 if (month < 2) {
                     firstTwoMonthsCommits += valueCommits;
@@ -83,22 +77,36 @@ public class RacingRepositoriesBarChartsExporter {
                     items.add(itemCommits);
                 }
 
-                double averageContributorsPerMonth = cumulativeContributorsList.stream().collect(Collectors.averagingDouble(Integer::intValue));
-                if (averageContributorsPerMonth > 0.1) {
-                    RacingChartItem itemContributorsPerMonth = new RacingChartItem(name);
-                    itemContributorsPerMonth.setValue(averageContributorsPerMonth > 0.1 ? Math.round(100.0 * averageContributorsPerMonth) / 100 : 0.1);
-                    itemContributorsPerMonth.setYear(year + (month - 2) / 10.0);
-                    itemsContributorsPerMonth.add(itemContributorsPerMonth);
-                }
-
-                int sumCommits = cumulativeCommitsList.stream().collect(Collectors.summingInt(Integer::intValue));
-                if (Math.round(sumCommits) > 0) {
-                    RacingChartItem itemCommitsSum12Months = new RacingChartItem(name);
-                    itemCommitsSum12Months.setValue(Math.round(sumCommits) > 0 ? Math.round(sumCommits) : 0.1);
-                    itemCommitsSum12Months.setYear(year + (month - 2) / 10.0);
-                    items12Month.add(itemCommitsSum12Months);
-                }
+                addContributorsPerMonthItem(name, year, month, cumulativeContributorsList);
+                addCommitsWindowItem(name, year, month, cumulativeCommitsList);
             }
+        }
+    }
+
+    private void addToWindow(List<Integer> cumulativeList, int value) {
+        cumulativeList.add(value);
+        if (cumulativeList.size() > windowSize) {
+            cumulativeList.remove(0);
+        }
+    }
+
+    private void addContributorsPerMonthItem(String name, int year, int month, List<Integer> cumulativeContributorsList) {
+        double averageContributorsPerMonth = cumulativeContributorsList.stream().collect(Collectors.averagingDouble(Integer::intValue));
+        if (averageContributorsPerMonth > 0.1) {
+            RacingChartItem itemContributorsPerMonth = new RacingChartItem(name);
+            itemContributorsPerMonth.setValue(averageContributorsPerMonth > 0.1 ? Math.round(100.0 * averageContributorsPerMonth) / 100 : 0.1);
+            itemContributorsPerMonth.setYear(year + (month - 2) / 10.0);
+            itemsContributorsPerMonth.add(itemContributorsPerMonth);
+        }
+    }
+
+    private void addCommitsWindowItem(String name, int year, int month, List<Integer> cumulativeCommitsList) {
+        int sumCommits = cumulativeCommitsList.stream().collect(Collectors.summingInt(Integer::intValue));
+        if (Math.round(sumCommits) > 0) {
+            RacingChartItem itemCommitsSum12Months = new RacingChartItem(name);
+            itemCommitsSum12Months.setValue(Math.round(sumCommits) > 0 ? Math.round(sumCommits) : 0.1);
+            itemCommitsSum12Months.setYear(year + (month - 2) / 10.0);
+            items12Month.add(itemCommitsSum12Months);
         }
     }
 
