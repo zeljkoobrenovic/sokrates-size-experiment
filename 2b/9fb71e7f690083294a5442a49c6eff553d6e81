@@ -1,0 +1,21 @@
+harness/compare.py
+  s_0af420b20b4753::t_d44e867bd54ef2 1-85
+docs/posts/analysis.md
+  s_0af420b20b4753::t_17c05d19da8935 1-99
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2b9fb71e7f690083294a5442a49c6eff553d6e81",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
