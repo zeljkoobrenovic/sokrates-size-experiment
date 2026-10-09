@@ -95,6 +95,11 @@ harness/summarize.py --successful-only                                          
 
 ### Turn-by-turn traces
 
+The tracer also lives in its own repository, usable with any Claude Code session:
+[claude-session-tracer](https://github.com/zeljkoobrenovic/claude-session-tracer)
+(page: https://zeljkoobrenovic.github.io/claude-session-tracer/). The copy here keeps the `--run` option for the
+experiment's runs.
+
 [docs/trace.html](https://zeljkoobrenovic.github.io/sokrates-size-experiment/trace.html) shows one run as a grid:
 columns are the API calls (turns), the top rows the tokens each call re-sent from the prompt cache, wrote to it and
 produced, the rows below the files the agent read, searched and edited in that turn (with line counts). It needs no
