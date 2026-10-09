@@ -109,7 +109,7 @@ a { color: var(--read); }
 <div class="grid-wrap"><table class="grid" id="grid"></table></div>
 <div id="detail"></div>
 <div class="drop">Drop a trace JSON here (made with <code>scripts/turn_trace.py --transcript ~/.claude/projects/&lt;cwd slug&gt;/&lt;session&gt;.jsonl</code> from any Claude Code session) to render it.</div>
-<p class="note">Reading the bars: the blue bar grows every turn because the whole conversation so far is re-sent with each call; the stacked bar is what the turn added: the results of the tools it called last turn (orange, estimated at 2.3 characters per token, the rate measured on these transcripts), the agent's own previous words and tool calls (green) and everything else (grey: on the first turn the task prompt, CLAUDE.md and any uncached part of the system prompt; later the per-turn reminders and instructions the CLI injects). The cost of a session is mostly the area under the blue bars, so the number of turns and what each one appends matter more than any single read. Lines attributed to files are those in tool output: a <code>Read</code> or <code>cat/sed/head</code> of the file counts as read lines, an <code>Edit</code> as edited lines, a <code>grep</code> output line naming the file as a search hit.</p>
+<p class="note">Reading the bars: the blue bar grows every turn because the whole conversation so far is re-sent with each call, and the thin slice on top of it is what the turn added, which the next turn re-sends in blue; the second row shows that slice alone: the results of the tools it called last turn (orange, estimated at 2.3 characters per token, the rate measured on these transcripts), the agent's own previous words and tool calls (green) and everything else (grey: on the first turn the task prompt, CLAUDE.md and any uncached part of the system prompt; later the per-turn reminders and instructions the CLI injects). The cost of a session is mostly the area under the blue bars, so the number of turns and what each one appends matter more than any single read. Lines attributed to files are those in tool output: a <code>Read</code> or <code>cat/sed/head</code> of the file counts as read lines, an <code>Edit</code> as edited lines, a <code>grep</code> output line naming the file as a search hit.</p>
 <footer>Generated 2026-10-09 from Claude Code session transcripts of the <a href="https://github.com/zeljkoobrenovic/sokrates-size-experiment">sokrates-size-experiment</a> runs. No external resources.</footer>
 </main>
 <div class="tip" id="tip"></div>
@@ -143,7 +143,15 @@ a { color: var(--read); }
     var h = '<tr class="token' + (rowClass ? ' ' + rowClass : '') + '"><th class="head">' + (headExtra || '') + esc(label) + '<span class="n">max ' + fmt(Math.max.apply(null, vals.concat([0]))) + '</span></th>';
     vals.forEach(function (v, i) {
       var t = turns[i], tip = 'turn ' + (i + 1) + ': ' + fmt(v) + ' tokens — ' + label.replace(/^\u2003/, '').toLowerCase();
-      if (key === 'cache_write' && t.new && !cumulative.checked) {
+      if (key === 'cache_read') {  // the re-sent context in blue, with what this turn added stacked on top in the new-context colors
+        var parts = t.new ? NEW_PARTS.map(function (p) { return [t.new[p[0]], p[1], p[2]]; }) : [[t.cache_write || 0, 'new, written to cache', 'var(--write)']];
+        parts.unshift([v, 're-sent from cache', 'var(--read)']);
+        tip = 'turn ' + (i + 1) + ': ' + fmt(v + (t.cache_write || 0)) + ' tokens of context' + parts.map(function (p) { return '\n  ' + fmt(p[0]) + ' ' + p[1]; }).join('');
+        var ph = parts.map(function (p) { return Math.round(76 * p[0] / max); });
+        if (!ph.some(function (x) { return x > 0; })) ph[0] = 1;
+        h += '<td class="cell" data-turn="' + i + '" data-v="' + fmt(v + (t.cache_write || 0)) + '" data-tip="' + esc(tip) + '"><span class="stack">' +
+          parts.map(function (p, j) { return ph[j] ? '<span class="seg" style="--c:' + p[2] + ';height:' + ph[j] + 'px"></span>' : ''; }).join('') + '</span></td>';
+      } else if (key === 'cache_write' && t.new && !cumulative.checked) {
         tip += NEW_PARTS.map(function (p) { return '\n  ' + fmt(t.new[p[0]]) + ' ' + p[1]; }).join('');
         var px = NEW_PARTS.map(function (p) { return Math.round(76 * t.new[p[0]] / max); });
         if (!px.some(function (x) { return x > 0; })) {  // too small for the scale: one 1px line in the color of the largest part
@@ -180,9 +188,10 @@ a { color: var(--read); }
     var h = '<thead><tr><th class="head">turn</th>';
     for (var i = 0; i < n; i++) h += '<th data-turn="' + i + '">' + (i + 1) + '</th>';
     h += '<th class="total">total</th></tr></thead><tbody>';
-    var max = Math.max.apply(null, ['cache_read', 'cache_write', 'input', 'output'].reduce(function (a, k) { return a.concat(tokenValues(turns, k)); }, [1]));
+    var max = Math.max.apply(null, ['cache_write', 'input', 'output'].reduce(function (a, k) { return a.concat(tokenValues(turns, k)); }, [1])
+      .concat(turns.map(function (t) { return (t.cache_read || 0) + (t.cache_write || 0); })));
     h += '<tr class="group"><th class="head">Context per turn (tokens, one scale: ' + fmt(max) + ' = full bar)</th><td colspan="' + (n + 1) + '"></td></tr>';
-    h += tokenRow('Re-sent from cache', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
+    h += tokenRow('Re-sent from cache, new on top', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
     var hasNew = turns.some(function (t) { return t.new; });
     h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max, hasNew ? 'parent' + (open.new ? ' open' : '') : '', hasNew ? toggle('new') : '');
     if (hasNew) {

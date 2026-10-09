@@ -92,7 +92,7 @@ The [turn-by-turn traces](https://zeljkoobrenovic.github.io/sokrates-size-experi
 
 ![The trace of a Sonnet 5.5 run on variant A: ten turns, the re-sent context climbing from 10k to 24k tokens per turn, new context of a few hundred tokens per turn after the first, tool calls per turn, and three files read in windows of 13 to 50 lines](../images/trace-page.png)
 
-*A Sonnet 5.5 run of task t01 on the long-file variant: the re-sent context (top row) climbs every turn; what each turn adds (second row, with its breakdown) is a few hundred tokens after the first; the three files it needed were read in windows of 13 to 50 lines.*
+*A Sonnet 5.5 run of task t01 on the long-file variant: the re-sent context (top row, blue) climbs every turn by the slice the previous turn added on top; what each turn adds (second row, with its breakdown) is a few hundred tokens after the first; the three files it needed were read in windows of 13 to 50 lines.*
 
 ## Comparison with the martinfowler.com experiment
 
