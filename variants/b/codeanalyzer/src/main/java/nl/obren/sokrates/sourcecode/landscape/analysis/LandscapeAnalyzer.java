@@ -59,29 +59,7 @@ public class LandscapeAnalyzer {
                 LOG.info("Analysing " + link.getAnalysisResultsPath() + "...");
                 CodeAnalysisResults repositoryAnalysisResults = this.getRepositoryAnalysisResults(link);
                 if (repositoryAnalysisResults != null) {
-                    String repositoryName = repositoryAnalysisResults.getMetadata().getName();
-                    if (!landscapeConfiguration.isIncludeOnlyOneRepositoryWithSameName() || !repositoryNames.contains(repositoryName)) {
-                        repositoryNames.add(repositoryName);
-                        List<FileExport> files = this.getRepositoryFiles(repositoryName, link);
-                        landscapeAnalysisResults.getRepositoryAnalysisResults().add(new RepositoryAnalysisResults(link, repositoryAnalysisResults, files));
-                        repositoryAnalysisResults.getContributorsAnalysisResults().getContributors().forEach(contributor -> {
-                            contributor.getCommitDates().forEach(commitDate -> {
-                                if (landscapeAnalysisResults.getFirstCommitDate() == "" || commitDate.compareTo(landscapeAnalysisResults.getFirstCommitDate()) < 0) {
-                                    landscapeAnalysisResults.setFirstCommitDate(commitDate);
-                                }
-                                if (landscapeAnalysisResults.getLatestCommitDate() == "" || commitDate.compareTo(landscapeAnalysisResults.getLatestCommitDate()) > 0) {
-                                    landscapeAnalysisResults.setLatestCommitDate(commitDate);
-                                    DateUtils.setLatestCommitDate(commitDate);
-                                }
-                            });
-                        });
-                    }
-                    String level1SubLandscape = link.getAnalysisResultsPath().replaceAll("/.*", "");
-                    landscapeAnalysisResults.getLevel1SubLandscapes().add(level1SubLandscape);
-                    repositoryAnalysisResults.getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).forEach(contributor -> {
-                        subLandscapesViaContributors.add("[" + level1SubLandscape + "]", contributor.getEmail());
-                    });
-                    subLandscapesViaSameName.add("[" + level1SubLandscape + "]", repositoryName);
+                    addRepository(landscapeAnalysisResults, link, repositoryAnalysisResults, repositoryNames, subLandscapesViaContributors, subLandscapesViaSameName);
                 }
             });
             landscapeAnalysisResults.setSubLandscapeDependenciesViaRepositoriesWithSameContributors(subLandscapesViaContributors.getDependencies());
@@ -95,6 +73,37 @@ public class LandscapeAnalyzer {
         updatePeopleDependencies(landscapeAnalysisResults);
 
         return landscapeAnalysisResults;
+    }
+
+    private void addRepository(LandscapeAnalysisResults landscapeAnalysisResults, SokratesRepositoryLink link, CodeAnalysisResults repositoryAnalysisResults,
+                               Set<String> repositoryNames, DependenciesCreator subLandscapesViaContributors, DependenciesCreator subLandscapesViaSameName) {
+        String repositoryName = repositoryAnalysisResults.getMetadata().getName();
+        if (!landscapeConfiguration.isIncludeOnlyOneRepositoryWithSameName() || !repositoryNames.contains(repositoryName)) {
+            repositoryNames.add(repositoryName);
+            List<FileExport> files = this.getRepositoryFiles(repositoryName, link);
+            landscapeAnalysisResults.getRepositoryAnalysisResults().add(new RepositoryAnalysisResults(link, repositoryAnalysisResults, files));
+            updateCommitDates(landscapeAnalysisResults, repositoryAnalysisResults);
+        }
+        String level1SubLandscape = link.getAnalysisResultsPath().replaceAll("/.*", "");
+        landscapeAnalysisResults.getLevel1SubLandscapes().add(level1SubLandscape);
+        repositoryAnalysisResults.getContributorsAnalysisResults().getContributors().stream().filter(c -> c.isActive(Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS)).forEach(contributor -> {
+            subLandscapesViaContributors.add("[" + level1SubLandscape + "]", contributor.getEmail());
+        });
+        subLandscapesViaSameName.add("[" + level1SubLandscape + "]", repositoryName);
+    }
+
+    private void updateCommitDates(LandscapeAnalysisResults landscapeAnalysisResults, CodeAnalysisResults repositoryAnalysisResults) {
+        repositoryAnalysisResults.getContributorsAnalysisResults().getContributors().forEach(contributor -> {
+            contributor.getCommitDates().forEach(commitDate -> {
+                if (landscapeAnalysisResults.getFirstCommitDate() == "" || commitDate.compareTo(landscapeAnalysisResults.getFirstCommitDate()) < 0) {
+                    landscapeAnalysisResults.setFirstCommitDate(commitDate);
+                }
+                if (landscapeAnalysisResults.getLatestCommitDate() == "" || commitDate.compareTo(landscapeAnalysisResults.getLatestCommitDate()) > 0) {
+                    landscapeAnalysisResults.setLatestCommitDate(commitDate);
+                    DateUtils.setLatestCommitDate(commitDate);
+                }
+            });
+        });
     }
 
     private TeamsConfig getTeams() {

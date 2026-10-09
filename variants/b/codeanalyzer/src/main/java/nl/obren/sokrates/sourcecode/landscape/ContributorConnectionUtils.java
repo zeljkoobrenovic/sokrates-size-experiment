@@ -47,6 +47,21 @@ public class ContributorConnectionUtils {
     public static List<ComponentDependency> getPeopleDependencies(CodeAnalysisResults codeAnalysisResults, int daysAgo) {
         String processingName = "analysis/contributors/get people dependencies/" + daysAgo + " days";
         ProcessingStopwatch.start(processingName);
+        Map<String, List<String>> contributionMap = getContributionsPerPath(codeAnalysisResults, daysAgo);
+
+        List<ComponentDependency> dependencies = new ArrayList<>();
+        Map<String, ComponentDependency> dependenciesMap = new HashMap<>();
+
+        contributionMap.keySet().forEach(path -> {
+            List<String> emails = contributionMap.get(path);
+            addPathDependencies(path, emails, dependencies, dependenciesMap);
+        });
+        dependencies.sort((a, b) -> b.getCount() - a.getCount());
+        ProcessingStopwatch.end(processingName);
+        return dependencies;
+    }
+
+    private static Map<String, List<String>> getContributionsPerPath(CodeAnalysisResults codeAnalysisResults, int daysAgo) {
         Map<String, List<String>> contributionMap = new HashMap<>();
 
         codeAnalysisResults.getFilesHistoryAnalysisResults().getHistory(Integer.MAX_VALUE).forEach(fileModificationHistory -> {
@@ -66,44 +81,39 @@ public class ContributorConnectionUtils {
                     });
 
         });
+        return contributionMap;
+    }
 
-        List<ComponentDependency> dependencies = new ArrayList<>();
-        Map<String, ComponentDependency> dependenciesMap = new HashMap<>();
+    private static void addPathDependencies(String path, List<String> emails, List<ComponentDependency> dependencies,
+                                            Map<String, ComponentDependency> dependenciesMap) {
+        emails.forEach(email1 -> {
+            emails.forEach(email2 -> {
+                if (dependencies.size() > MAX_PEOPLE_DEPENDENCIES_SIZE) {
+                    return;
+                }
+                if (email1.equalsIgnoreCase(email2)) return;
 
-        contributionMap.keySet().forEach(path -> {
-            List<String> emails = contributionMap.get(path);
-            emails.forEach(email1 -> {
-                emails.forEach(email2 -> {
-                    if (dependencies.size() > MAX_PEOPLE_DEPENDENCIES_SIZE) {
-                        return;
-                    }
-                    if (email1.equalsIgnoreCase(email2)) return;
+                String key1 = email1 + "::" + email2;
+                String key2 = email2 + "::" + email1;
 
-                    String key1 = email1 + "::" + email2;
-                    String key2 = email2 + "::" + email1;
+                ComponentDependency dependency;
+                if (dependenciesMap.containsKey(key1)) {
+                    dependency = dependenciesMap.get(key1);
+                } else if (dependenciesMap.containsKey(key2)) {
+                    dependency = dependenciesMap.get(key2);
+                } else {
+                    dependency = new ComponentDependency(email1, email2);
+                    dependenciesMap.put(key1, dependency);
+                    dependencies.add(dependency);
+                }
 
-                    ComponentDependency dependency;
-                    if (dependenciesMap.containsKey(key1)) {
-                        dependency = dependenciesMap.get(key1);
-                    } else if (dependenciesMap.containsKey(key2)) {
-                        dependency = dependenciesMap.get(key2);
-                    } else {
-                        dependency = new ComponentDependency(email1, email2);
-                        dependenciesMap.put(key1, dependency);
-                        dependencies.add(dependency);
-                    }
+                if (!dependency.getData().contains(path)) {
+                    dependency.getData().add(path);
+                }
 
-                    if (!dependency.getData().contains(path)) {
-                        dependency.getData().add(path);
-                    }
-
-                    dependency.setCount(dependency.getData().size());
-                });
+                dependency.setCount(dependency.getData().size());
             });
         });
-        dependencies.sort((a, b) -> b.getCount() - a.getCount());
-        ProcessingStopwatch.end(processingName);
-        return dependencies;
     }
 
     public static List<ComponentDependency> getPeopleFileDependencies(CodeAnalysisResults codeAnalysisResults, int daysAgo) {
@@ -144,6 +154,21 @@ public class ContributorConnectionUtils {
     }
 
     public static List<ComponentDependency> getPeopleDependencies(List<ContributorRepositories> contributors, int daysAgo1, int daysAgo2) {
+        Map<String, List<String>> repositoriesMap = getEmailsPerRepository(contributors, daysAgo1, daysAgo2);
+
+        List<ComponentDependency> dependencies = new ArrayList<>();
+        Map<String, ComponentDependency> dependenciesMap = new HashMap<>();
+        Map<String, List<String>> repositoryNamesMap = new HashMap<>();
+
+        repositoriesMap.keySet().forEach(repositoryName -> {
+            List<String> emails = repositoriesMap.get(repositoryName);
+            addRepositoryDependencies(repositoryName, emails, dependencies, dependenciesMap, repositoryNamesMap);
+        });
+
+        return dependencies;
+    }
+
+    private static Map<String, List<String>> getEmailsPerRepository(List<ContributorRepositories> contributors, int daysAgo1, int daysAgo2) {
         Map<String, List<String>> repositoriesMap = new HashMap<>();
 
         contributors.stream()
@@ -163,42 +188,37 @@ public class ContributorConnectionUtils {
                                 }
                             });
                 });
+        return repositoriesMap;
+    }
 
-        List<ComponentDependency> dependencies = new ArrayList<>();
-        Map<String, ComponentDependency> dependenciesMap = new HashMap<>();
-        Map<String, List<String>> repositoryNamesMap = new HashMap<>();
+    private static void addRepositoryDependencies(String repositoryName, List<String> emails, List<ComponentDependency> dependencies,
+                                                  Map<String, ComponentDependency> dependenciesMap, Map<String, List<String>> repositoryNamesMap) {
+        emails.forEach(email1 -> {
+            emails.stream().filter(email2 -> !email1.equalsIgnoreCase(email2)).forEach(email2 -> {
+                if (dependencies.size() > MAX_PEOPLE_DEPENDENCIES_SIZE) {
+                    return;
+                }
+                String key1 = email1 + "::" + email2;
+                String key2 = email2 + "::" + email1;
 
-        repositoriesMap.keySet().forEach(repositoryName -> {
-            List<String> emails = repositoriesMap.get(repositoryName);
-            emails.forEach(email1 -> {
-                emails.stream().filter(email2 -> !email1.equalsIgnoreCase(email2)).forEach(email2 -> {
-                    if (dependencies.size() > MAX_PEOPLE_DEPENDENCIES_SIZE) {
-                        return;
+                if (dependenciesMap.containsKey(key1)) {
+                    if (!repositoryNamesMap.get(key1).contains(repositoryName)) {
+                        dependenciesMap.get(key1).increment(1);
+                        repositoryNamesMap.get(key1).add(repositoryName);
                     }
-                    String key1 = email1 + "::" + email2;
-                    String key2 = email2 + "::" + email1;
-
-                    if (dependenciesMap.containsKey(key1)) {
-                        if (!repositoryNamesMap.get(key1).contains(repositoryName)) {
-                            dependenciesMap.get(key1).increment(1);
-                            repositoryNamesMap.get(key1).add(repositoryName);
-                        }
-                    } else if (dependenciesMap.containsKey(key2)) {
-                        if (!repositoryNamesMap.get(key2).contains(repositoryName)) {
-                            dependenciesMap.get(key2).increment(1);
-                            repositoryNamesMap.get(key2).add(repositoryName);
-                        }
-                    } else {
-                        ComponentDependency dependency = new ComponentDependency(email1, email2);
-                        dependenciesMap.put(key1, dependency);
-                        dependencies.add(dependency);
-                        repositoryNamesMap.put(key1, new ArrayList<>(Arrays.asList(repositoryName)));
+                } else if (dependenciesMap.containsKey(key2)) {
+                    if (!repositoryNamesMap.get(key2).contains(repositoryName)) {
+                        dependenciesMap.get(key2).increment(1);
+                        repositoryNamesMap.get(key2).add(repositoryName);
                     }
-                });
+                } else {
+                    ComponentDependency dependency = new ComponentDependency(email1, email2);
+                    dependenciesMap.put(key1, dependency);
+                    dependencies.add(dependency);
+                    repositoryNamesMap.put(key1, new ArrayList<>(Arrays.asList(repositoryName)));
+                }
             });
         });
-
-        return dependencies;
     }
 
     public static List<ComponentDependency> getPeopleRepositoryDependencies(List<ContributorRepositories> contributors, int daysAgo1, int daysAgo2) {

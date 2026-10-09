@@ -71,6 +71,18 @@ public class UnitsAnalyzer extends Analyzer {
         Thresholds unitSizeThresholds = codeConfiguration.getAnalysis().getUnitSizeThresholds();
         Thresholds conditionalComplexityThresholds = codeConfiguration.getAnalysis().getConditionalComplexityThresholds();
 
+        addUnitSizeDistributions(unitSizeThresholds);
+
+        addConditionalComplexityDistributions(conditionalComplexityThresholds);
+
+        int sampleSize = codeConfiguration.getAnalysis().getMaxTopListSize();
+        addAllUnits(allUnits, unitsAnalysisResults);
+        addLongestUnits(allUnits, unitsAnalysisResults, sampleSize);
+        addMostComplexUnits(allUnits, unitsAnalysisResults, sampleSize);
+        addFilesWithMostUnits(filesAnalysisResults.getAllFiles(), filesAnalysisResults, FileSizeAnalyzer.SAMPLE_SIZE);
+    }
+
+    private void addUnitSizeDistributions(Thresholds unitSizeThresholds) {
         RiskDistributionStats unitSizeDistribution = UnitUtils.getUnitSizeDistribution(allUnits, unitSizeThresholds);
         unitsAnalysisResults.setUnitSizeRiskDistribution(unitSizeDistribution);
         printRiskDistributionStats(unitSizeDistribution, "Unit size ");
@@ -90,7 +102,9 @@ public class UnitsAnalyzer extends Analyzer {
             unitsAnalysisResults.getUnitSizeRiskDistributionPerExtension().add(extensionUnitSizeDistribution);
             printRiskDistributionStats(extensionUnitSizeDistribution, "Unit Size Extension " + extensionUnitSizeDistribution.getKey() + ": ");
         });
+    }
 
+    private void addConditionalComplexityDistributions(Thresholds conditionalComplexityThresholds) {
         RiskDistributionStats conditionalComplexityDistributionAllUnits = UnitUtils.getConditionalComplexityDistribution(allUnits, conditionalComplexityThresholds);
         RiskDistributionStats conditionalComplexityDistribution = conditionalComplexityDistributionAllUnits;
         unitsAnalysisResults.setConditionalComplexityRiskDistribution(conditionalComplexityDistribution);
@@ -119,12 +133,6 @@ public class UnitsAnalyzer extends Analyzer {
             unitsAnalysisResults.getConditionalComplexityRiskDistributionPerExtension().add(extensionUnitSizeDistribution);
             printRiskDistributionStats(extensionUnitSizeDistribution, "Conditional Complexity Component " + extensionUnitSizeDistribution.getKey() + ": ");
         });
-
-        int sampleSize = codeConfiguration.getAnalysis().getMaxTopListSize();
-        addAllUnits(allUnits, unitsAnalysisResults);
-        addLongestUnits(allUnits, unitsAnalysisResults, sampleSize);
-        addMostComplexUnits(allUnits, unitsAnalysisResults, sampleSize);
-        addFilesWithMostUnits(filesAnalysisResults.getAllFiles(), filesAnalysisResults, FileSizeAnalyzer.SAMPLE_SIZE);
     }
 
     private void addBasicUnitMetrics(List<UnitInfo> allUnits, int linesOfCode) {
