@@ -1,0 +1,27 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/IndirectDependenciesRenderer.java
+  s_0af420b20b4753::t_4f73b337a2d145 1-177
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/SourceCodeCacheExporter.java
+  s_0af420b20b4753::t_4bbf19bd03161d 1-240
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DependenciesDataExporter.java
+  s_0af420b20b4753::t_37b128857b878d 1-122
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/FileListsDataExporter.java
+  s_0af420b20b4753::t_2e62107114700c 1-272
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+  s_0af420b20b4753::t_33bc40bd949b72 87,104-105,107,109,275-277,279-280,286-329
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4ae6fbf9d4124fd063a8d5d98fa77d59c4e7507b",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
