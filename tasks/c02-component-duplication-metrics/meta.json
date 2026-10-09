@@ -1,0 +1,14 @@
+{
+  "id": "c02-component-duplication-metrics",
+  "kind": "control",
+  "title": "Fix per-component duplication metrics and most-frequent-duplicates ordering",
+  "reference_commit": "3e0a9b5c",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/DuplicationAnalyzer.java"
+  ],
+  "target_unit": "n/a",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=ComponentDuplicationMetricsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "Control task: the reference change is +11/-6 in DuplicationAnalyzer (two one-token fixes in addComponentDuplicationMetrics: cleaned-lines metric reads getCleanedLinesOfCode, percentage divides by it; addMostFrequentDuplicates sorts a copy and iterates that copy instead of the unsorted original; the reference also widened that method to package-private for its own test, which the acceptance test does not need). The touched file is byte-identical in variants/a and variants/b (diff: no output; 335 lines in both), so no A/B difference is expected. The acceptance test runs DuplicationAnalyzer.analyze over in-memory .unknown files grouped into components of one logical decomposition: (1) metrics DUPLICATION_NUMBER_OF_CLEANED_LINES_primary_dup = 24 and DUPLICATION_PERCENTAGE_primary_dup = 50.0 (12 of 24), and 10 / 0.0 for a component without duplicates; (2) getMostFrequentDuplicates() lists a block found in 4 files before one found in 3. The ordering case relies on the duplication engine returning its instances from a HashMap keyed by line-id strings, whose iteration order for this fixture is [3, 4] (deterministic: String.hashCode and HashMap bucket order are stable; the file arrangement was chosen so the snapshot fails). Verification: A before = compiles, both methods fail with assertion failures (cleaned lines 12 instead of 24; order [3, 4]); A after (reference diff applied with patch -p1) = passes, codeanalyzer suite green (334 tests, 3 skipped); B before = same two assertion failures; B after (same patch, reference/b.patch == reference/a.patch) = passes, suite green."
+}

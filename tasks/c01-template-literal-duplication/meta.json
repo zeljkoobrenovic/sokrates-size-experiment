@@ -1,0 +1,14 @@
+{
+  "id": "c01-template-literal-duplication",
+  "kind": "control",
+  "title": "Ignore the text of backtick template literals in unit duplication",
+  "reference_commit": "b8aeec06",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/CStyleHeuristicUnitsExtractor.java"
+  ],
+  "target_unit": "n/a",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=TemplateLiteralUnitDuplicationTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "Control task: the reference change is one added line (+1/-0) in the content normalization that CStyleHeuristicUnitsExtractor applies to unit bodies before they are compared for duplication (a replaceAll that blanks backtick template literals, next to the existing double-/single-quote ones). The touched file is byte-identical in variants/a and variants/b (diff: no output; 286 lines in both), so no A/B difference is expected. The acceptance test extracts the units of two JavaScript files that differ only inside template literals and asks UnitDuplicatesExtractor for unit duplicates (expects one instance with two blocks); a second method checks that a difference outside the literals still yields no duplicate. Verification: A before = compiles, assertion failure (0 unit duplicates instead of 1); A after (reference diff applied with patch -p1) = passes, codeanalyzer suite green (334 tests, 3 skipped); B before = same assertion failure; B after (same patch, reference/b.patch == reference/a.patch) = passes, suite green."
+}
