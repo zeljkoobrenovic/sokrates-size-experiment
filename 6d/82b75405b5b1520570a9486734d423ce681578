@@ -1,0 +1,32 @@
+scripts/check_tasks.py
+  s_0af420b20b4753::t_750185eea99a65 1-82
+  s_0af420b20b4753::t_6f0c3e3d79656b 83
+tasks/t01-undefined-team-active/reference/a.patch
+  s_a5374a840d3fe9::t_1e8450a4d62aa4 1-13
+tasks/t01-undefined-team-active/reference/b.patch
+  s_a5374a840d3fe9::t_f8cb286f44db2b 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6d82b75405b5b1520570a9486734d423ce681578",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a5374a840d3fe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1e739205-f794-447f-998f-a952ab7c3735",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
