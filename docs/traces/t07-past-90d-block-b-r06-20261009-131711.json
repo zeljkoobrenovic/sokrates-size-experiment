@@ -1,0 +1,309 @@
+{
+ "title": "Sonnet 5.5 \u00b7 t07 past 90 days block \u00b7 B (split files)",
+ "model": "claude-sonnet-5-5",
+ "meta": {
+  "task": "t07-past-90d-block",
+  "kind": "target",
+  "variant": "b",
+  "model": "claude-sonnet-5-5",
+  "turns": 8,
+  "duration_s": 21.4,
+  "cost_usd": 0.0995072,
+  "total_input_tokens": 154445,
+  "cache_read_tokens": 139446,
+  "cache_write_tokens": 14985,
+  "output_tokens": 1165,
+  "success": true,
+  "files_changed": 1,
+  "lines_added": 1,
+  "lines_deleted": 1,
+  "run_id": "t07-past-90d-block-b-r06-20261009-131711"
+ },
+ "turns": [
+  {
+   "n": 1,
+   "input": 2,
+   "cache_read": 10874,
+   "cache_write": 6442,
+   "output": 89,
+   "text": "",
+   "tools": [
+    {
+     "tool": "Bash",
+     "kind": "search",
+     "detail": "grep -rn \"90\" --include=*.java . | grep -i -E \"active|past|updated\" | grep -v /test/ | head -30",
+     "lines": 1,
+     "files": []
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "input": 2,
+   "cache_read": 17316,
+   "cache_write": 2160,
+   "output": 89,
+   "text": "",
+   "tools": [
+    {
+     "tool": "Bash",
+     "kind": "search",
+     "detail": "grep -rn \"90\" --include=*.java . | grep -i -E \"active|past|updated\" | grep -v /test/ | head -30",
+     "lines": 1,
+     "files": []
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "input": 2,
+   "cache_read": 19476,
+   "cache_write": 135,
+   "output": 113,
+   "text": "Zsh glob issue; use grep -r with quoted pattern.",
+   "tools": [
+    {
+     "tool": "Bash",
+     "kind": "search",
+     "detail": "grep -rn \"90\" --include='*.java' . | grep -i -E \"active|past|updated\" | grep -v /test/ | head -30",
+     "lines": 23,
+     "files": [
+      {
+       "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java",
+       "kind": "hit",
+       "lines": 1
+      },
+      {
+       "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java",
+       "kind": "hit",
+       "lines": 1
+      },
+      {
+       "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java",
+       "kind": "hit",
+       "lines": 1
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/core/ReportVisualsTab.java",
+       "kind": "hit",
+       "lines": 2
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java",
+       "kind": "hit",
+       "lines": 4
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java",
+       "kind": "hit",
+       "lines": 1
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java",
+       "kind": "hit",
+       "lines": 2
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+       "kind": "hit",
+       "lines": 2
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java",
+       "kind": "hit",
+       "lines": 1
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java",
+       "kind": "hit",
+       "lines": 2
+      },
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesMetricsTable.java",
+       "kind": "hit",
+       "lines": 6
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "input": 2,
+   "cache_read": 19611,
+   "cache_write": 2372,
+   "output": 102,
+   "text": "",
+   "tools": [
+    {
+     "tool": "Bash",
+     "kind": "read",
+     "detail": "sed -n 80,145p reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+     "lines": 66,
+     "files": [
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+       "kind": "read",
+       "lines": 66
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "input": 2,
+   "cache_read": 21983,
+   "cache_write": 2926,
+   "output": 182,
+   "text": "",
+   "tools": [
+    {
+     "tool": "Bash",
+     "kind": "edit",
+     "detail": "sed -i '/\"past 90d\",/{n;s/getSmallTextForNumber(loc180Days)/getSmallTextForNumber(loc90Days)/}' reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java && git diff --stat && mvn -q -o -pl reports compile 2>&1 | tail -5",
+     "lines": 1,
+     "files": [],
+     "error": true
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "input": 2,
+   "cache_read": 24909,
+   "cache_write": 368,
+   "output": 374,
+   "text": "",
+   "tools": [
+    {
+     "tool": "Edit",
+     "kind": "edit",
+     "detail": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+     "lines": 1,
+     "files": [
+      {
+       "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+       "kind": "edit",
+       "lines": 1
+      }
+     ]
+    },
+    {
+     "tool": "Bash",
+     "kind": "build",
+     "detail": "mvn -q -o -pl reports compile 2>&1 | tail -5",
+     "lines": 1,
+     "files": []
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "input": 2,
+   "cache_read": 25277,
+   "cache_write": 582,
+   "output": 216,
+   "text": "The \"past 90d\" block now shows the main LOC of the repositories with commits in the past 90 days. Before, its LOC text used the 180-day figure.",
+   "tools": [
+    {
+     "tool": "text",
+     "kind": "text",
+     "detail": "The \"past 90d\" block now shows the main LOC of the repositories with commits in the past 90 days. Before, its LOC text used the 180-day figure.",
+     "lines": 0,
+     "files": []
+    }
+   ]
+  }
+ ],
+ "files": [
+  {
+   "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java",
+   "lines": 355,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 1
+  },
+  {
+   "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java",
+   "lines": 527,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 1
+  },
+  {
+   "path": "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java",
+   "lines": 325,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 1
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/core/ReportVisualsTab.java",
+   "lines": 399,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 2
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java",
+   "lines": 321,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 2
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java",
+   "lines": 229,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 4
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java",
+   "lines": 214,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 1
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java",
+   "lines": 280,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 2
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java",
+   "lines": 335,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 1
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java",
+   "lines": 318,
+   "first": 3,
+   "read": 66,
+   "edits": 1,
+   "hits": 2
+  },
+  {
+   "path": "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesMetricsTable.java",
+   "lines": 143,
+   "first": 3,
+   "read": 0,
+   "edits": 0,
+   "hits": 6
+  }
+ ]
+}

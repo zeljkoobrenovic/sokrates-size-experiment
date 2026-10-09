@@ -77,7 +77,8 @@ analysis/<v>/         Sokrates config + reports of each variant (reports/ is gen
 analysis/targets-a.md the files and units above the thresholds, with commit counts
 tasks/<id>/           task.md (prompt), meta.json, acceptance/<variant>/ (test files); tasks/candidates.md
 harness/              run.py, summarize.py, config.json (model, flags, timeouts), prompt-preamble.md, hooks/log_tool.py
-scripts/              analyze_variant.sh, targets.py, mine_tasks.py, golden.sh, make_variant_b.md
+scripts/              analyze_variant.sh, targets.py, mine_tasks.py, golden.sh, make_variant_b.md, build_site.py,
+                      turn_trace.py + trace_template.html + build_trace_page.py (the turn-by-turn trace page)
 results/runs.csv      one row per run (results/runs/<id>.json has the full record incl. the agent's final message)
 work/                 per-run working copies and logs (kept with --keep)
 ```
@@ -91,6 +92,28 @@ harness/run.py --tasks t01-undefined-team-active --variants a --repeats 1 --keep
 harness/summarize.py                                                                # the tables
 harness/summarize.py --successful-only                                              # only runs that passed
 ```
+
+### Turn-by-turn traces
+
+[docs/trace.html](https://zeljkoobrenovic.github.io/sokrates-size-experiment/trace.html) shows one run as a grid:
+columns are the API calls (turns), the top rows the tokens each call re-sent from the prompt cache, wrote to it and
+produced, the rows below the files the agent read, searched and edited in that turn (with line counts). It needs no
+extra logging: Claude Code writes a transcript of every session, interactive or `claude -p`, under
+`~/.claude/projects/<cwd slug>/<session id>.jsonl`, and every assistant message there carries the call's usage
+(`cache_read_input_tokens`, `cache_creation_input_tokens`, `output_tokens`) next to the tool calls and their results.
+
+```bash
+scripts/turn_trace.py --run <run id> --out trace.json          # an experiment run
+scripts/turn_trace.py --cwd /path/you/ran/claude/in --out t.json  # the latest session started in that folder
+scripts/turn_trace.py --transcript ~/.claude/projects/<slug>/<id>.jsonl --root /path/to/repo --out t.json
+scripts/build_trace_page.py                                     # rebuild docs/trace.html with the example runs
+```
+
+Drop the JSON onto the page (or pick it with the file input) to render it. The format is documented at the top of
+`scripts/turn_trace.py` (`TRACE_FORMAT`); the example traces are in `docs/traces/`. Claude Code deletes old
+transcripts after its `cleanupPeriodDays` (30 by default), so extract a trace soon after the session, or copy the
+transcript. File attribution is heuristic: `Read`/`cat`/`sed -n`/`head` count as read lines, `Edit`/`Write` as
+edited lines, and a `grep` output line naming a file as a search hit; a piped `head` is a filter, not a read.
 
 Runs are serial on purpose (the prebuild installs the variant's modules into `~/.m2`; two variants at once would
 mix). Budget: one run is a prebuild (1–2 min) + the agent (minutes, typically a few hundred thousand input tokens with
