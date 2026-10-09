@@ -1,0 +1,45 @@
+docs/posts/analysis.md
+  s_0af420b20b4753::t_6bc2dac87f9886 93,95
+docs/trace.html
+  s_0af420b20b4753::t_52b318dd5a7a45 12,16,20,104-106,114,118,141-142,144,151-154,176-177,207-208
+docs/traces/c02-component-duplication-metrics-a-r08-20261009-133358.json
+  s_0af420b20b4753::t_9b3c204b291552 22,44-45,89,119,144,169,194,218,261,285,309,333
+docs/traces/t01-undefined-team-active-a-r06-20261009-130934.json
+  s_0af420b20b4753::t_c90050ae92758b 22,44-45,68,103,128,158,193,228,253,290,314
+docs/traces/t01-undefined-team-active-a-r07-20261009-155034.json
+  s_0af420b20b4753::t_77632ff4fc7abf 22,44-45,68,108,138,163,198,228,258,288,313,337,361,385
+docs/traces/t01-undefined-team-active-b-r05-20261009-125844.json
+  s_0af420b20b4753::t_b387bcce6a7d9e 22,44-45,68,103,128,152,182,206,236,273,297
+docs/traces/t01-undefined-team-active-b-r07-20261009-154840.json
+  s_0af420b20b4753::t_7107dd2efa91f5 22,44-45,68,158,201,225,262,287,312,336,360
+docs/traces/t05-missing-sublandscape-config-a-r03-20261009-145902.json
+  s_0af420b20b4753::t_0704b8e7d92cc8 22,44-45,164,194,224,289,319,344,379,404,429,453,477,501
+docs/traces/t05-missing-sublandscape-config-b-r09-20261009-162042.json
+  s_0af420b20b4753::t_cdb29f70be3661 22,44-45,99,129,154,184,208,246,271,296,320,344,368,392,416
+docs/traces/t07-past-90d-block-a-r08-20261009-134134.json
+  s_0af420b20b4753::t_7d2872b69ec1d4 22,44-45,68,113,143,168,198,222
+docs/traces/t07-past-90d-block-b-r06-20261009-131711.json
+  s_0af420b20b4753::t_d0141c7c9e18f4 22,44-45,68,148,178,203,240,264
+scripts/build_trace_page.py
+  s_0af420b20b4753::t_19503f3ce8f888 43-44
+scripts/trace_template.html
+  s_0af420b20b4753::t_f86f33ced0e31a 12,16,20,104-106,114,141-142,144,151-154,176-177,207-208
+scripts/turn_trace.py
+  s_0af420b20b4753::t_d1e247c74646fa 33,37-40,293-297,337
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa853dab2a7dc36c9c98c2ccd02851bcd86733d8",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
