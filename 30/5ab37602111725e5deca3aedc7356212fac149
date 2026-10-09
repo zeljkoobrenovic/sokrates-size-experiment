@@ -1,0 +1,19 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/Blocks.java
+  s_0af420b20b4753::t_3f1c05760ca388 165-169,171-175,177-178,180-183,185-187,189-191,193-195,197-199,201-212
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "305ab37602111725e5deca3aedc7356212fac149",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
