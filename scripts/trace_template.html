@@ -200,13 +200,6 @@ a { color: var(--read); }
       h += '</td>';
     });
     h += '<td class="total">' + turns.reduce(function (a, t) { return a + t.tools.filter(function (x) { return x.kind !== 'text'; }).length; }, 0) + ' calls</td></tr>';
-    var outLines = turns.map(function (t) { return t.tools.reduce(function (a, x) { return a + (x.lines || 0); }, 0); });
-    var outMax = Math.max.apply(null, outLines.concat([1]));
-    h += '<tr class="token sub sub-tools"><th class="head">\u2003Tool output (lines)<span class="n">max ' + fmt(outMax) + ', own scale</span></th>';
-    outLines.forEach(function (v, i) {
-      h += '<td class="cell" data-turn="' + i + '" data-v="' + fmt(v) + '" data-tip="' + esc('turn ' + (i + 1) + ': ' + fmt(v) + ' lines of tool output, in the context from the next turn on') + '"><span class="bar" style="--c:var(--write);height:' + Math.max(1, Math.round(76 * v / outMax)) + 'px"></span></td>';
-    });
-    h += '<td class="total">' + fmt(outLines.reduce(function (a, b) { return a + b; }, 0)) + ' lines</td></tr>';
     var KINDS = [['search', '\u2003search (grep, find, ls, Grep, Glob)'], ['read', '\u2003read (Read, cat, sed -n, head, tail)'], ['edit', '\u2003edit (Edit, Write, sed -i)'],
                  ['build', '\u2003build and test (mvn, java)'], ['vcs', '\u2003git'], ['shell', '\u2003other shell']];
     KINDS.forEach(function (k) {
