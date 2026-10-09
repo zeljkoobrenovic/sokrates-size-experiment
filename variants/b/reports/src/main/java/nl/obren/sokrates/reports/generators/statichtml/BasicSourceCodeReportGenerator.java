@@ -155,24 +155,7 @@ public class BasicSourceCodeReportGenerator {
     }
 
     private void createBasicReport() {
-        if (codeAnalyzerSettings.isAnalyzeFilesInScope()) {
-            ProcessingStopwatch.start("reporting/basic");
-            new OverviewReportGenerator(codeAnalysisResults, codeConfigurationFile).addScopeAnalysisToReport(overviewScopeReport);
-            ProcessingStopwatch.end("reporting/basic");
-        }
-
-        if (codeAnalyzerSettings.isAnalyzeLogicalDecomposition()) {
-            ProcessingStopwatch.start("reporting/logical decomposition");
-            new LogicalComponentsReportGenerator(codeAnalysisResults, true).addCodeOrganizationToReport(logicalComponentsReport);
-            new LogicalComponentsReportGenerator(codeAnalysisResults, false).addCodeOrganizationToReport(logicalComponentsAndDependenciesReport);
-            ProcessingStopwatch.end("reporting/logical decomposition");
-        }
-
-        if (codeAnalyzerSettings.isAnalyzeConcerns()) {
-            ProcessingStopwatch.start("reporting/features of interest");
-            new ConcernsReportGenerator(codeAnalysisResults).addConcernsToReport(concernsReport);
-            ProcessingStopwatch.end("reporting/features of interest");
-        }
+        createScopeDecompositionAndConcernsReports();
 
         if (codeAnalyzerSettings.isAnalyzeDuplication()) {
             ProcessingStopwatch.start("reporting/duplication");
@@ -193,23 +176,7 @@ public class BasicSourceCodeReportGenerator {
         }
 
         if (codeAnalyzerSettings.isAnalyzeFileHistory()) {
-            if (codeAnalysisResults.getCodeConfiguration().getFileHistoryAnalysis().filesHistoryImportPathExists(codeConfigurationFile.getParentFile())) {
-                ProcessingStopwatch.start("reporting/file age");
-                new FileAgeReportGenerator(codeAnalysisResults).addFileAgeToReport(fileHistoryReport);
-                ProcessingStopwatch.end("reporting/file age");
-                ProcessingStopwatch.start("reporting/file change frequency");
-                new FileChurnReportGenerator(codeAnalysisResults).addFileHistoryToReport(fileChangeFrequencyReport);
-                ProcessingStopwatch.end("reporting/file change frequency");
-                ProcessingStopwatch.start("reporting/temporal dependencies");
-                new FileTemporalDependenciesReportGenerator(codeAnalysisResults).addTemporalDependenciesToReport(reportsFolder, fileTemporalDependenciesReport);
-                ProcessingStopwatch.end("reporting/temporal dependencies");
-                ProcessingStopwatch.start("reporting/commits");
-                new CommitsReportGenerator(codeAnalysisResults).addContributorsAnalysisToReport(reportsFolder, commitsReport);
-                ProcessingStopwatch.end("reporting/commits");
-                ProcessingStopwatch.start("reporting/contributors");
-                new ContributorsReportGenerator(codeAnalysisResults).addContributorsAnalysisToReport(reportsFolder, contributorsReport);
-                ProcessingStopwatch.end("reporting/contributors");
-            }
+            createHistoryReports();
         }
 
         if (codeAnalyzerSettings.isAnalyzeUnitSize()) {
@@ -224,6 +191,51 @@ public class BasicSourceCodeReportGenerator {
             ProcessingStopwatch.end("reporting/conditional complexity");
         }
 
+        createFindingsMetricsAndControlsReports();
+    }
+
+    private void createScopeDecompositionAndConcernsReports() {
+        if (codeAnalyzerSettings.isAnalyzeFilesInScope()) {
+            ProcessingStopwatch.start("reporting/basic");
+            new OverviewReportGenerator(codeAnalysisResults, codeConfigurationFile).addScopeAnalysisToReport(overviewScopeReport);
+            ProcessingStopwatch.end("reporting/basic");
+        }
+
+        if (codeAnalyzerSettings.isAnalyzeLogicalDecomposition()) {
+            ProcessingStopwatch.start("reporting/logical decomposition");
+            new LogicalComponentsReportGenerator(codeAnalysisResults, true).addCodeOrganizationToReport(logicalComponentsReport);
+            new LogicalComponentsReportGenerator(codeAnalysisResults, false).addCodeOrganizationToReport(logicalComponentsAndDependenciesReport);
+            ProcessingStopwatch.end("reporting/logical decomposition");
+        }
+
+        if (codeAnalyzerSettings.isAnalyzeConcerns()) {
+            ProcessingStopwatch.start("reporting/features of interest");
+            new ConcernsReportGenerator(codeAnalysisResults).addConcernsToReport(concernsReport);
+            ProcessingStopwatch.end("reporting/features of interest");
+        }
+    }
+
+    private void createHistoryReports() {
+        if (codeAnalysisResults.getCodeConfiguration().getFileHistoryAnalysis().filesHistoryImportPathExists(codeConfigurationFile.getParentFile())) {
+            ProcessingStopwatch.start("reporting/file age");
+            new FileAgeReportGenerator(codeAnalysisResults).addFileAgeToReport(fileHistoryReport);
+            ProcessingStopwatch.end("reporting/file age");
+            ProcessingStopwatch.start("reporting/file change frequency");
+            new FileChurnReportGenerator(codeAnalysisResults).addFileHistoryToReport(fileChangeFrequencyReport);
+            ProcessingStopwatch.end("reporting/file change frequency");
+            ProcessingStopwatch.start("reporting/temporal dependencies");
+            new FileTemporalDependenciesReportGenerator(codeAnalysisResults).addTemporalDependenciesToReport(reportsFolder, fileTemporalDependenciesReport);
+            ProcessingStopwatch.end("reporting/temporal dependencies");
+            ProcessingStopwatch.start("reporting/commits");
+            new CommitsReportGenerator(codeAnalysisResults).addContributorsAnalysisToReport(reportsFolder, commitsReport);
+            ProcessingStopwatch.end("reporting/commits");
+            ProcessingStopwatch.start("reporting/contributors");
+            new ContributorsReportGenerator(codeAnalysisResults).addContributorsAnalysisToReport(reportsFolder, contributorsReport);
+            ProcessingStopwatch.end("reporting/contributors");
+        }
+    }
+
+    private void createFindingsMetricsAndControlsReports() {
         ProcessingStopwatch.start("reporting/findings");
         new FindingsReportGenerator(codeConfigurationFile).generateReport(codeAnalysisResults, findingsReport);
         ProcessingStopwatch.end("reporting/findings");

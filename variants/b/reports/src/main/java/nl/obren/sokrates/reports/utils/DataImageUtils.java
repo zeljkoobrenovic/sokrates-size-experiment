@@ -13,6 +13,15 @@ public class DataImageUtils {
     private static final Map<String, String> map = new HashMap<>();
 
     static {
+        registerLanguageImages();
+        registerMoreLanguageImages();
+        registerWebAndDataImages();
+        registerToolImages();
+        registerDotFileImages();
+        registerMoreDotFileImages();
+    }
+
+    private static void registerLanguageImages() {
         map.put("java", "Java.png");
         map.put("cs", "C_.png");
         map.put("c", "C.png");
@@ -53,6 +62,9 @@ public class DataImageUtils {
         map.put("pm", "Perl.png");
         map.put("pl", "Perl.png");
         map.put("ftl", "freemarker.png");
+    }
+
+    private static void registerMoreLanguageImages() {
         map.put("r", "R.png");
         map.put("m", "Objective_C.png");
         map.put("mm", "Objective_C.png");
@@ -95,6 +107,9 @@ public class DataImageUtils {
         map.put("perl", "Perl.png");
         map.put("hql", "hive.png");
         map.put("kt", "Kotlin.png");
+    }
+
+    private static void registerWebAndDataImages() {
         map.put("kts", "Kotlin.png");
         map.put("jsx", "react.png");
         map.put("tsx", "react.png");
@@ -135,6 +150,9 @@ public class DataImageUtils {
         map.put("escript", "erlang.png");
         map.put("exs", "elixir.png");
         map.put("ex", "elixir.png");
+    }
+
+    private static void registerToolImages() {
         map.put("es", "es.png");
         map.put("gitignore", "git.png");
         map.put("nomad", "nomad.png");
@@ -176,6 +194,9 @@ public class DataImageUtils {
         map.put(".vscode", "vscode.png");
         map.put(".mvn", "maven.png");
         map.put(".m2", "maven.png");
+    }
+
+    private static void registerDotFileImages() {
         map.put(".jenkins", "jenkins.png");
         map.put(".jenkins.groovy", "jenkins.png");
         map.put(".travis", "travis.png");
@@ -216,6 +237,9 @@ public class DataImageUtils {
         map.put(".eslintrc-es6", "eslint.png");
         map.put(".eslintrc-common.yml", "eslint.png");
         map.put(".eslintrc-common.yaml", "eslint.png");
+    }
+
+    private static void registerMoreDotFileImages() {
         map.put(".gitlab-ci.yml", "gitlab.png");
         map.put(".bazelrc", "bazel.png");
         map.put(".bazelci", "bazel.png");

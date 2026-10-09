@@ -278,12 +278,7 @@ public class ScopesRenderer {
         }
 
         if (StringUtils.isNotBlank(explorers)) {
-            report.startDiv("");
-            report.addHtmlContent("Explore:&nbsp;&nbsp;");
-            report.addNewTabLink("circles", "visuals/zoomable_circles_" + explorers + ".html");
-            report.addHtmlContent("&nbsp;|&nbsp;");
-            report.addNewTabLink("sunburst", "visuals/zoomable_sunburst_" + explorers + ".html");
-            report.endDiv();
+            renderExplorerLinks(report);
         }
 
         boolean criteriaDefined = aspect != null && aspect.getSourceFileFilters().size() > 0;
@@ -309,6 +304,22 @@ public class ScopesRenderer {
             report.endUnorderedList();
         }
         report.startUnorderedList();
+        renderFilesSummary(report, criteriaDefined);
+
+        report.endUnorderedList();
+
+    }
+
+    private void renderExplorerLinks(RichTextReport report) {
+        report.startDiv("");
+        report.addHtmlContent("Explore:&nbsp;&nbsp;");
+        report.addNewTabLink("circles", "visuals/zoomable_circles_" + explorers + ".html");
+        report.addHtmlContent("&nbsp;|&nbsp;");
+        report.addNewTabLink("sunburst", "visuals/zoomable_sunburst_" + explorers + ".html");
+        report.endDiv();
+    }
+
+    private void renderFilesSummary(RichTextReport report, boolean criteriaDefined) {
         if (criteriaDefined) {
             String filesFragment;
             String filesPhrase = filesCount == 1 ? "file" : "files";
@@ -342,9 +353,6 @@ public class ScopesRenderer {
                     "<b>" + RichTextRenderingUtils.renderNumber(linesCount) + "</b> " + metric + " ("
                     + "<b>" + RichTextRenderingUtils.renderNumber(100.0 * linesCount / maxLinesOfCode) + "%</b> vs. main code).");
         }
-
-        report.endUnorderedList();
-
     }
 
     public NamedSourceCodeAspect getAspect() {
