@@ -1,0 +1,39 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportExtensionsSection.java
+  s_0af420b20b4753::t_3b4fc53474bfdc 1-256
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+  s_0af420b20b4753::t_403f4317dc49d8 105-112,124-128,142-146,150-152,156,158,160-168,184,199,248,276,284-285,288,296,307,314,319,322,334,336,338,389,399,405,414,419,425
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportInfoBlocks.java
+  s_a5374a840d3fe9::t_05cf84fb5f8284 1-128
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java
+  s_0af420b20b4753::t_90079dda4344ed 1-318
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportRepositoriesSection.java
+  s_0af420b20b4753::t_b7981a8373f2a4 1-199
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportStatisticsSection.java
+  s_a5374a840d3fe9::t_0a83aaebe1c18e 1-228
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportTagsSection.java
+  s_0af420b20b4753::t_8b6b11fcd48458 1-197
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fad3a35e3bcf133395a49cc98679e775b0643f88",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a5374a840d3fe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1e739205-f794-447f-998f-a952ab7c3735",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
