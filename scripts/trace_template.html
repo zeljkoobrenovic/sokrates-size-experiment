@@ -123,7 +123,7 @@ a { color: var(--read); }
   var LETTER = {search: 'S', read: 'R', edit: 'E', build: 'B', vcs: 'G', shell: '$', text: '✓'};
 
   function tokenValues(turns, key) {
-    var vals = turns.map(function (t) { return t[key] || 0; });
+    var vals = turns.map(function (t) { var k = key.split('.'); return (k.length > 1 ? (t[k[0]] || {})[k[1]] : t[key]) || 0; });
     if (cumulative.checked && key !== 'cache_read') { var acc = 0; vals = vals.map(function (v) { return acc += v; }); }
     return vals;
   }
@@ -176,6 +176,12 @@ a { color: var(--read); }
     h += '<tr class="group"><th class="head">Context per turn (tokens, one scale: ' + fmt(max) + ' = full bar)</th><td colspan="' + (n + 1) + '"></td></tr>';
     h += tokenRow('Re-sent from cache', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
     h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max);
+    if (turns.some(function (t) { return t.new; })) {
+      var sumNew = function (k) { return turns.reduce(function (a, t) { return a + ((t.new || {})[k] || 0); }, 0); };
+      h += tokenRow('\u2003of which tool results', 'new.tool_results', 'var(--write)', turns, sumNew('tool_results'), max);
+      h += tokenRow("\u2003of which the agent's previous output", 'new.prev_output', 'var(--output)', turns, sumNew('prev_output'), max);
+      h += tokenRow('\u2003of which prompt, reminders, injected instructions', 'new.other', 'var(--faint)', turns, sumNew('other'), max);
+    }
     if (sum('input') > n * 10) h += tokenRow('Uncached input', 'input', 'var(--faint)', turns, sum('input'), max);
     h += tokenRow('Output', 'output', 'var(--output)', turns, sum('output'), max);
     h += '<tr><th class="head">Tool calls</th>';
