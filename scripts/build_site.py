@@ -127,7 +127,7 @@ TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Below the read budget, length is not a cost driver</title>
+<title>Below the read budget, file and unit length is not a cost driver</title>
 <meta name="description" content="A controlled experiment: splitting long files and units did not lower what an AI coding agent spends. Sokrates, two variants, twelve tasks, two models, 480 runs.">
 <style>
 :root {
@@ -195,7 +195,7 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.85rem; }
 <main>
 <header class="hero">
   <div class="meta">An experiment · Sokrates · ${generated}</div>
-  <h1>Below the agent’s read budget, length is not a cost driver</h1>
+  <h1>Below the agent’s read budget, file and unit length is not a cost driver</h1>
   <p class="lede">Splitting long files and units did not save an AI coding agent tokens. The same twelve changes, made by the same agent in two versions of one codebase that differ only in the length of their files and units, cost the same tokens, turns and time. Measured with two models, ten repeats per task and variant, control tasks and acceptance tests. What the agent pays for is the number of places a change touches, and files longer than one read.</p>
 </header>
 

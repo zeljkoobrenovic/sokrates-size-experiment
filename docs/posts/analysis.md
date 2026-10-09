@@ -1,4 +1,4 @@
-# Below the agent’s read budget, length is not a cost driver
+# Below the agent’s read budget, file and unit length is not a cost driver
 
 *Splitting long files and units does not save an AI coding agent tokens: a controlled experiment, and a comparison with "The Economic Benefit of Refactoring".*
 
