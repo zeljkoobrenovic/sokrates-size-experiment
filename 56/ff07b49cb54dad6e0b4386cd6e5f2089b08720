@@ -1,0 +1,21 @@
+docs/trace.html
+  s_0af420b20b4753::t_09cd661fdc7fe8 195-209
+scripts/trace_template.html
+  s_0af420b20b4753::t_773887e6b0629d 195-209
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "56ff07b49cb54dad6e0b4386cd6e5f2089b08720",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
