@@ -1,4 +1,6 @@
-# Splitting long files and units does not save an AI coding agent tokens: a controlled experiment, and a comparison with "The Economic Benefit of Refactoring"
+# Below the agent’s read budget, length is not a cost driver
+
+*Splitting long files and units does not save an AI coding agent tokens: a controlled experiment, and a comparison with "The Economic Benefit of Refactoring".*
 
 *2026-10-09. Both series are complete: 240 runs each, 10 per task and variant, no failed acceptance test. The experiment repository, with the harness, the tasks and every run's record, is `sokrates-size-experiment`; the results page is `docs/index.html`.*
 
