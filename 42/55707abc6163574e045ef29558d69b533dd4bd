@@ -1,0 +1,23 @@
+docs/posts/analysis.md
+  s_0af420b20b4753::t_58a89b1e95b5b6 95
+docs/trace.html
+  s_0af420b20b4753::t_b85d957b9f39b1 112,146-154,191-192,194
+scripts/trace_template.html
+  s_0af420b20b4753::t_075a801e29e3a2 112,146-154,191-192,194
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4255707abc6163574e045ef29558d69b533dd4bd",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
