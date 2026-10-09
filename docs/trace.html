@@ -88,7 +88,7 @@ a { color: var(--read); }
 <body>
 <main>
 <h1>Agent turn traces</h1>
-<p class="lead">One column per API call (a turn); the agent's tools in that turn below the token bars. The top rows show what each turn costs: the context re-sent from the prompt cache, the new context written to it (tool results, the agent's own words) and the output. The file rows show where the agent read, searched and edited. Hover a cell for details, click a turn to list its commands; the ▸ next to "New, written to cache" and "Tool calls" opens their breakdown.</p>
+<p class="lead">One column per API call (a turn); the agent's tools in that turn below the token bars. The top rows show what each turn costs: the context re-sent from the prompt cache, the new context written to it (tool results, the agent's own words) and the output. The file rows show where the agent read, searched and edited. Hover a cell for details, click a turn to list its commands; the ▸ next to "Re-sent from cache", "New, written to cache" and "Tool calls" opens their breakdown.</p>
 
 <div class="controls">
   <label>Example <select id="pick"></select></label>
@@ -123,8 +123,8 @@ a { color: var(--read); }
   var detail = document.getElementById('detail'), summary = document.getElementById('summary');
   var hideHits = document.getElementById('hideHits'), cumulative = document.getElementById('cumulative');
   var current = null, selected = null;
-  var open = {new: false, tools: false};
-  try { var stored = JSON.parse(localStorage.getItem('trace-open') || '{}'); open.new = !!stored.new; open.tools = !!stored.tools; } catch (e) {}
+  var open = {resent: false, new: false, tools: false};
+  try { var stored = JSON.parse(localStorage.getItem('trace-open') || '{}'); open.resent = !!stored.resent; open.new = !!stored.new; open.tools = !!stored.tools; } catch (e) {}
   function toggle(which) { return '<button class="tg" data-toggle="' + which + '" aria-expanded="' + open[which] + '" title="show or hide the breakdown">' + (open[which] ? '\u25BE' : '\u25B8') + '</button>'; }
 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return {'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]; }); }
@@ -197,7 +197,10 @@ a { color: var(--read); }
     var max = Math.max.apply(null, ['cache_write', 'input', 'output'].reduce(function (a, k) { return a.concat(tokenValues(turns, k)); }, [1])
       .concat(turns.map(function (t) { return (t.cache_read || 0) + (t.cache_write || 0); })));
     h += '<tr class="group"><th class="head">Context per turn (tokens, one scale: ' + fmt(max) + ' = full bar)</th><td colspan="' + (n + 1) + '"></td></tr>';
-    h += tokenRow('Re-sent from cache, new on top', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
+    turns.forEach(function (t) { t._prefix = Math.min(trace.shared_prefix || 0, t.cache_read || 0); t._history = (t.cache_read || 0) - t._prefix; });
+    h += tokenRow('Re-sent from cache, new on top', 'cache_read', 'var(--read)', turns, sum('cache_read'), max, 'parent' + (open.resent ? ' open' : ''), toggle('resent'));
+    h += tokenRow('\u2003of which shared prefix (static system prompt, tool definitions)', '_prefix', 'var(--prefix)', turns, sum('_prefix'), max, 'sub sub-resent');
+    h += tokenRow("\u2003of which this session's history", '_history', 'var(--read)', turns, sum('_history'), max, 'sub sub-resent');
     var hasNew = turns.some(function (t) { return t.new; });
     h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max, hasNew ? 'parent' + (open.new ? ' open' : '') : '', hasNew ? toggle('new') : '');
     if (hasNew) {
@@ -263,7 +266,7 @@ a { color: var(--read); }
     });
     h += '</tbody>';
     grid.innerHTML = h;
-    ['new', 'tools'].forEach(function (w) { if (open[w]) Array.prototype.forEach.call(grid.querySelectorAll('tr.sub-' + w), function (r) { r.classList.add('shown'); }); });
+    ['resent', 'new', 'tools'].forEach(function (w) { if (open[w]) Array.prototype.forEach.call(grid.querySelectorAll('tr.sub-' + w), function (r) { r.classList.add('shown'); }); });
     showTurn(selected);
   }
 
