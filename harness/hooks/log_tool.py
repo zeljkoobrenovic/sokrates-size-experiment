@@ -50,6 +50,8 @@ def main():
             entry["path"] = inp.get("path")
         elif name == "Bash":
             entry["command"] = (inp.get("command") or "")[:500]
+            out = resp.get("stdout") if isinstance(resp, dict) else resp if isinstance(resp, str) else ""
+            entry["lines"] = (out or "").count("\n") + (1 if out and not out.endswith("\n") else 0)
         elif name in ("Edit", "Write", "MultiEdit", "NotebookEdit"):
             entry["file"] = inp.get("file_path") or inp.get("notebook_path")
         else:

@@ -52,7 +52,7 @@ CSV_FIELDS = [
     "run_id", "started", "task", "kind", "variant", "repeat", "agent", "model", "claude_version",
     "success", "agent_error", "turns", "duration_s", "api_duration_s", "cost_usd",
     "input_tokens", "cache_read_tokens", "cache_write_tokens", "total_input_tokens", "output_tokens",
-    "tool_calls", "reads", "lines_read", "files_read", "greps", "globs", "bashes", "mvn_runs", "edits",
+    "tool_calls", "reads", "lines_read", "files_read", "greps", "globs", "bashes", "bash_output_lines", "lines_seen", "mvn_runs", "edits",
     "tool_response_chars", "files_changed", "lines_added", "lines_deleted", "prebuild_s", "acceptance_s",
 ]
 
@@ -144,7 +144,7 @@ def usage_of(result):
 
 def tool_stats(log_path):
     stats = {"tool_calls": 0, "reads": 0, "lines_read": 0, "files_read": 0, "greps": 0, "globs": 0,
-             "bashes": 0, "mvn_runs": 0, "edits": 0, "tool_response_chars": 0}
+             "bashes": 0, "bash_output_lines": 0, "lines_seen": 0, "mvn_runs": 0, "edits": 0, "tool_response_chars": 0}
     files = set()
     if not os.path.exists(log_path):
         return stats
@@ -167,11 +167,13 @@ def tool_stats(log_path):
             stats["globs"] += 1
         elif tool == "Bash":
             stats["bashes"] += 1
+            stats["bash_output_lines"] += e.get("lines") or 0
             if "mvn" in (e.get("command") or ""):
                 stats["mvn_runs"] += 1
         elif tool in ("Edit", "Write", "MultiEdit", "NotebookEdit"):
             stats["edits"] += 1
     stats["files_read"] = len(files)
+    stats["lines_seen"] = stats["lines_read"] + stats["bash_output_lines"]  # Read tool lines + shell output lines (cat, grep, sed, mvn …)
     return stats
 
 
@@ -232,6 +234,8 @@ def append_row(row):
         fcntl.flock(f, fcntl.LOCK_UN)
     with open(os.path.join(RESULTS, "runs", row["run_id"] + ".json"), "w") as f:
         json.dump(row, f, indent=1)
+    if row.get("tools_log") and os.path.exists(row["tools_log"]):  # keep the per-call log next to the record
+        shutil.copy(row["tools_log"], os.path.join(RESULTS, "runs", row["run_id"] + ".tools.jsonl"))
 
 
 def one_run(task, variant, repeat, model, keep, dry_run):
@@ -249,7 +253,8 @@ def one_run(task, variant, repeat, model, keep, dry_run):
         return
     os.makedirs(work)
     row = {"run_id": run_id, "started": started.isoformat(timespec="seconds"), "task": task, "kind": meta.get("kind", ""),
-           "variant": variant, "repeat": repeat, "agent": CONFIG["agent"], "model": model, "claude_version": claude_version()}
+           "variant": variant, "repeat": repeat, "agent": CONFIG["agent"], "model": model, "claude_version": claude_version(),
+           "tools_log": log_path}
     try:
         prepare_repo(variant, repo)
         write_settings(repo, log_path)
