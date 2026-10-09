@@ -1,0 +1,19 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java
+  s_0af420b20b4753::t_97b3a161613459 62,78-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "873167f52c861d52196bbda8cc986883ac8d963f",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
