@@ -9,7 +9,8 @@ carries the call's token usage (input, cache read, cache write, output) and ever
 Usage:
   scripts/turn_trace.py --run <run id>                  # an experiment run (transcript found from the run's work folder)
   scripts/turn_trace.py --transcript <file.jsonl>       # any transcript
-  scripts/turn_trace.py --cwd <folder>                  # the latest session started in that folder
+  scripts/turn_trace.py --cwd <folder> --list           # the sessions started in that folder (id, time, calls, prompt)
+  scripts/turn_trace.py --cwd <folder> [--session <id>] # the latest (or that) session started in that folder
   ... [--root <repo root to shorten paths>] [--out trace.json] [--title ...]
 
 Output: one JSON document (see TRACE_FORMAT below) that docs/trace.html renders.
@@ -55,18 +56,42 @@ BUILD_CMDS = {"mvn", "java", "javac", "./mvnw", "make"}
 CHARS_PER_TOKEN = 2.3  # measured on the experiment transcripts: (cache_write - previous output) / tool result chars, median 2.3 (code, paths, grep output)
 
 
+def transcripts_for(cwd):
+    slug = re.sub(r"[^A-Za-z0-9]", "-", os.path.abspath(cwd))
+    return sorted(glob.glob(os.path.join(PROJECTS, slug, "*.jsonl")), key=os.path.getmtime)
+
+
 def find_transcript(args):
     if args.transcript:
         return args.transcript
     cwd = args.cwd
     if args.run:
         cwd = os.path.join(ROOT, "work", args.run, "repo")
-    slug = re.sub(r"[^A-Za-z0-9]", "-", os.path.abspath(cwd))
-    folder = os.path.join(PROJECTS, slug)
-    files = sorted(glob.glob(os.path.join(folder, "*.jsonl")), key=os.path.getmtime)
+    files = transcripts_for(cwd)
+    if getattr(args, "session", None):
+        files = [f for f in files if os.path.basename(f).startswith(args.session)]
     if not files:
-        sys.exit(f"no transcript under {folder}")
+        sys.exit(f"no transcript for {cwd} under {PROJECTS}")
     return files[-1]
+
+
+def list_sessions(cwd):
+    """Print the sessions started in cwd, newest first: id, start time, API calls, first prompt."""
+    import datetime
+    for f in reversed(transcripts_for(cwd)):
+        first, calls, started = "", set(), None
+        for line in open(f, encoding="utf-8"):
+            try:
+                o = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if o.get("type") == "user" and not first and isinstance((o.get("message") or {}).get("content"), str):
+                first = o["message"]["content"].strip().splitlines()[0][:70]
+                started = o.get("timestamp", "")[:16].replace("T", " ")
+            elif o.get("type") == "assistant":
+                calls.add((o.get("message") or {}).get("id") or o.get("requestId") or len(calls))
+        sid = os.path.basename(f)[:-6]
+        print(f"{sid}  {started or '':16}  {len(calls):4} calls  {first}")
 
 
 def result_text(block):
@@ -311,7 +336,9 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--run", help="experiment run id (results/runs/<id>.json)")
     ap.add_argument("--transcript", help="a Claude Code session transcript (.jsonl)")
-    ap.add_argument("--cwd", help="folder the session was started in (latest transcript)")
+    ap.add_argument("--cwd", help="folder the session was started in (latest transcript, or the one given with --session)")
+    ap.add_argument("--session", help="session id (or a prefix of it) among the sessions of --cwd; see --list")
+    ap.add_argument("--list", action="store_true", help="list the sessions started in --cwd and exit")
     ap.add_argument("--root", help="path prefix to strip from file paths (default: the session's cwd)")
     ap.add_argument("--source-root", help="where the files are now, for their total line counts (default: the run's variant)")
     ap.add_argument("--title")
@@ -319,6 +346,9 @@ def main():
     args = ap.parse_args()
     if not (args.run or args.transcript or args.cwd):
         ap.error("one of --run, --transcript, --cwd is required")
+    if args.list:
+        list_sessions(args.cwd or os.getcwd())
+        return
     transcript = find_transcript(args)
     turns, results, cwd = load(transcript)
     root = (args.root or cwd or "").rstrip("/") + "/"

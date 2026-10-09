@@ -103,11 +103,17 @@ extra logging: Claude Code writes a transcript of every session, interactive or 
 (`cache_read_input_tokens`, `cache_creation_input_tokens`, `output_tokens`) next to the tool calls and their results.
 
 ```bash
-scripts/turn_trace.py --run <run id> --out trace.json          # an experiment run
-scripts/turn_trace.py --cwd /path/you/ran/claude/in --out t.json  # the latest session started in that folder
+scripts/turn_trace.py --cwd /path/you/ran/claude/in --list       # the sessions started there: id, start, API calls, prompt
+scripts/turn_trace.py --cwd /path/you/ran/claude/in --out t.json # the latest of them (--session <id prefix> for another)
+scripts/turn_trace.py --run <run id> --out trace.json            # an experiment run
 scripts/turn_trace.py --transcript ~/.claude/projects/<slug>/<id>.jsonl --root /path/to/repo --out t.json
-scripts/build_trace_page.py                                     # rebuild docs/trace.html with the example runs
+scripts/build_trace_page.py                                      # rebuild docs/trace.html with the example runs
 ```
+
+Any Claude Code session can be viewed this way: list the sessions of the folder you worked in, extract one, open
+[trace.html](https://zeljkoobrenovic.github.io/sokrates-size-experiment/trace.html) (or the local `docs/trace.html`) and drop
+the JSON on it. Paths are shortened relative to the session's working directory; `--source-root` gives the files' current
+location for their total line counts.
 
 Drop the JSON onto the page (or pick it with the file input) to render it. The format is documented at the top of
 `scripts/turn_trace.py` (`TRACE_FORMAT`); the example traces are in `docs/traces/`. Claude Code deletes old
