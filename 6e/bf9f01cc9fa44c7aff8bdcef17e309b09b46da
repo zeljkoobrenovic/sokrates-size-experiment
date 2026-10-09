@@ -1,0 +1,19 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/utils/DataImageUtils.java
+  s_0af420b20b4753::t_a10234075c49b7 16-24,65-67,110-112,153-155,197-199,240-242
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6ebf9f01cc9fa44c7aff8bdcef17e309b09b46da",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
