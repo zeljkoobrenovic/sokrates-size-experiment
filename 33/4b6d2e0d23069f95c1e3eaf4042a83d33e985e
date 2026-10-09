@@ -1,0 +1,25 @@
+variants/b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+  s_0af420b20b4753::t_bbf0470b9d8555 50-51,54,86,89,95,98,101,104,155,220,233,242,251-256,259,262-263,269,272,275-288,325-334,346,348-350,352-355,357-359,361-362,452
+variants/b/cli/src/main/java/nl/obren/sokrates/cli/ConfigCommands.java
+  s_0af420b20b4753::t_f1e33525f45223 1-159
+variants/b/cli/src/main/java/nl/obren/sokrates/cli/GitHistoryCommands.java
+  s_0af420b20b4753::t_8bb006335705ab 1-107
+variants/b/cli/src/main/java/nl/obren/sokrates/cli/ReportVisualsGenerator.java
+  s_0af420b20b4753::t_4ca5cbb4791906 1-265
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "334b6d2e0d23069f95c1e3eaf4042a83d33e985e",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
