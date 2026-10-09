@@ -1,0 +1,15 @@
+{
+  "id": "t09-analyzelandscape-command",
+  "kind": "target",
+  "title": "Add analyzeLandscape as the documented name of updateLandscape",
+  "reference_commit": "5d61daab",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+    "cli/src/main/java/nl/obren/sokrates/cli/Commands.java"
+  ],
+  "target_unit": "run(String[]) and updateLandscape(String[]) in CommandLineInterface (file of 744 LOC, high risk); the command constants and usage table in Commands",
+  "module": "cli",
+  "test_command": "mvn -q -o -pl cli test -Dtest=AnalyzeLandscapeCommandTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference change (+10/-3 in the two CLI classes; the commit also touched README/CLAUDE.md and asserted the new constant in CommandsTest) adds the ANALYZE_LANDSCAPE command name + description, a dispatch branch in run() for it, registers it in the usage table, and gives updateLandscape(args) the command name and description so -help prints the one typed. The acceptance test drives the CLI through CommandLineInterface.run: (1) analyzeLandscape -analysisRoot <empty @TempDir> and updateLandscape on a sibling root both produce _sokrates_landscape/config.json and index.html; (2) analyzeLandscape -help (System.out captured) names 'java -jar sokrates.jar analyzeLandscape', lists -analysisRoot and -recursive, is not the generic all-commands usage, and updateLandscape -help still names updateLandscape. The snapshot has no cli/src/test folder; the test creates it (JUnit is declared in the parent pom). Verification: A before = compiles, both tests fail (unknown command prints the generic usage, nothing created); A after (commit diff for the two classes applied with patch -p1, hunks land at an offset) = passes, all tests of common/codeanalyzer/reports/cli green (356); B before = same two failures; B after (same patch applies to B's CommandLineInterface, where run() and updateLandscape() still live, and Commands) = passes, all module tests green. Lands in A: CommandLineInterface.java (744 LOC / 904 lines) + Commands.java; in B: CommandLineInterface.java (489 lines; the config/git-history command families moved to ConfigCommands/GitHistoryCommands) + Commands.java (393 lines)."
+}

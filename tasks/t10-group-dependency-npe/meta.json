@@ -1,0 +1,14 @@
+{
+  "id": "t10-group-dependency-npe",
+  "kind": "target",
+  "title": "Fix NPE in group-dependency merge and divide-by-zero in coverage bar",
+  "reference_commit": "3e948503",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java"
+  ],
+  "target_unit": "getGroupDependencies() and getFromDependencyCoverageSvg() in LogicalComponentsReportGenerator (file of 637 LOC, high risk; next to addComponentDependenciesSection(), 53 LOC)",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=ComponentGroupDependenciesReportTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference change (+3/-2) reads get(key2) instead of get(key1) in the reverse-direction branch of the group-dependency merge (key1 is absent in that branch, hence the NPE) and guards the coverage percentage against a component with zero lines of code (100.0 * loc / 0 = Infinity, rendered as 2147483647%). The acceptance test builds a synthetic CodeAnalysisResults with one decomposition (components as NamedSourceCodeAspects without files, so 0 LOC) and renders LogicalComponentsReportGenerator.addCodeOrganizationToReport into a RichTextReport, inspecting its fragments (no HTML export, so no Graphviz process is needed): (1) two groups and dependencies g1-a->g2-a (3) and g2-a->g1-b (2) must render without exception and the group graph's DOT must contain one '\"Group 1 (2)\" -> \"Group 2 (1)\" [label=\" 5 \"' link; (2) a dependency with 10 LOC from a 0-LOC component must render '3 files, 10 LOC (0%)' and no 2147483647/Infinity/NaN. Verification: A before = compiles, both tests fail (assertDoesNotThrow reports the NullPointerException; the coverage text is '3 files, 10 LOC (2147483647%)'); A after (commit diff applies as is with patch -p1) = passes, all tests of common/codeanalyzer/reports/cli green (356); B before = same two failures; B after (the one-token fix in ComponentGroupsUtils.getGroupDependencies and the guard in ComponentDependenciesDetailsRenderer.getFromDependencyCoverageSvg) = passes, all module tests green. Lands in A: LogicalComponentsReportGenerator.java (637 LOC / 736 lines); in B: ComponentGroupsUtils.java (87 lines) and ComponentDependenciesDetailsRenderer.java (82 lines), helpers of the now 406-line LogicalComponentsReportGenerator."
+}

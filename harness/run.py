@@ -20,6 +20,7 @@ Usage:
 import argparse
 import csv
 import datetime as dt
+import fcntl
 import json
 import os
 import shutil
@@ -33,6 +34,19 @@ ROOT = os.path.dirname(HERE)
 CONFIG = json.load(open(os.path.join(HERE, "config.json")))
 RESULTS = os.path.join(ROOT, "results")
 RUNS_CSV = os.path.join(RESULTS, "runs.csv")
+ENV = dict(os.environ)
+ENV.pop("CLAUDECODE", None)  # allow running from inside another Claude Code session
+
+
+def use_maven_repo(path):
+    """Give this harness process its own Maven local repository (seeded from ~/.m2/repository), so two
+    harness processes — one per variant — can run at the same time without installing each other's modules.
+    Maven 3.9+ reads MAVEN_ARGS, so the agent's own mvn calls use it too."""
+    path = os.path.abspath(path)
+    if not os.path.isdir(path):
+        print(f"seeding Maven repository {path} from ~/.m2/repository", flush=True)
+        shutil.copytree(os.path.expanduser("~/.m2/repository"), path, symlinks=True)
+    ENV["MAVEN_ARGS"] = (ENV.get("MAVEN_ARGS", "") + f" -Dmaven.repo.local={path}").strip()
 
 CSV_FIELDS = [
     "run_id", "started", "task", "kind", "variant", "repeat", "agent", "model", "claude_version",
@@ -44,7 +58,7 @@ CSV_FIELDS = [
 
 
 def sh(cmd, cwd, timeout=None, env=None, check=False):
-    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env, check=check,
+    return subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout, env=env or ENV, check=check,
                           shell=isinstance(cmd, str))
 
 
@@ -54,7 +68,7 @@ def ignore_patterns():
 
 def prepare_repo(variant, repo):
     shutil.copytree(os.path.join(ROOT, "variants", variant), repo, ignore=ignore_patterns(), symlinks=True)
-    env = dict(os.environ, GIT_AUTHOR_DATE=CONFIG["git_date"], GIT_COMMITTER_DATE=CONFIG["git_date"])
+    env = dict(ENV, GIT_AUTHOR_DATE=CONFIG["git_date"], GIT_COMMITTER_DATE=CONFIG["git_date"])
     name, email = CONFIG["git_author"].rsplit(" <", 1)
     email = email.rstrip(">")
     for cmd in (["git", "init", "-q", "-b", "main"], ["git", "config", "user.name", name],
@@ -186,6 +200,8 @@ def run_acceptance(task_dir, meta, variant, repo, work):
     command = meta.get(f"test_command_{variant}") or meta.get("test_command")
     if not command:
         return None, 0.0
+    if " -am " not in command:  # build the upstream modules from the working tree, not from the pre-built ~/.m2 copies
+        command = command.replace(" test ", " -am test ", 1)
     t0 = time.time()
     try:
         r = sh(command, repo, timeout=CONFIG["acceptance_timeout_seconds"])
@@ -206,12 +222,14 @@ def claude_version():
 
 def append_row(row):
     os.makedirs(os.path.join(RESULTS, "runs"), exist_ok=True)
-    new = not os.path.exists(RUNS_CSV)
-    with open(RUNS_CSV, "a", newline="") as f:
+    with open(RUNS_CSV, "a+", newline="") as f:
+        fcntl.flock(f, fcntl.LOCK_EX)  # two harness processes may append at once
+        f.seek(0, os.SEEK_END)
         w = csv.DictWriter(f, fieldnames=CSV_FIELDS, extrasaction="ignore")
-        if new:
+        if f.tell() == 0:
             w.writeheader()
         w.writerow(row)
+        fcntl.flock(f, fcntl.LOCK_UN)
     with open(os.path.join(RESULTS, "runs", row["run_id"] + ".json"), "w") as f:
         json.dump(row, f, indent=1)
 
@@ -238,12 +256,10 @@ def one_run(task, variant, repeat, model, keep, dry_run):
         row["prebuild_s"] = round(prebuild(repo, os.path.join(work, "prebuild.log")), 1)
         with open(os.path.join(work, "prompt.md"), "w") as f:
             f.write(prompt)
-        env = dict(os.environ)
-        env.pop("CLAUDECODE", None)  # allow running from inside another Claude Code session
         t0 = time.time()
         try:
             r = subprocess.run(agent_command(prompt, model), cwd=repo, capture_output=True, text=True,
-                               timeout=CONFIG["timeout_seconds"], env=env)
+                               timeout=CONFIG["timeout_seconds"], env=ENV)
             stdout, stderr, rc = r.stdout, r.stderr, r.returncode
         except subprocess.TimeoutExpired as e:
             stdout, stderr, rc = (e.stdout or ""), f"TIMEOUT after {CONFIG['timeout_seconds']}s\n" + (e.stderr or ""), -1
@@ -289,7 +305,10 @@ def main():
     ap.add_argument("--model", default=CONFIG["model"])
     ap.add_argument("--keep", action="store_true", help="keep work/<run id> (repo, logs, diff) after the run")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--m2", help="own Maven local repository for this process (seeded from ~/.m2); lets one process per variant run in parallel")
     args = ap.parse_args()
+    if args.m2:
+        use_maven_repo(args.m2)
     for v in args.variants:
         if not os.path.isdir(os.path.join(ROOT, "variants", v)):
             sys.exit(f"variants/{v} does not exist")

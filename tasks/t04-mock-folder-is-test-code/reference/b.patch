@@ -1,0 +1,18 @@
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/TestConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/TestConventions.java
+@@ -72,8 +72,13 @@
+         conventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         conventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         conventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        conventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        conventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        // Any folder whose name starts with "mock" holds mock resources, so the rest of the name is
++        // matched with [^/]* rather than a list of allowed characters. The earlier [a-zA-Z0-9_\- ]+
++        // missed a folder named plainly "mock" (the + demanded at least one further character), one
++        // with a dot such as "mock.data", and one carrying any non-ASCII character. [^/] cannot cross
++        // a separator, so the match stays within the single folder name.
++        conventions.add(new Convention(".*/__mock[^/]*/.*", "", "Mock resources"));
++        conventions.add(new Convention(".*/mock[^/]*/.*", "", "Mock resources"));
+         conventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         conventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));

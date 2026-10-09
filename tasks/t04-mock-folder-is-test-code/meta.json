@@ -1,0 +1,14 @@
+{
+  "id": "t04-mock-folder-is-test-code",
+  "kind": "target",
+  "title": "Scope a folder named plainly \"mock\" as test code",
+  "reference_commit": "0ec83b3c",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java"
+  ],
+  "target_unit": "addTestConventions() (63 LOC, high) in ScopingConventions (file of 514 LOC, high risk)",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=MockFolderTestScopeTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference change is +7/-2 (two pattern strings plus a five-line comment): the two mock-folder test conventions .*/__mock[a-zA-Z0-9_\\- ]+/.* and .*/mock[a-zA-Z0-9_\\- ]+/.* become .*/__mock[^/]*/.* and .*/mock[^/]*/.*. The diff applies to the snapshot as is (the reference commit also adds its own test, ScopingConventionsMockFoldersTest, which is not part of the task). In B the rules live in the helper TestConventions (84 lines). The acceptance test goes through new ScopingConventions().getTestFilesConventions() and Convention.pathMatches: a plain 'mock' folder (incl. the elasticsearch path, a relative '../' path, '__mock', a backslash path), punctuation and non-ASCII names, the previously matching folders, and negatives ('remock/', 'demo/', 'mock.java', 'mockery.java', '../src/main/java/App.java'). Verification: A before — compiles, 2 of 4 fail (the plain-mock and the punctuation/non-ASCII tests; assertion failures), the regression and negative tests pass; A after (reference diff via patch -p1) — 4/4 pass, module 343 tests green; B before — compiles unchanged, the same 2 fail; B after (same two string edits in TestConventions) — 4/4 pass, module 343 tests green."
+}

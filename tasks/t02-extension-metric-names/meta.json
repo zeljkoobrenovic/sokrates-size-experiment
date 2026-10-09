@@ -1,0 +1,18 @@
+{
+  "id": "t02-extension-metric-names",
+  "kind": "target",
+  "title": "Name per-extension metrics by the bare extension instead of \"  *.ext\"",
+  "reference_commit": "ac3d6b75",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java",
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java",
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java",
+    "codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java",
+    "codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java"
+  ],
+  "target_unit": "getLinesOfCodePerExtension() and merge() in LandscapeAnalysisResults (file of 1,133 LOC, very high risk); plus one-line edits in SourceCodeAspectUtils.getAspectsPerExtensions and AnalysisUtils.analyze",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=LandscapeExtensionMetricNamesTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference change is +17/-7 in main code (SourceCodeAspectUtils names the per-extension aspect by the bare extension and gains an extensionName() helper stripping the legacy decoration; AnalysisUtils drops its replace(\"*.\", \"\"); LandscapeAnalysisResults' per-extension aggregation and its merge() key both spellings by extensionName) plus two existing tests updated from \"  *.java\" to \"java\" (CodeConfigurationTest, NamedSourceCodeAspectTest) — an agent that only fixes the names will break those two tests unless it updates them. In B the aggregation lives in the package-private helper LandscapeExtensionAggregator (206 lines). The acceptance test has two methods: the per-extension entries of a scope analysis (AnalysisUtils.analyze on a synthetic aspect: names java/js, metric ids LINES_OF_CODE_MAIN_EXT_JAVA unchanged) and the landscape merge of a legacy-named and a bare-named repository (main: [java=150, kt=20, xml=10] with java listing both repositories; other: [sh=8, md=7]). Verification: A before — compiles, 2/2 fail ([  *.java=50,   *.js=10] and [  *.java=100, java=50, kt=20,   *.xml=10]); A after (reference diff applied with patch -p1, applies cleanly) — 2/2 pass, module 343 tests green; B before — compiles unchanged, same 2 failures; B after (same change ported into LandscapeExtensionAggregator, AnalysisUtils and SourceCodeAspectUtils identical to A) — 2/2 pass, module 343 tests green."
+}

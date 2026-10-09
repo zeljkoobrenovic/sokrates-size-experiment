@@ -42,6 +42,24 @@ behaviour description plus a JUnit acceptance test that fails before and passes 
 from the history in `tasks/candidates.md`). Target tasks land in files/units above the thresholds; control tasks land
 elsewhere and should show no difference.
 
+**The task set** (every acceptance test re-verified by `scripts/check_tasks.py`: fails on each untouched variant,
+passes with `tasks/<id>/reference/<variant>.patch`):
+
+| task | kind | change | reference commit | module | lands in (variant A) |
+|---|---|---|---|---|---|
+| `c01-template-literal-duplication` | control | Ignore the text of backtick template literals in unit duplication | `b8aeec06` | codeanalyzer | n/a |
+| `c02-component-duplication-metrics` | control | Fix per-component duplication metrics and most-frequent-duplicates ordering | `3e0a9b5c` | codeanalyzer | n/a |
+| `t01-undefined-team-active` | target | Limit the Undefined Team to active contributors | `ad61da0f` | codeanalyzer | getAllTeams() in LandscapeAnalysisResults (file of 1,133 LOC, very high risk) |
+| `t02-extension-metric-names` | target | Name per-extension metrics by the bare extension instead of "  *.ext" | `ac3d6b75` | codeanalyzer | getLinesOfCodePerExtension() and merge() in LandscapeAnalysisResults (file of 1,133 LOC, v |
+| `t03-scoping-conventions-never-matched` | target | Fix four scoping conventions that never matched | `13023770` | codeanalyzer | addGeneratedConventions() (62 LOC, high) and addBuildAndDeploymentConventions() in Scoping |
+| `t04-mock-folder-is-test-code` | target | Scope a folder named plainly "mock" as test code | `0ec83b3c` | codeanalyzer | addTestConventions() (63 LOC, high) in ScopingConventions (file of 514 LOC, high risk) |
+| `t05-missing-sublandscape-config` | target | Don't crash the landscape report when a sub-landscape config is missing | `54369e67` | reports | addSubLandscapeSection() in LandscapeReportGenerator (unit of 128 LOC, McCabe 17; file of  |
+| `t06-all-contributors-exported` | target | Export all contributors to the report (drop the contributorsListLimit cap) | `e4ac6240` | reports | addRecentContributorsSection() in LandscapeReportContributorsTab (unit of 73 LOC; file of  |
+| `t07-past-90d-block` | target | Fix the 'past 90d' repositories block showing the 180-day LOC | `90fa40b1` | reports | addBigRepositoriesSummary() in LandscapeReportGenerator (file of 1,587 LOC, very high risk |
+| `t08-scope-file-lists-named-after-aspects` | target | Name the scope file lists in all_files.zip after the aspects | `a4a30ed0` | reports | exportJson() in DataExporter (unit of 61 LOC, file of 813 LOC, high risk) |
+| `t09-analyzelandscape-command` | target | Add analyzeLandscape as the documented name of updateLandscape | `5d61daab` | cli | run(String[]) and updateLandscape(String[]) in CommandLineInterface (file of 744 LOC, high |
+| `t10-group-dependency-npe` | target | Fix NPE in group-dependency merge and divide-by-zero in coverage bar | `3e948503` | reports | getGroupDependencies() and getFromDependencyCoverageSvg() in LogicalComponentsReportGenera |
+
 **Measurement.** `harness/run.py` runs each task × variant × repeat in a fresh one-commit copy of the variant with
 Claude Code headless (`claude -p … --output-format json`), the same model, prompt and tool permissions, and records
 per run: input tokens (split by cache read/write), output tokens, cost, turns, duration, every tool call through a
@@ -98,7 +116,7 @@ cache reads) + the acceptance test.
 - [x] task t01 (Undefined Team keeps only active contributors; `LandscapeAnalysisResults`, 1,133 LOC) with an
       acceptance test verified to fail before / pass after the reference change
 - [x] harness with tool-call logging, acceptance run and CSV results; one smoke run on A
-- [ ] 5–9 more target tasks + 2 control tasks
+- [x] 10 target tasks + 2 control tasks, each checked on both variants (`scripts/check_tasks.py`)
 - [x] variant B (mechanical split to the thresholds, golden output identical, all tests green), its analysis and predictions
 - [x] t01's acceptance test compiles against B unchanged (the target code now sits in `LandscapeContributorsAggregator`)
-- [ ] the runs, the summary, the write-up
+- [ ] the runs (started 2026-10-09: 12 tasks × 2 variants × 10 repeats, one worker per variant), the summary, the write-up
