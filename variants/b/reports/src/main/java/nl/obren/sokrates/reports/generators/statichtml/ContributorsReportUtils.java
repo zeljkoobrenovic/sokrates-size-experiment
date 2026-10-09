@@ -61,73 +61,85 @@ public class ContributorsReportUtils {
             report.startDiv("overflow-y: auto; font-size: 90%");
             report.startTable();
 
-            report.startTableRow();
-            report.addTableCell(getIconSvg("commits", 64), "border: none; vertical-align: bottom;" + (fade ? "opacity: 0.4" : ""));
             String style;
             if (showTimeSlot) {
                 style = "border: none; padding: " + padding + "px; width: 10px; text-align: center; vertical-align: bottom; font-size: 80%";
             } else {
                 style = "border: none; padding: " + padding + "px; vertical-align: bottom; font-size: 80%";
             }
-            for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
-                report.startTableCell(style);
-                if (timeSlot != null) {
-                    int count = timeSlot.getCommitsCount();
-                    if (showTimeSlot) {
-                        report.addParagraph(count + "", "margin: 0px" + (count == 0 ? "; color: #d0d0d0" : ""));
-                    } else {
-                        report.addParagraph("&nbsp;", "margin: 0px");
-                    }
-                    int height = 1 + (int) (64.0 * count / maxCommits);
-                    String title = timeSlot.getTimeSlot() + ": " + count;
-                    report.addHtmlContent("<div title='" + title + "' style='width: 100%; background-color: darkgrey; height:" + height + "px'></div>");
-                } else {
-                    report.addHtmlContent("<div style='width: 100%; background-color: #d0d0d0; height:1px'></div>");
-                }
-                report.endTableCell();
-            }
-            report.endTableRow();
+            addCommitsRow(report, contributorsPerTimeSlot, showTimeSlot, fade, style, maxCommits);
 
             if (showContributors) {
-                report.startTableRow();
-                report.addTableCell(getIconSvg("contributors", 64), "border: none; vertical-align: bottom;" + (fade ? "opacity: 0.4" : ""));
-                for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
-                    report.startTableCell(style);
-                    if (timeSlot != null) {
-                        int count = timeSlot.getContributorsCount();
-                        if (showTimeSlot) {
-                            report.addParagraph(count + "", "margin: 0px" + (count == 0 ? "; color: #d0d0d0" : ""));
-                        } else {
-                            report.addParagraph("&nbsp;", "margin: 0px");
-                        }
-                        int height = 1 + (int) (64.0 * count / maxContributors);
-                        String title = timeSlot.getTimeSlot() + ": " + count;
-                        report.addHtmlContent("<div title='" + title + "' style='width: 100%; background-color: skyblue; height:" + height + "px'></div>");
-                    } else {
-                        report.addHtmlContent("<div style='width: 100%; background-color: #d0d0d0; height:1px'></div>");
-                    }
-                    report.endTableCell();
-                }
-                report.endTableRow();
+                addContributorsRow(report, contributorsPerTimeSlot, showTimeSlot, fade, style, maxContributors);
             }
 
             if (showTimeSlot) {
-                report.startTableRow();
-                report.addTableCell("", "border: none; ");
-                for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
-                    String slotString = timeSlot.getTimeSlot().replaceAll("\\-", "<br>");
-                    if (timeSlot != null && (timeSlot.getCommitsCount() > 0 || timeSlot.getContributorsCount() > 0)) {
-                        report.addTableCell(slotString + "", "border: none; padding: " + padding + "px; width: 10px; text-align: center; vertical-align: top; font-size: 80%");
-                    } else {
-                        report.addTableCell(slotString + "", "border: none; padding: " + padding + "px; width: 10px; text-align: center; vertical-align: top; font-size: 80%; color: #c0c0c0");
-                    }
-                }
-                report.endTableRow();
+                addTimeSlotsRow(report, contributorsPerTimeSlot, padding);
             }
 
             report.endTable();
             report.endDiv();
         }
+    }
+
+    private static void addCommitsRow(RichTextReport report, List<ContributionTimeSlot> contributorsPerTimeSlot, boolean showTimeSlot, boolean fade, String style, int maxCommits) {
+        report.startTableRow();
+        report.addTableCell(getIconSvg("commits", 64), "border: none; vertical-align: bottom;" + (fade ? "opacity: 0.4" : ""));
+        for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
+            report.startTableCell(style);
+            if (timeSlot != null) {
+                int count = timeSlot.getCommitsCount();
+                if (showTimeSlot) {
+                    report.addParagraph(count + "", "margin: 0px" + (count == 0 ? "; color: #d0d0d0" : ""));
+                } else {
+                    report.addParagraph("&nbsp;", "margin: 0px");
+                }
+                int height = 1 + (int) (64.0 * count / maxCommits);
+                String title = timeSlot.getTimeSlot() + ": " + count;
+                report.addHtmlContent("<div title='" + title + "' style='width: 100%; background-color: darkgrey; height:" + height + "px'></div>");
+            } else {
+                report.addHtmlContent("<div style='width: 100%; background-color: #d0d0d0; height:1px'></div>");
+            }
+            report.endTableCell();
+        }
+        report.endTableRow();
+    }
+
+    private static void addContributorsRow(RichTextReport report, List<ContributionTimeSlot> contributorsPerTimeSlot, boolean showTimeSlot, boolean fade, String style, int maxContributors) {
+        report.startTableRow();
+        report.addTableCell(getIconSvg("contributors", 64), "border: none; vertical-align: bottom;" + (fade ? "opacity: 0.4" : ""));
+        for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
+            report.startTableCell(style);
+            if (timeSlot != null) {
+                int count = timeSlot.getContributorsCount();
+                if (showTimeSlot) {
+                    report.addParagraph(count + "", "margin: 0px" + (count == 0 ? "; color: #d0d0d0" : ""));
+                } else {
+                    report.addParagraph("&nbsp;", "margin: 0px");
+                }
+                int height = 1 + (int) (64.0 * count / maxContributors);
+                String title = timeSlot.getTimeSlot() + ": " + count;
+                report.addHtmlContent("<div title='" + title + "' style='width: 100%; background-color: skyblue; height:" + height + "px'></div>");
+            } else {
+                report.addHtmlContent("<div style='width: 100%; background-color: #d0d0d0; height:1px'></div>");
+            }
+            report.endTableCell();
+        }
+        report.endTableRow();
+    }
+
+    private static void addTimeSlotsRow(RichTextReport report, List<ContributionTimeSlot> contributorsPerTimeSlot, int padding) {
+        report.startTableRow();
+        report.addTableCell("", "border: none; ");
+        for (ContributionTimeSlot timeSlot : contributorsPerTimeSlot) {
+            String slotString = timeSlot.getTimeSlot().replaceAll("\\-", "<br>");
+            if (timeSlot != null && (timeSlot.getCommitsCount() > 0 || timeSlot.getContributorsCount() > 0)) {
+                report.addTableCell(slotString + "", "border: none; padding: " + padding + "px; width: 10px; text-align: center; vertical-align: top; font-size: 80%");
+            } else {
+                report.addTableCell(slotString + "", "border: none; padding: " + padding + "px; width: 10px; text-align: center; vertical-align: top; font-size: 80%; color: #c0c0c0");
+            }
+        }
+        report.endTableRow();
     }
 
     public static void addContributors(RichTextReport indexReport, List<Contributor> contributors, String type) {
