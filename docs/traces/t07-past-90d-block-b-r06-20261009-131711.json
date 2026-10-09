@@ -19,6 +19,7 @@
   "lines_deleted": 1,
   "run_id": "t07-past-90d-block-b-r06-20261009-131711"
  },
+ "shared_prefix": 10874,
  "turns": [
   {
    "n": 1,
@@ -40,7 +41,8 @@
    "new": {
     "prev_output": 0,
     "tool_results": 0,
-    "other": 6442
+    "setup": 6442,
+    "other": 0
    }
   },
   {
@@ -63,6 +65,7 @@
    "new": {
     "prev_output": 89,
     "tool_results": 19,
+    "setup": 0,
     "other": 2052
    }
   },
@@ -142,6 +145,7 @@
    "new": {
     "prev_output": 89,
     "tool_results": 19,
+    "setup": 0,
     "other": 27
    }
   },
@@ -171,6 +175,7 @@
    "new": {
     "prev_output": 113,
     "tool_results": 2248,
+    "setup": 0,
     "other": 11
    }
   },
@@ -195,6 +200,7 @@
    "new": {
     "prev_output": 102,
     "tool_results": 2824,
+    "setup": 0,
     "other": 0
    }
   },
@@ -231,6 +237,7 @@
    "new": {
     "prev_output": 182,
     "tool_results": 149,
+    "setup": 0,
     "other": 37
    }
   },
@@ -254,6 +261,7 @@
    "new": {
     "prev_output": 374,
     "tool_results": 124,
+    "setup": 0,
     "other": 84
    }
   }

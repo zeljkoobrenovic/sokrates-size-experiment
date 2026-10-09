@@ -40,7 +40,8 @@ def trace_for(run_id, title):
                                     "lines_added", "lines_deleted")}
     meta["run_id"] = run_id
     files = turn_trace.build(turns, results, root, os.path.join(ROOT, "variants", rec["variant"]))
-    return {"title": title, "model": rec["model"], "meta": meta, "turns": turns, "files": files}
+    return {"title": title, "model": rec["model"], "meta": meta, "shared_prefix": turns[0]["cache_read"] if turns else 0,
+            "turns": turns, "files": files}
 
 
 def main():

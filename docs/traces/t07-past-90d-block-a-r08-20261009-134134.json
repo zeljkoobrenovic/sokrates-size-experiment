@@ -19,6 +19,7 @@
   "lines_deleted": 1,
   "run_id": "t07-past-90d-block-a-r08-20261009-134134"
  },
+ "shared_prefix": 10874,
  "turns": [
   {
    "n": 1,
@@ -40,7 +41,8 @@
    "new": {
     "prev_output": 0,
     "tool_results": 0,
-    "other": 8382
+    "setup": 8382,
+    "other": 0
    }
   },
   {
@@ -63,6 +65,7 @@
    "new": {
     "prev_output": 92,
     "tool_results": 19,
+    "setup": 0,
     "other": 27
    }
   },
@@ -107,6 +110,7 @@
    "new": {
     "prev_output": 85,
     "tool_results": 19,
+    "setup": 0,
     "other": 27
    }
   },
@@ -136,6 +140,7 @@
    "new": {
     "prev_output": 117,
     "tool_results": 469,
+    "setup": 0,
     "other": 38
    }
   },
@@ -160,6 +165,7 @@
    "new": {
     "prev_output": 100,
     "tool_results": 2966,
+    "setup": 0,
     "other": 0
    }
   },
@@ -189,6 +195,7 @@
    "new": {
     "prev_output": 172,
     "tool_results": 31,
+    "setup": 0,
     "other": 24
    }
   },
@@ -212,6 +219,7 @@
    "new": {
     "prev_output": 304,
     "tool_results": 108,
+    "setup": 0,
     "other": 37
    }
   }

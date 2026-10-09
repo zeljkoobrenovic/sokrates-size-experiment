@@ -19,6 +19,7 @@
   "lines_deleted": 5,
   "run_id": "c02-component-duplication-metrics-a-r08-20261009-133358"
  },
+ "shared_prefix": 10874,
  "turns": [
   {
    "n": 1,
@@ -40,7 +41,8 @@
    "new": {
     "prev_output": 0,
     "tool_results": 0,
-    "other": 8581
+    "setup": 8581,
+    "other": 0
    }
   },
   {
@@ -84,6 +86,7 @@
    "new": {
     "prev_output": 105,
     "tool_results": 19,
+    "setup": 0,
     "other": 27
    }
   },
@@ -113,6 +116,7 @@
    "new": {
     "prev_output": 97,
     "tool_results": 166,
+    "setup": 0,
     "other": 47
    }
   },
@@ -137,6 +141,7 @@
    "new": {
     "prev_output": 136,
     "tool_results": 8218,
+    "setup": 0,
     "other": 0
    }
   },
@@ -161,6 +166,7 @@
    "new": {
     "prev_output": 929,
     "tool_results": 83,
+    "setup": 0,
     "other": 0
    }
   },
@@ -185,6 +191,7 @@
    "new": {
     "prev_output": 118,
     "tool_results": 83,
+    "setup": 0,
     "other": 30
    }
   },
@@ -208,6 +215,7 @@
    "new": {
     "prev_output": 190,
     "tool_results": 13,
+    "setup": 0,
     "other": 28
    }
   },
@@ -250,6 +258,7 @@
    "new": {
     "prev_output": 248,
     "tool_results": 13,
+    "setup": 0,
     "other": 26
    }
   },
@@ -273,6 +282,7 @@
    "new": {
     "prev_output": 1095,
     "tool_results": 227,
+    "setup": 0,
     "other": 101
    }
   },
@@ -296,6 +306,7 @@
    "new": {
     "prev_output": 227,
     "tool_results": 727,
+    "setup": 0,
     "other": 39
    }
   },
@@ -319,6 +330,7 @@
    "new": {
     "prev_output": 196,
     "tool_results": 252,
+    "setup": 0,
     "other": 250
    }
   }

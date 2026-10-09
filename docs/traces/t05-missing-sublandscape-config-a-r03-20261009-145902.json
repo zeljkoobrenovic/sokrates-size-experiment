@@ -19,6 +19,7 @@
   "lines_deleted": 3,
   "run_id": "t05-missing-sublandscape-config-a-r03-20261009-145902"
  },
+ "shared_prefix": 10874,
  "turns": [
   {
    "n": 1,
@@ -40,7 +41,8 @@
    "new": {
     "prev_output": 0,
     "tool_results": 0,
-    "other": 7265
+    "setup": 7265,
+    "other": 0
    }
   },
   {
@@ -159,6 +161,7 @@
    "new": {
     "prev_output": 210,
     "tool_results": 19,
+    "setup": 0,
     "other": 2052
    }
   },
@@ -188,6 +191,7 @@
    "new": {
     "prev_output": 191,
     "tool_results": 837,
+    "setup": 0,
     "other": 116
    }
   },
@@ -217,6 +221,7 @@
    "new": {
     "prev_output": 200,
     "tool_results": 3656,
+    "setup": 0,
     "other": 116
    }
   },
@@ -281,6 +286,7 @@
    "new": {
     "prev_output": 323,
     "tool_results": 5511,
+    "setup": 0,
     "other": 0
    }
   },
@@ -310,6 +316,7 @@
    "new": {
     "prev_output": 836,
     "tool_results": 1146,
+    "setup": 0,
     "other": 30
    }
   },
@@ -334,6 +341,7 @@
    "new": {
     "prev_output": 1008,
     "tool_results": 114,
+    "setup": 0,
     "other": 35
    }
   },
@@ -368,6 +376,7 @@
    "new": {
     "prev_output": 360,
     "tool_results": 4,
+    "setup": 0,
     "other": 37
    }
   },
@@ -392,6 +401,7 @@
    "new": {
     "prev_output": 206,
     "tool_results": 74,
+    "setup": 0,
     "other": 39
    }
   },
@@ -416,6 +426,7 @@
    "new": {
     "prev_output": 433,
     "tool_results": 29,
+    "setup": 0,
     "other": 24
    }
   },
@@ -439,6 +450,7 @@
    "new": {
     "prev_output": 262,
     "tool_results": 100,
+    "setup": 0,
     "other": 34
    }
   },
@@ -462,6 +474,7 @@
    "new": {
     "prev_output": 239,
     "tool_results": 13,
+    "setup": 0,
     "other": 26
    }
   },
@@ -485,6 +498,7 @@
    "new": {
     "prev_output": 300,
     "tool_results": 873,
+    "setup": 0,
     "other": 0
    }
   }

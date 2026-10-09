@@ -19,6 +19,7 @@
   "lines_deleted": 1,
   "run_id": "t01-undefined-team-active-a-r06-20261009-130934"
  },
+ "shared_prefix": 10874,
  "turns": [
   {
    "n": 1,
@@ -40,7 +41,8 @@
    "new": {
     "prev_output": 0,
     "tool_results": 0,
-    "other": 6337
+    "setup": 6337,
+    "other": 0
    }
   },
   {
@@ -63,6 +65,7 @@
    "new": {
     "prev_output": 68,
     "tool_results": 19,
+    "setup": 0,
     "other": 2052
    }
   },
@@ -97,6 +100,7 @@
    "new": {
     "prev_output": 66,
     "tool_results": 19,
+    "setup": 0,
     "other": 27
    }
   },
@@ -121,6 +125,7 @@
    "new": {
     "prev_output": 90,
     "tool_results": 91,
+    "setup": 0,
     "other": 43
    }
   },
@@ -150,6 +155,7 @@
    "new": {
     "prev_output": 270,
     "tool_results": 146,
+    "setup": 0,
     "other": 26
    }
   },
@@ -184,6 +190,7 @@
    "new": {
     "prev_output": 147,
     "tool_results": 1482,
+    "setup": 0,
     "other": 0
    }
   },
@@ -218,6 +225,7 @@
    "new": {
     "prev_output": 199,
     "tool_results": 1028,
+    "setup": 0,
     "other": 0
    }
   },
@@ -242,6 +250,7 @@
    "new": {
     "prev_output": 149,
     "tool_results": 851,
+    "setup": 0,
     "other": 0
    }
   },
@@ -278,6 +287,7 @@
    "new": {
     "prev_output": 271,
     "tool_results": 213,
+    "setup": 0,
     "other": 44
    }
   },
@@ -301,6 +311,7 @@
    "new": {
     "prev_output": 352,
     "tool_results": 127,
+    "setup": 0,
     "other": 88
    }
   }

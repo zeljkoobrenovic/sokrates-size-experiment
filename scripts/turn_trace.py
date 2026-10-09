@@ -30,12 +30,14 @@ PROJECTS = os.path.expanduser("~/.claude/projects")
 TRACE_FORMAT = """
 {
   "title": "...", "model": "...", "meta": {"task": ..., "variant": ..., "turns": N, ...},
+  "shared_prefix": 10874,   # cache read by the first call: the static system prompt and tool definitions, shared by every session
   "turns": [ {"n": 1, "input": 2, "cache_read": 10874, "cache_write": 8434, "output": 105,
               "text": "what the agent said (first line)",
               "result_chars": 3425,            # characters of tool results this turn received
-              "new": {"prev_output": 147, "tool_results": 1489, "other": 0},   # where the cache_write tokens came from:
-                                               # the previous turn's output, its tool results (chars / 2.3, capped), the rest
-                                               # (first turn: prompt, CLAUDE.md, uncached system prompt; later: reminders, injections)
+              "new": {"prev_output": 147, "tool_results": 1489, "setup": 0, "other": 0},   # where the cache_write tokens
+                                               # came from: the previous turn's output, its tool results (chars / 2.3, capped),
+                                               # the session setup (first turn only: dynamic system prompt sections, listings,
+                                               # CLAUDE.md, task prompt), the rest (later turns: reminders, injected instructions)
               "tools": [ {"tool": "Bash", "kind": "search|read|edit|build|vcs|shell|text", "detail": "the command or path",
                           "lines": 30,                      # lines of tool output the agent received
                           "files": [ {"path": "a/b.java", "kind": "read|edit|hit", "lines": 30} ] } ] } ],
@@ -288,7 +290,11 @@ def build(turns, results, root, source_root):
         new = turn["cache_write"]
         prev_output = min(prev["output"], new) if prev else 0
         tool_results = min(int(prev["result_chars"] / CHARS_PER_TOKEN), new - prev_output) if prev else 0
-        turn["new"] = {"prev_output": prev_output, "tool_results": tool_results, "other": new - prev_output - tool_results}
+        rest = new - prev_output - tool_results
+        # first call: the session setup (dynamic system prompt sections, skill and agent listings, CLAUDE.md, the task
+        # prompt); later calls: the per-turn reminders and instructions the CLI injects
+        turn["new"] = {"prev_output": prev_output, "tool_results": tool_results, "setup": rest if prev is None else 0,
+                       "other": 0 if prev is None else rest}
         prev = turn
     if source_root:
         for f in files.values():
@@ -328,7 +334,7 @@ def main():
             source_root = source_root or os.path.join(ROOT, "variants", r.get("variant", "a"))
     files = build(turns, results, root, source_root)
     trace = {"title": args.title or args.run or os.path.basename(transcript), "model": meta.get("model", ""),
-             "meta": meta, "turns": turns, "files": files}
+             "meta": meta, "shared_prefix": turns[0]["cache_read"] if turns else 0, "turns": turns, "files": files}
     text = json.dumps(trace, indent=1)
     if args.out:
         with open(args.out, "w") as f:

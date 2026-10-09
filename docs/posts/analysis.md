@@ -90,9 +90,9 @@ Where do the 290k input tokens of a mean run go, then? Into the conversation re-
 
 The [turn-by-turn traces](https://zeljkoobrenovic.github.io/sokrates-size-experiment/trace.html) show this for nine example runs, Sonnet and Haiku on both variants: one column per API call, the tokens it re-sent from the cache, wrote to it (split into tool results, the agent's previous output, and prompts and reminders) and produced, and below that the files read, searched and edited in that turn with their line counts. The blue re-sent bar climbs every turn; the reads are a few short windows for Sonnet and whole files for Haiku, and neither changes the shape of the bars.
 
-![The trace of a Sonnet 5.5 run on variant A: ten turns, the re-sent context climbing from 10k to 24k tokens per turn, new context of a few hundred tokens per turn after the first, tool calls per turn, and three files read in windows of 13 to 50 lines](../images/trace-page.png)
+![The trace of a Sonnet 5.5 run on variant A: ten turns, the re-sent context climbing from 11k to 25k tokens per turn on top of a shared 10.9k prefix, new context of a few hundred tokens per turn after the first, tool calls per turn, and three files read in windows of 13 to 50 lines](../images/trace-page.png)
 
-*A Sonnet 5.5 run of task t01 on the long-file variant: the re-sent context (top row, blue) climbs every turn by the slice the previous turn added on top; what each turn adds (second row, with its breakdown) is a few hundred tokens after the first; the three files it needed were read in windows of 13 to 50 lines.*
+*A Sonnet 5.5 run of task t01 on the long-file variant: the re-sent context (top row) climbs every turn by the slice the previous turn added on top. Its light-blue base, 10,874 tokens in every run, is the static system prompt and tool definitions that every Claude Code session shares and reads from the cache; the dark blue is this session's own history. What each turn adds (second row, with its breakdown) is the session setup in the first turn, then a few hundred tokens per turn; the three files it needed were read in windows of 13 to 50 lines.*
 
 ## Comparison with the martinfowler.com experiment
 
