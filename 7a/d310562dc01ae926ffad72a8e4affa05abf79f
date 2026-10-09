@@ -1,0 +1,19 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/BasicSourceCodeReportGenerator.java
+  s_0af420b20b4753::t_e52f7e40dd5086 196,211-234
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "7ad310562dc01ae926ffad72a8e4affa05abf79f",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
