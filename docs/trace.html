@@ -117,11 +117,15 @@ a { color: var(--read); }
   function short(p) { var i = p.lastIndexOf('/'); return i < 0 ? '<span class="name">' + esc(p) + '</span>' : '<span class="name">' + esc(p.slice(i + 1)) + '</span> <span class="dir">' + esc(p.slice(0, i)) + '</span>'; }
   var LETTER = {search: 'S', read: 'R', edit: 'E', build: 'B', vcs: 'G', shell: '$', text: '✓'};
 
-  function tokenRow(label, key, color, turns, total) {
+  function tokenValues(turns, key) {
     var vals = turns.map(function (t) { return t[key] || 0; });
     if (cumulative.checked && key !== 'cache_read') { var acc = 0; vals = vals.map(function (v) { return acc += v; }); }
-    var max = Math.max.apply(null, vals.concat([1]));
-    var h = '<tr class="token"><th class="head">' + esc(label) + '<span class="n">max ' + fmt(max) + '</span></th>';
+    return vals;
+  }
+
+  function tokenRow(label, key, color, turns, total, max) {
+    var vals = tokenValues(turns, key);
+    var h = '<tr class="token"><th class="head">' + esc(label) + '<span class="n">max ' + fmt(Math.max.apply(null, vals.concat([0]))) + '</span></th>';
     vals.forEach(function (v, i) {
       h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc('turn ' + (i + 1) + ': ' + fmt(v) + ' ' + label.toLowerCase() + ' tokens') + '"><span class="bar" style="--c:' + color + ';height:' + Math.max(1, Math.round(38 * v / max)) + 'px"></span></td>';
     });
@@ -149,11 +153,12 @@ a { color: var(--read); }
     var h = '<thead><tr><th class="head">turn</th>';
     for (var i = 0; i < n; i++) h += '<th data-turn="' + i + '">' + (i + 1) + '</th>';
     h += '<th class="total">total</th></tr></thead><tbody>';
-    h += '<tr class="group"><th class="head">Context per turn (tokens)</th><td colspan="' + (n + 1) + '"></td></tr>';
-    h += tokenRow('Re-sent from cache', 'cache_read', 'var(--read)', turns, sum('cache_read'));
-    h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'));
-    if (sum('input') > n * 10) h += tokenRow('Uncached input', 'input', 'var(--faint)', turns, sum('input'));
-    h += tokenRow('Output', 'output', 'var(--output)', turns, sum('output'));
+    var max = Math.max.apply(null, ['cache_read', 'cache_write', 'input', 'output'].reduce(function (a, k) { return a.concat(tokenValues(turns, k)); }, [1]));
+    h += '<tr class="group"><th class="head">Context per turn (tokens, one scale: ' + fmt(max) + ' = full bar)</th><td colspan="' + (n + 1) + '"></td></tr>';
+    h += tokenRow('Re-sent from cache', 'cache_read', 'var(--read)', turns, sum('cache_read'), max);
+    h += tokenRow('New, written to cache', 'cache_write', 'var(--write)', turns, sum('cache_write'), max);
+    if (sum('input') > n * 10) h += tokenRow('Uncached input', 'input', 'var(--faint)', turns, sum('input'), max);
+    h += tokenRow('Output', 'output', 'var(--output)', turns, sum('output'), max);
     h += '<tr><th class="head">Tool calls</th>';
     turns.forEach(function (t, i) {
       h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(t.tools.map(function (x) { return x.kind + (x.error ? ' (failed)' : '') + ': ' + x.detail; }).join('\n')) + '">';
