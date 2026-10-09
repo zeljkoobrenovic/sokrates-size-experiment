@@ -1,0 +1,41 @@
+docs/trace.html
+  s_0af420b20b4753::t_e6f4144e7c1346 47-49,97-99,107,111,131-132,137-149
+docs/traces/c02-component-duplication-metrics-a-r08-20261009-133358.json
+  s_0af420b20b4753::t_5e6780b2f223e2 38-44,82-88,111-117,135-141,159-165,183-189,206-212,248-254,271-277,294-300,317-323
+docs/traces/t01-undefined-team-active-a-r06-20261009-130934.json
+  s_0af420b20b4753::t_20debcafe0f8b5 38-44,61-67,95-101,119-125,148-154,182-188,216-222,240-246,276-282,299-305
+docs/traces/t01-undefined-team-active-a-r07-20261009-155034.json
+  s_0af420b20b4753::t_8975de218a893d 38-44,61-67,100-106,129-135,153-159,187-193,216-222,245-251,274-280,298-304,321-327,344-350,367-373
+docs/traces/t01-undefined-team-active-b-r05-20261009-125844.json
+  s_0af420b20b4753::t_c05ee37e30e360 38-44,61-67,95-101,119-125,142-148,171-177,194-200,223-229,259-265,282-288
+docs/traces/t01-undefined-team-active-b-r07-20261009-154840.json
+  s_0af420b20b4753::t_8f00192c97f1e2 38-44,61-67,150-156,192-198,215-221,251-257,275-281,299-305,322-328,345-351
+docs/traces/t05-missing-sublandscape-config-a-r03-20261009-145902.json
+  s_0af420b20b4753::t_f9b1aad14029bd 38-44,157-163,186-192,215-221,279-285,308-314,332-338,366-372,390-396,414-420,437-443,460-466,483-489
+docs/traces/t05-missing-sublandscape-config-b-r09-20261009-162042.json
+  s_0af420b20b4753::t_0974baa9878834 38-44,92-98,121-127,145-151,174-180,197-203,234-240,258-264,282-288,305-311,328-334,351-357,374-380,397-403
+docs/traces/t07-past-90d-block-a-r08-20261009-134134.json
+  s_0af420b20b4753::t_651eb47468e5d2 38-44,61-67,105-111,134-140,158-164,187-193,210-216
+docs/traces/t07-past-90d-block-b-r06-20261009-131711.json
+  s_0af420b20b4753::t_05f78d0d2b43e0 38-44,61-67,140-146,169-175,193-199,229-235,252-258
+scripts/trace_template.html
+  s_0af420b20b4753::t_bdf623a91407fa 47-49,97-99,107,131-132,137-149
+scripts/turn_trace.py
+  s_0af420b20b4753::t_425b43812cb78a 35-38,53,245,278,286-292
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5e1d5cc083f61a7ab210ac2c92ac89da614d465d",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
