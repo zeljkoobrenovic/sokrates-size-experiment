@@ -127,8 +127,8 @@ TEMPLATE = r"""<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Code size and agent tokens</title>
-<meta name="description" content="A controlled experiment: does splitting long files and units lower what an AI coding agent spends? Sokrates, two variants, twelve tasks, two models.">
+<title>File length and agent tokens</title>
+<meta name="description" content="A controlled experiment: splitting long files and units did not lower what an AI coding agent spends. Sokrates, two variants, twelve tasks, two models, 480 runs.">
 <style>
 :root {
   color-scheme: light;
@@ -195,20 +195,20 @@ footer { margin-top: 48px; color: var(--muted); font-size: 0.85rem; }
 <main>
 <header class="hero">
   <div class="meta">An experiment · Sokrates · ${generated}</div>
-  <h1>Does splitting long files and units save an AI coding agent tokens?</h1>
-  <p class="lede">The same twelve changes, made by the same agent, in two versions of one codebase that differ only in the length of their files and units. Repeated ten times, with controls and acceptance tests. The answer, for files that fit in the agent's read budget: no.</p>
+  <h1>Splitting long files and units does not save an AI coding agent tokens</h1>
+  <p class="lede">The same twelve changes, made by the same agent in two versions of one codebase that differ only in the length of their files and units, cost the same tokens, turns and time. Measured with two models, ten repeats per task and variant, control tasks and acceptance tests. Below the agent's read budget, length is not a cost driver; the number of places a change touches is.</p>
 </header>
 
 <div class="tiles" id="hero-tiles"></div>
 
-<h2>The question</h2>
-<p>Sokrates' AI ease-of-change score and its AI Cost Estimator assume that long files and long units make every change more expensive for an AI agent, because the agent has to read more to make the same change. The same claim was made with numbers in July 2026 in <a href="https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html">The Economic Benefit of Refactoring</a> on martinfowler.com: after splitting a 17,155-line file, a change cost 83% fewer input tokens. This experiment measures the claim with repeats, controls and acceptance tests on a mature human-written codebase: Sokrates itself, as it was a year before the experiment.</p>
+<h2>What was tested</h2>
+<p>Sokrates' AI ease-of-change score and its AI Cost Estimator assumed that long files and long units make every change more expensive for an AI agent, because the agent has to read more to make the same change. The same claim was made with numbers in July 2026 in <a href="https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html">The Economic Benefit of Refactoring</a> on martinfowler.com: after splitting a 17,155-line file, a change cost 83% fewer input tokens. This experiment measured the claim with repeats, controls and acceptance tests on a mature human-written codebase: Sokrates itself, as it was a year before the experiment.</p>
 
 <h2>Two variants of one codebase</h2>
 <p>Variant A is Sokrates at commit <code>5e6aa97a</code> of 2025-09-20. Variant B is A with every main file brought under 500 lines of code and every unit under 50 lines and McCabe 25, by <em>extract method</em> and <em>extract class</em> only: 52 package-private helper classes in the original packages, every original class keeping its name and public API. The split was done in five parallel batches by coding agents under a strict brief, with the module tests and a golden-output check after every file: the reports both variants generate for a fixture are byte-identical across 850 normalized files.</p>
 <div class="card scroll" id="variants"></div>
 
-<h2>The result</h2>
+<h2>The result: no difference</h2>
 <p>For every measure, the ratio of what variant B cost to what variant A cost, pooled over the ten target tasks (whose change lands in a split file) and separately over the two control tasks (whose files are byte-identical in A and B, so they should sit at 1.0). The pooled ratio is the geometric mean over tasks of the ratio of means, with a 95% bootstrap interval over runs. A value of 1.0 means the split changed nothing.</p>
 <div class="legend"><span class="k1">target tasks (split files)</span><span class="k2">control tasks (identical files)</span></div>
 <div class="row two" id="pooled"></div>

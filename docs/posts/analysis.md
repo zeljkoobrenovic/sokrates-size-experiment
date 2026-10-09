@@ -1,8 +1,12 @@
-# Does splitting long files save an AI agent tokens? A controlled experiment, and a comparison with "The Economic Benefit of Refactoring"
+# Splitting long files and units does not save an AI coding agent tokens: a controlled experiment, and a comparison with "The Economic Benefit of Refactoring"
 
-*Draft, 2026-10-09. Numbers are from the complete Sonnet series: 240 runs, 10 per task and variant. A second series with a weaker model (Claude Haiku 5.5) is running and will be added. The experiment repository, with the harness, the tasks and every run's record, is `sokrates-size-experiment`.*
+*2026-10-09. The Sonnet series is complete (240 runs, 10 per task and variant); the Haiku series is at 200 of 240 and its numbers will be refreshed once. The experiment repository, with the harness, the tasks and every run's record, is `sokrates-size-experiment`; the results page is `docs/index.html`.*
 
-## The question
+## The answer first
+
+The same twelve changes, made by the same coding agent in two versions of one codebase that differ only in the length of their files and units, cost the same input tokens, output tokens, turns, time and money. Pooled over the ten tasks that land in split files, variant B costs 1.03 times variant A in input tokens with Claude Sonnet 5.5 (95% interval 0.97 to 1.08) and 1.03 with Claude Haiku 5.5 (0.95 to 1.11); two control tasks on byte-identical code scatter more than that. For files that fit in the agent's read budget, file and unit length is not a cost driver. What the agent pays for is the number of places a change touches and the context it re-sends every turn. Sokrates' AI ease-of-change score has been changed accordingly.
+
+## Where the claim came from
 
 In July 2026 Giles Edwards-Alexander published [The Economic Benefit of Refactoring](https://martinfowler.com/articles/exploring-gen-ai/refactoring-economic-benefit.html) on martinfowler.com. The claim: refactoring an agent-built codebase lowers the token cost of later changes, so refactoring is spending tokens now to spend fewer later. The evidence: one Rust application of about 150k lines, written by agents, whose data access layer had grown into a single 17,155-line file. After a 13-step refactoring plan that brought the largest file down to 3,695 lines, the same change request, run once after each step in a fresh agent, went from 159,564 input tokens to 27,360, a drop of 83%. Output tokens rose 24% and time per change rose 33%.
 
@@ -18,9 +22,9 @@ Sokrates' own predictions moved the way the model expects: Human ease of change 
 
 **The runs.** Claude Code headless (`claude -p`, Sonnet), the same prompt, tools, permissions and turn limit for every run, in a fresh one-commit copy of the variant with a neutral folder name, so the agent sees nothing about variants or the split. A hook logs every tool call: file reads with line counts, shell commands and their output size, edits, test runs. Token counts are the CLI's own, with input split into fresh input, cache writes and cache reads. Ten repeats per task and variant, 240 runs in all.
 
-## The result so far
+## The result
 
-Pooled over the ten target tasks, the geometric mean of the per-task B/A ratios, with a 95% bootstrap interval:
+Pooled over the ten target tasks, the geometric mean of the per-task B/A ratios, with a 95% bootstrap interval, Claude Sonnet 5.5:
 
 | measure | target tasks (split files) | control tasks (identical files) |
 |---|---|---|
@@ -56,6 +60,26 @@ The per-task ratios run from 0.82 to 1.29 on the targets and from 0.79 to 1.04 o
 
 Two tasks lean the way the theory predicts, in opposite directions. t10's fix touches two places that are one file in A and two helper classes in B, and the agent spends a few more turns finding the second one. t09's fix is in the CLI class, which shrank from 744 to 406 LOC, and the agent reads half as many lines there. Both are inside the noise band.
 
+## The same with a weaker model
+
+The series was repeated with Claude Haiku 5.5, the weakest current model, through the same harness, tasks and
+permissions: 200 of 240 runs at the time of writing, 8 to 9 per cell, none failed, $3.73 in total.
+
+| measure | target tasks (split files) | control tasks (identical files) |
+|---|---|---|
+| input tokens incl. cache reads | 1.03 (0.95–1.11) | 0.88 (0.73–1.04) |
+| output tokens | 1.01 (0.96–1.07) | 0.91 (0.79–1.03) |
+| cost | 1.05 (0.96–1.15) | 0.91 (0.80–1.04) |
+| turns | 1.01 (0.96–1.06) | 0.91 (0.80–1.02) |
+| lines seen | 1.24 (1.12–1.36) | 0.99 (0.83–1.17) |
+
+Haiku behaves differently from Sonnet: it reads about 490 lines of code per run against Sonnet's 150, mostly whole
+files, takes 15 turns against 13, and spends 450k input tokens per run against 250k, at a tenth of the cost. That is
+the reading habit under which length could matter, and tokens, turns and cost still sit at 1.0. The one measure
+that moves is lines seen: in B Haiku looks at about a quarter more code, on eight of the ten target tasks, while
+the controls stay at 1.0. The split spreads a feature over more files, and an agent that opens files whole opens
+more of them. The extra reading does not reach the bill, because the re-sent context dominates it.
+
 ## Why length did not matter here
 
 The tool logs explain it. In 240 runs the agent used the Read tool 122 times and the shell 1,749 times. It does not read files; it greps for the names in the task, then prints a window of 40 to 70 lines around the hit with `sed -n` or a bounded Read. The 1,133-LOC results class costs it the same window as the 229-LOC helper that replaced it. The median run sees 149 lines of code.
@@ -80,20 +104,35 @@ The two experiments agree on the mechanism and disagree on the result, and the d
 
 **The economics.** He estimates 39.7 cents saved per change against an upper bound of five million tokens spent refactoring, so roughly 38 changes of that kind to break even on input pricing. Our split cost about 1.5 million tokens of agent work across the five batches and saves nothing per change, so it never breaks even on token cost. The split may still be worth doing for people, which is what the Human ease-of-change score is about, but that is a different argument.
 
-## What this means for Sokrates
+## What changed in Sokrates
 
-For an agent that searches by name and reads windows, file and unit length below roughly the agent's reading window is not a token cost driver, and the AI ease-of-change score weights it too heavily. The sub-scores that would survive this experiment are the ones about how many places a change touches and how findable they are by name: the change-entropy and context-per-change measures, if the latter is computed from what an agent actually reads rather than from file sizes. The AI Cost Estimator's "read size" of a change should be the window around the edit, not the file, until the file exceeds what a single read returns.
+For an agent that searches by name and reads windows, file and unit length below the agent's read budget is not
+a token cost driver, and the AI ease-of-change score weighted it heavily: file size 1.75 and unit size 1 out of a
+total of about 9.5. On 2026-10-09 the scoring was changed in response to the results:
+
+- unit size and the 500-LOC file size have AI weight 0 (they stay in the Human score);
+- a new sub-score, "Files beyond read budget", counts the share of main code in files of more than 2,000 physical
+  lines, what one read does not return, at AI weight 0.75;
+- context per change counts at most a 200-line window per touched file, a window around the place rather than
+  the file;
+- the explanations of the complexity sub-scores say they are reasoning about correctness, not a measured cost.
+
+Re-scored, the two variants sit at 7.2 and 7.3 (they were 6.6 and 7.7) and the predicted context per change at
+571 and 552 lines (it was 1,690 and 774), in line with the measured cost, which was the same for both. The
+measures that carry the AI score now are about how many places a change touches and how much the agent must read
+around each. A findability measure, how many files a grep for a commit's identifiers hits, is the obvious next
+addition and needs a design of its own.
 
 ## Limits and next steps
 
-One agent and one model, one Java codebase, tasks that name their feature in words a grep finds, and a mechanical split. The original layout is public and plausibly in the model's training data, which would favour A, but with ratios at 1.0 it is not hiding an effect. An agent that reads files whole, or tasks that require understanding a class end to end, could show the cost; this experiment did not create that situation.
+One agent harness and two models, one Java codebase, tasks that name their feature in words a grep finds, and a mechanical split. The original layout is public and plausibly in the model's training data, which would favour A, but with ratios at 1.0 it is not hiding an effect. An agent that reads files whole, or tasks that require understanding a class end to end, could show the cost; this experiment did not create that situation.
 
 The next experiment is the one the comparison points at: the same harness on a codebase with a file far above the reading window, a few thousand to twenty thousand lines, split to under the window. If the cost of length is a step, that is where it will show, and Sokrates' thresholds for agents should move to where the step is rather than where the human thresholds are.
 
 ## Method summary
 
 - Snapshot: Sokrates at commit `5e6aa97a` (2025-09-20). Analysis reference date 2025-09-20 for both variants.
-- Variant B: file ≤ 500 LOC, unit ≤ 50 LOC and McCabe ≤ 25 as measured by Sokrates; 0 files and 0 units above after the split; module tests green; golden output identical. One recorded deviation: 141 trivial accessors of one class written one per line.
+- Variant B: file ≤ 500 LOC, unit ≤ 50 LOC and McCabe ≤ 25 as measured by Sokrates; 0 files and 0 units above after the split; module tests green; golden output identical. One recorded deviation: 141 trivial accessors of one class written one per line. Predictions before and after the scoring change are in the README.
 - Tasks: mined with `scripts/mine_tasks.py` from 533 commits after the snapshot; each with `task.md`, `meta.json`, an acceptance test and a reference patch per variant; re-verified by `scripts/check_tasks.py`.
-- Runs: `harness/run.py`, one worker per variant with its own Maven repository, Claude Code 2.1.295 with `claude-sonnet-5-5`, `--max-turns 80`, `--permission-mode acceptEdits`, a fixed allow-list of shell commands, `--setting-sources project`. Per run: fresh copy, prebuild, agent, tool log, diff, acceptance test with upstream modules built from the working tree.
+- Runs: `harness/run.py`, one worker per variant with its own Maven repository, Claude Code 2.1.295 with `claude-sonnet-5-5` (then `claude-haiku-5-5`, results in `results/runs-haiku.csv`), `--max-turns 80`, `--permission-mode acceptEdits`, a fixed allow-list of shell commands, `--setting-sources project`. Per run: fresh copy, prebuild, agent, tool log, diff, acceptance test with upstream modules built from the working tree.
 - Analysis: `harness/compare.py` (pooled ratios, bootstrap) and `harness/summarize.py` (per-task quartiles).
