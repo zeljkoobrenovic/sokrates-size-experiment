@@ -52,13 +52,7 @@ public class LandscapeAnalysisCommands {
     public static void generateReport(File analysisRoot, File landscapeConfigFile) {
         File reportsFolder = Paths.get(landscapeConfigFile.getParent(), "").toFile();
         reportsFolder.mkdirs();
-        File individualReportsFolder = new File(reportsFolder, "contributors");
-        try {
-            FileUtils.deleteDirectory(individualReportsFolder);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        individualReportsFolder.mkdirs();
+        File individualReportsFolder = prepareIndividualReportsFolder(reportsFolder);
 
         LandscapeAnalyzer analyzer = new LandscapeAnalyzer();
 
@@ -71,6 +65,22 @@ public class LandscapeAnalysisCommands {
         LandscapeReportGenerator reportGenerator = new LandscapeReportGenerator(landscapeAnalysisResults, tagGroups, landscapeConfigFile.getParentFile(), reportsFolder);
         List<RichTextReport> reports = reportGenerator.report();
 
+        saveReports(reportsFolder, individualReportsFolder, landscapeAnalysisResults, reportGenerator, reports);
+        ProcessingStopwatch.end("reporting");
+    }
+
+    private static File prepareIndividualReportsFolder(File reportsFolder) {
+        File individualReportsFolder = new File(reportsFolder, "contributors");
+        try {
+            FileUtils.deleteDirectory(individualReportsFolder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        individualReportsFolder.mkdirs();
+        return individualReportsFolder;
+    }
+
+    private static void saveReports(File reportsFolder, File individualReportsFolder, LandscapeAnalysisResults landscapeAnalysisResults, LandscapeReportGenerator reportGenerator, List<RichTextReport> reports) {
         try {
             ProcessingStopwatch.start("reporting/saving");
             ProcessingStopwatch.start("reporting/saving/reports");
@@ -108,7 +118,6 @@ public class LandscapeAnalysisCommands {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ProcessingStopwatch.end("reporting");
     }
 
     private static List<TagGroup> getTagGroups(File analysisRoot, File landscapeConfigFile) {
