@@ -1,0 +1,19 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+  s_0af420b20b4753::t_412a3b4c704148 41-68,93,95-97,99,101-103,105-109,111-114,117,119-122,124-127,129,131-134,137-140,143-144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "35246a51beee60e153d7c2393b4df5da37a0e61f",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
