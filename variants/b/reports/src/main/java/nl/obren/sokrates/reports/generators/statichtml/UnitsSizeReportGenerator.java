@@ -31,6 +31,29 @@ public class UnitsSizeReportGenerator {
         RiskDistributionStats unitSizeDistribution = unitsAnalysisResults.getUnitSizeRiskDistribution();
         report.addParagraph("The distribution of size of units (measured in lines of code).", "margin-top: 12px; color: grey");
 
+        addIntroSection(report);
+
+        addOverallSection(report, unitsAnalysisResults, unitSizeDistribution);
+
+        addPerExtensionAndComponentSections(report, unitsAnalysisResults);
+
+        report.startSection("Alternative Visuals", "");
+        report.startUnorderedList();
+        report.addListItem("<a target='_blank' href='visuals/units_3d_size.html'>3D view of all units</a>");
+        report.endUnorderedList();
+        report.endSection();
+
+        List<UnitInfo> longestUnits = unitsAnalysisResults.getLongestUnits();
+        report.startSection("Longest Units", "Top " + longestUnits.size() + " longest units");
+        boolean cacheFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+        boolean saveCodeFragments = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveCodeFragments();
+        report.startScrollingDiv();
+        report.addHtmlContent(UtilsReportUtils.getUnitsTable(longestUnits, "longest_unit", cacheFiles, saveCodeFragments).toString());
+        report.endDiv();
+        report.endSection();
+    }
+
+    private void addIntroSection(RichTextReport report) {
         report.startSection("Intro", "");
         report.startUnorderedList();
         report.addListItem("Unit size measurements show the distribution of size of units of code (methods, functions...).");
@@ -64,7 +87,9 @@ public class UnitsSizeReportGenerator {
         report.endUnorderedList();
         report.endShowMoreBlock();
         report.endSection();
+    }
 
+    private void addOverallSection(RichTextReport report, UnitsAnalysisResults unitsAnalysisResults, RiskDistributionStats unitSizeDistribution) {
         report.startSection("Unit Size Overall", "");
         report.startUnorderedList();
         int linesOfCodeInUnits = unitsAnalysisResults.getLinesOfCodeInUnits();
@@ -94,7 +119,9 @@ public class UnitsSizeReportGenerator {
 
         report.addHtmlContent(PieChartUtils.getRiskDistributionChart(unitSizeDistribution, labels));
         report.endSection();
+    }
 
+    private void addPerExtensionAndComponentSections(RichTextReport report, UnitsAnalysisResults unitsAnalysisResults) {
         report.startSection("Unit Size per Extension", "");
         report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(unitsAnalysisResults.getUnitSizeRiskDistributionPerExtension(), labels).toString());
         report.endSection();
@@ -109,21 +136,6 @@ public class UnitsSizeReportGenerator {
             report.endDiv();
             report.endSection();
         });
-        report.endSection();
-
-        report.startSection("Alternative Visuals", "");
-        report.startUnorderedList();
-        report.addListItem("<a target='_blank' href='visuals/units_3d_size.html'>3D view of all units</a>");
-        report.endUnorderedList();
-        report.endSection();
-
-        List<UnitInfo> longestUnits = unitsAnalysisResults.getLongestUnits();
-        report.startSection("Longest Units", "Top " + longestUnits.size() + " longest units");
-        boolean cacheFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
-        boolean saveCodeFragments = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveCodeFragments();
-        report.startScrollingDiv();
-        report.addHtmlContent(UtilsReportUtils.getUnitsTable(longestUnits, "longest_unit", cacheFiles, saveCodeFragments).toString());
-        report.endDiv();
         report.endSection();
     }
 
