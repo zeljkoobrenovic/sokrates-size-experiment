@@ -1,0 +1,21 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java
+  s_0af420b20b4753::t_820cb677841a81 28,33,58-76,95-96,98,120-122,142,144,169,171,187,191,195,207-222,244-250,252,255-256,259-273
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/ContributorRepositoryActivityTables.java
+  s_0af420b20b4753::t_71a8276ed09e5e 1-363
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0bdcd72d94a5b3d4c5be193f0516fdf592090dc6",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
