@@ -1,0 +1,23 @@
+README.md
+  s_0af420b20b4753::t_dd1fcae593f39e 24-25
+docs/index.html
+  s_0af420b20b4753::t_951d58c0707226 117,150,194-197
+scripts/build_site.py
+  s_0af420b20b4753::t_f2c9272e00ba30 100-104,121,241,318-321
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "440dd704c8167c8228e0093bab422977624c0d59",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
