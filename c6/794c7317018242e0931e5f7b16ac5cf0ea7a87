@@ -1,0 +1,25 @@
+README.md
+  s_0af420b20b4753::t_b7732ad30abf37 18-23,26-38,102-103
+analysis/a/config.json
+  s_0af420b20b4753::t_ceba59c909e35d 2-7,9-73,75-91,93-96,98-129,131-165,167-168,170-414,417-423,425,427-431,433-434,436-635
+analysis/b/config.json
+  s_0af420b20b4753::t_0c5731769497c2 2-7,9-73,75-91,93-96,98-129,131-165,167-168,170-414,417-423,425,427-431,433-434,436-635
+analysis/targets-b.md
+  s_0af420b20b4753::t_ddd54a5757fc74 1-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c6794c7317018242e0931e5f7b16ac5cf0ea7a87",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
