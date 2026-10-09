@@ -1,0 +1,29 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributionTimeSlots.java
+  s_0af420b20b4753::t_ab915e6ebe40dd 1-157
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeExtensionAggregator.java
+  s_0af420b20b4753::t_06745308900f82 1-206
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributorsAggregator.java
+  s_0af420b20b4753::t_5d1c74bfd493b9 1-284
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeCodeSize.java
+  s_0af420b20b4753::t_ad36a10c9bb98b 1-101
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeFileDistributions.java
+  s_0af420b20b4753::t_754132b8e4c0ef 1-96
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+  s_0af420b20b4753::t_75ad634aa32c86 131,133,135,142,144,146,148,150,153,156,159,162,165,168,171,174,177,180,182,184,186,189,192,195,228,231,233,235,237,239,241,243,245,247,249,251,253,255,257,259,261,263,265,268,271,274,277,280,283,286,289,292,295,298,301,304,307,310,324,327,343,345,347,349,352,355,357,359,362,365,368,371,374,377,380,383,386,389,391,393,395,397,399,401,403,405,407,409,411,413,415,417,419,421,423,425,427,429,431,433,435,437,439,441,443,445,447,449,451,453,455,457,459,461,463,465,467,469,471,473,475,477,479,481,483,485,487,489,491,493,495,497,499,501,503,505,507,509,511,513,515,517,519,521
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7bce359b79a1c402e79792b9798207679fc1ff1",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
