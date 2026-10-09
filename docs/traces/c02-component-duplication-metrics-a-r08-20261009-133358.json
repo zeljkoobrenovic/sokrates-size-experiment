@@ -35,7 +35,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 44,
+   "new": {
+    "prev_output": 0,
+    "tool_results": 0,
+    "other": 8581
+   }
   },
   {
    "n": 2,
@@ -73,7 +79,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 382,
+   "new": {
+    "prev_output": 105,
+    "tool_results": 19,
+    "other": 27
+   }
   },
   {
    "n": 3,
@@ -96,7 +108,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 19861,
+   "new": {
+    "prev_output": 97,
+    "tool_results": 166,
+    "other": 47
+   }
   },
   {
    "n": 4,
@@ -114,7 +132,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 191,
+   "new": {
+    "prev_output": 136,
+    "tool_results": 8218,
+    "other": 0
+   }
   },
   {
    "n": 5,
@@ -132,7 +156,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 191,
+   "new": {
+    "prev_output": 929,
+    "tool_results": 83,
+    "other": 0
+   }
   },
   {
    "n": 6,
@@ -150,7 +180,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 30,
+   "new": {
+    "prev_output": 118,
+    "tool_results": 83,
+    "other": 30
+   }
   },
   {
    "n": 7,
@@ -167,7 +203,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 31,
+   "new": {
+    "prev_output": 190,
+    "tool_results": 13,
+    "other": 28
+   }
   },
   {
    "n": 8,
@@ -203,7 +245,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 524,
+   "new": {
+    "prev_output": 248,
+    "tool_results": 13,
+    "other": 26
+   }
   },
   {
    "n": 9,
@@ -220,7 +268,13 @@
      "lines": 16,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 1674,
+   "new": {
+    "prev_output": 1095,
+    "tool_results": 227,
+    "other": 101
+   }
   },
   {
    "n": 10,
@@ -237,7 +291,13 @@
      "lines": 8,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 580,
+   "new": {
+    "prev_output": 227,
+    "tool_results": 727,
+    "other": 39
+   }
   },
   {
    "n": 11,
@@ -254,7 +314,13 @@
      "lines": 0,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 0,
+   "new": {
+    "prev_output": 196,
+    "tool_results": 252,
+    "other": 250
+   }
   }
  ],
  "files": [

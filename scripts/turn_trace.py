@@ -32,6 +32,10 @@ TRACE_FORMAT = """
   "title": "...", "model": "...", "meta": {"task": ..., "variant": ..., "turns": N, ...},
   "turns": [ {"n": 1, "input": 2, "cache_read": 10874, "cache_write": 8434, "output": 105,
               "text": "what the agent said (first line)",
+              "result_chars": 3425,            # characters of tool results this turn received
+              "new": {"prev_output": 147, "tool_results": 1489, "other": 0},   # where the cache_write tokens came from:
+                                               # the previous turn's output, its tool results (chars / 2.3, capped), the rest
+                                               # (first turn: prompt, CLAUDE.md, uncached system prompt; later: reminders, injections)
               "tools": [ {"tool": "Bash", "kind": "search|read|edit|build|vcs|shell|text", "detail": "the command or path",
                           "lines": 30,                      # lines of tool output the agent received
                           "files": [ {"path": "a/b.java", "kind": "read|edit|hit", "lines": 30} ] } ] } ],
@@ -46,6 +50,7 @@ GREP_LIST_RE = re.compile(r"^((?:[\w@+.-]+/)*[\w@+.-]+\." + SOURCE_EXT + r")$")
 READ_CMDS = {"cat", "head", "tail", "nl", "less", "more", "bat"}
 SEARCH_CMDS = {"grep", "rg", "find", "ls", "wc", "fgrep", "egrep", "ag", "tree"}
 BUILD_CMDS = {"mvn", "java", "javac", "./mvnw", "make"}
+CHARS_PER_TOKEN = 2.3  # measured on the experiment transcripts: (cache_write - previous output) / tool result chars, median 2.3 (code, paths, grep output)
 
 
 def find_transcript(args):
@@ -237,6 +242,7 @@ def build(turns, results, root, source_root):
             f["hits"] += lines or 0
 
     for turn in turns:
+        turn["result_chars"] = 0
         for use in turn.pop("_uses"):
             name, inp = use.get("name"), use.get("input") or {}
             res = results.get(use.get("id"), {"text": "", "error": False, "structured": None})
@@ -269,6 +275,7 @@ def build(turns, results, root, source_root):
                 entry["files"] = [{"path": p, "kind": "hit", "lines": n} for p, n in hits.items()]
             else:
                 entry["detail"] = name + " " + json.dumps(inp)[:200]
+            turn["result_chars"] += len(out)
             if res["error"]:
                 entry["files"] = []
             for f in entry["files"]:
@@ -276,6 +283,13 @@ def build(turns, results, root, source_root):
             turn["tools"].append(entry)
         if not turn["tools"]:
             turn["tools"].append({"tool": "text", "kind": "text", "detail": turn["text"], "lines": 0, "files": []})
+    prev = None
+    for turn in turns:
+        new = turn["cache_write"]
+        prev_output = min(prev["output"], new) if prev else 0
+        tool_results = min(int(prev["result_chars"] / CHARS_PER_TOKEN), new - prev_output) if prev else 0
+        turn["new"] = {"prev_output": prev_output, "tool_results": tool_results, "other": new - prev_output - tool_results}
+        prev = turn
     if source_root:
         for f in files.values():
             p = os.path.join(source_root, f["path"])

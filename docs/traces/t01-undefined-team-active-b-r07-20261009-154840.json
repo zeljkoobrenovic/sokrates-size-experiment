@@ -35,7 +35,13 @@
      "lines": 2,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 89,
+   "new": {
+    "prev_output": 0,
+    "tool_results": 0,
+    "other": 7115
+   }
   },
   {
    "n": 2,
@@ -52,7 +58,13 @@
      "lines": 2,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 89,
+   "new": {
+    "prev_output": 208,
+    "tool_results": 38,
+    "other": 2051
+   }
   },
   {
    "n": 3,
@@ -135,7 +147,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 1503,
+   "new": {
+    "prev_output": 191,
+    "tool_results": 38,
+    "other": 26
+   }
   },
   {
    "n": 4,
@@ -171,7 +189,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 21533,
+   "new": {
+    "prev_output": 259,
+    "tool_results": 653,
+    "other": 76
+   }
   },
   {
    "n": 5,
@@ -188,7 +212,13 @@
      "lines": 13,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 435,
+   "new": {
+    "prev_output": 310,
+    "tool_results": 8715,
+    "other": 0
+   }
   },
   {
    "n": 6,
@@ -218,7 +248,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 367,
+   "new": {
+    "prev_output": 343,
+    "tool_results": 189,
+    "other": 24
+   }
   },
   {
    "n": 7,
@@ -236,7 +272,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 68,
+   "new": {
+    "prev_output": 976,
+    "tool_results": 159,
+    "other": 74
+   }
   },
   {
    "n": 8,
@@ -254,7 +296,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 110,
+   "new": {
+    "prev_output": 439,
+    "tool_results": 29,
+    "other": 24
+   }
   },
   {
    "n": 9,
@@ -271,7 +319,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 31,
+   "new": {
+    "prev_output": 259,
+    "tool_results": 47,
+    "other": 23
+   }
   },
   {
    "n": 10,
@@ -288,7 +342,13 @@
      "lines": 0,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 0,
+   "new": {
+    "prev_output": 238,
+    "tool_results": 13,
+    "other": 26
+   }
   }
  ],
  "files": [

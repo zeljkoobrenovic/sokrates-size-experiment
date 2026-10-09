@@ -35,7 +35,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 44,
+   "new": {
+    "prev_output": 0,
+    "tool_results": 0,
+    "other": 7265
+   }
   },
   {
    "n": 2,
@@ -148,7 +154,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 1926,
+   "new": {
+    "prev_output": 210,
+    "tool_results": 19,
+    "other": 2052
+   }
   },
   {
    "n": 3,
@@ -171,7 +183,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 8409,
+   "new": {
+    "prev_output": 191,
+    "tool_results": 837,
+    "other": 116
+   }
   },
   {
    "n": 4,
@@ -194,7 +212,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 14147,
+   "new": {
+    "prev_output": 200,
+    "tool_results": 3656,
+    "other": 116
+   }
   },
   {
    "n": 5,
@@ -252,7 +276,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 2638,
+   "new": {
+    "prev_output": 323,
+    "tool_results": 5511,
+    "other": 0
+   }
   },
   {
    "n": 6,
@@ -275,7 +305,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 263,
+   "new": {
+    "prev_output": 836,
+    "tool_results": 1146,
+    "other": 30
+   }
   },
   {
    "n": 7,
@@ -293,7 +329,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 11,
+   "new": {
+    "prev_output": 1008,
+    "tool_results": 114,
+    "other": 35
+   }
   },
   {
    "n": 8,
@@ -321,7 +363,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 172,
+   "new": {
+    "prev_output": 360,
+    "tool_results": 4,
+    "other": 37
+   }
   },
   {
    "n": 9,
@@ -339,7 +387,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 68,
+   "new": {
+    "prev_output": 206,
+    "tool_results": 74,
+    "other": 39
+   }
   },
   {
    "n": 10,
@@ -357,7 +411,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 230,
+   "new": {
+    "prev_output": 433,
+    "tool_results": 29,
+    "other": 24
+   }
   },
   {
    "n": 11,
@@ -374,7 +434,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 31,
+   "new": {
+    "prev_output": 262,
+    "tool_results": 100,
+    "other": 34
+   }
   },
   {
    "n": 12,
@@ -391,7 +457,13 @@
      "lines": 18,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 2018,
+   "new": {
+    "prev_output": 239,
+    "tool_results": 13,
+    "other": 26
+   }
   },
   {
    "n": 13,
@@ -408,7 +480,13 @@
      "lines": 0,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 0,
+   "new": {
+    "prev_output": 300,
+    "tool_results": 873,
+    "other": 0
+   }
   }
  ],
  "files": [

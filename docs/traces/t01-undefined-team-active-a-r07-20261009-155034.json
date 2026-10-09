@@ -35,7 +35,13 @@
      "lines": 2,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 89,
+   "new": {
+    "prev_output": 0,
+    "tool_results": 0,
+    "other": 9055
+   }
   },
   {
    "n": 2,
@@ -52,7 +58,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 44,
+   "new": {
+    "prev_output": 195,
+    "tool_results": 38,
+    "other": 26
+   }
   },
   {
    "n": 3,
@@ -85,7 +97,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 294,
+   "new": {
+    "prev_output": 162,
+    "tool_results": 19,
+    "other": 27
+   }
   },
   {
    "n": 4,
@@ -108,7 +126,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 3920,
+   "new": {
+    "prev_output": 182,
+    "tool_results": 127,
+    "other": 52
+   }
   },
   {
    "n": 5,
@@ -126,7 +150,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 58,
+   "new": {
+    "prev_output": 237,
+    "tool_results": 1635,
+    "other": 0
+   }
   },
   {
    "n": 6,
@@ -154,7 +184,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 2293,
+   "new": {
+    "prev_output": 274,
+    "tool_results": 25,
+    "other": 25
+   }
   },
   {
    "n": 7,
@@ -177,7 +213,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 4305,
+   "new": {
+    "prev_output": 198,
+    "tool_results": 803,
+    "other": 0
+   }
   },
   {
    "n": 8,
@@ -200,7 +242,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 5834,
+   "new": {
+    "prev_output": 240,
+    "tool_results": 1871,
+    "other": 21
+   }
   },
   {
    "n": 9,
@@ -223,7 +271,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 263,
+   "new": {
+    "prev_output": 524,
+    "tool_results": 2268,
+    "other": 0
+   }
   },
   {
    "n": 10,
@@ -241,7 +295,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 58,
+   "new": {
+    "prev_output": 654,
+    "tool_results": 114,
+    "other": 40
+   }
   },
   {
    "n": 11,
@@ -258,7 +318,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 31,
+   "new": {
+    "prev_output": 252,
+    "tool_results": 25,
+    "other": 25
+   }
   },
   {
    "n": 12,
@@ -275,7 +341,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 31,
+   "new": {
+    "prev_output": 202,
+    "tool_results": 13,
+    "other": 26
+   }
   },
   {
    "n": 13,
@@ -292,7 +364,13 @@
      "lines": 0,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 0,
+   "new": {
+    "prev_output": 244,
+    "tool_results": 13,
+    "other": 26
+   }
   }
  ],
  "files": [

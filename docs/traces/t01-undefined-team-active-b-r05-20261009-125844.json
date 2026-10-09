@@ -35,7 +35,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 44,
+   "new": {
+    "prev_output": 0,
+    "tool_results": 0,
+    "other": 6338
+   }
   },
   {
    "n": 2,
@@ -52,7 +58,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 44,
+   "new": {
+    "prev_output": 68,
+    "tool_results": 19,
+    "other": 2052
+   }
   },
   {
    "n": 3,
@@ -80,7 +92,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 218,
+   "new": {
+    "prev_output": 66,
+    "tool_results": 19,
+    "other": 27
+   }
   },
   {
    "n": 4,
@@ -98,7 +116,13 @@
      "files": [],
      "error": true
     }
-   ]
+   ],
+   "result_chars": 309,
+   "new": {
+    "prev_output": 103,
+    "tool_results": 94,
+    "other": 41
+   }
   },
   {
    "n": 5,
@@ -115,7 +139,13 @@
      "lines": 41,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 1928,
+   "new": {
+    "prev_output": 171,
+    "tool_results": 134,
+    "other": 35
+   }
   },
   {
    "n": 6,
@@ -138,7 +168,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 2052,
+   "new": {
+    "prev_output": 120,
+    "tool_results": 742,
+    "other": 0
+   }
   },
   {
    "n": 7,
@@ -155,7 +191,13 @@
      "lines": 6,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 411,
+   "new": {
+    "prev_output": 84,
+    "tool_results": 892,
+    "other": 130
+   }
   },
   {
    "n": 8,
@@ -178,7 +220,13 @@
       }
      ]
     }
-   ]
+   ],
+   "result_chars": 1862,
+   "new": {
+    "prev_output": 160,
+    "tool_results": 178,
+    "other": 27
+   }
   },
   {
    "n": 9,
@@ -208,7 +256,13 @@
      "lines": 1,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 301,
+   "new": {
+    "prev_output": 81,
+    "tool_results": 809,
+    "other": 186
+   }
   },
   {
    "n": 10,
@@ -225,7 +279,13 @@
      "lines": 0,
      "files": []
     }
-   ]
+   ],
+   "result_chars": 0,
+   "new": {
+    "prev_output": 365,
+    "tool_results": 130,
+    "other": 86
+   }
   }
  ],
  "files": [

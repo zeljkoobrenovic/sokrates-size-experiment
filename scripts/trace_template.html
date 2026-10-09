@@ -44,6 +44,9 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 12px; widt
 .grid tr.group th { background: var(--surface-2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; height: 22px; }
 .grid tr.group td { background: var(--surface-2); }
 .bar { display: inline-block; width: calc(var(--col) - 8px); margin: 0 4px 3px; border-radius: 3px 3px 0 0; background: var(--c); vertical-align: bottom; min-height: 1px; }
+.stack { display: inline-flex; flex-direction: column-reverse; gap: 2px; width: calc(var(--col) - 8px); margin: 0 4px 3px; vertical-align: bottom; }
+.seg { display: block; background: var(--c); border-radius: 2px; }
+.seg:last-child { border-radius: 3px 3px 2px 2px; }
 .chip { display: inline-block; min-width: calc(var(--col) - 8px); margin: 0 2px 4px; padding: 1px 2px; border-radius: 4px; font-size: 11px; line-height: 16px; color: #fff; font-weight: 600; background: var(--c); }
 .chip.hit { background: var(--hit); color: var(--text); font-weight: 400; }
 .chip.read { background: var(--read); }
@@ -91,7 +94,9 @@ a { color: var(--read); }
 <div class="summary" id="summary"></div>
 <div class="legend">
   <span style="--c: var(--read)">lines read (file) · context re-sent from cache (tokens)</span>
-  <span style="--c: var(--write)">lines edited (file) · new context written to cache (tokens)</span>
+  <span style="--c: var(--write)">lines edited (file) · new context written to cache: tool results (tokens)</span>
+  <span style="--c: var(--output)">… the agent's previous output, now context</span>
+  <span style="--c: var(--faint)">… prompt, reminders, injected instructions</span>
   <span style="--c: var(--hit)">lines of search output naming the file</span>
   <span style="--c: var(--output)">output tokens</span>
   <span style="--c: var(--faint)">tool chips: S search · R read · E edit · B build/test · G git · ✓ final answer</span>
@@ -99,7 +104,7 @@ a { color: var(--read); }
 <div class="grid-wrap"><table class="grid" id="grid"></table></div>
 <div id="detail"></div>
 <div class="drop">Drop a trace JSON here (made with <code>scripts/turn_trace.py --transcript ~/.claude/projects/&lt;cwd slug&gt;/&lt;session&gt;.jsonl</code> from any Claude Code session) to render it.</div>
-<p class="note">Reading the bars: the blue bar grows every turn because the whole conversation so far is re-sent with each call; the orange bar is what the turn added. The cost of a session is mostly the area under the blue bars, so the number of turns and what each one appends matter more than any single read. Lines attributed to files are those in tool output: a <code>Read</code> or <code>cat/sed/head</code> of the file counts as read lines, an <code>Edit</code> as edited lines, a <code>grep</code> output line naming the file as a search hit.</p>
+<p class="note">Reading the bars: the blue bar grows every turn because the whole conversation so far is re-sent with each call; the stacked bar is what the turn added: the results of the tools it called last turn (orange, estimated at 2.3 characters per token, the rate measured on these transcripts), the agent's own previous words and tool calls (green) and everything else (grey: on the first turn the task prompt, CLAUDE.md and any uncached part of the system prompt; later the per-turn reminders and instructions the CLI injects). The cost of a session is mostly the area under the blue bars, so the number of turns and what each one appends matter more than any single read. Lines attributed to files are those in tool output: a <code>Read</code> or <code>cat/sed/head</code> of the file counts as read lines, an <code>Edit</code> as edited lines, a <code>grep</code> output line naming the file as a search hit.</p>
 <footer>Generated ${generated} from Claude Code session transcripts of the <a href="https://github.com/zeljkoobrenovic/sokrates-size-experiment">sokrates-size-experiment</a> runs. No external resources.</footer>
 </main>
 <div class="tip" id="tip"></div>
@@ -123,11 +128,25 @@ a { color: var(--read); }
     return vals;
   }
 
+  var NEW_PARTS = [['tool_results', 'tool results', 'var(--write)'], ['prev_output', "the agent's previous output", 'var(--output)'], ['other', 'prompt, reminders, injected instructions', 'var(--faint)']];
+
   function tokenRow(label, key, color, turns, total, max) {
     var vals = tokenValues(turns, key);
     var h = '<tr class="token"><th class="head">' + esc(label) + '<span class="n">max ' + fmt(Math.max.apply(null, vals.concat([0]))) + '</span></th>';
     vals.forEach(function (v, i) {
-      h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc('turn ' + (i + 1) + ': ' + fmt(v) + ' ' + label.toLowerCase() + ' tokens') + '"><span class="bar" style="--c:' + color + ';height:' + Math.max(1, Math.round(38 * v / max)) + 'px"></span></td>';
+      var t = turns[i], tip = 'turn ' + (i + 1) + ': ' + fmt(v) + ' ' + label.toLowerCase() + ' tokens';
+      if (key === 'cache_write' && t.new && !cumulative.checked) {
+        tip += NEW_PARTS.map(function (p) { return '\n  ' + fmt(t.new[p[0]]) + ' ' + p[1]; }).join('');
+        var px = NEW_PARTS.map(function (p) { return Math.round(38 * t.new[p[0]] / max); });
+        if (!px.some(function (x) { return x > 0; })) {  // too small for the scale: one 1px line in the color of the largest part
+          var big = NEW_PARTS.reduce(function (b, p, j) { return t.new[p[0]] > t.new[NEW_PARTS[b][0]] ? j : b; }, 0);
+          px[big] = 1;
+        }
+        h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(tip) + '"><span class="stack">' +
+          NEW_PARTS.map(function (p, j) { return px[j] ? '<span class="seg" style="--c:' + p[2] + ';height:' + px[j] + 'px"></span>' : ''; }).join('') + '</span></td>';
+      } else {
+        h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(tip) + '"><span class="bar" style="--c:' + color + ';height:' + Math.max(1, Math.round(38 * v / max)) + 'px"></span></td>';
+      }
     });
     return h + '<td class="total">' + fmt(total) + '</td></tr>';
   }
