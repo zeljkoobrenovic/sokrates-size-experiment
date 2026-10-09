@@ -1,0 +1,23 @@
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/LanguageAnalyzerFactory.java
+  s_0af420b20b4753::t_94c28ea2d24587 28
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/LanguageAnalyzerRegistrations.java
+  s_0af420b20b4753::t_6672d0db817300 1-428
+variants/b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/MarkupAnalyzerRegistrations.java
+  s_0af420b20b4753::t_c7047084c3c5b1 1-179
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8414e1e127b71aec36f7554a40917c7f112d28f7",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
