@@ -88,6 +88,8 @@ The tool logs explain it. In 240 runs the agent used the Read tool 122 times and
 
 Where do the 290k input tokens of a mean run go, then? Into the conversation re-sent on every turn. A run is 13 turns on median, and each turn re-reads the whole context as cache reads. The bill is set by the number of turns, which is set by how many greps, edits and test runs the task needs, and the split neither adds nor removes those on average. Maven's build output is the other big consumer, the same in both variants.
 
+The [turn-by-turn traces](https://zeljkoobrenovic.github.io/sokrates-size-experiment/trace.html) show this for nine example runs, Sonnet and Haiku on both variants: one column per API call, the tokens it re-sent from the cache, wrote to it (split into tool results, the agent's previous output, and prompts and reminders) and produced, and below that the files read, searched and edited in that turn with their line counts. The blue re-sent bar climbs every turn; the reads are a few short windows for Sonnet and whole files for Haiku, and neither changes the shape of the bars.
+
 ## Comparison with the martinfowler.com experiment
 
 The two experiments agree on the mechanism and disagree on the result, and the disagreement is informative.
