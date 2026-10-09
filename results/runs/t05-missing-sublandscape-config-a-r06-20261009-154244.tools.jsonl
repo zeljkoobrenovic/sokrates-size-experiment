@@ -1,0 +1,9 @@
+{"t": 1791553382.971, "tool": "Bash", "command": "grep -rn \"subLandscape\\|SubLandscape\" --include=*.java --include=*.html --include=*.js . | grep -v \"/target/\" | head -60", "lines": 1, "response_chars": 139}
+{"t": 1791553384.256, "tool": "Bash", "command": "grep -rln \"subLandscapes\" . --exclude-dir=target --exclude-dir=.git | head -30", "lines": 4, "response_chars": 473}
+{"t": 1791553385.618, "tool": "Bash", "command": "grep -n \"subLandscape\\|SubLandscape\\|config.json\\|Logo\\|logo\" reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "lines": 59, "response_chars": 6476}
+{"t": 1791553387.06, "tool": "Bash", "command": "sed -n 640,670p reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java; echo ----; sed -n 745,850p reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "lines": 138, "response_chars": 8072}
+{"t": 1791553392.431, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t05-missing-sublandscape-config-a-r06-20261009-154244/repo/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "response_chars": 124756}
+{"t": 1791553399.668, "tool": "Bash", "command": "mvn -q -o -pl reports compile", "lines": 0, "response_chars": 95}
+{"t": 1791553400.78, "tool": "Bash", "command": "find reports/src/test -iname \"*landscape*\"", "lines": 0, "response_chars": 95}
+{"t": 1791553407.02, "tool": "Bash", "command": "mvn -q -o -pl reports test", "lines": 0, "response_chars": 95}
+{"t": 1791553408.21, "tool": "Bash", "command": "git status --short && git diff", "lines": 21, "response_chars": 2388}

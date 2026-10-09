@@ -121,4 +121,6 @@ cache reads) + the acceptance test.
 - [x] 10 target tasks + 2 control tasks, each checked on both variants (`scripts/check_tasks.py`)
 - [x] variant B (mechanical split to the thresholds, golden output identical, all tests green), its analysis and predictions
 - [x] t01's acceptance test compiles against B unchanged (the target code now sits in `LandscapeContributorsAggregator`)
-- [ ] the runs (started 2026-10-09: 12 tasks × 2 variants × 10 repeats, one worker per variant), the summary, the write-up
+- [x] the runs: Sonnet 5.5 and Haiku 5.5 series, 240 runs each, no failed acceptance test (`results/runs.csv`, `results/runs-haiku.csv`); `harness/compare.py` for the tables
+- [x] the write-up (`docs/posts/analysis.md`) and the results site (`docs/index.html`, `scripts/build_site.py`)
+- [x] Sokrates' AI ease-of-change scoring changed in response (2026-10-09): unit size and 500-LOC file size out, files beyond the 2,000-line read budget in, context per change capped at a 200-line window

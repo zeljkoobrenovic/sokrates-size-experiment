@@ -1,1 +1,240 @@
 === c01-template-literal-duplication-a-r01-20261009-141103
+  success=True turns=15 input=532575 output=7027 cost=0.015168760000000003 lines_read=0
+=== c02-component-duplication-metrics-a-r01-20261009-141207
+  success=True turns=17 input=516602 output=7372 cost=0.014774170000000001 lines_read=0
+=== t01-undefined-team-active-a-r01-20261009-141309
+  success=True turns=16 input=485096 output=5214 cost=0.014609400000000002 lines_read=0
+=== t02-extension-metric-names-a-r01-20261009-141403
+  success=True turns=37 input=2313330 output=25787 cost=0.10534409 lines_read=0
+=== t03-scoping-conventions-never-matched-a-r01-20261009-141635
+  success=True turns=18 input=461870 output=8181 cost=0.01384228 lines_read=0
+=== t04-mock-folder-is-test-code-a-r01-20261009-141739
+  success=True turns=17 input=448570 output=7836 cost=0.01259987 lines_read=0
+=== t05-missing-sublandscape-config-a-r01-20261009-141845
+  success=True turns=12 input=363148 output=4345 cost=0.010723530000000002 lines_read=0
+=== t06-all-contributors-exported-a-r01-20261009-142217
+  success=True turns=12 input=325821 output=3741 cost=0.009883730000000002 lines_read=328
+=== t07-past-90d-block-a-r01-20261009-143142
+  success=True turns=10 input=273720 output=2553 cost=0.00796636 lines_read=90
+=== t08-scope-file-lists-named-after-aspects-a-r01-20261009-143226
+  success=True turns=13 input=422088 output=5519 cost=0.012416719999999997 lines_read=0
+=== t09-analyzelandscape-command-a-r01-20261009-143320
+  success=True turns=24 input=652084 output=9026 cost=0.01803117 lines_read=670
+=== t10-group-dependency-npe-a-r01-20261009-143430
+  success=True turns=16 input=539157 output=4448 cost=0.01482878 lines_read=1090
+=== c01-template-literal-duplication-a-r02-20261009-143518
+  success=True turns=32 input=1538030 output=18091 cost=0.03492717 lines_read=82
+=== c02-component-duplication-metrics-a-r02-20261009-143722
+  success=True turns=11 input=316924 output=5295 cost=0.011480160000000001 lines_read=0
+=== t01-undefined-team-active-a-r02-20261009-143811
+  success=True turns=14 input=405283 output=4287 cost=0.01195585 lines_read=0
+=== t02-extension-metric-names-a-r02-20261009-143902
+  success=True turns=39 input=2231639 output=28643 cost=0.05263841999999999 lines_read=8
+=== t03-scoping-conventions-never-matched-a-r02-20261009-144146
+  success=True turns=28 input=935584 output=12019 cost=0.023381779999999998 lines_read=8
+=== t04-mock-folder-is-test-code-a-r02-20261009-144325
+  success=True turns=15 input=433263 output=7274 cost=0.01280346 lines_read=0
+=== t05-missing-sublandscape-config-a-r02-20261009-144434
+  success=True turns=11 input=286368 output=3798 cost=0.008552500000000001 lines_read=0
+=== t06-all-contributors-exported-a-r02-20261009-144522
+  success=True turns=11 input=232188 output=4004 cost=0.00781143 lines_read=95
+=== t07-past-90d-block-a-r02-20261009-144607
+  success=True turns=10 input=279720 output=2622 cost=0.00818436 lines_read=90
+=== t08-scope-file-lists-named-after-aspects-a-r02-20261009-144652
+  success=True turns=16 input=508367 output=5839 cost=0.013336500000000001 lines_read=0
+=== t09-analyzelandscape-command-a-r02-20261009-144752
+  success=True turns=38 input=1599897 output=15380 cost=0.03570214 lines_read=0
+=== t10-group-dependency-npe-a-r02-20261009-144947
+  success=True turns=13 input=327789 output=4066 cost=0.009817569999999998 lines_read=0
+=== c01-template-literal-duplication-a-r03-20261009-145031
+  success=True turns=30 input=1455935 output=16952 cost=0.03464180000000001 lines_read=0
+=== c02-component-duplication-metrics-a-r03-20261009-145226
+  success=True turns=13 input=403324 output=6247 cost=0.013342830000000003 lines_read=0
+=== t01-undefined-team-active-a-r03-20261009-145324
+  success=True turns=8 input=189678 output=2954 cost=0.00647773 lines_read=0
+=== t02-extension-metric-names-a-r03-20261009-145403
+  success=True turns=35 input=1530879 output=28480 cost=0.043177969999999996 lines_read=8
+=== t03-scoping-conventions-never-matched-a-r03-20261009-145643
+  success=True turns=16 input=466197 output=8242 cost=0.014574789999999999 lines_read=0
+=== t04-mock-folder-is-test-code-a-r03-20261009-145748
+  success=True turns=18 input=544177 output=7876 cost=0.01468116 lines_read=0
+=== t05-missing-sublandscape-config-a-r03-20261009-145902
+  success=True turns=13 input=401072 output=5003 cost=0.011590979999999999 lines_read=0
+=== t06-all-contributors-exported-a-r03-20261009-150003
+  success=True turns=9 input=190810 output=3428 cost=0.00664834 lines_read=0
+=== t07-past-90d-block-a-r03-20261009-150048
+  success=True turns=11 input=308177 output=2921 cost=0.008598090000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r03-20261009-150138
+  success=True turns=15 input=366965 output=4948 cost=0.010401229999999997 lines_read=51
+=== t09-analyzelandscape-command-a-r03-20261009-150231
+  success=True turns=28 input=1088206 output=9674 cost=0.025134099999999996 lines_read=1329
+=== t10-group-dependency-npe-a-r03-20261009-150344
+  success=True turns=18 input=524908 output=4843 cost=0.01282492 lines_read=467
+=== c01-template-literal-duplication-a-r04-20261009-150435
+  success=True turns=21 input=834817 output=12717 cost=0.023201180000000002 lines_read=0
+=== c02-component-duplication-metrics-a-r04-20261009-150606
+  success=True turns=16 input=507734 output=6772 cost=0.01444686 lines_read=142
+=== t01-undefined-team-active-a-r04-20261009-150713
+  success=True turns=12 input=287575 output=3557 cost=0.009307060000000002 lines_read=0
+=== t02-extension-metric-names-a-r04-20261009-150807
+  success=True turns=44 input=2463521 output=33751 cost=0.08551091 lines_read=98
+=== t03-scoping-conventions-never-matched-a-r04-20261009-151108
+  success=True turns=20 input=610911 output=9461 cost=0.017602490000000002 lines_read=103
+=== t04-mock-folder-is-test-code-a-r04-20261009-151218
+  success=True turns=14 input=415723 output=7562 cost=0.012901460000000002 lines_read=0
+=== t05-missing-sublandscape-config-a-r04-20261009-151323
+  success=True turns=10 input=256091 output=3688 cost=0.00801861 lines_read=0
+=== t06-all-contributors-exported-a-r04-20261009-151411
+  success=True turns=11 input=234542 output=3390 cost=0.007797009999999999 lines_read=0
+=== t07-past-90d-block-a-r04-20261009-151453
+  success=True turns=9 input=219056 output=2342 cost=0.007407150000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r04-20261009-151532
+  success=True turns=15 input=537743 output=6022 cost=0.014674240000000003 lines_read=0
+=== t09-analyzelandscape-command-a-r04-20261009-151627
+  success=True turns=33 input=1164172 output=12788 cost=0.0258332 lines_read=0
+=== t10-group-dependency-npe-a-r04-20261009-151810
+  success=True turns=15 input=499825 output=5420 cost=0.01498132 lines_read=1090
+=== c01-template-literal-duplication-a-r05-20261009-151911
+  success=True turns=24 input=1233435 output=14176 cost=0.030986460000000004 lines_read=0
+=== c02-component-duplication-metrics-a-r05-20261009-152050
+  success=True turns=13 input=376374 output=5914 cost=0.01272748 lines_read=0
+=== t01-undefined-team-active-a-r05-20261009-152152
+  success=True turns=12 input=270693 output=3860 cost=0.00788525 lines_read=0
+=== t02-extension-metric-names-a-r05-20261009-152239
+  success=True turns=59 input=1647202 output=36770 cost=0.10360578000000001 lines_read=147
+=== t03-scoping-conventions-never-matched-a-r05-20261009-152536
+  success=True turns=22 input=670386 output=9919 cost=0.01788984 lines_read=0
+=== t04-mock-folder-is-test-code-a-r05-20261009-152657
+  success=True turns=16 input=401527 output=7094 cost=0.011948650000000002 lines_read=175
+=== t05-missing-sublandscape-config-a-r05-20261009-152759
+  success=True turns=10 input=301699 output=3920 cost=0.0099661 lines_read=0
+=== t06-all-contributors-exported-a-r05-20261009-152846
+  success=True turns=14 input=343668 output=5041 cost=0.01085831 lines_read=338
+=== t07-past-90d-block-a-r05-20261009-152938
+  success=True turns=11 input=284274 output=2606 cost=0.008289350000000001 lines_read=100
+=== t08-scope-file-lists-named-after-aspects-a-r05-20261009-153028
+  success=True turns=12 input=384752 output=5319 cost=0.0116692 lines_read=0
+=== t09-analyzelandscape-command-a-r05-20261009-153129
+  success=True turns=33 input=1002746 output=12555 cost=0.02477585 lines_read=0
+=== t10-group-dependency-npe-a-r05-20261009-153311
+  success=True turns=17 input=400832 output=4907 cost=0.01036389 lines_read=0
+=== c01-template-literal-duplication-a-r06-20261009-153401
+  success=True turns=27 input=1297638 output=13558 cost=0.029768109999999997 lines_read=0
+=== c02-component-duplication-metrics-a-r06-20261009-153546
+  success=True turns=15 input=438564 output=5922 cost=0.013357350000000002 lines_read=432
+=== t01-undefined-team-active-a-r06-20261009-153645
+  success=True turns=13 input=328334 output=3789 cost=0.008490550000000001 lines_read=0
+=== t02-extension-metric-names-a-r06-20261009-153730
+  success=True turns=63 input=1922747 output=31433 cost=0.051064220000000014 lines_read=82
+=== t03-scoping-conventions-never-matched-a-r06-20261009-154015
+  success=True turns=21 input=614793 output=9766 cost=0.01688597 lines_read=23
+=== t04-mock-folder-is-test-code-a-r06-20261009-154140
+  success=True turns=14 input=381671 output=7745 cost=0.012097639999999998 lines_read=0
+=== t05-missing-sublandscape-config-a-r06-20261009-154244
+  success=True turns=14 input=378061 output=4457 cost=0.00994995 lines_read=0
+=== t06-all-contributors-exported-a-r06-20261009-154336
+  success=True turns=10 input=226709 output=3584 cost=0.008361180000000001 lines_read=308
+=== t07-past-90d-block-a-r06-20261009-154422
+  success=True turns=10 input=249919 output=2344 cost=0.00773178 lines_read=90
+=== t08-scope-file-lists-named-after-aspects-a-r06-20261009-154506
+  success=True turns=12 input=333441 output=4948 cost=0.01007797 lines_read=0
+=== t09-analyzelandscape-command-a-r06-20261009-154557
+  success=True turns=28 input=810847 output=10325 cost=0.01973815 lines_read=0
+=== t10-group-dependency-npe-a-r06-20261009-154722
+  success=True turns=15 input=462075 output=4672 cost=0.014405769999999998 lines_read=1090
+=== c01-template-literal-duplication-a-r07-20261009-154814
+  success=True turns=19 input=715572 output=10296 cost=0.0196058 lines_read=70
+=== c02-component-duplication-metrics-a-r07-20261009-154934
+  success=True turns=15 input=396434 output=6083 cost=0.01236942 lines_read=432
+=== t01-undefined-team-active-a-r07-20261009-155034
+  success=True turns=13 input=326211 output=3834 cost=0.008912670000000001 lines_read=0
+=== t02-extension-metric-names-a-r07-20261009-155133
+  success=True turns=25 input=1001532 output=13042 cost=0.027319950000000003 lines_read=5
+=== t03-scoping-conventions-never-matched-a-r07-20261009-155315
+  success=True turns=21 input=653078 output=10921 cost=0.018693530000000003 lines_read=0
+=== t04-mock-folder-is-test-code-a-r07-20261009-155434
+  success=True turns=18 input=457285 output=7216 cost=0.012519900000000002 lines_read=0
+=== t05-missing-sublandscape-config-a-r07-20261009-155539
+  success=True turns=13 input=418007 output=5288 cost=0.012307719999999998 lines_read=0
+=== t06-all-contributors-exported-a-r07-20261009-155632
+  success=True turns=11 input=287708 output=3960 cost=0.009151550000000001 lines_read=0
+=== t07-past-90d-block-a-r07-20261009-155721
+  success=True turns=11 input=348043 output=2657 cost=0.010856339999999999 lines_read=70
+=== t08-scope-file-lists-named-after-aspects-a-r07-20261009-155810
+  success=True turns=10 input=293590 output=4539 cost=0.00968151 lines_read=0
+=== t09-analyzelandscape-command-a-r07-20261009-155908
+  success=True turns=27 input=753077 output=8885 cost=0.018192889999999996 lines_read=0
+=== t10-group-dependency-npe-a-r07-20261009-160040
+  success=True turns=22 input=721250 output=8647 cost=0.01857606 lines_read=0
+=== c01-template-literal-duplication-a-r08-20261009-160238
+  success=True turns=16 input=621317 output=8874 cost=0.01797812 lines_read=34
+=== c02-component-duplication-metrics-a-r08-20261009-160354
+  success=True turns=17 input=577759 output=7317 cost=0.015504140000000003 lines_read=0
+=== t01-undefined-team-active-a-r08-20261009-160502
+  success=True turns=13 input=297985 output=3956 cost=0.00834961 lines_read=0
+=== t02-extension-metric-names-a-r08-20261009-160547
+  success=True turns=30 input=1134234 output=17249 cost=0.03238427 lines_read=20
+=== t03-scoping-conventions-never-matched-a-r08-20261009-160733
+  success=True turns=22 input=656614 output=10506 cost=0.01830669 lines_read=0
+=== t04-mock-folder-is-test-code-a-r08-20261009-160900
+  success=True turns=16 input=423303 output=6812 cost=0.012397809999999999 lines_read=175
+=== t05-missing-sublandscape-config-a-r08-20261009-161011
+  success=True turns=13 input=346389 output=4257 cost=0.009487259999999999 lines_read=0
+=== t06-all-contributors-exported-a-r08-20261009-161114
+  success=True turns=10 input=199247 output=3604 cost=0.00712775 lines_read=75
+=== t07-past-90d-block-a-r08-20261009-161205
+  success=True turns=11 input=339609 output=2789 cost=0.00980553 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r08-20261009-161250
+  success=True turns=12 input=369430 output=5517 cost=0.011436570000000002 lines_read=0
+=== t09-analyzelandscape-command-a-r08-20261009-161347
+  success=True turns=26 input=734995 output=8471 cost=0.01795271 lines_read=0
+=== t10-group-dependency-npe-a-r08-20261009-161453
+  success=True turns=15 input=382105 output=4556 cost=0.010310070000000003 lines_read=0
+=== c01-template-literal-duplication-a-r09-20261009-161542
+  success=True turns=25 input=1278133 output=15612 cost=0.03101485 lines_read=0
+=== c02-component-duplication-metrics-a-r09-20261009-161734
+  success=True turns=17 input=604323 output=6956 cost=0.01701296 lines_read=142
+=== t01-undefined-team-active-a-r09-20261009-161833
+  success=True turns=11 input=228052 output=3059 cost=0.0072552 lines_read=333
+=== t02-extension-metric-names-a-r09-20261009-161912
+  success=True turns=68 input=3398707 output=37647 cost=0.15605366 lines_read=141
+=== t03-scoping-conventions-never-matched-a-r09-20261009-162243
+  success=True turns=23 input=757757 output=9961 cost=0.02010125 lines_read=40
+=== t04-mock-folder-is-test-code-a-r09-20261009-162407
+  success=True turns=21 input=576987 output=11877 cost=0.017131540000000004 lines_read=175
+=== t05-missing-sublandscape-config-a-r09-20261009-162537
+  success=True turns=11 input=318658 output=4624 cost=0.01014967 lines_read=0
+=== t06-all-contributors-exported-a-r09-20261009-162639
+  success=True turns=12 input=283837 output=4072 cost=0.009344400000000001 lines_read=0
+=== t07-past-90d-block-a-r09-20261009-162728
+  success=True turns=10 input=299272 output=2735 cost=0.00896344 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r09-20261009-162807
+  success=True turns=12 input=403759 output=4986 cost=0.01211495 lines_read=0
+=== t09-analyzelandscape-command-a-r09-20261009-162855
+  success=True turns=24 input=726120 output=8817 cost=0.01774663 lines_read=240
+=== t10-group-dependency-npe-a-r09-20261009-163014
+  success=True turns=23 input=618164 output=8739 cost=0.016284379999999998 lines_read=0
+=== c01-template-literal-duplication-a-r10-20261009-163131
+  success=True turns=24 input=992809 output=13475 cost=0.02480324 lines_read=0
+=== c02-component-duplication-metrics-a-r10-20261009-163319
+  success=True turns=15 input=442303 output=6030 cost=0.012682460000000003 lines_read=142
+=== t01-undefined-team-active-a-r10-20261009-163414
+  success=True turns=14 input=356127 output=4298 cost=0.00999464 lines_read=0
+=== t02-extension-metric-names-a-r10-20261009-163502
+  success=True turns=35 input=1464592 output=22658 cost=0.051138770000000014 lines_read=0
+=== t03-scoping-conventions-never-matched-a-r10-20261009-163714
+  success=True turns=17 input=450727 output=8377 cost=0.01403443 lines_read=0
+=== t04-mock-folder-is-test-code-a-r10-20261009-163823
+  success=True turns=17 input=436378 output=7809 cost=0.012713170000000001 lines_read=0
+=== t05-missing-sublandscape-config-a-r10-20261009-163924
+  success=True turns=13 input=337655 output=4421 cost=0.0099404 lines_read=0
+=== t06-all-contributors-exported-a-r10-20261009-164010
+  success=True turns=16 input=391919 output=4972 cost=0.01123277 lines_read=328
+=== t07-past-90d-block-a-r10-20261009-164102
+  success=True turns=9 input=188800 output=2219 cost=0.00596883 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r10-20261009-164137
+  success=True turns=16 input=535498 output=5977 cost=0.014096899999999999 lines_read=0
+=== t09-analyzelandscape-command-a-r10-20261009-164232
+  success=True turns=32 input=1111582 output=12849 cost=0.02551261000000001 lines_read=0
+=== t10-group-dependency-npe-a-r10-20261009-164401
+  success=True turns=16 input=578333 output=5118 cost=0.01532772 lines_read=974

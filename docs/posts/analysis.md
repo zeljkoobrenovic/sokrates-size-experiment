@@ -1,10 +1,10 @@
 # Splitting long files and units does not save an AI coding agent tokens: a controlled experiment, and a comparison with "The Economic Benefit of Refactoring"
 
-*2026-10-09. The Sonnet series is complete (240 runs, 10 per task and variant); the Haiku series is at 200 of 240 and its numbers will be refreshed once. The experiment repository, with the harness, the tasks and every run's record, is `sokrates-size-experiment`; the results page is `docs/index.html`.*
+*2026-10-09. Both series are complete: 240 runs each, 10 per task and variant, no failed acceptance test. The experiment repository, with the harness, the tasks and every run's record, is `sokrates-size-experiment`; the results page is `docs/index.html`.*
 
 ## The answer first
 
-The same twelve changes, made by the same coding agent in two versions of one codebase that differ only in the length of their files and units, cost the same input tokens, output tokens, turns, time and money. Pooled over the ten tasks that land in split files, variant B costs 1.03 times variant A in input tokens with Claude Sonnet 5.5 (95% interval 0.97 to 1.08) and 1.03 with Claude Haiku 5.5 (0.95 to 1.11); two control tasks on byte-identical code scatter more than that. For files that fit in the agent's read budget, file and unit length is not a cost driver. What the agent pays for is the number of places a change touches and the context it re-sends every turn. Sokrates' AI ease-of-change score has been changed accordingly.
+The same twelve changes, made by the same coding agent in two versions of one codebase that differ only in the length of their files and units, cost the same input tokens, output tokens, turns, time and money. Pooled over the ten tasks that land in split files, variant B costs 1.03 times variant A in input tokens with Claude Sonnet 5.5 (95% interval 0.97 to 1.08) and 1.01 with Claude Haiku 5.5 (0.94 to 1.08); two control tasks on byte-identical code scatter more than that. For files that fit in the agent's read budget, file and unit length is not a cost driver. What the agent pays for is the number of places a change touches and the context it re-sends every turn. Sokrates' AI ease-of-change score has been changed accordingly.
 
 ## Where the claim came from
 
@@ -63,20 +63,20 @@ Two tasks lean the way the theory predicts, in opposite directions. t10's fix to
 ## The same with a weaker model
 
 The series was repeated with Claude Haiku 5.5, the weakest current model, through the same harness, tasks and
-permissions: 200 of 240 runs at the time of writing, 8 to 9 per cell, none failed, $3.73 in total.
+permissions: 240 runs, 10 per cell, none failed, $4.48 in total.
 
 | measure | target tasks (split files) | control tasks (identical files) |
 |---|---|---|
-| input tokens incl. cache reads | 1.03 (0.95–1.11) | 0.88 (0.73–1.04) |
-| output tokens | 1.01 (0.96–1.07) | 0.91 (0.79–1.03) |
-| cost | 1.05 (0.96–1.15) | 0.91 (0.80–1.04) |
-| turns | 1.01 (0.96–1.06) | 0.91 (0.80–1.02) |
-| lines seen | 1.24 (1.12–1.36) | 0.99 (0.83–1.17) |
+| input tokens incl. cache reads | 1.01 (0.94–1.08) | 0.89 (0.77–1.05) |
+| output tokens | 1.00 (0.94–1.05) | 0.92 (0.82–1.03) |
+| cost | 1.03 (0.94–1.11) | 0.93 (0.83–1.05) |
+| turns | 0.99 (0.95–1.04) | 0.92 (0.83–1.03) |
+| lines seen | 1.18 (1.06–1.30) | 1.02 (0.88–1.19) |
 
-Haiku behaves differently from Sonnet: it reads about 490 lines of code per run against Sonnet's 150, mostly whole
+Haiku behaves differently from Sonnet: it reads about 500 lines of code per run against Sonnet's 150, mostly whole
 files, takes 15 turns against 13, and spends 450k input tokens per run against 250k, at a tenth of the cost. That is
 the reading habit under which length could matter, and tokens, turns and cost still sit at 1.0. The one measure
-that moves is lines seen: in B Haiku looks at about a quarter more code, on eight of the ten target tasks, while
+that moves is lines seen: in B Haiku looks at about a fifth more code, on seven of the ten target tasks, while
 the controls stay at 1.0. The split spreads a feature over more files, and an agent that opens files whole opens
 more of them. The extra reading does not reach the bill, because the re-sent context dominates it.
 

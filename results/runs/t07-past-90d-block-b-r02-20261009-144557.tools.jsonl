@@ -1,0 +1,7 @@
+{"t": 1791549977.871, "tool": "Bash", "command": "grep -rn \"past 90d\\|past90\\|90d\\|Past90\\|days90\\|90Days\\|past 180\\|180d\" --include=*.java --include=*.html --include=*.js --include=*.properties . | grep -v \"/target/\" | head -50", "lines": 1, "response_chars": 139}
+{"t": 1791549979.147, "tool": "Bash", "command": "grep -rn \"past 90d\\|90d\\|past 180\\|180d\\|Past90\\|90Days\\|180Days\" . --exclude-dir=target --exclude-dir=.git | head -50", "lines": 50, "response_chars": 9458}
+{"t": 1791549980.406, "tool": "Bash", "command": "grep -rln \"active repositories\\|Active repositories\\|activeRepositories\\|ActiveRepositories\" . --exclude-dir=target --exclude-dir=.git", "lines": 2, "response_chars": 310}
+{"t": 1791549981.758, "tool": "Bash", "command": "grep -n -i \"active repositories\\|past\\|LOC\\|365\\|180\\|90\\|30\" reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java | head -80", "lines": 59, "response_chars": 8047}
+{"t": 1791549983.652, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t07-past-90d-block-b-r02-20261009-144557/repo/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportOverviewSection.java", "response_chars": 23590}
+{"t": 1791549988.635, "tool": "Bash", "command": "mvn -q -o -pl reports compile", "lines": 0, "response_chars": 95}
+{"t": 1791549992.662, "tool": "Bash", "command": "mvn -q -o -pl reports test -Dsurefire.failIfNoSpecifiedTests=false", "lines": 0, "response_chars": 95}
