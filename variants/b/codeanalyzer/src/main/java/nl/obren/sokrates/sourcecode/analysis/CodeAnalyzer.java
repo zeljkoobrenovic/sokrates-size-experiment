@@ -52,6 +52,18 @@ public class CodeAnalyzer {
 
         AnalysisUtils.detailedInfo(results.getTextSummary(), progressFeedback, "Start of analysis", start);
 
+        runStructureAnalyzers(progressFeedback);
+
+        runHistoryAndQualityAnalyzers(progressFeedback);
+
+        addTotalAnalysisTimeMetric();
+
+        ProcessingStopwatch.end("analysis");
+
+        return results;
+    }
+
+    private void runStructureAnalyzers(ProgressFeedback progressFeedback) {
         ProcessingStopwatch.start("analysis/basic");
         new BasicsAnalyzer(results, codeConfigurationFile, progressFeedback).analyze();
         ProcessingStopwatch.end("analysis/basic");
@@ -79,7 +91,9 @@ public class CodeAnalyzer {
             new UnitsAnalyzer(results, progressFeedback).analyze();
             ProcessingStopwatch.end("analysis/units");
         }
+    }
 
+    private void runHistoryAndQualityAnalyzers(ProgressFeedback progressFeedback) {
         if (shouldAnalyzeFileHistory()) {
             ProcessingStopwatch.start("analysis/file history");
             new FileHistoryAnalyzer(results, codeConfigurationFile.getParentFile()).analyze();
@@ -101,12 +115,6 @@ public class CodeAnalyzer {
             new ControlsAnalyzer(results, progressFeedback).analyze();
             ProcessingStopwatch.end("analysis/controls");
         }
-
-        addTotalAnalysisTimeMetric();
-
-        ProcessingStopwatch.end("analysis");
-
-        return results;
     }
 
 
