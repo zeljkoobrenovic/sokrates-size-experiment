@@ -10,3 +10,4 @@ analysis/*/reports/
 .DS_Store
 *.iml
 .idea/
+__pycache__/
