@@ -63,66 +63,15 @@ public class LandscapeRepositoriesTagsReport {
 
         report.startTable();
         report.addTableHeader("Tag", "# repositories", "LOC<br>(main)", "LOC<br>(test)", "LOC<br>(active)", "LOC<br>(new)", "# commits<br>(30 days)", "# contributors<br>(30 days)");
-        int tagGroupsCount[] = {0};
-        int tagCount[] = {0};
-        tagGroups.stream().filter(tagGroup -> tagGroup.getRepositoryTags().size() > 0).forEach(tagGroup -> {
-            int count[] = {0};
-            tagGroup.getRepositoryTags().stream().forEach(repositoryTag -> {
-                if (tagsMap.getTagStats(repositoryTag.getKey()) != null) count[0] += 1;
-            });
-            if (count[0] > 0) {
-                tagGroupsCount[0] += 1;
-                tagCount[0] += count[0];
-            }
-
-        });
+        addTagGroupsList(report);
         int index[] = {0};
-        report.addParagraph(formatCountPlural(tagGroupsCount[0], "group", "groups") + " (" + formatCountPlural(tagCount[0], "tag", "tags") + "):");
-        report.startUnorderedList();
         tagGroups.stream().filter(tagGroup -> tagGroup.getRepositoryTags().size() > 0).forEach(tagGroup -> {
-            int count[] = {0};
-            tagGroup.getRepositoryTags().stream().forEach(repositoryTag -> {
-                if (tagsMap.getTagStats(repositoryTag.getKey()) != null) count[0] += 1;
-            });
-            if (count[0] == 0) {
+            int count = countTagsWithStats(tagGroup);
+            if (count == 0) {
                 return;
             }
             index[0] += 1;
-            String item = "<a href='#" + TAG_GROUP_ANCHOR_PREFIX + index[0] + "'><b>" + tagGroup.getName() + "</b></a> (" + count[0] + ")";
-            if (StringUtils.isNotBlank(tagGroup.getDescription())) {
-                item += "<span style='color: grey;'>: " + tagGroup.getDescription() + "</span>";
-            }
-            report.addListItem(item);
-        });
-        report.endUnorderedList();
-        report.addLineBreak();
-        index[0] = 0;
-        tagGroups.stream().filter(tagGroup -> tagGroup.getRepositoryTags().size() > 0).forEach(tagGroup -> {
-            int count[] = {0};
-            tagGroup.getRepositoryTags().stream().forEach(repositoryTag -> {
-                if (tagsMap.getTagStats(repositoryTag.getKey()) != null) count[0] += 1;
-            });
-            if (count[0] == 0) {
-                return;
-            }
-            index[0] += 1;
-            report.startTableRow();
-            report.startMultiColumnTableCell(8, "");
-            report.addAnchor(TAG_GROUP_ANCHOR_PREFIX + index[0]);
-            report.startDiv("border-radius: 9px; padding: 6px; margin-top: 16px; border: 1px solid lightgrey; background-color: " + tagGroup.getColor());
-            report.addHtmlContent(tagGroup.getName() + " (" + count[0] + ")");
-            if (StringUtils.isNotBlank(tagGroup.getDescription())) {
-                report.addHtmlContent("<span style='color: grey;'>: " + tagGroup.getDescription() + "</span>");
-            }
-            addTagGroupSummary(tagGroup, report);
-            addDependencyLinks(report, index);
-
-            report.endTableCell();
-            report.endTableRow();
-            tagGroup.getRepositoryTags().stream()
-                    .filter(t -> (tagsMap.getTagStats(t.getKey()) != null))
-                    .sorted((a, b) -> tagsMap.getTagStats(b.getKey()).getRepositoryAnalysisResults().size() - tagsMap.getTagStats(a.getKey()).getRepositoryAnalysisResults().size())
-                    .forEach(repositoryTag -> addTagRow(report, repositoryTag.getTag(), repositoryTag, tagGroup.getColor()));
+            addTagGroupRows(report, tagGroup, count, index);
         });
         if (tagsMap.containsKey("")) {
             report.addMultiColumnTableCell("&nbsp;", 8);
@@ -132,6 +81,64 @@ public class LandscapeRepositoriesTagsReport {
 
 
         visualizeTagRepositories(report);
+    }
+
+    private int countTagsWithStats(TagGroup tagGroup) {
+        int count[] = {0};
+        tagGroup.getRepositoryTags().stream().forEach(repositoryTag -> {
+            if (tagsMap.getTagStats(repositoryTag.getKey()) != null) count[0] += 1;
+        });
+        return count[0];
+    }
+
+    private void addTagGroupsList(RichTextReport report) {
+        int tagGroupsCount[] = {0};
+        int tagCount[] = {0};
+        tagGroups.stream().filter(tagGroup -> tagGroup.getRepositoryTags().size() > 0).forEach(tagGroup -> {
+            int count = countTagsWithStats(tagGroup);
+            if (count > 0) {
+                tagGroupsCount[0] += 1;
+                tagCount[0] += count;
+            }
+
+        });
+        int index[] = {0};
+        report.addParagraph(formatCountPlural(tagGroupsCount[0], "group", "groups") + " (" + formatCountPlural(tagCount[0], "tag", "tags") + "):");
+        report.startUnorderedList();
+        tagGroups.stream().filter(tagGroup -> tagGroup.getRepositoryTags().size() > 0).forEach(tagGroup -> {
+            int count = countTagsWithStats(tagGroup);
+            if (count == 0) {
+                return;
+            }
+            index[0] += 1;
+            String item = "<a href='#" + TAG_GROUP_ANCHOR_PREFIX + index[0] + "'><b>" + tagGroup.getName() + "</b></a> (" + count + ")";
+            if (StringUtils.isNotBlank(tagGroup.getDescription())) {
+                item += "<span style='color: grey;'>: " + tagGroup.getDescription() + "</span>";
+            }
+            report.addListItem(item);
+        });
+        report.endUnorderedList();
+        report.addLineBreak();
+    }
+
+    private void addTagGroupRows(RichTextReport report, TagGroup tagGroup, int count, int[] index) {
+        report.startTableRow();
+        report.startMultiColumnTableCell(8, "");
+        report.addAnchor(TAG_GROUP_ANCHOR_PREFIX + index[0]);
+        report.startDiv("border-radius: 9px; padding: 6px; margin-top: 16px; border: 1px solid lightgrey; background-color: " + tagGroup.getColor());
+        report.addHtmlContent(tagGroup.getName() + " (" + count + ")");
+        if (StringUtils.isNotBlank(tagGroup.getDescription())) {
+            report.addHtmlContent("<span style='color: grey;'>: " + tagGroup.getDescription() + "</span>");
+        }
+        addTagGroupSummary(tagGroup, report);
+        addDependencyLinks(report, index);
+
+        report.endTableCell();
+        report.endTableRow();
+        tagGroup.getRepositoryTags().stream()
+                .filter(t -> (tagsMap.getTagStats(t.getKey()) != null))
+                .sorted((a, b) -> tagsMap.getTagStats(b.getKey()).getRepositoryAnalysisResults().size() - tagsMap.getTagStats(a.getKey()).getRepositoryAnalysisResults().size())
+                .forEach(repositoryTag -> addTagRow(report, repositoryTag.getTag(), repositoryTag, tagGroup.getColor()));
     }
 
     private void addDependencyLinks(RichTextReport report, int[] index) {
@@ -211,6 +218,13 @@ public class LandscapeRepositoriesTagsReport {
                 });
         new Force3DGraphExporter().export2D3DForceGraph(dependencies, reportsFolder, prefix);
 
+        List<ComponentDependency> directDependencies = getDirectDependencies(repositoryTagsMap);
+        new Force3DGraphExporter().export2D3DForceGraph(directDependencies, reportsFolder, prefix + "_direct");
+
+        writeTagGraphSvgs(prefix, dependencies, directDependencies);
+    }
+
+    private List<ComponentDependency> getDirectDependencies(Map<String, Set<String>> repositoryTagsMap) {
         List<ComponentDependency> directDependencies = new ArrayList<>();
         Map<String, ComponentDependency> directDependenciesMap = new HashMap<>();
         repositoryTagsMap.values().forEach(repositoryTags -> {
@@ -234,8 +248,10 @@ public class LandscapeRepositoriesTagsReport {
         });
 
         directDependencies.forEach(d -> d.setCount(d.getCount() / 2));
-        new Force3DGraphExporter().export2D3DForceGraph(directDependencies, reportsFolder, prefix + "_direct");
+        return directDependencies;
+    }
 
+    private void writeTagGraphSvgs(String prefix, List<ComponentDependency> dependencies, List<ComponentDependency> directDependencies) {
         GraphvizDependencyRenderer graphvizDependencyRenderer = new GraphvizDependencyRenderer();
         graphvizDependencyRenderer.setMaxNumberOfDependencies(100);
         graphvizDependencyRenderer.setTypeGraph();
@@ -318,25 +334,7 @@ public class LandscapeRepositoriesTagsReport {
         report.startTableRow("text-align: center");
         report.startTableCell("vertical-align: top; white-space: nowrap;");
         if (StringUtils.isNotBlank(tagName)) {
-            String tooltip = getTagTooltip(tag);
-
-            String htmlFragment = "";
-            String style = "vertical-align: top; cursor: help; padding: 4px; border-radius: 6px; border: 1px solid lightgrey; background-color: " + color;
-
-            if (renderLangIcons) {
-                String imageHtml = DataImageUtils.getLangDataImageDiv30(tagName);
-                htmlFragment = imageHtml + "<div style='margin: 6px; display: inline-block;'>" + tagName + "</div>";
-            } else if (StringUtils.isNoneBlank(tag.getImageLink())) {
-                int size = 36;
-                String imgStyle = "border: 1px solid grey; border-radius: 50%; padding: 1px; background-color: #fcfcfc; vertical-align: middle; margin-right: 5px; width: " + size + "px; height: " + size + "px; object-fit: contain;";
-                String imageHtml = "<img title='" + tag.getTag() + "' style=\"" + imgStyle + "\" src=\"" +
-                        tag.getImageLink() + "\">";
-                htmlFragment = imageHtml + "<div style='vertical-align: middle; display: inline-block;'>" + tagName + "</div>";
-            } else {
-                htmlFragment = tagName;
-            }
-
-            report.addContentInDivWithTooltip(htmlFragment, tooltip, style);
+            addTagNameCell(report, tagName, tag, color);
         } else {
             report.addContentInDiv("Untagged");
         }
@@ -345,30 +343,7 @@ public class LandscapeRepositoriesTagsReport {
             int totalRepositoriesCount = landscapeAnalysisResults.getRepositoriesCount();
             List<RepositoryAnalysisResults> repositoriesAnalysisResults = new ArrayList<>(stats.getRepositoryAnalysisResults());
             repositoriesAnalysisResults.sort((a, b) -> b.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode() - a.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode());
-            int count = repositoriesAnalysisResults.size();
-            report.startTableCell("text-align: left");
-            String repositoryPercText = FormattingUtils.getFormattedPercentage(totalRepositoriesCount > 0 ? (100.0 * count / totalRepositoriesCount) : 0);
-            report.startShowMoreBlock("<b>" + count + "</b>" + (count == 1 ? " repository" : " repositories")
-                    + (count == 0 ? "" : " <span style='color: grey; font-size: 90%'>(" + repositoryPercText + "%)</span>"));
-            report.startDiv("border-left: 2px solid lightgrey; margin-left: 5px; font-size: 80%");
-            int maxListSize = 100;
-            repositoriesAnalysisResults.stream().limit(maxListSize).forEach(repository -> {
-                CodeAnalysisResults repositoryAnalysisResults = repository.getAnalysisResults();
-                String repositoryReportUrl = getRepositoryReportUrl(repository);
-                report.addContentInDiv(
-                        "<a href='" + repositoryReportUrl + "' target='_blank' style='margin-left: 6px'>" + repositoryAnalysisResults.getMetadata().getName() + "</a> "
-                                + "<span color='lightgrey'>(<b>"
-                                + FormattingUtils.formatCount(repositoryAnalysisResults.getMainAspectAnalysisResults().getLinesOfCode(), "-") + "</b> LOC)</span>");
-            });
-            if (repositoriesAnalysisResults.size() > maxListSize) {
-                report.addContentInDiv("...", "margin-bottom: 10px; margin-left: 7px; font-size: 160%");
-            }
-            report.startDiv("margin-top: 12px; margin-left: 5px; margin-bottom: 8px");
-            report.addNewTabLink("see details...", "data/" + LandscapeDataExport.getTagRepositoriesFileName(tag.getKey()));
-            report.endDiv();
-            report.endDiv();
-            report.endShowMoreBlock();
-            report.endTableCell();
+            addRepositoriesCell(report, tag, repositoriesAnalysisResults, totalRepositoriesCount);
             int mainLoc = landscapeAnalysisResults.getMainLoc();
             int tagMainLoc = repositoriesAnalysisResults.stream()
                     .mapToInt(p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode())
@@ -388,20 +363,7 @@ public class LandscapeRepositoriesTagsReport {
                     .sum();
             String commits30DaysPercText = FormattingUtils.getFormattedPercentage(commitsCount30Days > 0 ? (100.0 * tagCommitsCount30Days / commitsCount30Days) : 0);
             report.addTableCell(FormattingUtils.formatCount(tagCommitsCount30Days, "-") + (tagCommitsCount30Days == 0 ? "" : " <span style='color: grey; font-size: 90%'>(" + commits30DaysPercText + "%)</span>"), "");
-            int totalRecentContributorCount = landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors());
-            int recentContributorCount = getRecentContributorCount(repositoriesAnalysisResults);
-            String recentContributorsPercText = FormattingUtils.getFormattedPercentage(totalRecentContributorCount > 0 ? (100.0 * recentContributorCount / totalRecentContributorCount) : 0);
-            if (recentContributorCount > 0) {
-                report.addTableCell("<div style='vertical-align: middle; display: inline-block'>"
-                                + FormattingUtils.formatCount(recentContributorCount, "-")
-                                + "</div><div style='vertical-align: middle; display: inline-block'>"
-                                + LandscapeReportGenerator.DEVELOPER_SVG_ICON
-                                + "</div>"
-                                + (recentContributorCount == 0 ? "" : " <span style='color: grey; font-size: 90%'>(" + recentContributorsPercText + "%)</span>"),
-                        "vertical-align: middle");
-            } else {
-                report.addTableCell("-", "vertical-align: middle");
-            }
+            addRecentContributorsCell(report, repositoriesAnalysisResults);
         } else {
             report.addTableCell("");
             report.addTableCell("");
@@ -412,6 +374,72 @@ public class LandscapeRepositoriesTagsReport {
         }
 
         report.endTableRow();
+    }
+
+    private void addTagNameCell(RichTextReport report, String tagName, RepositoryTag tag, String color) {
+        String tooltip = getTagTooltip(tag);
+
+        String htmlFragment = "";
+        String style = "vertical-align: top; cursor: help; padding: 4px; border-radius: 6px; border: 1px solid lightgrey; background-color: " + color;
+
+        if (renderLangIcons) {
+            String imageHtml = DataImageUtils.getLangDataImageDiv30(tagName);
+            htmlFragment = imageHtml + "<div style='margin: 6px; display: inline-block;'>" + tagName + "</div>";
+        } else if (StringUtils.isNoneBlank(tag.getImageLink())) {
+            int size = 36;
+            String imgStyle = "border: 1px solid grey; border-radius: 50%; padding: 1px; background-color: #fcfcfc; vertical-align: middle; margin-right: 5px; width: " + size + "px; height: " + size + "px; object-fit: contain;";
+            String imageHtml = "<img title='" + tag.getTag() + "' style=\"" + imgStyle + "\" src=\"" +
+                    tag.getImageLink() + "\">";
+            htmlFragment = imageHtml + "<div style='vertical-align: middle; display: inline-block;'>" + tagName + "</div>";
+        } else {
+            htmlFragment = tagName;
+        }
+
+        report.addContentInDivWithTooltip(htmlFragment, tooltip, style);
+    }
+
+    private void addRepositoriesCell(RichTextReport report, RepositoryTag tag, List<RepositoryAnalysisResults> repositoriesAnalysisResults, int totalRepositoriesCount) {
+        int count = repositoriesAnalysisResults.size();
+        report.startTableCell("text-align: left");
+        String repositoryPercText = FormattingUtils.getFormattedPercentage(totalRepositoriesCount > 0 ? (100.0 * count / totalRepositoriesCount) : 0);
+        report.startShowMoreBlock("<b>" + count + "</b>" + (count == 1 ? " repository" : " repositories")
+                + (count == 0 ? "" : " <span style='color: grey; font-size: 90%'>(" + repositoryPercText + "%)</span>"));
+        report.startDiv("border-left: 2px solid lightgrey; margin-left: 5px; font-size: 80%");
+        int maxListSize = 100;
+        repositoriesAnalysisResults.stream().limit(maxListSize).forEach(repository -> {
+            CodeAnalysisResults repositoryAnalysisResults = repository.getAnalysisResults();
+            String repositoryReportUrl = getRepositoryReportUrl(repository);
+            report.addContentInDiv(
+                    "<a href='" + repositoryReportUrl + "' target='_blank' style='margin-left: 6px'>" + repositoryAnalysisResults.getMetadata().getName() + "</a> "
+                            + "<span color='lightgrey'>(<b>"
+                            + FormattingUtils.formatCount(repositoryAnalysisResults.getMainAspectAnalysisResults().getLinesOfCode(), "-") + "</b> LOC)</span>");
+        });
+        if (repositoriesAnalysisResults.size() > maxListSize) {
+            report.addContentInDiv("...", "margin-bottom: 10px; margin-left: 7px; font-size: 160%");
+        }
+        report.startDiv("margin-top: 12px; margin-left: 5px; margin-bottom: 8px");
+        report.addNewTabLink("see details...", "data/" + LandscapeDataExport.getTagRepositoriesFileName(tag.getKey()));
+        report.endDiv();
+        report.endDiv();
+        report.endShowMoreBlock();
+        report.endTableCell();
+    }
+
+    private void addRecentContributorsCell(RichTextReport report, List<RepositoryAnalysisResults> repositoriesAnalysisResults) {
+        int totalRecentContributorCount = landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors());
+        int recentContributorCount = getRecentContributorCount(repositoriesAnalysisResults);
+        String recentContributorsPercText = FormattingUtils.getFormattedPercentage(totalRecentContributorCount > 0 ? (100.0 * recentContributorCount / totalRecentContributorCount) : 0);
+        if (recentContributorCount > 0) {
+            report.addTableCell("<div style='vertical-align: middle; display: inline-block'>"
+                            + FormattingUtils.formatCount(recentContributorCount, "-")
+                            + "</div><div style='vertical-align: middle; display: inline-block'>"
+                            + LandscapeReportGenerator.DEVELOPER_SVG_ICON
+                            + "</div>"
+                            + (recentContributorCount == 0 ? "" : " <span style='color: grey; font-size: 90%'>(" + recentContributorsPercText + "%)</span>"),
+                    "vertical-align: middle");
+        } else {
+            report.addTableCell("-", "vertical-align: middle");
+        }
     }
 
     private String getTagTooltip(RepositoryTag tag) {
