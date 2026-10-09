@@ -1,0 +1,50 @@
+scripts/build_trace_page.py
+  s_0af420b20b4753::t_6e37c128250bba 1-66
+scripts/turn_trace.py
+  s_0af420b20b4753::t_2be06ac6b129a3 1-317
+  s_0af420b20b4753::t_8c9ca9ccf8bfe7 318-328
+scripts/trace_template.html
+  s_0af420b20b4753::t_412553547c67f5 1-255
+README.md
+  s_0af420b20b4753::t_8564d7f9d08fca 80-81,96-117
+docs/index.html
+  s_0af420b20b4753::t_f5a09b90dd68fd 145
+docs/trace.html
+  s_0af420b20b4753::t_b6e1cd54a32e04 1-255
+docs/traces/c02-component-duplication-metrics-a-r08-20261009-133358.json
+  s_0af420b20b4753::t_321b426b1fdc15 1-294
+docs/traces/t01-undefined-team-active-a-r06-20261009-130934.json
+  s_0af420b20b4753::t_3cb93347ffa93e 1-282
+docs/traces/t01-undefined-team-active-a-r07-20261009-155034.json
+  s_0af420b20b4753::t_72ffa524ed3579 1-340
+docs/traces/t01-undefined-team-active-b-r05-20261009-125844.json
+  s_0af420b20b4753::t_7ee5e020dc40d7 1-265
+docs/traces/t01-undefined-team-active-b-r07-20261009-154840.json
+  s_0af420b20b4753::t_8f0977fd0cc73f 1-400
+docs/traces/t05-missing-sublandscape-config-a-r03-20261009-145902.json
+  s_0af420b20b4753::t_e15aa916d7ce15 1-624
+docs/traces/t05-missing-sublandscape-config-b-r09-20261009-162042.json
+  s_0af420b20b4753::t_c737832d73ded6 1-372
+docs/traces/t07-past-90d-block-a-r08-20261009-134134.json
+  s_0af420b20b4753::t_003114442794c3 1-211
+docs/traces/t07-past-90d-block-b-r06-20261009-131711.json
+  s_0af420b20b4753::t_1c55812acd3c30 1-309
+scripts/build_site.py
+  s_0af420b20b4753::t_193ccf2a0ebbc0 269
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3ea3bc4ec1e347ba29faa2ea26f68e7c8822cae2",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
