@@ -1,0 +1,1007 @@
+.gitignore
+  s_0af420b20b4753::t_8c7ee185069d06 2
+docs/posts/analysis.md
+  s_0af420b20b4753::t_987e5703019a66 3,19,27-32,34,36,38,42-55,61,63,75
+results/runs/c01-template-literal-duplication-a-r05-20261009-125515.json
+  s_a5374a840d3fe9::t_6e0201cc1c09dd 1-43
+results/runs/c01-template-literal-duplication-a-r05-20261009-125515.tools.jsonl
+  s_a5374a840d3fe9::t_34598de60df85a 1-15
+results/runs/c01-template-literal-duplication-b-r02-20261009-122015.json
+  s_a5374a840d3fe9::t_cae7a78799f403 1-43
+results/runs/c01-template-literal-duplication-b-r02-20261009-122015.tools.jsonl
+  s_a5374a840d3fe9::t_9b73c6c9025842 1-14
+results/runs/c02-component-duplication-metrics-a-r02-20261009-121955.json
+  s_a5374a840d3fe9::t_6289cf6d3ab669 1-43
+results/runs/c02-component-duplication-metrics-a-r02-20261009-121955.tools.jsonl
+  s_a5374a840d3fe9::t_8d6449eeb309de 1-9
+results/runs/c02-component-duplication-metrics-a-r05-20261009-125632.json
+  s_a5374a840d3fe9::t_84d5f05a1f6749 1-43
+results/runs/c02-component-duplication-metrics-a-r05-20261009-125632.tools.jsonl
+  s_a5374a840d3fe9::t_e011f300aab0bf 1-8
+results/runs/c02-component-duplication-metrics-b-r01-20261009-120840.json
+  s_a5374a840d3fe9::t_3fc1d9222a95f3 1-43
+results/runs/c02-component-duplication-metrics-b-r01-20261009-120840.tools.jsonl
+  s_a5374a840d3fe9::t_857b6a17aca24b 1-9
+results/runs/c02-component-duplication-metrics-b-r02-20261009-122116.json
+  s_a5374a840d3fe9::t_ec1f93558fbe70 1-43
+results/runs/c02-component-duplication-metrics-b-r02-20261009-122116.tools.jsonl
+  s_a5374a840d3fe9::t_ce4df701d4b570 1-11
+results/runs/c02-component-duplication-metrics-b-r07-20261009-132215.json
+  s_a5374a840d3fe9::t_ef27c23bb78dfe 1-43
+results/runs/c02-component-duplication-metrics-b-r07-20261009-132215.tools.jsonl
+  s_a5374a840d3fe9::t_1df3df712a5334 1-8
+results/runs/t01-undefined-team-active-a-r01-20261009-120853.json
+  s_a5374a840d3fe9::t_e275e90932da7b 1-43
+results/runs/t01-undefined-team-active-a-r01-20261009-120853.tools.jsonl
+  s_a5374a840d3fe9::t_944e7139683974 1-7
+results/runs/t01-undefined-team-active-a-r02-20261009-122108.json
+  s_a5374a840d3fe9::t_2152d9a2fef689 1-43
+results/runs/t01-undefined-team-active-a-r02-20261009-122108.tools.jsonl
+  s_a5374a840d3fe9::t_c1b57e73fed3ff 1-8
+results/runs/t01-undefined-team-active-a-r05-20261009-125727.json
+  s_a5374a840d3fe9::t_c8b8a585acf559 1-43
+results/runs/t01-undefined-team-active-a-r05-20261009-125727.tools.jsonl
+  s_a5374a840d3fe9::t_4cab8cfead9a2a 1-6
+results/runs/t01-undefined-team-active-a-r08-20261009-133506.json
+  s_a5374a840d3fe9::t_7a88ba10c802a9 1-43
+results/runs/t01-undefined-team-active-a-r08-20261009-133506.tools.jsonl
+  s_a5374a840d3fe9::t_f3122961a9da3f 1-12
+results/runs/t01-undefined-team-active-b-r01-20261009-120946.json
+  s_a5374a840d3fe9::t_12fc704da52d2a 1-43
+results/runs/t01-undefined-team-active-b-r01-20261009-120946.tools.jsonl
+  s_a5374a840d3fe9::t_a2c1da6d3ee8e0 1-11
+results/runs/t01-undefined-team-active-b-r08-20261009-133540.json
+  s_a5374a840d3fe9::t_b936708396ac78 1-43
+results/runs/t01-undefined-team-active-b-r08-20261009-133540.tools.jsonl
+  s_a5374a840d3fe9::t_bbab18bf0b8bb0 1-8
+results/runs/t02-extension-metric-names-a-r07-20261009-132237.json
+  s_a5374a840d3fe9::t_725eaa5b4a4566 1-43
+results/runs/t02-extension-metric-names-a-r07-20261009-132237.tools.jsonl
+  s_a5374a840d3fe9::t_994d4d884d727a 1-24
+results/runs/t02-extension-metric-names-a-r08-20261009-133607.json
+  s_a5374a840d3fe9::t_30fd7f9e09dff4 1-43
+results/runs/t02-extension-metric-names-a-r08-20261009-133607.tools.jsonl
+  s_a5374a840d3fe9::t_7e600e3f5bd31a 1-19
+results/runs/t02-extension-metric-names-b-r02-20261009-122308.json
+  s_a5374a840d3fe9::t_9c4d16298697b3 1-43
+results/runs/t02-extension-metric-names-b-r02-20261009-122308.tools.jsonl
+  s_a5374a840d3fe9::t_e7b28c9ccd3b75 1-20
+results/runs/t03-scoping-conventions-never-matched-a-r02-20261009-122348.json
+  s_a5374a840d3fe9::t_4fb7f72fa0fb14 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r02-20261009-122348.tools.jsonl
+  s_a5374a840d3fe9::t_aedf64c7c42181 1-17
+results/runs/t03-scoping-conventions-never-matched-b-r01-20261009-121204.json
+  s_a5374a840d3fe9::t_8fd74822cf6a70 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r01-20261009-121204.tools.jsonl
+  s_a5374a840d3fe9::t_23d150a9b93640 1-16
+results/runs/t03-scoping-conventions-never-matched-b-r02-20261009-122454.json
+  s_a5374a840d3fe9::t_9b07ddbd9a0484 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r02-20261009-122454.tools.jsonl
+  s_a5374a840d3fe9::t_7954c99678df64 1-15
+results/runs/t04-mock-folder-is-test-code-a-r01-20261009-121225.json
+  s_a5374a840d3fe9::t_476ef13554fc1e 1-43
+results/runs/t04-mock-folder-is-test-code-a-r01-20261009-121225.tools.jsonl
+  s_a5374a840d3fe9::t_5a1644b2c41e58 1-7
+results/runs/t04-mock-folder-is-test-code-a-r02-20261009-122500.json
+  s_a5374a840d3fe9::t_e89308c0980e5f 1-43
+results/runs/t04-mock-folder-is-test-code-a-r02-20261009-122500.tools.jsonl
+  s_a5374a840d3fe9::t_0ab6d641c1d4e1 1-6
+results/runs/t04-mock-folder-is-test-code-b-r01-20261009-121311.json
+  s_a5374a840d3fe9::t_812cf56c9a57e8 1-43
+results/runs/t04-mock-folder-is-test-code-b-r01-20261009-121311.tools.jsonl
+  s_a5374a840d3fe9::t_1529d5212702b2 1-7
+results/runs/t04-mock-folder-is-test-code-b-r07-20261009-132710.json
+  s_a5374a840d3fe9::t_3a57e61cef0e20 1-43
+results/runs/t04-mock-folder-is-test-code-b-r07-20261009-132710.tools.jsonl
+  s_a5374a840d3fe9::t_5967d60d4c154a 1-14
+results/runs/t05-missing-sublandscape-config-a-r01-20261009-121325.json
+  s_a5374a840d3fe9::t_24a70951189136 1-43
+results/runs/t05-missing-sublandscape-config-a-r01-20261009-121325.tools.jsonl
+  s_a5374a840d3fe9::t_f3fa70fffcf0da 1-6
+results/runs/t05-missing-sublandscape-config-a-r04-20261009-124945.json
+  s_a5374a840d3fe9::t_3c2070ef4a2704 1-43
+results/runs/t05-missing-sublandscape-config-a-r04-20261009-124945.tools.jsonl
+  s_a5374a840d3fe9::t_e1953722e1a3cc 1-9
+results/runs/t05-missing-sublandscape-config-b-r04-20261009-124955.json
+  s_a5374a840d3fe9::t_d68028f99a3c5f 1-43
+results/runs/t05-missing-sublandscape-config-b-r04-20261009-124955.tools.jsonl
+  s_a5374a840d3fe9::t_d769c160194112 1-7
+results/runs/t05-missing-sublandscape-config-b-r07-20261009-132832.json
+  s_a5374a840d3fe9::t_9f44086ffac450 1-43
+results/runs/t05-missing-sublandscape-config-b-r07-20261009-132832.tools.jsonl
+  s_a5374a840d3fe9::t_bcfdc854566b2d 1-7
+results/runs/t06-all-contributors-exported-a-r04-20261009-125039.json
+  s_a5374a840d3fe9::t_c479d6b1723e5e 1-43
+results/runs/t06-all-contributors-exported-a-r04-20261009-125039.tools.jsonl
+  s_a5374a840d3fe9::t_55e5b457ce6389 1-8
+results/runs/t06-all-contributors-exported-a-r07-20261009-132744.json
+  s_a5374a840d3fe9::t_d682e3bd0ee10a 1-43
+results/runs/t06-all-contributors-exported-a-r07-20261009-132744.tools.jsonl
+  s_a5374a840d3fe9::t_e12ae970d9d29c 1-10
+results/runs/t06-all-contributors-exported-b-r04-20261009-125052.json
+  s_a5374a840d3fe9::t_7aad716ea3eaef 1-43
+results/runs/t06-all-contributors-exported-b-r04-20261009-125052.tools.jsonl
+  s_a5374a840d3fe9::t_a1997934f9cf35 1-9
+results/runs/t06-all-contributors-exported-b-r05-20261009-130407.json
+  s_a5374a840d3fe9::t_4d812fcc094b3b 1-43
+results/runs/t06-all-contributors-exported-b-r05-20261009-130407.tools.jsonl
+  s_a5374a840d3fe9::t_fcf20ceb6ba309 1-9
+results/runs/t07-past-90d-block-a-r07-20261009-132846.json
+  s_a5374a840d3fe9::t_a917d7abd31fc2 1-43
+results/runs/t07-past-90d-block-a-r07-20261009-132846.tools.jsonl
+  s_a5374a840d3fe9::t_3b85a8bd11a690 1-5
+results/runs/t07-past-90d-block-a-r08-20261009-134134.json
+  s_a5374a840d3fe9::t_63c0ccf2ec4b3a 1-43
+results/runs/t07-past-90d-block-a-r08-20261009-134134.tools.jsonl
+  s_a5374a840d3fe9::t_c8470aa2be18ff 1-5
+results/runs/t07-past-90d-block-b-r01-20261009-121603.json
+  s_a5374a840d3fe9::t_6064bed8cab492 1-43
+results/runs/t07-past-90d-block-b-r01-20261009-121603.tools.jsonl
+  s_a5374a840d3fe9::t_ca8fbc7c430451 1-5
+results/runs/t07-past-90d-block-b-r05-20261009-130507.json
+  s_a5374a840d3fe9::t_d6cd63ac5f07ca 1-43
+results/runs/t07-past-90d-block-b-r05-20261009-130507.tools.jsonl
+  s_a5374a840d3fe9::t_39f2abe96f77d3 1-5
+results/runs/t07-past-90d-block-b-r08-20261009-134113.json
+  s_a5374a840d3fe9::t_b6977a4f5f7d68 1-43
+results/runs/t07-past-90d-block-b-r08-20261009-134113.tools.jsonl
+  s_a5374a840d3fe9::t_3414633e2b9167 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-a-r01-20261009-121545.json
+  s_a5374a840d3fe9::t_9c65102a951242 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r01-20261009-121545.tools.jsonl
+  s_a5374a840d3fe9::t_b7084115c34f8d 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-a-r08-20261009-134214.json
+  s_a5374a840d3fe9::t_4e0adeae3524f9 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r08-20261009-134214.tools.jsonl
+  s_a5374a840d3fe9::t_d19bb5ef151055 1-9
+results/runs/t08-scope-file-lists-named-after-aspects-b-r01-20261009-121645.json
+  s_a5374a840d3fe9::t_6d18f32be4d5f0 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r01-20261009-121645.tools.jsonl
+  s_a5374a840d3fe9::t_19cc07bcfa9d42 1-9
+results/runs/t08-scope-file-lists-named-after-aspects-b-r07-20261009-133053.json
+  s_a5374a840d3fe9::t_6720909f9e5116 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r07-20261009-133053.tools.jsonl
+  s_a5374a840d3fe9::t_da497be64c67a3 1-10
+results/runs/t08-scope-file-lists-named-after-aspects-b-r08-20261009-134158.json
+  s_a5374a840d3fe9::t_3013eba618b195 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r08-20261009-134158.tools.jsonl
+  s_a5374a840d3fe9::t_6c2ec20e10caee 1-10
+results/runs/t09-analyzelandscape-command-a-r01-20261009-121637.json
+  s_a5374a840d3fe9::t_e6a5ba0060ef27 1-43
+results/runs/t09-analyzelandscape-command-a-r01-20261009-121637.tools.jsonl
+  s_a5374a840d3fe9::t_76c1f9377e0d5f 1-15
+results/runs/t09-analyzelandscape-command-a-r07-20261009-133022.json
+  s_a5374a840d3fe9::t_f7821969319eca 1-43
+results/runs/t09-analyzelandscape-command-a-r07-20261009-133022.tools.jsonl
+  s_a5374a840d3fe9::t_fec648e0720973 1-13
+results/runs/t10-group-dependency-npe-a-r05-20261009-130605.json
+  s_a5374a840d3fe9::t_66c36dc0b828b0 1-43
+results/runs/t10-group-dependency-npe-a-r05-20261009-130605.tools.jsonl
+  s_a5374a840d3fe9::t_4c0d69e840cae5 1-8
+results/runs/t10-group-dependency-npe-a-r07-20261009-133139.json
+  s_a5374a840d3fe9::t_699d2f553e9577 1-43
+results/runs/t10-group-dependency-npe-a-r07-20261009-133139.tools.jsonl
+  s_a5374a840d3fe9::t_c41defd30b6f2e 1-7
+results/smoke/first-attempt/runs.csv
+  s_0af420b20b4753::t_29e5d492ad0812 1-3
+results/queue.log
+  s_a5374a840d3fe9::t_d814a8105c704d 1
+results/runs.csv
+  s_a5374a840d3fe9::t_f0da5501b5983e 1-241
+results/runs/c01-template-literal-duplication-a-r01-20261009-120649.json
+  s_a5374a840d3fe9::t_70cb0171401f13 1-43
+results/runs/c01-template-literal-duplication-a-r01-20261009-120649.tools.jsonl
+  s_a5374a840d3fe9::t_3549c272c3a59a 1-11
+results/runs/c01-template-literal-duplication-a-r02-20261009-121845.json
+  s_a5374a840d3fe9::t_7fb58651591223 1-43
+results/runs/c01-template-literal-duplication-a-r02-20261009-121845.tools.jsonl
+  s_a5374a840d3fe9::t_2dc88227661809 1-16
+results/runs/c01-template-literal-duplication-a-r03-20261009-123127.json
+  s_a5374a840d3fe9::t_0f42930cfbb73c 1-43
+results/runs/c01-template-literal-duplication-a-r03-20261009-123127.tools.jsonl
+  s_a5374a840d3fe9::t_7b04c2b64de96e 1-21
+results/runs/c01-template-literal-duplication-a-r04-20261009-124346.json
+  s_a5374a840d3fe9::t_55c2106ff40536 1-43
+results/runs/c01-template-literal-duplication-a-r04-20261009-124346.tools.jsonl
+  s_a5374a840d3fe9::t_61f6bc23623dd0 1-11
+results/runs/c01-template-literal-duplication-a-r06-20261009-130647.json
+  s_a5374a840d3fe9::t_e3418b93cd5c2c 1-43
+results/runs/c01-template-literal-duplication-a-r06-20261009-130647.tools.jsonl
+  s_a5374a840d3fe9::t_9db46d2b7facc2 1-20
+results/runs/c01-template-literal-duplication-a-r07-20261009-131934.json
+  s_a5374a840d3fe9::t_2f58b9764a3c14 1-43
+results/runs/c01-template-literal-duplication-a-r07-20261009-131934.tools.jsonl
+  s_a5374a840d3fe9::t_9bf7be867be224 1-14
+results/runs/c01-template-literal-duplication-a-r08-20261009-133226.json
+  s_a5374a840d3fe9::t_be767b29209fa5 1-43
+results/runs/c01-template-literal-duplication-a-r08-20261009-133226.tools.jsonl
+  s_a5374a840d3fe9::t_cee4e064bbe47f 1-16
+results/runs/c01-template-literal-duplication-a-r09-20261009-134524.json
+  s_a5374a840d3fe9::t_7feb888c759d2c 1-43
+results/runs/c01-template-literal-duplication-a-r09-20261009-134524.tools.jsonl
+  s_a5374a840d3fe9::t_091e8069e66da2 1-9
+results/runs/c01-template-literal-duplication-a-r10-20261009-135728.json
+  s_a5374a840d3fe9::t_d79a695f6dbdbf 1-43
+results/runs/c01-template-literal-duplication-a-r10-20261009-135728.tools.jsonl
+  s_a5374a840d3fe9::t_b20801d9bf413d 1-20
+results/runs/c01-template-literal-duplication-b-r01-20261009-120649.json
+  s_a5374a840d3fe9::t_21c630c078bd62 1-43
+results/runs/c01-template-literal-duplication-b-r01-20261009-120649.tools.jsonl
+  s_a5374a840d3fe9::t_0b5a982ed09706 1-21
+results/runs/c01-template-literal-duplication-b-r03-20261009-123206.json
+  s_a5374a840d3fe9::t_acb87fa8d568f2 1-43
+results/runs/c01-template-literal-duplication-b-r03-20261009-123206.tools.jsonl
+  s_a5374a840d3fe9::t_968aca28b5a093 1-8
+results/runs/c01-template-literal-duplication-b-r04-20261009-124335.json
+  s_a5374a840d3fe9::t_7454e0d58cdca0 1-43
+results/runs/c01-template-literal-duplication-b-r04-20261009-124335.tools.jsonl
+  s_a5374a840d3fe9::t_effc285f2801d4 1-13
+results/runs/c01-template-literal-duplication-b-r05-20261009-125529.json
+  s_a5374a840d3fe9::t_f87859790071a0 1-43
+results/runs/c01-template-literal-duplication-b-r05-20261009-125529.tools.jsonl
+  s_a5374a840d3fe9::t_d5f3d1678d0eaa 1-28
+results/runs/c01-template-literal-duplication-b-r06-20261009-130855.json
+  s_a5374a840d3fe9::t_4aa62abfcd8b8c 1-43
+results/runs/c01-template-literal-duplication-b-r06-20261009-130855.tools.jsonl
+  s_a5374a840d3fe9::t_49ce961389a745 1-11
+results/runs/c01-template-literal-duplication-b-r07-20261009-132113.json
+  s_a5374a840d3fe9::t_b89e6a8baad2be 1-43
+results/runs/c01-template-literal-duplication-b-r07-20261009-132113.tools.jsonl
+  s_a5374a840d3fe9::t_c47b2a50ba195a 1-10
+results/runs/c01-template-literal-duplication-b-r08-20261009-133349.json
+  s_a5374a840d3fe9::t_5b5bd7739ea6a3 1-43
+results/runs/c01-template-literal-duplication-b-r08-20261009-133349.tools.jsonl
+  s_a5374a840d3fe9::t_fa8e4925c2da9a 1-9
+results/runs/c01-template-literal-duplication-b-r09-20261009-134459.json
+  s_a5374a840d3fe9::t_7ee435f336116c 1-43
+results/runs/c01-template-literal-duplication-b-r09-20261009-134459.tools.jsonl
+  s_a5374a840d3fe9::t_f12196f6b73e1b 1-12
+results/runs/c01-template-literal-duplication-b-r10-20261009-135716.json
+  s_a5374a840d3fe9::t_b0061d3ed2db34 1-43
+results/runs/c01-template-literal-duplication-b-r10-20261009-135716.tools.jsonl
+  s_a5374a840d3fe9::t_d96cd9e04f711c 1-13
+results/runs/c02-component-duplication-metrics-a-r01-20261009-120757.json
+  s_a5374a840d3fe9::t_d015fac59e75f4 1-43
+results/runs/c02-component-duplication-metrics-a-r01-20261009-120757.tools.jsonl
+  s_a5374a840d3fe9::t_65fccabbec9e8e 1-7
+results/runs/c02-component-duplication-metrics-a-r03-20261009-123255.json
+  s_a5374a840d3fe9::t_44c6ac920f6f0b 1-43
+results/runs/c02-component-duplication-metrics-a-r03-20261009-123255.tools.jsonl
+  s_a5374a840d3fe9::t_0faaebfd94ca66 1-7
+results/runs/c02-component-duplication-metrics-a-r04-20261009-124435.json
+  s_a5374a840d3fe9::t_0c10c6883f5547 1-43
+results/runs/c02-component-duplication-metrics-a-r04-20261009-124435.tools.jsonl
+  s_a5374a840d3fe9::t_efc861cdc3c873 1-8
+results/runs/c02-component-duplication-metrics-a-r06-20261009-130813.json
+  s_a5374a840d3fe9::t_c9c239beb91679 1-43
+results/runs/c02-component-duplication-metrics-a-r06-20261009-130813.tools.jsonl
+  s_a5374a840d3fe9::t_e30683b5b66b4a 1-10
+results/runs/c02-component-duplication-metrics-a-r07-20261009-132045.json
+  s_a5374a840d3fe9::t_ff807e511c6355 1-43
+results/runs/c02-component-duplication-metrics-a-r07-20261009-132045.tools.jsonl
+  s_a5374a840d3fe9::t_6de2bc8e512945 1-9
+results/runs/c02-component-duplication-metrics-a-r08-20261009-133358.json
+  s_a5374a840d3fe9::t_a4c6e5a9308f76 1-43
+results/runs/c02-component-duplication-metrics-a-r08-20261009-133358.tools.jsonl
+  s_a5374a840d3fe9::t_7e38d40271d430 1-8
+results/runs/c02-component-duplication-metrics-a-r09-20261009-134618.json
+  s_a5374a840d3fe9::t_1bebb82e2d4935 1-43
+results/runs/c02-component-duplication-metrics-a-r09-20261009-134618.tools.jsonl
+  s_a5374a840d3fe9::t_76cd1ee940fa66 1-9
+results/runs/c02-component-duplication-metrics-a-r10-20261009-135900.json
+  s_a5374a840d3fe9::t_f6a3558174950f 1-43
+results/runs/c02-component-duplication-metrics-a-r10-20261009-135900.tools.jsonl
+  s_a5374a840d3fe9::t_f6312b9f7c5db3 1-12
+results/runs/c02-component-duplication-metrics-b-r03-20261009-123257.json
+  s_a5374a840d3fe9::t_601fe3c55ff4c3 1-43
+results/runs/c02-component-duplication-metrics-b-r03-20261009-123257.tools.jsonl
+  s_a5374a840d3fe9::t_e420ba689caceb 1-9
+results/runs/c02-component-duplication-metrics-b-r04-20261009-124443.json
+  s_a5374a840d3fe9::t_7fe43fe23146a0 1-43
+results/runs/c02-component-duplication-metrics-b-r04-20261009-124443.tools.jsonl
+  s_a5374a840d3fe9::t_00c47f47e9bca9 1-12
+results/runs/c02-component-duplication-metrics-b-r05-20261009-125736.json
+  s_a5374a840d3fe9::t_6de0aa26f3f7ca 1-43
+results/runs/c02-component-duplication-metrics-b-r05-20261009-125736.tools.jsonl
+  s_a5374a840d3fe9::t_bcb787fe64a2ea 1-10
+results/runs/c02-component-duplication-metrics-b-r06-20261009-131013.json
+  s_a5374a840d3fe9::t_33ecc473641966 1-43
+results/runs/c02-component-duplication-metrics-b-r06-20261009-131013.tools.jsonl
+  s_a5374a840d3fe9::t_3ab314f6725b4c 1-7
+results/runs/c02-component-duplication-metrics-b-r08-20261009-133448.json
+  s_a5374a840d3fe9::t_508029142be8f1 1-43
+results/runs/c02-component-duplication-metrics-b-r08-20261009-133448.tools.jsonl
+  s_a5374a840d3fe9::t_d86de250f77256 1-7
+results/runs/c02-component-duplication-metrics-b-r09-20261009-134600.json
+  s_a5374a840d3fe9::t_40ea797083d8b1 1-43
+results/runs/c02-component-duplication-metrics-b-r09-20261009-134600.tools.jsonl
+  s_a5374a840d3fe9::t_431fde241710dc 1-7
+results/runs/c02-component-duplication-metrics-b-r10-20261009-135825.json
+  s_a5374a840d3fe9::t_ab154f38a8e94f 1-43
+results/runs/c02-component-duplication-metrics-b-r10-20261009-135825.tools.jsonl
+  s_a5374a840d3fe9::t_218022db525679 1-10
+results/runs/t01-undefined-team-active-a-r03-20261009-123352.json
+  s_a5374a840d3fe9::t_e10596d90dd1bd 1-43
+results/runs/t01-undefined-team-active-a-r03-20261009-123352.tools.jsonl
+  s_a5374a840d3fe9::t_b95c8c4c1d6afb 1-10
+results/runs/t01-undefined-team-active-a-r04-20261009-124532.json
+  s_a5374a840d3fe9::t_a385181ddb6f91 1-43
+results/runs/t01-undefined-team-active-a-r04-20261009-124532.tools.jsonl
+  s_a5374a840d3fe9::t_e2dabbb19e3af0 1-6
+results/runs/t01-undefined-team-active-a-r06-20261009-130934.json
+  s_a5374a840d3fe9::t_7f63d90822402e 1-43
+results/runs/t01-undefined-team-active-a-r06-20261009-130934.tools.jsonl
+  s_a5374a840d3fe9::t_a837f2e1fa18a4 1-8
+results/runs/t01-undefined-team-active-a-r07-20261009-132154.json
+  s_a5374a840d3fe9::t_5b1401ad61ad87 1-43
+results/runs/t01-undefined-team-active-a-r07-20261009-132154.tools.jsonl
+  s_a5374a840d3fe9::t_8d0d0e971f8dcf 1-9
+results/runs/t01-undefined-team-active-a-r09-20261009-134727.json
+  s_a5374a840d3fe9::t_f176feaf620aac 1-43
+results/runs/t01-undefined-team-active-a-r09-20261009-134727.tools.jsonl
+  s_a5374a840d3fe9::t_47b3861406111b 1-11
+results/runs/t01-undefined-team-active-a-r10-20261009-140009.json
+  s_a5374a840d3fe9::t_225c2158949cf5 1-43
+results/runs/t01-undefined-team-active-a-r10-20261009-140009.tools.jsonl
+  s_a5374a840d3fe9::t_7449f18148b85c 1-7
+results/runs/t01-undefined-team-active-b-r02-20261009-122222.json
+  s_a5374a840d3fe9::t_8c71fc2b0176a2 1-43
+results/runs/t01-undefined-team-active-b-r02-20261009-122222.tools.jsonl
+  s_a5374a840d3fe9::t_c83d3cc59d05ca 1-6
+results/runs/t01-undefined-team-active-b-r03-20261009-123408.json
+  s_a5374a840d3fe9::t_ae9aa21a9a2ff6 1-43
+results/runs/t01-undefined-team-active-b-r03-20261009-123408.tools.jsonl
+  s_a5374a840d3fe9::t_7be92925417ecb 1-9
+results/runs/t01-undefined-team-active-b-r04-20261009-124550.json
+  s_a5374a840d3fe9::t_d508c03ac004fb 1-43
+results/runs/t01-undefined-team-active-b-r04-20261009-124550.tools.jsonl
+  s_a5374a840d3fe9::t_df8a43ba172411 1-9
+results/runs/t01-undefined-team-active-b-r05-20261009-125844.json
+  s_a5374a840d3fe9::t_63614c87123d82 1-43
+results/runs/t01-undefined-team-active-b-r05-20261009-125844.tools.jsonl
+  s_a5374a840d3fe9::t_169dd15ae0f8da 1-9
+results/runs/t01-undefined-team-active-b-r06-20261009-131114.json
+  s_a5374a840d3fe9::t_2fc7d89213bbaa 1-43
+results/runs/t01-undefined-team-active-b-r06-20261009-131114.tools.jsonl
+  s_a5374a840d3fe9::t_6a3d3f9bfd0026 1-8
+results/runs/t01-undefined-team-active-b-r07-20261009-132326.json
+  s_a5374a840d3fe9::t_b8a47fc45f83a8 1-43
+results/runs/t01-undefined-team-active-b-r07-20261009-132326.tools.jsonl
+  s_a5374a840d3fe9::t_7235b3d670f541 1-9
+results/runs/t01-undefined-team-active-b-r09-20261009-134657.json
+  s_a5374a840d3fe9::t_7f8c9c8d2da0a1 1-43
+results/runs/t01-undefined-team-active-b-r09-20261009-134657.tools.jsonl
+  s_a5374a840d3fe9::t_86360db7ccd4e0 1-7
+results/runs/t01-undefined-team-active-b-r10-20261009-135924.json
+  s_a5374a840d3fe9::t_e16e0d08b1740f 1-43
+results/runs/t01-undefined-team-active-b-r10-20261009-135924.tools.jsonl
+  s_a5374a840d3fe9::t_f75b999b36e31d 1-9
+results/runs/t02-extension-metric-names-a-r01-20261009-120940.json
+  s_a5374a840d3fe9::t_4b6fe3d9dedfcf 1-43
+results/runs/t02-extension-metric-names-a-r01-20261009-120940.tools.jsonl
+  s_a5374a840d3fe9::t_12e8a1b7111bcd 1-20
+results/runs/t02-extension-metric-names-a-r02-20261009-122213.json
+  s_a5374a840d3fe9::t_b758b2162ea3be 1-43
+results/runs/t02-extension-metric-names-a-r02-20261009-122213.tools.jsonl
+  s_a5374a840d3fe9::t_193236292161b6 1-22
+results/runs/t02-extension-metric-names-a-r03-20261009-123442.json
+  s_a5374a840d3fe9::t_34f84ddb3e8b6e 1-43
+results/runs/t02-extension-metric-names-a-r03-20261009-123442.tools.jsonl
+  s_a5374a840d3fe9::t_19e825b0f1683e 1-22
+results/runs/t02-extension-metric-names-a-r04-20261009-124613.json
+  s_a5374a840d3fe9::t_11cb662fefd878 1-43
+results/runs/t02-extension-metric-names-a-r04-20261009-124613.tools.jsonl
+  s_a5374a840d3fe9::t_ae69d8722489f1 1-22
+results/runs/t02-extension-metric-names-a-r05-20261009-125813.json
+  s_a5374a840d3fe9::t_c9f0e998e4f324 1-43
+results/runs/t02-extension-metric-names-a-r05-20261009-125813.tools.jsonl
+  s_a5374a840d3fe9::t_3b4e270fa5abda 1-19
+results/runs/t02-extension-metric-names-a-r06-20261009-131027.json
+  s_a5374a840d3fe9::t_cab9657f80113d 1-43
+results/runs/t02-extension-metric-names-a-r06-20261009-131027.tools.jsonl
+  s_a5374a840d3fe9::t_2de32b41c9cebe 1-23
+results/runs/t02-extension-metric-names-a-r09-20261009-134820.json
+  s_a5374a840d3fe9::t_8847991f3162ef 1-43
+results/runs/t02-extension-metric-names-a-r09-20261009-134820.tools.jsonl
+  s_a5374a840d3fe9::t_5671cdf946f623 1-22
+results/runs/t02-extension-metric-names-a-r10-20261009-140100.json
+  s_a5374a840d3fe9::t_bdded0df43106b 1-43
+results/runs/t02-extension-metric-names-a-r10-20261009-140100.tools.jsonl
+  s_a5374a840d3fe9::t_0146f308f20b63 1-21
+results/runs/t02-extension-metric-names-b-r01-20261009-121035.json
+  s_a5374a840d3fe9::t_522579f461f03f 1-43
+results/runs/t02-extension-metric-names-b-r01-20261009-121035.tools.jsonl
+  s_a5374a840d3fe9::t_3f969262c70945 1-19
+results/runs/t02-extension-metric-names-b-r03-20261009-123452.json
+  s_a5374a840d3fe9::t_69b2097e54f4c3 1-43
+results/runs/t02-extension-metric-names-b-r03-20261009-123452.tools.jsonl
+  s_a5374a840d3fe9::t_a0b1b2d3666674 1-23
+results/runs/t02-extension-metric-names-b-r04-20261009-124631.json
+  s_a5374a840d3fe9::t_2012bfd6f7a153 1-43
+results/runs/t02-extension-metric-names-b-r04-20261009-124631.tools.jsonl
+  s_a5374a840d3fe9::t_dbf5998549593f 1-19
+results/runs/t02-extension-metric-names-b-r05-20261009-125933.json
+  s_a5374a840d3fe9::t_4be9691a983cf0 1-43
+results/runs/t02-extension-metric-names-b-r05-20261009-125933.tools.jsonl
+  s_a5374a840d3fe9::t_4f8a0395f3dab4 1-17
+results/runs/t02-extension-metric-names-b-r06-20261009-131206.json
+  s_a5374a840d3fe9::t_3223804fd3de8d 1-43
+results/runs/t02-extension-metric-names-b-r06-20261009-131206.tools.jsonl
+  s_a5374a840d3fe9::t_edb7f442d56a86 1-19
+results/runs/t02-extension-metric-names-b-r07-20261009-132433.json
+  s_a5374a840d3fe9::t_9e988d65818c5f 1-43
+results/runs/t02-extension-metric-names-b-r07-20261009-132433.tools.jsonl
+  s_a5374a840d3fe9::t_80d717f7daf3e2 1-20
+results/runs/t02-extension-metric-names-b-r08-20261009-133626.json
+  s_a5374a840d3fe9::t_342f2c6a4f3309 1-43
+results/runs/t02-extension-metric-names-b-r08-20261009-133626.tools.jsonl
+  s_a5374a840d3fe9::t_7c68de09dc3fc8 1-18
+results/runs/t02-extension-metric-names-b-r09-20261009-134743.json
+  s_a5374a840d3fe9::t_1fce1f1b747253 1-43
+results/runs/t02-extension-metric-names-b-r09-20261009-134743.tools.jsonl
+  s_a5374a840d3fe9::t_b86e3f74af776c 1-21
+results/runs/t02-extension-metric-names-b-r10-20261009-140006.json
+  s_a5374a840d3fe9::t_61bb4f263caf14 1-43
+results/runs/t02-extension-metric-names-b-r10-20261009-140006.tools.jsonl
+  s_a5374a840d3fe9::t_acd08d0357bb12 1-20
+results/runs/t03-scoping-conventions-never-matched-a-r01-20261009-121125.json
+  s_a5374a840d3fe9::t_69905a0a4cb054 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r01-20261009-121125.tools.jsonl
+  s_a5374a840d3fe9::t_05d8e21bbd5607 1-14
+results/runs/t03-scoping-conventions-never-matched-a-r03-20261009-123615.json
+  s_a5374a840d3fe9::t_10832727ea854c 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r03-20261009-123615.tools.jsonl
+  s_a5374a840d3fe9::t_d60c555780b591 1-16
+results/runs/t03-scoping-conventions-never-matched-a-r04-20261009-124749.json
+  s_a5374a840d3fe9::t_83d1fb693bbc48 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r04-20261009-124749.tools.jsonl
+  s_a5374a840d3fe9::t_4298f9cff22ffb 1-12
+results/runs/t03-scoping-conventions-never-matched-a-r05-20261009-125936.json
+  s_a5374a840d3fe9::t_63ea9dd7057ec8 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r05-20261009-125936.tools.jsonl
+  s_a5374a840d3fe9::t_f8c89bf93a263a 1-13
+results/runs/t03-scoping-conventions-never-matched-a-r06-20261009-131223.json
+  s_a5374a840d3fe9::t_ddf9bf8fc9949f 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r06-20261009-131223.tools.jsonl
+  s_a5374a840d3fe9::t_ac68cfeab0c44c 1-16
+results/runs/t03-scoping-conventions-never-matched-a-r07-20261009-132439.json
+  s_a5374a840d3fe9::t_e89731c204119b 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r07-20261009-132439.tools.jsonl
+  s_a5374a840d3fe9::t_c9dff31f8d24d5 1-17
+results/runs/t03-scoping-conventions-never-matched-a-r08-20261009-133744.json
+  s_a5374a840d3fe9::t_04fa99cb6a4a0d 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r08-20261009-133744.tools.jsonl
+  s_a5374a840d3fe9::t_072feeb43f3af5 1-12
+results/runs/t03-scoping-conventions-never-matched-a-r09-20261009-134957.json
+  s_a5374a840d3fe9::t_f954f78bbb0291 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r09-20261009-134957.tools.jsonl
+  s_a5374a840d3fe9::t_9e2d133c6f49f1 1-13
+results/runs/t03-scoping-conventions-never-matched-a-r10-20261009-140230.json
+  s_a5374a840d3fe9::t_cb4c34c5bcf71e 1-43
+results/runs/t03-scoping-conventions-never-matched-a-r10-20261009-140230.tools.jsonl
+  s_a5374a840d3fe9::t_a57f2d98fdfe90 1-11
+results/runs/t03-scoping-conventions-never-matched-b-r03-20261009-123625.json
+  s_a5374a840d3fe9::t_d0eadf5bbdd85e 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r03-20261009-123625.tools.jsonl
+  s_a5374a840d3fe9::t_4942128dd95313 1-16
+results/runs/t03-scoping-conventions-never-matched-b-r04-20261009-124756.json
+  s_a5374a840d3fe9::t_5395b9d462033d 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r04-20261009-124756.tools.jsonl
+  s_a5374a840d3fe9::t_9426e61caf9372 1-13
+results/runs/t03-scoping-conventions-never-matched-b-r05-20261009-130104.json
+  s_a5374a840d3fe9::t_7aadf320d8df8a 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r05-20261009-130104.tools.jsonl
+  s_a5374a840d3fe9::t_b83d3dcda55cb7 1-15
+results/runs/t03-scoping-conventions-never-matched-b-r06-20261009-131342.json
+  s_a5374a840d3fe9::t_b6fac18811da97 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r06-20261009-131342.tools.jsonl
+  s_a5374a840d3fe9::t_89c5d756d5668a 1-16
+results/runs/t03-scoping-conventions-never-matched-b-r07-20261009-132616.json
+  s_a5374a840d3fe9::t_c82a23f1a6bfdb 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r07-20261009-132616.tools.jsonl
+  s_a5374a840d3fe9::t_c0b1af70759e2a 1-13
+results/runs/t03-scoping-conventions-never-matched-b-r08-20261009-133754.json
+  s_a5374a840d3fe9::t_832fe976ad4454 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r08-20261009-133754.tools.jsonl
+  s_a5374a840d3fe9::t_a285a1b534005b 1-13
+results/runs/t03-scoping-conventions-never-matched-b-r09-20261009-134919.json
+  s_a5374a840d3fe9::t_8b3312162ee40a 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r09-20261009-134919.tools.jsonl
+  s_a5374a840d3fe9::t_6f7aa867c47f75 1-16
+results/runs/t03-scoping-conventions-never-matched-b-r10-20261009-140156.json
+  s_a5374a840d3fe9::t_6819693e283331 1-43
+results/runs/t03-scoping-conventions-never-matched-b-r10-20261009-140156.tools.jsonl
+  s_a5374a840d3fe9::t_e9fa1a9ed228a3 1-15
+results/runs/t04-mock-folder-is-test-code-a-r03-20261009-123727.json
+  s_a5374a840d3fe9::t_0a51cb3b54581c 1-43
+results/runs/t04-mock-folder-is-test-code-a-r03-20261009-123727.tools.jsonl
+  s_a5374a840d3fe9::t_21cc4ba4a233cf 1-12
+results/runs/t04-mock-folder-is-test-code-a-r04-20261009-124847.json
+  s_a5374a840d3fe9::t_08eeb9cb06c9a0 1-43
+results/runs/t04-mock-folder-is-test-code-a-r04-20261009-124847.tools.jsonl
+  s_a5374a840d3fe9::t_734c38233fc6ac 1-9
+results/runs/t04-mock-folder-is-test-code-a-r05-20261009-130037.json
+  s_a5374a840d3fe9::t_265cc971ecce78 1-43
+results/runs/t04-mock-folder-is-test-code-a-r05-20261009-130037.tools.jsonl
+  s_a5374a840d3fe9::t_cf4faab54180df 1-9
+results/runs/t04-mock-folder-is-test-code-a-r06-20261009-131326.json
+  s_a5374a840d3fe9::t_b34c460f8c775c 1-43
+results/runs/t04-mock-folder-is-test-code-a-r06-20261009-131326.tools.jsonl
+  s_a5374a840d3fe9::t_cda9658dfbe570 1-10
+results/runs/t04-mock-folder-is-test-code-a-r07-20261009-132605.json
+  s_a5374a840d3fe9::t_c9c60c121d6643 1-43
+results/runs/t04-mock-folder-is-test-code-a-r07-20261009-132605.tools.jsonl
+  s_a5374a840d3fe9::t_a5b4e4899c6db5 1-10
+results/runs/t04-mock-folder-is-test-code-a-r08-20261009-133851.json
+  s_a5374a840d3fe9::t_25a679110b9db1 1-43
+results/runs/t04-mock-folder-is-test-code-a-r08-20261009-133851.tools.jsonl
+  s_a5374a840d3fe9::t_3ee3118b4c166f 1-10
+results/runs/t04-mock-folder-is-test-code-a-r09-20261009-135055.json
+  s_a5374a840d3fe9::t_fc7b6d38222bf3 1-43
+results/runs/t04-mock-folder-is-test-code-a-r09-20261009-135055.tools.jsonl
+  s_a5374a840d3fe9::t_4da44d0106c240 1-9
+results/runs/t04-mock-folder-is-test-code-a-r10-20261009-140328.json
+  s_a5374a840d3fe9::t_faad1e9dc5af9f 1-43
+results/runs/t04-mock-folder-is-test-code-a-r10-20261009-140328.tools.jsonl
+  s_a5374a840d3fe9::t_5dca5af0fcc932 1-7
+results/runs/t04-mock-folder-is-test-code-b-r02-20261009-122601.json
+  s_a5374a840d3fe9::t_064f187781c570 1-43
+results/runs/t04-mock-folder-is-test-code-b-r02-20261009-122601.tools.jsonl
+  s_a5374a840d3fe9::t_0d6bc1631a6d01 1-6
+results/runs/t04-mock-folder-is-test-code-b-r03-20261009-123740.json
+  s_a5374a840d3fe9::t_d213e1378e7e79 1-43
+results/runs/t04-mock-folder-is-test-code-b-r03-20261009-123740.tools.jsonl
+  s_a5374a840d3fe9::t_20a8d52b489926 1-11
+results/runs/t04-mock-folder-is-test-code-b-r04-20261009-124904.json
+  s_a5374a840d3fe9::t_b73c281278b19d 1-43
+results/runs/t04-mock-folder-is-test-code-b-r04-20261009-124904.tools.jsonl
+  s_a5374a840d3fe9::t_e2a68c13469bc4 1-7
+results/runs/t04-mock-folder-is-test-code-b-r05-20261009-130208.json
+  s_a5374a840d3fe9::t_5021ca2457cad2 1-43
+results/runs/t04-mock-folder-is-test-code-b-r05-20261009-130208.tools.jsonl
+  s_a5374a840d3fe9::t_5e7095887c1a1b 1-8
+results/runs/t04-mock-folder-is-test-code-b-r06-20261009-131445.json
+  s_a5374a840d3fe9::t_516154be8b966c 1-43
+results/runs/t04-mock-folder-is-test-code-b-r06-20261009-131445.tools.jsonl
+  s_a5374a840d3fe9::t_f7f681dd235d53 1-10
+results/runs/t04-mock-folder-is-test-code-b-r08-20261009-133848.json
+  s_a5374a840d3fe9::t_f782e9bbd219f6 1-43
+results/runs/t04-mock-folder-is-test-code-b-r08-20261009-133848.tools.jsonl
+  s_a5374a840d3fe9::t_48aefa21e962ce 1-9
+results/runs/t04-mock-folder-is-test-code-b-r09-20261009-135036.json
+  s_a5374a840d3fe9::t_c18f4945a9f4da 1-43
+results/runs/t04-mock-folder-is-test-code-b-r09-20261009-135036.tools.jsonl
+  s_a5374a840d3fe9::t_5b282df7d22f10 1-16
+results/runs/t04-mock-folder-is-test-code-b-r10-20261009-140311.json
+  s_a5374a840d3fe9::t_1305cc56a58054 1-43
+results/runs/t04-mock-folder-is-test-code-b-r10-20261009-140311.tools.jsonl
+  s_a5374a840d3fe9::t_e6edb46886634b 1-10
+results/runs/t05-missing-sublandscape-config-a-r02-20261009-122558.json
+  s_a5374a840d3fe9::t_8b72c75d56dbb5 1-43
+results/runs/t05-missing-sublandscape-config-a-r02-20261009-122558.tools.jsonl
+  s_a5374a840d3fe9::t_fb3ef2e77912b3 1-8
+results/runs/t05-missing-sublandscape-config-a-r03-20261009-123835.json
+  s_a5374a840d3fe9::t_dc7f40319ef43f 1-43
+results/runs/t05-missing-sublandscape-config-a-r03-20261009-123835.tools.jsonl
+  s_a5374a840d3fe9::t_e59abec3d9fce0 1-7
+results/runs/t05-missing-sublandscape-config-a-r05-20261009-130133.json
+  s_a5374a840d3fe9::t_90d473432afe20 1-43
+results/runs/t05-missing-sublandscape-config-a-r05-20261009-130133.tools.jsonl
+  s_a5374a840d3fe9::t_a7ed90fbd81b3b 1-8
+results/runs/t05-missing-sublandscape-config-a-r06-20261009-131428.json
+  s_a5374a840d3fe9::t_ab65769495eb8d 1-43
+results/runs/t05-missing-sublandscape-config-a-r06-20261009-131428.tools.jsonl
+  s_a5374a840d3fe9::t_1b04fc3c2f66a0 1-9
+results/runs/t05-missing-sublandscape-config-a-r07-20261009-132702.json
+  s_a5374a840d3fe9::t_4bebda6004cc8d 1-43
+results/runs/t05-missing-sublandscape-config-a-r07-20261009-132702.tools.jsonl
+  s_a5374a840d3fe9::t_bf8af312daa4df 1-8
+results/runs/t05-missing-sublandscape-config-a-r08-20261009-134004.json
+  s_a5374a840d3fe9::t_f3c6dbfb61d894 1-43
+results/runs/t05-missing-sublandscape-config-a-r08-20261009-134004.tools.jsonl
+  s_a5374a840d3fe9::t_c8b8e589073360 1-8
+results/runs/t05-missing-sublandscape-config-a-r09-20261009-135149.json
+  s_a5374a840d3fe9::t_eb7c661f3f8172 1-43
+results/runs/t05-missing-sublandscape-config-a-r09-20261009-135149.tools.jsonl
+  s_a5374a840d3fe9::t_2da3e0099529d8 1-9
+results/runs/t05-missing-sublandscape-config-a-r10-20261009-140431.json
+  s_a5374a840d3fe9::t_94af2df648bc75 1-43
+results/runs/t05-missing-sublandscape-config-a-r10-20261009-140431.tools.jsonl
+  s_a5374a840d3fe9::t_24fc612c7057ea 1-9
+results/runs/t05-missing-sublandscape-config-b-r01-20261009-121414.json
+  s_a5374a840d3fe9::t_2e11d40c5db7e0 1-43
+results/runs/t05-missing-sublandscape-config-b-r01-20261009-121414.tools.jsonl
+  s_a5374a840d3fe9::t_ced69f6444d765 1-9
+results/runs/t05-missing-sublandscape-config-b-r02-20261009-122656.json
+  s_a5374a840d3fe9::t_7dcec00fa077cf 1-43
+results/runs/t05-missing-sublandscape-config-b-r02-20261009-122656.tools.jsonl
+  s_a5374a840d3fe9::t_85a51458fd8bb4 1-7
+results/runs/t05-missing-sublandscape-config-b-r03-20261009-123848.json
+  s_a5374a840d3fe9::t_8365eea62e9d40 1-43
+results/runs/t05-missing-sublandscape-config-b-r03-20261009-123848.tools.jsonl
+  s_a5374a840d3fe9::t_07f355507ee9b4 1-7
+results/runs/t05-missing-sublandscape-config-b-r05-20261009-130315.json
+  s_a5374a840d3fe9::t_fe374c78806f90 1-43
+results/runs/t05-missing-sublandscape-config-b-r05-20261009-130315.tools.jsonl
+  s_a5374a840d3fe9::t_72472fe1c30cd1 1-6
+results/runs/t05-missing-sublandscape-config-b-r06-20261009-131543.json
+  s_a5374a840d3fe9::t_da4381c8dd1995 1-43
+results/runs/t05-missing-sublandscape-config-b-r06-20261009-131543.tools.jsonl
+  s_a5374a840d3fe9::t_da5b49cb395a48 1-7
+results/runs/t05-missing-sublandscape-config-b-r08-20261009-133948.json
+  s_a5374a840d3fe9::t_97f2610a6f1f72 1-43
+results/runs/t05-missing-sublandscape-config-b-r08-20261009-133948.tools.jsonl
+  s_a5374a840d3fe9::t_c407932580baa1 1-7
+results/runs/t05-missing-sublandscape-config-b-r09-20261009-135153.json
+  s_a5374a840d3fe9::t_2be37b983a82ab 1-43
+results/runs/t05-missing-sublandscape-config-b-r09-20261009-135153.tools.jsonl
+  s_a5374a840d3fe9::t_aaee08534f1e9d 1-12
+results/runs/t05-missing-sublandscape-config-b-r10-20261009-140424.json
+  s_a5374a840d3fe9::t_800c2a7206f0d6 1-43
+results/runs/t05-missing-sublandscape-config-b-r10-20261009-140424.tools.jsonl
+  s_a5374a840d3fe9::t_551544f66ebc74 1-6
+results/runs/t06-all-contributors-exported-a-r01-20261009-121407.json
+  s_a5374a840d3fe9::t_4ffadda7614d3b 1-43
+results/runs/t06-all-contributors-exported-a-r01-20261009-121407.tools.jsonl
+  s_a5374a840d3fe9::t_01231b13d234b5 1-8
+results/runs/t06-all-contributors-exported-a-r02-20261009-122654.json
+  s_a5374a840d3fe9::t_0d26bf62c817e3 1-43
+results/runs/t06-all-contributors-exported-a-r02-20261009-122654.tools.jsonl
+  s_a5374a840d3fe9::t_120756dc559c0c 1-9
+results/runs/t06-all-contributors-exported-a-r03-20261009-123919.json
+  s_a5374a840d3fe9::t_9916fd94296af7 1-43
+results/runs/t06-all-contributors-exported-a-r03-20261009-123919.tools.jsonl
+  s_a5374a840d3fe9::t_0e4a303ad856ba 1-8
+results/runs/t06-all-contributors-exported-a-r05-20261009-130223.json
+  s_a5374a840d3fe9::t_b42ed48927bb6a 1-43
+results/runs/t06-all-contributors-exported-a-r05-20261009-130223.tools.jsonl
+  s_a5374a840d3fe9::t_11a4f0bed401d9 1-9
+results/runs/t06-all-contributors-exported-a-r06-20261009-131518.json
+  s_a5374a840d3fe9::t_b7db2bd5386a54 1-43
+results/runs/t06-all-contributors-exported-a-r06-20261009-131518.tools.jsonl
+  s_a5374a840d3fe9::t_57e240e32062c2 1-10
+results/runs/t06-all-contributors-exported-a-r08-20261009-134048.json
+  s_a5374a840d3fe9::t_92ce8395b4b3b8 1-43
+results/runs/t06-all-contributors-exported-a-r08-20261009-134048.tools.jsonl
+  s_a5374a840d3fe9::t_d96203876245ce 1-8
+results/runs/t06-all-contributors-exported-a-r09-20261009-135239.json
+  s_a5374a840d3fe9::t_5903ee2954b92a 1-43
+results/runs/t06-all-contributors-exported-a-r09-20261009-135239.tools.jsonl
+  s_a5374a840d3fe9::t_83b7d1b4b13528 1-9
+results/runs/t06-all-contributors-exported-a-r10-20261009-140530.json
+  s_a5374a840d3fe9::t_b7a1b8920928c9 1-43
+results/runs/t06-all-contributors-exported-a-r10-20261009-140530.tools.jsonl
+  s_a5374a840d3fe9::t_e45f9082db9797 1-9
+results/runs/t06-all-contributors-exported-b-r01-20261009-121514.json
+  s_a5374a840d3fe9::t_4786b8981a41b2 1-43
+results/runs/t06-all-contributors-exported-b-r01-20261009-121514.tools.jsonl
+  s_a5374a840d3fe9::t_d6886435ceacdb 1-9
+results/runs/t06-all-contributors-exported-b-r02-20261009-122744.json
+  s_a5374a840d3fe9::t_94b70c8a9b7984 1-43
+results/runs/t06-all-contributors-exported-b-r02-20261009-122744.tools.jsonl
+  s_a5374a840d3fe9::t_a54747cd04eae3 1-9
+results/runs/t06-all-contributors-exported-b-r03-20261009-123934.json
+  s_a5374a840d3fe9::t_1874990c089a5a 1-43
+results/runs/t06-all-contributors-exported-b-r03-20261009-123934.tools.jsonl
+  s_a5374a840d3fe9::t_0c7b7c915571d9 1-8
+results/runs/t06-all-contributors-exported-b-r06-20261009-131626.json
+  s_a5374a840d3fe9::t_fc4f3b04e1ec4f 1-43
+results/runs/t06-all-contributors-exported-b-r06-20261009-131626.tools.jsonl
+  s_a5374a840d3fe9::t_9a4056c8d77fc4 1-9
+results/runs/t06-all-contributors-exported-b-r07-20261009-132915.json
+  s_a5374a840d3fe9::t_4cedf9357d6f43 1-43
+results/runs/t06-all-contributors-exported-b-r07-20261009-132915.tools.jsonl
+  s_a5374a840d3fe9::t_16a09df52c5d06 1-9
+results/runs/t06-all-contributors-exported-b-r08-20261009-134030.json
+  s_a5374a840d3fe9::t_5a42277dec42db 1-43
+results/runs/t06-all-contributors-exported-b-r08-20261009-134030.tools.jsonl
+  s_a5374a840d3fe9::t_ea5e58a13d6fad 1-8
+results/runs/t06-all-contributors-exported-b-r09-20261009-135254.json
+  s_a5374a840d3fe9::t_a1cc0ac591c4ff 1-43
+results/runs/t06-all-contributors-exported-b-r09-20261009-135254.tools.jsonl
+  s_a5374a840d3fe9::t_011b602aae25b0 1-9
+results/runs/t06-all-contributors-exported-b-r10-20261009-140509.json
+  s_a5374a840d3fe9::t_8fbcd9f483cf7d 1-43
+results/runs/t06-all-contributors-exported-b-r10-20261009-140509.tools.jsonl
+  s_a5374a840d3fe9::t_363ef94429a142 1-9
+results/runs/t07-past-90d-block-a-r01-20261009-121503.json
+  s_a5374a840d3fe9::t_1c291c611a2a5a 1-43
+results/runs/t07-past-90d-block-a-r01-20261009-121503.tools.jsonl
+  s_a5374a840d3fe9::t_de66a3bdb467c5 1-5
+results/runs/t07-past-90d-block-a-r02-20261009-122749.json
+  s_a5374a840d3fe9::t_3ffbf5d8e7648f 1-43
+results/runs/t07-past-90d-block-a-r02-20261009-122749.tools.jsonl
+  s_a5374a840d3fe9::t_2b8865dca6739d 1-6
+results/runs/t07-past-90d-block-a-r03-20261009-124007.json
+  s_a5374a840d3fe9::t_0aac7375538039 1-43
+results/runs/t07-past-90d-block-a-r03-20261009-124007.tools.jsonl
+  s_a5374a840d3fe9::t_ccc336860120a0 1-4
+results/runs/t07-past-90d-block-a-r04-20261009-125135.json
+  s_a5374a840d3fe9::t_461347aeff4867 1-43
+results/runs/t07-past-90d-block-a-r04-20261009-125135.tools.jsonl
+  s_a5374a840d3fe9::t_61d9e0810b4bc7 1-10
+results/runs/t07-past-90d-block-a-r05-20261009-130316.json
+  s_a5374a840d3fe9::t_984c17f80167ca 1-43
+results/runs/t07-past-90d-block-a-r05-20261009-130316.tools.jsonl
+  s_a5374a840d3fe9::t_0108bdd70277a1 1-6
+results/runs/t07-past-90d-block-a-r06-20261009-131613.json
+  s_a5374a840d3fe9::t_22d5bcb6f1bfa2 1-43
+results/runs/t07-past-90d-block-a-r06-20261009-131613.tools.jsonl
+  s_a5374a840d3fe9::t_d739529ba8b1da 1-5
+results/runs/t07-past-90d-block-a-r09-20261009-135324.json
+  s_a5374a840d3fe9::t_1ead578673e29f 1-43
+results/runs/t07-past-90d-block-a-r09-20261009-135324.tools.jsonl
+  s_a5374a840d3fe9::t_deccd402fd2022 1-5
+results/runs/t07-past-90d-block-a-r10-20261009-140613.json
+  s_a5374a840d3fe9::t_34d191606685d7 1-43
+results/runs/t07-past-90d-block-a-r10-20261009-140613.tools.jsonl
+  s_a5374a840d3fe9::t_fbb26201d2cf7c 1-5
+results/runs/t07-past-90d-block-b-r02-20261009-122837.json
+  s_a5374a840d3fe9::t_2a590b81a88359 1-43
+results/runs/t07-past-90d-block-b-r02-20261009-122837.tools.jsonl
+  s_a5374a840d3fe9::t_8acdcd86c0de67 1-5
+results/runs/t07-past-90d-block-b-r03-20261009-124016.json
+  s_a5374a840d3fe9::t_a3aa151905971c 1-43
+results/runs/t07-past-90d-block-b-r03-20261009-124016.tools.jsonl
+  s_a5374a840d3fe9::t_6b549967cfd58a 1-5
+results/runs/t07-past-90d-block-b-r04-20261009-125150.json
+  s_a5374a840d3fe9::t_8a558c0ebf5495 1-43
+results/runs/t07-past-90d-block-b-r04-20261009-125150.tools.jsonl
+  s_a5374a840d3fe9::t_29e727793c3f6b 1-7
+results/runs/t07-past-90d-block-b-r06-20261009-131711.json
+  s_a5374a840d3fe9::t_d860512a19f4b2 1-43
+results/runs/t07-past-90d-block-b-r06-20261009-131711.tools.jsonl
+  s_a5374a840d3fe9::t_94afb521b947b5 1-6
+results/runs/t07-past-90d-block-b-r07-20261009-133009.json
+  s_a5374a840d3fe9::t_2de792a35ccdde 1-43
+results/runs/t07-past-90d-block-b-r07-20261009-133009.tools.jsonl
+  s_a5374a840d3fe9::t_35b7c5f15de30e 1-6
+results/runs/t07-past-90d-block-b-r09-20261009-135344.json
+  s_a5374a840d3fe9::t_d22d2cf961fe14 1-43
+results/runs/t07-past-90d-block-b-r09-20261009-135344.tools.jsonl
+  s_a5374a840d3fe9::t_3d93aec04463bd 1-6
+results/runs/t07-past-90d-block-b-r10-20261009-140554.json
+  s_a5374a840d3fe9::t_7a4cfd0e426bf9 1-43
+results/runs/t07-past-90d-block-b-r10-20261009-140554.tools.jsonl
+  s_a5374a840d3fe9::t_bd334481160591 1-6
+results/runs/t08-scope-file-lists-named-after-aspects-a-r02-20261009-122830.json
+  s_a5374a840d3fe9::t_041dd94c90d2a2 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r02-20261009-122830.tools.jsonl
+  s_a5374a840d3fe9::t_032209d54401a0 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-a-r03-20261009-124042.json
+  s_a5374a840d3fe9::t_047c43c3bdfa62 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r03-20261009-124042.tools.jsonl
+  s_a5374a840d3fe9::t_b259883f4fca70 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-a-r04-20261009-125228.json
+  s_a5374a840d3fe9::t_1799ea97dc41f4 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r04-20261009-125228.tools.jsonl
+  s_a5374a840d3fe9::t_6b88aff33fce0b 1-11
+results/runs/t08-scope-file-lists-named-after-aspects-a-r05-20261009-130359.json
+  s_a5374a840d3fe9::t_552f34733f8991 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r05-20261009-130359.tools.jsonl
+  s_a5374a840d3fe9::t_df047b6d137881 1-6
+results/runs/t08-scope-file-lists-named-after-aspects-a-r06-20261009-131652.json
+  s_a5374a840d3fe9::t_d300c1733035cd 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r06-20261009-131652.tools.jsonl
+  s_a5374a840d3fe9::t_c0b08cf027c6df 1-9
+results/runs/t08-scope-file-lists-named-after-aspects-a-r07-20261009-132929.json
+  s_a5374a840d3fe9::t_ea3dce13075445 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r07-20261009-132929.tools.jsonl
+  s_a5374a840d3fe9::t_912efbb93dbc66 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-a-r09-20261009-135413.json
+  s_a5374a840d3fe9::t_b362af9f67326e 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r09-20261009-135413.tools.jsonl
+  s_a5374a840d3fe9::t_66d65be5081e68 1-14
+results/runs/t08-scope-file-lists-named-after-aspects-a-r10-20261009-140648.json
+  s_a5374a840d3fe9::t_36a511ef507fa5 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-a-r10-20261009-140648.tools.jsonl
+  s_a5374a840d3fe9::t_80b823f6ecd863 1-6
+results/runs/t08-scope-file-lists-named-after-aspects-b-r02-20261009-122913.json
+  s_a5374a840d3fe9::t_7ac82c59b79f8f 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r02-20261009-122913.tools.jsonl
+  s_a5374a840d3fe9::t_bcea7b54442fbf 1-9
+results/runs/t08-scope-file-lists-named-after-aspects-b-r03-20261009-124054.json
+  s_a5374a840d3fe9::t_acf3ac71c08c31 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r03-20261009-124054.tools.jsonl
+  s_a5374a840d3fe9::t_8c250e80a76c72 1-10
+results/runs/t08-scope-file-lists-named-after-aspects-b-r04-20261009-125230.json
+  s_a5374a840d3fe9::t_e35e5795b9e300 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r04-20261009-125230.tools.jsonl
+  s_a5374a840d3fe9::t_2927b9ebcd6cb8 1-8
+results/runs/t08-scope-file-lists-named-after-aspects-b-r05-20261009-130551.json
+  s_a5374a840d3fe9::t_6460e13bc2ef22 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r05-20261009-130551.tools.jsonl
+  s_a5374a840d3fe9::t_daedeced88ec33 1-12
+results/runs/t08-scope-file-lists-named-after-aspects-b-r06-20261009-131753.json
+  s_a5374a840d3fe9::t_69420684ef450c 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r06-20261009-131753.tools.jsonl
+  s_a5374a840d3fe9::t_e5ff5142d27f76 1-12
+results/runs/t08-scope-file-lists-named-after-aspects-b-r09-20261009-135425.json
+  s_a5374a840d3fe9::t_294d226f24b234 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r09-20261009-135425.tools.jsonl
+  s_a5374a840d3fe9::t_015903148c1c2f 1-14
+results/runs/t08-scope-file-lists-named-after-aspects-b-r10-20261009-140634.json
+  s_a5374a840d3fe9::t_8ff244995b082f 1-43
+results/runs/t08-scope-file-lists-named-after-aspects-b-r10-20261009-140634.tools.jsonl
+  s_a5374a840d3fe9::t_a89530d4eb6267 1-12
+results/runs/t09-analyzelandscape-command-a-r02-20261009-122934.json
+  s_a5374a840d3fe9::t_2417c430a00e15 1-43
+results/runs/t09-analyzelandscape-command-a-r02-20261009-122934.tools.jsonl
+  s_a5374a840d3fe9::t_b718834ad8b9ae 1-15
+results/runs/t09-analyzelandscape-command-a-r03-20261009-124159.json
+  s_a5374a840d3fe9::t_bfb89537357ff6 1-43
+results/runs/t09-analyzelandscape-command-a-r03-20261009-124159.tools.jsonl
+  s_a5374a840d3fe9::t_ba7f17bd9b8d94 1-15
+results/runs/t09-analyzelandscape-command-a-r04-20261009-125328.json
+  s_a5374a840d3fe9::t_831b4bed30c646 1-43
+results/runs/t09-analyzelandscape-command-a-r04-20261009-125328.tools.jsonl
+  s_a5374a840d3fe9::t_c077a00076522f 1-12
+results/runs/t09-analyzelandscape-command-a-r05-20261009-130454.json
+  s_a5374a840d3fe9::t_414afb3798c7ae 1-43
+results/runs/t09-analyzelandscape-command-a-r05-20261009-130454.tools.jsonl
+  s_a5374a840d3fe9::t_48c33d966551be 1-13
+results/runs/t09-analyzelandscape-command-a-r06-20261009-131747.json
+  s_a5374a840d3fe9::t_d283b3d81d5f86 1-43
+results/runs/t09-analyzelandscape-command-a-r06-20261009-131747.tools.jsonl
+  s_a5374a840d3fe9::t_06faed71ce2995 1-11
+results/runs/t09-analyzelandscape-command-a-r08-20261009-134326.json
+  s_a5374a840d3fe9::t_a50b7b09ed9b7f 1-43
+results/runs/t09-analyzelandscape-command-a-r08-20261009-134326.tools.jsonl
+  s_a5374a840d3fe9::t_7717cb778f3ded 1-14
+results/runs/t09-analyzelandscape-command-a-r09-20261009-135532.json
+  s_a5374a840d3fe9::t_50a5918bc7cdfa 1-43
+results/runs/t09-analyzelandscape-command-a-r09-20261009-135532.tools.jsonl
+  s_a5374a840d3fe9::t_121d717de684e2 1-14
+results/runs/t09-analyzelandscape-command-a-r10-20261009-140738.json
+  s_a5374a840d3fe9::t_a92722854b7682 1-43
+results/runs/t09-analyzelandscape-command-a-r10-20261009-140738.tools.jsonl
+  s_a5374a840d3fe9::t_15d29a1b8d6d63 1-13
+results/runs/t09-analyzelandscape-command-b-r01-20261009-121801.json
+  s_a5374a840d3fe9::t_b9cff743d10a24 1-43
+results/runs/t09-analyzelandscape-command-b-r01-20261009-121801.tools.jsonl
+  s_a5374a840d3fe9::t_8594ae87a7b9fd 1-12
+results/runs/t09-analyzelandscape-command-b-r02-20261009-123008.json
+  s_a5374a840d3fe9::t_41ea09203fff05 1-43
+results/runs/t09-analyzelandscape-command-b-r02-20261009-123008.tools.jsonl
+  s_a5374a840d3fe9::t_0b9ba1ee30aa00 1-12
+results/runs/t09-analyzelandscape-command-b-r03-20261009-124150.json
+  s_a5374a840d3fe9::t_26835361358777 1-43
+results/runs/t09-analyzelandscape-command-b-r03-20261009-124150.tools.jsonl
+  s_a5374a840d3fe9::t_265070ce27994b 1-12
+results/runs/t09-analyzelandscape-command-b-r04-20261009-125333.json
+  s_a5374a840d3fe9::t_f3b8308921c8fe 1-43
+results/runs/t09-analyzelandscape-command-b-r04-20261009-125333.tools.jsonl
+  s_a5374a840d3fe9::t_62ebd5b8fb22ca 1-13
+results/runs/t09-analyzelandscape-command-b-r05-20261009-130702.json
+  s_a5374a840d3fe9::t_095795e9b9ccfd 1-43
+results/runs/t09-analyzelandscape-command-b-r05-20261009-130702.tools.jsonl
+  s_a5374a840d3fe9::t_72427e4f313a30 1-11
+results/runs/t09-analyzelandscape-command-b-r06-20261009-131858.json
+  s_a5374a840d3fe9::t_40e2de2457c05c 1-43
+results/runs/t09-analyzelandscape-command-b-r06-20261009-131858.tools.jsonl
+  s_a5374a840d3fe9::t_51d4ee8acda8a3 1-12
+results/runs/t09-analyzelandscape-command-b-r07-20261009-133153.json
+  s_a5374a840d3fe9::t_5580df055e3f96 1-43
+results/runs/t09-analyzelandscape-command-b-r07-20261009-133153.tools.jsonl
+  s_a5374a840d3fe9::t_37d56990396611 1-13
+results/runs/t09-analyzelandscape-command-b-r08-20261009-134257.json
+  s_a5374a840d3fe9::t_77baf7c707d6f4 1-43
+results/runs/t09-analyzelandscape-command-b-r08-20261009-134257.tools.jsonl
+  s_a5374a840d3fe9::t_e6230a6619b4aa 1-12
+results/runs/t09-analyzelandscape-command-b-r09-20261009-135527.json
+  s_a5374a840d3fe9::t_de14be078b6620 1-43
+results/runs/t09-analyzelandscape-command-b-r09-20261009-135527.tools.jsonl
+  s_a5374a840d3fe9::t_a201465936aa94 1-11
+results/runs/t09-analyzelandscape-command-b-r10-20261009-140744.json
+  s_a5374a840d3fe9::t_b63c551a5cefee 1-43
+results/runs/t09-analyzelandscape-command-b-r10-20261009-140744.tools.jsonl
+  s_a5374a840d3fe9::t_1dc33ef662f218 1-12
+results/runs/t10-group-dependency-npe-a-r01-20261009-121748.json
+  s_a5374a840d3fe9::t_c29b5ac3e24973 1-43
+results/runs/t10-group-dependency-npe-a-r01-20261009-121748.tools.jsonl
+  s_a5374a840d3fe9::t_bd72cda7522fc3 1-9
+results/runs/t10-group-dependency-npe-a-r02-20261009-123032.json
+  s_a5374a840d3fe9::t_87cb349ad5ceea 1-43
+results/runs/t10-group-dependency-npe-a-r02-20261009-123032.tools.jsonl
+  s_a5374a840d3fe9::t_ca3173c8350954 1-9
+results/runs/t10-group-dependency-npe-a-r03-20261009-124300.json
+  s_a5374a840d3fe9::t_58857047f734f9 1-43
+results/runs/t10-group-dependency-npe-a-r03-20261009-124300.tools.jsonl
+  s_a5374a840d3fe9::t_70549ec115c340 1-8
+results/runs/t10-group-dependency-npe-a-r04-20261009-125433.json
+  s_a5374a840d3fe9::t_b72848dbe2edb5 1-43
+results/runs/t10-group-dependency-npe-a-r04-20261009-125433.tools.jsonl
+  s_a5374a840d3fe9::t_340ae1576eefd9 1-7
+results/runs/t10-group-dependency-npe-a-r06-20261009-131847.json
+  s_a5374a840d3fe9::t_6b83af2fda5ba6 1-43
+results/runs/t10-group-dependency-npe-a-r06-20261009-131847.tools.jsonl
+  s_a5374a840d3fe9::t_39b3ed25742c87 1-7
+results/runs/t10-group-dependency-npe-a-r08-20261009-134435.json
+  s_a5374a840d3fe9::t_4fa6525f5b720b 1-43
+results/runs/t10-group-dependency-npe-a-r08-20261009-134435.tools.jsonl
+  s_a5374a840d3fe9::t_2b7a2b7d759ff5 1-9
+results/runs/t10-group-dependency-npe-a-r09-20261009-135639.json
+  s_a5374a840d3fe9::t_23baedf1589038 1-43
+results/runs/t10-group-dependency-npe-a-r09-20261009-135639.tools.jsonl
+  s_a5374a840d3fe9::t_aa386575eab20f 1-10
+results/runs/t10-group-dependency-npe-a-r10-20261009-140841.json
+  s_a5374a840d3fe9::t_a0b29bc35ceb11 1-43
+results/runs/t10-group-dependency-npe-a-r10-20261009-140841.tools.jsonl
+  s_a5374a840d3fe9::t_3425b19fecc6c7 1-10
+results/runs/t10-group-dependency-npe-b-r01-20261009-121912.json
+  s_a5374a840d3fe9::t_13e6214db7850d 1-43
+results/runs/t10-group-dependency-npe-b-r01-20261009-121912.tools.jsonl
+  s_a5374a840d3fe9::t_0c01941279e742 1-12
+results/runs/t10-group-dependency-npe-b-r02-20261009-123108.json
+  s_a5374a840d3fe9::t_b742f0642fcad1 1-43
+results/runs/t10-group-dependency-npe-b-r02-20261009-123108.tools.jsonl
+  s_a5374a840d3fe9::t_86455f46d510ca 1-11
+results/runs/t10-group-dependency-npe-b-r03-20261009-124246.json
+  s_a5374a840d3fe9::t_9328eaa6453860 1-43
+results/runs/t10-group-dependency-npe-b-r03-20261009-124246.tools.jsonl
+  s_a5374a840d3fe9::t_cfdb41d14c77e3 1-10
+results/runs/t10-group-dependency-npe-b-r04-20261009-125436.json
+  s_a5374a840d3fe9::t_74c0890d14253f 1-43
+results/runs/t10-group-dependency-npe-b-r04-20261009-125436.tools.jsonl
+  s_a5374a840d3fe9::t_ed2abbeb6adeef 1-9
+results/runs/t10-group-dependency-npe-b-r05-20261009-130800.json
+  s_a5374a840d3fe9::t_e1acaf9bd67c07 1-43
+results/runs/t10-group-dependency-npe-b-r05-20261009-130800.tools.jsonl
+  s_a5374a840d3fe9::t_e760b39f87cf73 1-9
+results/runs/t10-group-dependency-npe-b-r06-20261009-132009.json
+  s_a5374a840d3fe9::t_a6724d7e35f843 1-43
+results/runs/t10-group-dependency-npe-b-r06-20261009-132009.tools.jsonl
+  s_a5374a840d3fe9::t_1e68043c258e98 1-12
+results/runs/t10-group-dependency-npe-b-r07-20261009-133256.json
+  s_a5374a840d3fe9::t_dc0c71181573b5 1-43
+results/runs/t10-group-dependency-npe-b-r07-20261009-133256.tools.jsonl
+  s_a5374a840d3fe9::t_3cba6af5e23a2b 1-9
+results/runs/t10-group-dependency-npe-b-r08-20261009-134408.json
+  s_a5374a840d3fe9::t_5ffeea0bb15c7b 1-43
+results/runs/t10-group-dependency-npe-b-r08-20261009-134408.tools.jsonl
+  s_a5374a840d3fe9::t_f0e86f65e549bf 1-10
+results/runs/t10-group-dependency-npe-b-r09-20261009-135623.json
+  s_a5374a840d3fe9::t_529ee1f69366ae 1-43
+results/runs/t10-group-dependency-npe-b-r09-20261009-135623.tools.jsonl
+  s_a5374a840d3fe9::t_80ae7ef61133fe 1-10
+results/runs/t10-group-dependency-npe-b-r10-20261009-140849.json
+  s_a5374a840d3fe9::t_730f070473197f 1-43
+results/runs/t10-group-dependency-npe-b-r10-20261009-140849.tools.jsonl
+  s_a5374a840d3fe9::t_9b0f37d075cc47 1-8
+results/smoke/first-attempt/runs/c01-template-literal-duplication-a-r01-20261009-120444.json
+  s_a5374a840d3fe9::t_0fbf6a449ff80f 1-40
+results/smoke/first-attempt/runs/c01-template-literal-duplication-b-r01-20261009-120444.json
+  s_a5374a840d3fe9::t_e639fd6ac5bfb8 1-40
+results/worker-a.log
+  s_a5374a840d3fe9::t_d07ea8f86b2324 1-240
+results/worker-b.log
+  s_a5374a840d3fe9::t_b22bbf39c745e7 1-240
+results/worker-haiku-a.log
+  s_a5374a840d3fe9::t_871fb9a183aef3 1
+results/worker-haiku-b.log
+  s_a5374a840d3fe9::t_ca2c82ab8f8c54 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "136dca896492296b978a6e387ae4928e5254d40d",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a5374a840d3fe9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1e739205-f794-447f-998f-a952ab7c3735",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
