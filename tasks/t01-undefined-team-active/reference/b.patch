@@ -1,0 +1,13 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributorsAggregator.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributorsAggregator.java
+index 3814384..52ed259 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributorsAggregator.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeContributorsAggregator.java
+@@ -101,7 +101,7 @@ class LandscapeContributorsAggregator {
+ 
+             boolean added = addToTeams(teamsConfig, contributor, email, teams, map);
+ 
+-            if (!added && !remainder.getMembers().contains(email)) {
++            if (!added && contributor.getContributor().isActive() && !remainder.getMembers().contains(contributor)) {
+                 remainder.getMembers().add(contributor);
+                 contributor.getRepositories().forEach(repo -> {
+                     addRepoToTeam(repo, remainder);
