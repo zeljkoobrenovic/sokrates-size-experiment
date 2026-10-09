@@ -172,6 +172,24 @@ public class OverviewReportGenerator {
                 "margin-top: 12px; color: grey");
         report.startSection("Source Code Analysis Scope", "Files includes and excluded from analyses");
         List<String> extensions = codeAnalysisResults.getCodeConfiguration().getExtensions();
+        addExtensionIcons(report, extensions);
+        int totalNumberOfFilesInScope = codeAnalysisResults.getTotalNumberOfFilesInScope();
+        int numberOfExcludedFiles = codeAnalysisResults.getNumberOfExcludedFiles();
+        addExtensionsAndExclusionsList(report, extensions);
+        int totalNumberOfIncludedFiles = totalNumberOfFilesInScope - numberOfExcludedFiles;
+        String scopeSvg = getScopeSvg(totalNumberOfFilesInScope, numberOfExcludedFiles, totalNumberOfIncludedFiles);
+
+        addFilesCountList(report, totalNumberOfFilesInScope, numberOfExcludedFiles, totalNumberOfIncludedFiles, scopeSvg);
+
+        report.startUnorderedList();
+        report.addListItem("<a target='_blank' href='../explorers/files-explorer.html'><b>Explore all files...</b></a>.");
+        report.endUnorderedList();
+
+
+        report.endSection();
+    }
+
+    private void addExtensionIcons(RichTextReport report, List<String> extensions) {
         report.startDiv("margin-top: -8px; margin-bottomL: 12px;");
         Set<String> alreadyAddedImage = new HashSet<>();
         extensions.forEach(lang -> {
@@ -184,9 +202,10 @@ public class OverviewReportGenerator {
             }
         });
         report.endDiv();
+    }
+
+    private void addExtensionsAndExclusionsList(RichTextReport report, List<String> extensions) {
         report.startUnorderedList();
-        int totalNumberOfFilesInScope = codeAnalysisResults.getTotalNumberOfFilesInScope();
-        int numberOfExcludedFiles = codeAnalysisResults.getNumberOfExcludedFiles();
         int extensionsCount = extensions.size();
         report.addListItem("<b>" + extensionsCount + "</b> extension" + (extensionsCount > 1 ? "s are" : " is") + " included in analyses: " + getExtensionsString(extensions));
         List<SourceFileFilter> exclusions = codeAnalysisResults.getCodeConfiguration().getIgnore();
@@ -200,10 +219,10 @@ public class OverviewReportGenerator {
             });
             report.endUnorderedList();
         }
-        int totalNumberOfIncludedFiles = totalNumberOfFilesInScope - numberOfExcludedFiles;
-        String scopeSvg = getScopeSvg(totalNumberOfFilesInScope, numberOfExcludedFiles, totalNumberOfIncludedFiles);
         report.endUnorderedList();
+    }
 
+    private void addFilesCountList(RichTextReport report, int totalNumberOfFilesInScope, int numberOfExcludedFiles, int totalNumberOfIncludedFiles, String scopeSvg) {
         report.startUnorderedList();
         report.addListItem("The source code folder contains " + RichTextRenderingUtils.renderNumberStrong(totalNumberOfFilesInScope) + " files:");
         report.startUnorderedList();
@@ -217,13 +236,6 @@ public class OverviewReportGenerator {
         report.endUnorderedList();
         report.endUnorderedList();
         report.endUnorderedList();
-
-        report.startUnorderedList();
-        report.addListItem("<a target='_blank' href='../explorers/files-explorer.html'><b>Explore all files...</b></a>.");
-        report.endUnorderedList();
-
-
-        report.endSection();
     }
 
     private String getScopeSvg(int totalNumberOfFilesInScope, int numberOfExcludedFiles, int totalNumberOfIncludedFiles) {
