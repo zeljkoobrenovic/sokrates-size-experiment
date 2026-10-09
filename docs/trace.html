@@ -40,7 +40,7 @@ table.grid { border-collapse: separate; border-spacing: 0; font-size: 12px; widt
 .grid td.cell { width: var(--col); min-width: var(--col); text-align: center; vertical-align: bottom; height: 30px; cursor: default; }
 .grid td.total { padding: 0 10px; text-align: right; color: var(--muted); border-left: 1px solid var(--border); min-width: 90px; }
 .grid thead th.total { text-align: right; padding: 0 10px; border-left: 1px solid var(--border); }
-.grid tr.token td.cell { height: 44px; }
+.grid tr.token td.cell { height: 82px; }
 .grid tr.group th { background: var(--surface-2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; height: 22px; }
 .grid tr.group td { background: var(--surface-2); }
 .bar { display: inline-block; width: calc(var(--col) - 8px); margin: 0 4px 3px; border-radius: 3px 3px 0 0; background: var(--c); vertical-align: bottom; min-height: 1px; }
@@ -137,7 +137,7 @@ a { color: var(--read); }
       var t = turns[i], tip = 'turn ' + (i + 1) + ': ' + fmt(v) + ' ' + label.toLowerCase() + ' tokens';
       if (key === 'cache_write' && t.new && !cumulative.checked) {
         tip += NEW_PARTS.map(function (p) { return '\n  ' + fmt(t.new[p[0]]) + ' ' + p[1]; }).join('');
-        var px = NEW_PARTS.map(function (p) { return Math.round(38 * t.new[p[0]] / max); });
+        var px = NEW_PARTS.map(function (p) { return Math.round(76 * t.new[p[0]] / max); });
         if (!px.some(function (x) { return x > 0; })) {  // too small for the scale: one 1px line in the color of the largest part
           var big = NEW_PARTS.reduce(function (b, p, j) { return t.new[p[0]] > t.new[NEW_PARTS[b][0]] ? j : b; }, 0);
           px[big] = 1;
@@ -145,7 +145,7 @@ a { color: var(--read); }
         h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(tip) + '"><span class="stack">' +
           NEW_PARTS.map(function (p, j) { return px[j] ? '<span class="seg" style="--c:' + p[2] + ';height:' + px[j] + 'px"></span>' : ''; }).join('') + '</span></td>';
       } else {
-        h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(tip) + '"><span class="bar" style="--c:' + color + ';height:' + Math.max(1, Math.round(38 * v / max)) + 'px"></span></td>';
+        h += '<td class="cell" data-turn="' + i + '" data-tip="' + esc(tip) + '"><span class="bar" style="--c:' + color + ';height:' + Math.max(1, Math.round(76 * v / max)) + 'px"></span></td>';
       }
     });
     return h + '<td class="total">' + fmt(total) + '</td></tr>';
