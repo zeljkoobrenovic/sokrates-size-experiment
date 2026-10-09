@@ -192,6 +192,21 @@ a { color: var(--read); }
       h += '</td>';
     });
     h += '<td class="total">' + turns.reduce(function (a, t) { return a + t.tools.filter(function (x) { return x.kind !== 'text'; }).length; }, 0) + ' calls</td></tr>';
+    var KINDS = [['search', '\u2003search (grep, find, ls, Grep, Glob)'], ['read', '\u2003read (Read, cat, sed -n, head, tail)'], ['edit', '\u2003edit (Edit, Write, sed -i)'],
+                 ['build', '\u2003build and test (mvn, java)'], ['vcs', '\u2003git'], ['shell', '\u2003other shell']];
+    KINDS.forEach(function (k) {
+      var calls = turns.map(function (t) { return t.tools.filter(function (x) { return x.kind === k[0]; }); });
+      var count = calls.reduce(function (a, c) { return a + c.length; }, 0);
+      if (!count) return;
+      h += '<tr><th class="head">' + esc(k[1]) + '</th>';
+      calls.forEach(function (c, i) {
+        h += '<td class="cell" data-turn="' + i + '"' + (c.length ? ' data-tip="' + esc(c.map(function (x) { return (x.error ? '(failed) ' : '') + x.detail + ' → ' + fmt(x.lines) + ' lines'; }).join('\n')) + '"' : '') + '>';
+        c.forEach(function (x) { h += '<span class="tool ' + x.kind + (x.error ? ' err' : '') + '">' + (LETTER[x.kind] || '?') + '</span>'; });
+        h += '</td>';
+      });
+      var lines = calls.reduce(function (a, c) { return a + c.reduce(function (b, x) { return b + (x.lines || 0); }, 0); }, 0);
+      h += '<td class="total">' + count + (k[0] === 'edit' ? '' : ', ' + fmt(lines) + ' lines') + '</td></tr>';
+    });
 
     var files = trace.files.filter(function (f) { return !hideHits.checked || f.read || f.edits; });
     var hidden = trace.files.length - files.length;
