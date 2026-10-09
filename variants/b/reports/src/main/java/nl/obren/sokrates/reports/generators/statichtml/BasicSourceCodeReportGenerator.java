@@ -155,24 +155,7 @@ public class BasicSourceCodeReportGenerator {
     }
 
     private void createBasicReport() {
-        if (codeAnalyzerSettings.isAnalyzeFilesInScope()) {
-            ProcessingStopwatch.start("reporting/basic");
-            new OverviewReportGenerator(codeAnalysisResults, codeConfigurationFile).addScopeAnalysisToReport(overviewScopeReport);
-            ProcessingStopwatch.end("reporting/basic");
-        }
-
-        if (codeAnalyzerSettings.isAnalyzeLogicalDecomposition()) {
-            ProcessingStopwatch.start("reporting/logical decomposition");
-            new LogicalComponentsReportGenerator(codeAnalysisResults, true).addCodeOrganizationToReport(logicalComponentsReport);
-            new LogicalComponentsReportGenerator(codeAnalysisResults, false).addCodeOrganizationToReport(logicalComponentsAndDependenciesReport);
-            ProcessingStopwatch.end("reporting/logical decomposition");
-        }
-
-        if (codeAnalyzerSettings.isAnalyzeConcerns()) {
-            ProcessingStopwatch.start("reporting/features of interest");
-            new ConcernsReportGenerator(codeAnalysisResults).addConcernsToReport(concernsReport);
-            ProcessingStopwatch.end("reporting/features of interest");
-        }
+        createScopeDecompositionAndConcernsReports();
 
         if (codeAnalyzerSettings.isAnalyzeDuplication()) {
             ProcessingStopwatch.start("reporting/duplication");
@@ -209,6 +192,27 @@ public class BasicSourceCodeReportGenerator {
         }
 
         createFindingsMetricsAndControlsReports();
+    }
+
+    private void createScopeDecompositionAndConcernsReports() {
+        if (codeAnalyzerSettings.isAnalyzeFilesInScope()) {
+            ProcessingStopwatch.start("reporting/basic");
+            new OverviewReportGenerator(codeAnalysisResults, codeConfigurationFile).addScopeAnalysisToReport(overviewScopeReport);
+            ProcessingStopwatch.end("reporting/basic");
+        }
+
+        if (codeAnalyzerSettings.isAnalyzeLogicalDecomposition()) {
+            ProcessingStopwatch.start("reporting/logical decomposition");
+            new LogicalComponentsReportGenerator(codeAnalysisResults, true).addCodeOrganizationToReport(logicalComponentsReport);
+            new LogicalComponentsReportGenerator(codeAnalysisResults, false).addCodeOrganizationToReport(logicalComponentsAndDependenciesReport);
+            ProcessingStopwatch.end("reporting/logical decomposition");
+        }
+
+        if (codeAnalyzerSettings.isAnalyzeConcerns()) {
+            ProcessingStopwatch.start("reporting/features of interest");
+            new ConcernsReportGenerator(codeAnalysisResults).addConcernsToReport(concernsReport);
+            ProcessingStopwatch.end("reporting/features of interest");
+        }
     }
 
     private void createHistoryReports() {
