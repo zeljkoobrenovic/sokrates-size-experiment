@@ -1,0 +1,23 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryHistorySections.java
+  s_0af420b20b4753::t_1b81dfaf6d2d95 1-209
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java
+  s_0af420b20b4753::t_c7e7c9fcb00491 23,27,115,143-148,174,176,206,208,241,372,376,380,384,388
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryVisuals.java
+  s_0af420b20b4753::t_82c2da12d1d08d 1-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a124465c3fe462c8d0a8b1e93afd01d8994eae7d",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
