@@ -15,13 +15,27 @@ real tasks with known solutions, and it has the profile wanted: 48,137 main line
 
 | | variant A | variant B |
 |---|---|---|
-| source | the snapshot as is (`variants/a`) | A with every main file ≤ 500 LOC and every unit ≤ 50 LOC / McCabe ≤ 25, nothing else changed (`variants/b`, to be made: `scripts/make_variant_b.md`) |
-| Human ease of change (Sokrates) | 6.4 (C) | |
-| AI ease of change (Sokrates) | 6.6 (B) | |
-| context lines per change (past year, 52 changes) | 1,690 | |
+| source | the snapshot as is (`variants/a`) | A with every main file ≤ 500 LOC and every unit ≤ 50 LOC / McCabe ≤ 25, nothing else changed (`variants/b`; how: `scripts/make_variant_b.md`) |
+| main code | 489 files, 48,137 LOC | 541 files, 49,401 LOC (+2.6%: constructors, delegations, imports of the helpers) |
+| files > 500 LOC / units > 50 LOC or McCabe > 25 | 14 / 60 | 0 / 0 |
+| Human ease of change (Sokrates) | 6.4 (C) | 7.2 (B) |
+| AI ease of change (Sokrates) | 6.6 (B) | 7.7 (B) |
+| context lines per change (past year, 52 changes) | 1,690 | 774 |
 
 (Predictions from `analysis/<variant>/reports`, reference date 2025-09-20 so the history windows are the ones the
-snapshot had; regenerate with `scripts/analyze_variant.sh <variant>`.)
+snapshot had; regenerate with `scripts/analyze_variant.sh <variant>`. B is measured against A's git history: split
+files keep their original path, so a change to one of them counts against the now smaller file, while the helper
+classes have no history. Both configs ignore `target/`, since both variants are built in place.)
+
+**How B was made (2026-10-09).** Five parallel batches (one per group of files, in git worktrees, branches `split/1`–`5`,
+merged into main) applied only *extract method* and *extract class* to the 14 files and 60 units of
+`analysis/targets-a.md`: 48 new package-private helper classes in the same packages, every original class keeping
+its name, constructors and public/package-private API and delegating; the order of every report call and file write
+kept. After each file: module tests green, `scripts/golden.sh b` identical (850 normalized files of two repository
+reports and a landscape), re-measured with Sokrates. The split history is in the merge commits. Deviations to know:
+in `LandscapeAnalysisResults` the 141 trivial accessors (getters, setters, one-line delegates) are written on one line
+each, because in the original three-line style they alone exceed the threshold and moving public members was not
+allowed; a few private members became package-private for the helpers; helper classes have their own loggers.
 
 **Tasks.** Real changes made to this code after the snapshot, re-derived against the snapshot and written as a
 behaviour description plus a JUnit acceptance test that fails before and passes after (`tasks/`, candidates mined
@@ -85,5 +99,6 @@ cache reads) + the acceptance test.
       acceptance test verified to fail before / pass after the reference change
 - [x] harness with tool-call logging, acceptance run and CSV results; one smoke run on A
 - [ ] 5–9 more target tasks + 2 control tasks
-- [ ] variant B (mechanical split to the thresholds, golden output identical), its analysis and predictions
+- [x] variant B (mechanical split to the thresholds, golden output identical, all tests green), its analysis and predictions
+- [x] t01's acceptance test compiles against B unchanged (the target code now sits in `LandscapeContributorsAggregator`)
 - [ ] the runs, the summary, the write-up
