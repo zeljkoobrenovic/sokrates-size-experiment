@@ -1,0 +1,1487 @@
+README.md
+  s_0af420b20b4753::t_3848b1ae5f47cc 1-89
+scripts/mine_tasks.py
+  s_0af420b20b4753::t_2f80566b7e74f3 1-97
+  s_0af420b20b4753::t_d48648cdb77661 98-107
+scripts/targets.py
+  s_0af420b20b4753::t_c7981e6bb40a39 1-127
+harness/hooks/log_tool.py
+  s_0af420b20b4753::t_d83056f7b63a6c 1-69
+harness/run.py
+  s_0af420b20b4753::t_fc4f71c8e5c8c9 1-307
+  s_0af420b20b4753::t_40b7642b388034 308
+harness/summarize.py
+  s_0af420b20b4753::t_0f4cbcf63e6ce4 1-112
+.gitignore
+  s_0af420b20b4753::t_9ebf435bd66a0a 1-12
+analysis/a/git-commit-trailers.txt
+  s_0af420b20b4753::t_faa7cf404147c5 1-26
+analysis/a/git-commits.txt
+  s_0af420b20b4753::t_062b264ff34531 1-567
+analysis/a/git-history.txt
+  s_0af420b20b4753::t_8861c09d5e6128 1-5934
+analysis/targets-a.md
+  s_0af420b20b4753::t_a84b2efdfcf219 1-93
+harness/config.json
+  s_0af420b20b4753::t_2a96db61161c0a 1-24
+harness/prompt-preamble.md
+  s_0af420b20b4753::t_c6e24b0665dda3 1-8
+harness/settings.template.json
+  s_0af420b20b4753::t_8c868149af8888 1-11
+results/smoke/diff.patch
+  s_0af420b20b4753::t_9bf0de3ac782cd 1-13
+results/smoke/runs.csv
+  s_0af420b20b4753::t_35213d32a387a0 1-2
+results/smoke/t01-undefined-team-active-a-r01-20261009-111205.json
+  s_0af420b20b4753::t_8e700bafa61681 1-40
+results/smoke/tools.jsonl
+  s_0af420b20b4753::t_1a3e8d1ee8dd68 1-8
+scripts/golden.sh
+  s_0af420b20b4753::t_5c835a06c6cd64 1-34
+scripts/make_variant_b.md
+  s_0af420b20b4753::t_dba07d89cca951 1-33
+tasks/README.md
+  s_0af420b20b4753::t_b7e7ff78a9d37b 1-11
+tasks/candidates.md
+  s_0af420b20b4753::t_8eb1765a281fac 1-112
+variants/a/.gitignore
+  s_0af420b20b4753::t_113c00b157b66d 1-18
+variants/a/.ignore
+  s_0af420b20b4753::t_788415fd6d7d5d 1-11
+variants/a/LICENSE
+  s_0af420b20b4753::t_5bcc3d8d507b4d 1-661
+variants/a/README.md
+  s_0af420b20b4753::t_18016950186911 1-30
+variants/a/assembly.xml
+  s_0af420b20b4753::t_1b14edd7bd238b 1-29
+variants/a/buildspec.yml
+  s_0af420b20b4753::t_e7b01eb1dce5eb 1-27
+variants/a/cli/pom.xml
+  s_0af420b20b4753::t_53b66106f3341a 1-69
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+  s_0af420b20b4753::t_5a6ef4925c147d 1-904
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/CommandUsage.java
+  s_0af420b20b4753::t_1fa864d3627dcb 1-42
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+  s_0af420b20b4753::t_715f1242f6e291 1-393
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/PathStringsToTreeStructure.java
+  s_0af420b20b4753::t_f18c8df86c73b3 1-236
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/SokratesFileUtils.java
+  s_0af420b20b4753::t_01a497a6378c53 1-89
+variants/a/cli/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
+  s_0af420b20b4753::t_42ceeb5b7de39a 1-94
+variants/a/codeanalyzer/pom.xml
+  s_0af420b20b4753::t_4c2bc83258de4e 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/CleaningResult.java
+  s_0af420b20b4753::t_ffc6e5f4eb3562 1-34
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/ExtensionGroup.java
+  s_0af420b20b4753::t_d0bfecf57efda2 1-47
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/ExtensionGroupExtractor.java
+  s_0af420b20b4753::t_a50e64f83bbf5d 1-246
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/IgnoredFilesGroup.java
+  s_0af420b20b4753::t_43dafe473ce312 1-36
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/Link.java
+  s_0af420b20b4753::t_60dc69ff8f3c8e 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/Metadata.java
+  s_0af420b20b4753::t_1f7213655d92a1 1-65
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/SearcheableFilesCache.java
+  s_0af420b20b4753::t_ea5763f94d38ac 1-141
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/SourceCodeFiles.java
+  s_0af420b20b4753::t_1fce3ea1f9829e 1-289
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/SourceFile.java
+  s_0af420b20b4753::t_2dcecad6de2cd4 1-258
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/SourceFileFilter.java
+  s_0af420b20b4753::t_d1a6db56872b02 1-174
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/SourceFileWithSearchData.java
+  s_0af420b20b4753::t_cee97ba6cb89be 1-68
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+  s_0af420b20b4753::t_69cf2277c3f639 1-145
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/Analyzer.java
+  s_0af420b20b4753::t_8ca561d1c38d53 1-8
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalyzerOverride.java
+  s_0af420b20b4753::t_a37d0e29807e58 1-48
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/CodeAnalyzer.java
+  s_0af420b20b4753::t_cc13fd4953ddb8 1-162
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/CodeAnalyzerSettings.java
+  s_0af420b20b4753::t_994be6ac179adf 1-185
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/ContributorsAnalysisConfig.java
+  s_0af420b20b4753::t_8bc8d4a4a7f018 1-22
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/FileHistoryAnalysisConfig.java
+  s_0af420b20b4753::t_bf1b6da8c68b98 1-128
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/BasicsAnalyzer.java
+  s_0af420b20b4753::t_8e750d148b9dcb 1-118
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ConcernsAnalyzer.java
+  s_0af420b20b4753::t_0b4486e56c749a 1-49
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ContributorsAnalyzer.java
+  s_0af420b20b4753::t_953a0d0970efce 1-78
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ControlsAnalyzer.java
+  s_0af420b20b4753::t_3bc98e6eee2414 1-65
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/DuplicationAnalyzer.java
+  s_0af420b20b4753::t_12a104126c4a1e 1-335
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java
+  s_0af420b20b4753::t_d218090df1f453 1-355
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileSizeAnalyzer.java
+  s_0af420b20b4753::t_43d0f800bb41ca 1-102
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/LogicalDecompositionAnalyzer.java
+  s_0af420b20b4753::t_53c56e7b0ea2e1 1-126
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/UnitCategoryNames.java
+  s_0af420b20b4753::t_10e29d55a9422e 1-64
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/UnitsAnalyzer.java
+  s_0af420b20b4753::t_6373f8920a392b 1-265
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/AspectAnalysisResults.java
+  s_0af420b20b4753::t_912e8d79f68d6e 1-123
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/CodeAnalysisResults.java
+  s_0af420b20b4753::t_73cff6bdc9984d 1-303
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/ConcernsAnalysisResults.java
+  s_0af420b20b4753::t_2235bbd7fab0f4 1-60
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/ContributorsAnalysisResults.java
+  s_0af420b20b4753::t_c6051859fab1b9 1-196
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/ControlStatus.java
+  s_0af420b20b4753::t_74aab6d92dd5d6 1-38
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/ControlsAnalysisResults.java
+  s_0af420b20b4753::t_37b631a0dde211 1-20
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/DependenciesAnalysisResults.java
+  s_0af420b20b4753::t_def6a1dd03e897 1-20
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/DuplicationAnalysisResults.java
+  s_0af420b20b4753::t_f45d559d732bcc 1-95
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/FileAgeDistributionPerLogicalDecomposition.java
+  s_0af420b20b4753::t_087ab253124eac 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/FileDistributionPerLogicalDecomposition.java
+  s_0af420b20b4753::t_6d7c8752f64b8e 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/FilesAnalysisResults.java
+  s_0af420b20b4753::t_53a882b67c9119 1-85
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/FilesHistoryAnalysisResults.java
+  s_0af420b20b4753::t_5fb7fec630497d 1-390
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/GoalsAnalysisResults.java
+  s_0af420b20b4753::t_0e6bd39ef8779b 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/HistoryPerExtension.java
+  s_0af420b20b4753::t_aa1536f998ecff 1-53
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/LogicalDecompositionAnalysisResults.java
+  s_0af420b20b4753::t_e81076d3af6b5b 1-95
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/results/UnitsAnalysisResults.java
+  s_0af420b20b4753::t_b21808892953e9 1-121
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/ComponentGroup.java
+  s_0af420b20b4753::t_98eed84a2667a5 1-33
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/Concern.java
+  s_0af420b20b4753::t_bbccae541711a5 1-29
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/ConcernsGroup.java
+  s_0af420b20b4753::t_b9d41f32f991bb 1-45
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/DependenciesFinder.java
+  s_0af420b20b4753::t_7e280d3dff048b 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/DependencyFinderPattern.java
+  s_0af420b20b4753::t_174691a15e0ba8 1-62
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/DerivedConcern.java
+  s_0af420b20b4753::t_99045a45e203a8 1-14
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/GroupingRule.java
+  s_0af420b20b4753::t_2f514a5c898bc2 1-28
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/LogicalDecomposition.java
+  s_0af420b20b4753::t_3c59df91ddc1f3 1-279
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/MetaDependencyRule.java
+  s_0af420b20b4753::t_c08b538ca8f32e 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/MetaRule.java
+  s_0af420b20b4753::t_f24fe9936866fc 1-76
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/MetaRulesProcessor.java
+  s_0af420b20b4753::t_e90fef361067ab 1-165
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspect.java
+  s_0af420b20b4753::t_b9e40196943cdc 1-128
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/Range.java
+  s_0af420b20b4753::t_de68f531a53163 1-99
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/RenderingOptions.java
+  s_0af420b20b4753::t_4a72a478f241e9 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+  s_0af420b20b4753::t_7c1be75de68fa4 1-177
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/catalogs/StandardSecurityAspects.java
+  s_0af420b20b4753::t_ed89f900cd94fe 1-30
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/cleaners/CleanedContent.java
+  s_0af420b20b4753::t_84e527eeac885e 1-44
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/cleaners/CodeBlockParser.java
+  s_0af420b20b4753::t_6c8c5390118ebc 1-116
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/cleaners/CommentsAndEmptyLinesCleaner.java
+  s_0af420b20b4753::t_1b693390a6e329 1-88
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/cleaners/CommentsCleanerUtils.java
+  s_0af420b20b4753::t_047804af2b96ae 1-67
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/cleaners/SourceCodeCleanerUtils.java
+  s_0af420b20b4753::t_3422da86d07d8f 1-166
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/ContributionTimeSlot.java
+  s_0af420b20b4753::t_489065bbce78dd 1-50
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java
+  s_0af420b20b4753::t_3671c31e24dec2 1-222
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/ContributorsImport.java
+  s_0af420b20b4753::t_c30277a08b344e 1-93
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/GitContributorsUtil.java
+  s_0af420b20b4753::t_9bc5e347cf94ea 1-109
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/AnalysisConfig.java
+  s_0af420b20b4753::t_4e4d3f513b00c7 1-261
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/CodeConfiguration.java
+  s_0af420b20b4753::t_b344bfbbaffb8e 1-580
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/CodeConfigurationUtils.java
+  s_0af420b20b4753::t_cc6501ee953cc6 1-85
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/FoundTag.java
+  s_0af420b20b4753::t_6f941f3e2b82ba 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/ReferenceAnalysisResult.java
+  s_0af420b20b4753::t_eb8ce80b232370 1-36
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/SimpleCallback.java
+  s_0af420b20b4753::t_fb7afc846fc06b 1-9
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TagRule.java
+  s_0af420b20b4753::t_038c1d12ef7515 1-96
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TrendAnalysisConfig.java
+  s_0af420b20b4753::t_2db1dc6f693723 1-116
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/ComponentDependency.java
+  s_0af420b20b4753::t_776871989b9ca0 1-144
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependenciesAnalysis.java
+  s_0af420b20b4753::t_4ddcb5b27442ba 1-40
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependenciesFinderExtractor.java
+  s_0af420b20b4753::t_7ef91584ec01e8 1-171
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependenciesUtils.java
+  s_0af420b20b4753::t_07d1c6ed0e8f4e 1-36
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/Dependency.java
+  s_0af420b20b4753::t_a670eaf205c0f7 1-121
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependencyAnchor.java
+  s_0af420b20b4753::t_a60fd4b47c3126 1-99
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependencyError.java
+  s_0af420b20b4753::t_20249d206ba07b 1-34
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependencyEvidence.java
+  s_0af420b20b4753::t_399df8334ac50d 1-34
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependencyProgressFeedback.java
+  s_0af420b20b4753::t_33ebd2e7c2e827 1-22
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/DependencyUtils.java
+  s_0af420b20b4753::t_2d89d9ce3216e0 1-134
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/HeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_f5ad5e22b32b7c 1-80
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/HeuristicFilePathDependenciesExtractor.java
+  s_0af420b20b4753::t_8aa3ce8a1c796e 1-67
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/dependencies/SourceFileDependency.java
+  s_0af420b20b4753::t_fce5e4fea5b8db 1-35
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/AspectDuplication.java
+  s_0af420b20b4753::t_7ef0a9e3bac917 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicatedFileBlock.java
+  s_0af420b20b4753::t_3efc9bf47a17b7 1-86
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicationAggregator.java
+  s_0af420b20b4753::t_7325c6072da0c6 1-141
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicationDependenciesHelper.java
+  s_0af420b20b4753::t_1d72b515d28cda 1-120
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicationEngine.java
+  s_0af420b20b4753::t_ece6665c505657 1-76
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicationInstance.java
+  s_0af420b20b4753::t_cce5104b1b049f 1-151
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/DuplicationUtils.java
+  s_0af420b20b4753::t_e508df91af381e 1-98
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/ExtensionDuplication.java
+  s_0af420b20b4753::t_f6626d85face97 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/SourceFileDuplication.java
+  s_0af420b20b4753::t_b930a1a42c57fe 1-56
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/UnitDuplicatesExtractor.java
+  s_0af420b20b4753::t_f79e6e8bd2a729 1-91
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/Block.java
+  s_0af420b20b4753::t_da75da7cea9282 1-102
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/Blocks.java
+  s_0af420b20b4753::t_02ce508398ecc8 1-313
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/BlocksExtractor.java
+  s_0af420b20b4753::t_1620e02c8f7b3c 1-91
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/DuplicateRange.java
+  s_0af420b20b4753::t_b84038e9d97161 1-35
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/DuplicateRangePair.java
+  s_0af420b20b4753::t_5cb73d924cb1d2 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/DuplicateRangePairs.java
+  s_0af420b20b4753::t_b4be089a2b78c0 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/FileInfoForDuplication.java
+  s_0af420b20b4753::t_d23ea04a88607b 1-125
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/Files.java
+  s_0af420b20b4753::t_966f68b59f5803 1-128
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/LineIndexesExtractor.java
+  s_0af420b20b4753::t_549bc512f7539b 1-72
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/duplication/impl/LineInfo.java
+  s_0af420b20b4753::t_c12741887822a8 1-36
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/CommitInfo.java
+  s_0af420b20b4753::t_3b6b7dbf71e598 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/ComponentUpdateHistory.java
+  s_0af420b20b4753::t_65eb55cb9ce453 1-70
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/DateUtils.java
+  s_0af420b20b4753::t_50d8516edd4592 1-240
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryComponentsHelper.java
+  s_0af420b20b4753::t_eeda4f01adaed0 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryScopingUtils.java
+  s_0af420b20b4753::t_95280e89b9d016 1-154
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryUtils.java
+  s_0af420b20b4753::t_cf5d413be46062 1-39
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileModificationHistory.java
+  s_0af420b20b4753::t_cd56b43cab9d5f 1-88
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FilePairChangedTogether.java
+  s_0af420b20b4753::t_3c613451dfb032 1-76
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FilePairsChangedTogether.java
+  s_0af420b20b4753::t_73d47555cfd8e2 1-98
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/GitHistoryUtil.java
+  s_0af420b20b4753::t_e1fde429bb3af9 1-50
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/TemporalDependenciesHelper.java
+  s_0af420b20b4753::t_91a0c306209ca0 1-159
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/findings/Findings.java
+  s_0af420b20b4753::t_888c8a0ce1bfd5 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommit.java
+  s_0af420b20b4753::t_1e2feda5e5f0ad 1-101
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/CommitsPerExtension.java
+  s_0af420b20b4753::t_338f93d1c413c7 1-132
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/ContributorPerExtensionStats.java
+  s_0af420b20b4753::t_8fa517b0c09816 1-47
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/ExtractGitHistoryFileHandler.java
+  s_0af420b20b4753::t_6897adcbeb3d20 1-52
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/FileUpdate.java
+  s_0af420b20b4753::t_ae91ec18f92fdc 1-74
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/GitHistoryPerExtensionUtils.java
+  s_0af420b20b4753::t_0618e72d9092fe 1-120
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/GitHistoryUtils.java
+  s_0af420b20b4753::t_cc4549ff55ca2b 1-169
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/ContributionCounter.java
+  s_0af420b20b4753::t_9a526bd95f5123 1-7
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/ContributorConnection.java
+  s_0af420b20b4753::t_3a2dd276f1c888 1-56
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/ContributorConnectionUtils.java
+  s_0af420b20b4753::t_e6ed6aeb0982a1 1-425
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/ContributorTag.java
+  s_0af420b20b4753::t_9acb4cbccb3f0e 1-28
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/CustomTab.java
+  s_0af420b20b4753::t_3d541bee098a29 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/DefaultTags.java
+  s_0af420b20b4753::t_435ec440774eb3 1-63
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/LandscapeConfiguration.java
+  s_0af420b20b4753::t_56aa1c5a551ba5 1-493
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/LandscapeInfo.java
+  s_0af420b20b4753::t_039c227664edbb 1-33
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/MergeExtension.java
+  s_0af420b20b4753::t_429d457f847146 1-25
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/PeopleConfig.java
+  s_0af420b20b4753::t_9fd6f80f241f28 1-66
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/PersonConfig.java
+  s_0af420b20b4753::t_8441078c1e62e7 1-53
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/RepositoryTag.java
+  s_0af420b20b4753::t_99cbef0edb6880 1-209
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/SokratesRepositoryLink.java
+  s_0af420b20b4753::t_08d63ba288c8ba 1-46
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/SubLandscapeLink.java
+  s_0af420b20b4753::t_899105b6b8aa5e 1-49
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/TagGroup.java
+  s_0af420b20b4753::t_cb74e6cf07c050 1-59
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/TeamConfig.java
+  s_0af420b20b4753::t_937008b54bc183 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/TeamsConfig.java
+  s_0af420b20b4753::t_5da392cd1bc457 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/WebFrameLink.java
+  s_0af420b20b4753::t_1a8d8bc4fa4bce 1-61
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorConnections.java
+  s_0af420b20b4753::t_4e4518bcd56468 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java
+  s_0af420b20b4753::t_ea0144348bfec5 1-85
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositoryInfo.java
+  s_0af420b20b4753::t_d17905840aaebb 1-104
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/DependenciesCreator.java
+  s_0af420b20b4753::t_a66436421efd77 1-67
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/FileExport.java
+  s_0af420b20b4753::t_ee81ce4fc4e83a 1-52
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+  s_0af420b20b4753::t_b848bc0ce0fbfb 1-1405
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResultsReadData.java
+  s_0af420b20b4753::t_27740492b5ae3b 1-181
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisUtils.java
+  s_0af420b20b4753::t_afcc4e91b21f12 1-44
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java
+  s_0af420b20b4753::t_ba9322bf1547b2 1-316
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/RepositoryAnalysisResults.java
+  s_0af420b20b4753::t_7d7888c71cfb49 1-53
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java
+  s_0af420b20b4753::t_6638a6d4057dda 1-115
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java
+  s_0af420b20b4753::t_cc8f52bd397c8b 1-107
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/utils/EmailTransformations.java
+  s_0af420b20b4753::t_252da1b7540ca6 1-38
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/DefaultLanguageAnalyzer.java
+  s_0af420b20b4753::t_b30ece9be1ee25 1-53
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/LanguageAnalyzer.java
+  s_0af420b20b4753::t_fc38768b5ecb9d 1-44
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/LanguageAnalyzerFactory.java
+  s_0af420b20b4753::t_f0ee6ad8efbec1 1-637
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/LanguageSupportExporter.java
+  s_0af420b20b4753::t_8613781d32eedb 1-95
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/abap/AbapAnalyzer.java
+  s_0af420b20b4753::t_c6b248d5c07240 1-86
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/abap/AbapHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_40d3b23aa2c27e 1-117
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/adabasnatural/AdabasDependenciesExtractor.java
+  s_0af420b20b4753::t_2365f61a0a412b 1-56
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/adabasnatural/AdabasNaturalAnalyzer.java
+  s_0af420b20b4753::t_a1815caf267eda 1-287
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/cfg/CfgAnalyzer.java
+  s_0af420b20b4753::t_235da131c3fd76 1-68
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/clojure/ClojureLangAnalyzer.java
+  s_0af420b20b4753::t_f2e761372013ed 1-69
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/cpp/CIncludesDependenciesExtractor.java
+  s_0af420b20b4753::t_c8e1f6f13bd280 1-47
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/cpp/CStyleAnalyzer.java
+  s_0af420b20b4753::t_2cd0fcd701489c 1-75
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/cpp/CppAnalyzer.java
+  s_0af420b20b4753::t_51b76b13f38b44 1-79
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/csharp/CSharpAnalyzer.java
+  s_0af420b20b4753::t_083fcb0f9a9cdb 1-75
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/csharp/CSharpHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_a73dc2211bfd96 1-45
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/css/CssAnalyzer.java
+  s_0af420b20b4753::t_abef8e5e8bae37 1-79
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/d/DAnalyzer.java
+  s_0af420b20b4753::t_eb0c787e4d6ec3 1-75
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/d/DHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_7f3823cb5595f8 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/d/DHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_5709600f846fa6 1-14
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/dbc/DbcAnalyzer.java
+  s_0af420b20b4753::t_ea3511f5d19464 1-68
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/go/GoLangAnalyzer.java
+  s_0af420b20b4753::t_90b9183f83bf0a 1-80
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/go/GoLangHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_1e603ba1c6de57 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/go/GoLangHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_8247901253018a 1-15
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/gradle/GradleAnalyzer.java
+  s_0af420b20b4753::t_3632dfd5814cb5 1-21
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/gradle/GradleHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_c4713f87c6c9c7 1-14
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/groovy/GroovyAnalyzer.java
+  s_0af420b20b4753::t_d924ae79864b3d 1-74
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/groovy/GroovyHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_6a4aaa08034a39 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/groovy/GroovyHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_576dcb10eed112 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/hack/HackAnalyzer.java
+  s_0af420b20b4753::t_f378e83883f92c 1-78
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/hack/HackHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_286ca75491468c 1-40
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/html/HtmlAnalyzer.java
+  s_0af420b20b4753::t_22ba5a299e5088 1-68
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/java/JavaAnalyzer.java
+  s_0af420b20b4753::t_2891c3592a5f4b 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/java/JavaHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_ebd6b9c6870c04 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/java/JavaHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_ea9062d38f8418 1-40
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/js/JavaScriptAnalyzer.java
+  s_0af420b20b4753::t_a11b4ab6b26d9c 1-77
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/js/JavaScriptHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_9cbcfb5fbdc015 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/json/JsonAnalyzer.java
+  s_0af420b20b4753::t_0d72650b881dd5 1-62
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/jsp/JspAnalyzer.java
+  s_0af420b20b4753::t_e59dd8355b4c2d 1-69
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaAnalyzer.java
+  s_0af420b20b4753::t_25d7e33fc95249 1-74
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_efb09a9058e2fd 1-144
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/kotlin/KotlinAnalyzer.java
+  s_0af420b20b4753::t_505127376b844e 1-77
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/kotlin/KotlinHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_e3177ac59bdf80 1-42
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/kotlin/KotlinHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_8ceb1eceb1e897 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/less/LessAnalyzer.java
+  s_0af420b20b4753::t_3a57d3d5b3c2b5 1-12
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaAnalyzer.java
+  s_0af420b20b4753::t_4744af71f4c90d 1-76
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_0edebeacd8bbc1 1-144
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectivec/ObjectiveCAnalyzer.java
+  s_0af420b20b4753::t_2d7ae31851e6d4 1-12
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalAnalyzer.java
+  s_0af420b20b4753::t_e3115235b22b1b 1-75
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_7984c660e05aad 1-143
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/perl/PerlAnalyzer.java
+  s_0af420b20b4753::t_c941602e480d31 1-100
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/perl/PerlHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_e59a4393a8df75 1-52
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/perl/PerlHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_4ade721593c540 1-22
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/php/PhpAnalyzer.java
+  s_0af420b20b4753::t_f37299282b807b 1-80
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/php/PhpHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_f826259728c46d 1-46
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlAnalyzer.java
+  s_0af420b20b4753::t_535e1664ec2b43 1-88
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_348dc1fda18ce3 1-120
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_3efd67ce0e2428 1-207
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/puppet/PuppetAnalyzer.java
+  s_0af420b20b4753::t_5e95282d2f498e 1-70
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/python/PythonAnalyzer.java
+  s_0af420b20b4753::t_d646105a20a362 1-74
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/python/PythonDependenciesExtractor.java
+  s_0af420b20b4753::t_affa73cadef591 1-50
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/python/PythonHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_3e2c6ab36e1b0f 1-153
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/r/RAnalyzer.java
+  s_0af420b20b4753::t_12cc9634629be5 1-69
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/r/RHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_ca1b46be879883 1-15
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/ruby/RubyAnalyzer.java
+  s_0af420b20b4753::t_cb7ebbfd5eab0f 1-82
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/ruby/RubyHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_08b2a94db6cb8d 1-70
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/ruby/RubyHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_3e10fa1ac13c51 1-92
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/rust/RustAnalyzer.java
+  s_0af420b20b4753::t_93acd30432c22d 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/rust/RustHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_79104e2e4184f9 1-28
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/sass/SassAnalyzer.java
+  s_0af420b20b4753::t_72da95c01965e8 1-22
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaAnalyzer.java
+  s_0af420b20b4753::t_5ee53caf9c76d3 1-79
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaHeuristicDependenciesExtractor.java
+  s_0af420b20b4753::t_318fb20c4a398b 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_537a2cf765c121 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/scss/ScssAnalyzer.java
+  s_0af420b20b4753::t_4ce590908384c3 1-12
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/shell/ShellAnalyzer.java
+  s_0af420b20b4753::t_9c11ed6073b8fd 1-70
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/sql/SqlAnalyzer.java
+  s_0af420b20b4753::t_3ebacb6e61e90d 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/swift/SwiftAnalyzer.java
+  s_0af420b20b4753::t_96a93882a63eec 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/swift/SwiftHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_f5d61d1e4ac8b6 1-30
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/thrift/ThriftAnalyzer.java
+  s_0af420b20b4753::t_3650b47ef07451 1-73
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/ts/TypeScriptAnalyzer.java
+  s_0af420b20b4753::t_a0efddf2344ff1 1-10
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/vb/VisualBasicAnalyzer.java
+  s_0af420b20b4753::t_b02b109bdc4838 1-81
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/vb/VisualBasicHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_60698f2984a48b 1-112
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/xml/XmlAnalyzer.java
+  s_0af420b20b4753::t_a0eddd1000f416 1-67
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/yaml/YamlAnalyzer.java
+  s_0af420b20b4753::t_77c67a483b783c 1-78
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/DuplicationMetric.java
+  s_0af420b20b4753::t_d64327adcd14ef 1-70
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/Metric.java
+  s_0af420b20b4753::t_26083c12d5c6d8 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/MetricRangeControl.java
+  s_0af420b20b4753::t_5961455341a1e5 1-51
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/MetricsList.java
+  s_0af420b20b4753::t_e422ca902971e1 1-52
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/MetricsWithGoal.java
+  s_0af420b20b4753::t_aaab79a1f56bd0 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/metrics/NumericMetric.java
+  s_0af420b20b4753::t_6e9569e29f4f0c 1-46
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/ComplexOperation.java
+  s_0af420b20b4753::t_ca1a708e7eb740 1-33
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/OperationStatement.java
+  s_0af420b20b4753::t_5ada5cdc1bc40a 1-40
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/StringOperation.java
+  s_0af420b20b4753::t_0032f5ac2bfd06 1-35
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/StringOperationFactory.java
+  s_0af420b20b4753::t_603d32c46b277a 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/AppendOperation.java
+  s_0af420b20b4753::t_56f19ebf206359 1-29
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/ExtractRegexOperation.java
+  s_0af420b20b4753::t_b855b811df4c74 1-37
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/LowerCaseOperation.java
+  s_0af420b20b4753::t_4901fccab33522 1-25
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/NoOpsOperation.java
+  s_0af420b20b4753::t_233214cdbdc023 1-25
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/PrependOperation.java
+  s_0af420b20b4753::t_fd654323b879f0 1-29
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/RemoveRegexOperation.java
+  s_0af420b20b4753::t_4c5b4251bb5bcb 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/ReplaceOperation.java
+  s_0af420b20b4753::t_e29c607d34570c 1-41
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/TrimOperation.java
+  s_0af420b20b4753::t_b55ebc39fe7fc2 1-25
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/operations/impl/UpperCaseOperation.java
+  s_0af420b20b4753::t_07b1c57a925b59 1-25
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ConcernConventions.java
+  s_0af420b20b4753::t_a76e0bf0e132c1 1-51
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/Convention.java
+  s_0af420b20b4753::t_572a173986cdd5 1-22
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ConventionUtils.java
+  s_0af420b20b4753::t_ba8e04fc94d473 1-42
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopeCreator.java
+  s_0af420b20b4753::t_20f77e0e1c2f02 1-195
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+  s_0af420b20b4753::t_be90dcffc3fa0a 1-635
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/custom/CustomConventionsHelper.java
+  s_0af420b20b4753::t_8cc40087b8c01f 1-72
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/custom/CustomExtensionConventions.java
+  s_0af420b20b4753::t_e3f634178df3bb 1-32
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/custom/CustomScopingConventions.java
+  s_0af420b20b4753::t_efb0591018cf8f 1-238
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/CleanedFoundText.java
+  s_0af420b20b4753::t_cba68595de0a39 1-31
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/FoundLine.java
+  s_0af420b20b4753::t_aa0b75e539b0b6 1-49
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/FoundText.java
+  s_0af420b20b4753::t_5c9bbd380efc1c 1-34
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/ReplacePair.java
+  s_0af420b20b4753::t_64d3c0890db3d0 1-43
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/SearchExpression.java
+  s_0af420b20b4753::t_0a86a9e55e4a3a 1-46
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/SearchRequest.java
+  s_0af420b20b4753::t_fa775e69e09f6c 1-34
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/SearchResult.java
+  s_0af420b20b4753::t_9c08c5c4884410 1-136
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/SearchResultCleaner.java
+  s_0af420b20b4753::t_4b38b58675dc01 1-108
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/search/SearchResultDependencies.java
+  s_0af420b20b4753::t_9eb1938763339f 1-133
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/stats/RiskDistributionStats.java
+  s_0af420b20b4753::t_f8bb337a616f89 1-303
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/stats/SourceFileAgeDistribution.java
+  s_0af420b20b4753::t_113db76fc19a2d 1-105
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/stats/SourceFileChangeDistribution.java
+  s_0af420b20b4753::t_a9915527a672d9 1-93
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/stats/SourceFileSizeDistribution.java
+  s_0af420b20b4753::t_ebc3ba65c7860c 1-71
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/threshold/Thresholds.java
+  s_0af420b20b4753::t_f004c7bfee0c82 1-140
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/CStyleHeuristicUnitsExtractor.java
+  s_0af420b20b4753::t_79e6509c4d8083 1-286
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/CppUnitsExtractor.java
+  s_0af420b20b4753::t_2fe96a560f3de4 1-55
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/UnitInfo.java
+  s_0af420b20b4753::t_cbc2f8b7615881 1-146
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/UnitUtils.java
+  s_0af420b20b4753::t_badc989a3bcc65 1-120
+variants/a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/UnitsExtractor.java
+  s_0af420b20b4753::t_b88095b606908c 1-36
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+  s_0af420b20b4753::t_34d08fadf7e717 1-67
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/ExtensionGroupExtractorTest.java
+  s_0af420b20b4753::t_9224e2eadaafa5 1-99
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/ExtensionGroupTest.java
+  s_0af420b20b4753::t_fb7b78f57f355e 1-21
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/LogicalDecompositionTest.java
+  s_0af420b20b4753::t_3fc01496f2e6d9 1-141
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SearcheableFilesCacheTest.java
+  s_0af420b20b4753::t_dee7abe2805adb 1-140
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SourceCodeFilesTest.java
+  s_0af420b20b4753::t_e2ddda945e6546 1-205
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SourceFileFilterTest.java
+  s_0af420b20b4753::t_c92682c7acec82 1-117
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SourceFileSizeDistributionTest.java
+  s_0af420b20b4753::t_c588c636e6dd3c 1-77
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SourceFileTest.java
+  s_0af420b20b4753::t_ae98c7b8b5ce3a 1-95
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/SourceFileWithSearchDataTest.java
+  s_0af420b20b4753::t_97e312a7a2a291 1-53
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/analysis/AnalyzerOverrideTest.java
+  s_0af420b20b4753::t_4ae9b55c06e522 1-35
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/analysis/DuplicationMetricTest.java
+  s_0af420b20b4753::t_f4c4206d4fbfd2 1-19
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/analysis/files/DuplicationAnalyzerTest.java
+  s_0af420b20b4753::t_c4ed346ce34b62 1-61
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/MetaRulesProcessorTest.java
+  s_0af420b20b4753::t_0f5e632404807c 1-119
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+  s_0af420b20b4753::t_25866268be2e09 1-144
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectUtilsTest.java
+  s_0af420b20b4753::t_89e5c33a0a0225 1-248
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/RangeTest.java
+  s_0af420b20b4753::t_f3864b8d967f5a 1-59
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/cleaners/CodeBlockParserTest.java
+  s_0af420b20b4753::t_0f85de9cb23025 1-113
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/cleaners/CommentsAndEmptyLinesCleanerTest.java
+  s_0af420b20b4753::t_0391fe1d8310c7 1-31
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/cleaners/CommentsCleanerUtilsTest.java
+  s_0af420b20b4753::t_42aa7fde70f584 1-156
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/cleaners/SourceCodeCleanerUtilsTest.java
+  s_0af420b20b4753::t_64acba091144b2 1-147
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/contributors/ContributorTest.java
+  s_0af420b20b4753::t_bb88d882a97a21 1-25
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/dependencies/ComponentDependencyTest.java
+  s_0af420b20b4753::t_9d451af2f463de 1-41
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/dependencies/DependencyAnchorTest.java
+  s_0af420b20b4753::t_d8c39d239000ab 1-48
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/dependencies/DependencyTest.java
+  s_0af420b20b4753::t_85c76c3110fe4a 1-93
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication/DuplicationAggregatorTest.java
+  s_0af420b20b4753::t_ca7186a1459788 1-90
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication/DuplicationEngineTest.java
+  s_0af420b20b4753::t_a224600fa3083e 1-90
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication/DuplicationInstanceTest.java
+  s_0af420b20b4753::t_7e5ae6638a8bfc 1-39
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication/DuplicationUtilsTest.java
+  s_0af420b20b4753::t_51e7b168a7db29 1-89
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication/SourceFileDuplicationTest.java
+  s_0af420b20b4753::t_eec7339f49d46c 1-29
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/BlockTest.java
+  s_0af420b20b4753::t_ec286ccd9ba3c4 1-77
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/DuplicateRangePairTest.java
+  s_0af420b20b4753::t_f0c7a345913742 1-33
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/DuplicateRangePairsTest.java
+  s_0af420b20b4753::t_1b7c437c68ea02 1-44
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/DuplicateRangeTest.java
+  s_0af420b20b4753::t_89e0df7f5b9c1a 1-28
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/FileInfoForDuplicationTest.java
+  s_0af420b20b4753::t_a33471dbfac489 1-99
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/LineIndexesExtractorTest.java
+  s_0af420b20b4753::t_4ec7dde1f7119f 1-71
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/duplication_alt/LineInfoTest.java
+  s_0af420b20b4753::t_aa596f59db43c7 1-23
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/filehistory/DateUtilsTest.java
+  s_0af420b20b4753::t_6853a914bfa75a 1-32
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/filehistory/GitHistoryUtilTest.java
+  s_0af420b20b4753::t_4b07111855d041 1-12
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommitTest.java
+  s_0af420b20b4753::t_20508adbe2f987 1-39
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/githistory/ExtractGitHistoryFileHandlerTest.java
+  s_0af420b20b4753::t_66b62a9a577dfb 1-49
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/githistory/GitHistoryUtilsTest.java
+  s_0af420b20b4753::t_6ae5211ad2cafd 1-39
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/DefaultLanguageAnalyzerTest.java
+  s_0af420b20b4753::t_175bb19be2320f 1-50
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/abap/AbapAnalyzerTest.java
+  s_0af420b20b4753::t_1baf877100f800 1-48
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/abap/AbapExamples.java
+  s_0af420b20b4753::t_211eba645e7bcb 1-199
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/adabasnatural/AdabasDependenciesExtractorTest.java
+  s_0af420b20b4753::t_cbfc0f355e06e7 1-32
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/adabasnatural/AdabasExamples.java
+  s_0af420b20b4753::t_b5e15f407e4ecd 1-449
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/adabasnatural/AdabasNaturalAnalyzerTest.java
+  s_0af420b20b4753::t_abf10ec8b35368 1-99
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/clojure/ClojureLangAnalyzerTest.java
+  s_0af420b20b4753::t_5da584e0d51cc6 1-49
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/cpp/CIncludesDependenciesExtractorTest.java
+  s_0af420b20b4753::t_e418bcad586672 1-51
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/cpp/CStyleAnalyzerTest.java
+  s_0af420b20b4753::t_99ce2f9d1da77f 1-143
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/cpp/CppAnalyzerTest.java
+  s_0af420b20b4753::t_2f5997298bdaf2 1-325
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/csharp/CSharpAnalyzerTest.java
+  s_0af420b20b4753::t_c91b052b1facde 1-191
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/csharp/CSharpHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_20c234e4467d21 1-117
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/go/GoExampleFragments.java
+  s_0af420b20b4753::t_934b40e3fcea70 1-35
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/go/GoLangAnalyzerTest.java
+  s_0af420b20b4753::t_13572a32de3253 1-51
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/go/GoLangHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_d23360e4ef9ae4 1-16
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/hack/HackAnalyzerTest.java
+  s_0af420b20b4753::t_9f37afd21a3680 1-71
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/hack/HackSamples.java
+  s_0af420b20b4753::t_e772d5ddbecb25 1-100
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/html/HtmlAnalyzerTest.java
+  s_0af420b20b4753::t_b80cfdb793c8ed 1-78
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/java/JavaAnalyzerTest.java
+  s_0af420b20b4753::t_e9ffb7e8d6da06 1-253
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/java/JavaExampleFragments.java
+  s_0af420b20b4753::t_4799b6ffbc7d96 1-317
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/js/JavaScriptAnalyzerTest.java
+  s_0af420b20b4753::t_5d376a87fd1fba 1-571
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/js/JavaScriptHeuristicUnitsExtractorTest.java
+  s_0af420b20b4753::t_eccbe710859737 1-33
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/jsp/JspAnalyzerTest.java
+  s_0af420b20b4753::t_79c186793b8007 1-62
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaAnalyzerTest.java
+  s_0af420b20b4753::t_9a7ec3e1bd73b1 1-82
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaCodeSamples.java
+  s_0af420b20b4753::t_d385db57b28f38 1-127
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/kotlin/KotlinAnalyzerTest.java
+  s_0af420b20b4753::t_94d189975f7228 1-65
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/kotlin/KotlinExampleFragments.java
+  s_0af420b20b4753::t_0fe65087a890a3 1-37
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/lua/LuaAnalyzerTest.java
+  s_0af420b20b4753::t_b00724e4fbb97a 1-65
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/lua/LuaCodeSamples.java
+  s_0af420b20b4753::t_b264958c596fe7 1-58
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalAnalyzerTest.java
+  s_0af420b20b4753::t_9e05680e860c88 1-72
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalCodeSamples.java
+  s_0af420b20b4753::t_81fabd4e5023aa 1-123
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/perl/PerlAnalyzerTest.java
+  s_0af420b20b4753::t_0a986a48d3592e 1-55
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/perl/PerlHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_62510fa6be1ce1 1-52
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/php/PhpAnalyzerTest.java
+  s_0af420b20b4753::t_6b5be7323c9a64 1-165
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/php/PhpHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_f921d1a3711cb5 1-32
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlAnalyzerTest.java
+  s_0af420b20b4753::t_8b3e86b52d730d 1-108
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlExamples.java
+  s_0af420b20b4753::t_95ddd4b8d3f415 1-289
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/plsql/PlSqlHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_fa03d1a783f9ae 1-108
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/python/PythonAnalyzerTest.java
+  s_0af420b20b4753::t_ac9f41d0881320 1-127
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/python/PythonDependenciesExtractorTest.java
+  s_0af420b20b4753::t_71eea9b3d7842d 1-31
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/r/RAnalyzerTest.java
+  s_0af420b20b4753::t_3d479abb4f8743 1-52
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/r/RCodeSamples.java
+  s_0af420b20b4753::t_848cde4ca21580 1-97
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/ruby/RubyAnalyzerTest.java
+  s_0af420b20b4753::t_821146ec3f8493 1-85
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/ruby/RubyHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_4193ddddc28af7 1-202
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/rust/RustAnalyzerTest.java
+  s_0af420b20b4753::t_35840f4cf7dfab 1-73
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/rust/RustCodeSamples.java
+  s_0af420b20b4753::t_6260ea174d959f 1-54
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaAnalyzerTest.java
+  s_0af420b20b4753::t_e82d47b3b00dd7 1-167
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaHeuristicDependenciesExtractorTest.java
+  s_0af420b20b4753::t_f2439d95edf16f 1-33
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/scala/ScalaHeuristicUnitsExtractorTest.java
+  s_0af420b20b4753::t_c8241921d973c1 1-24
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/shell/ShellAnalyzerTest.java
+  s_0af420b20b4753::t_ed5a68823bb3c5 1-38
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/shell/ShellCodeSamples.java
+  s_0af420b20b4753::t_62b96ed1d8f71f 1-13
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/swift/SwiftAnalyzerTest.java
+  s_0af420b20b4753::t_67247d67817ffc 1-110
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/swift/SwiftExampleFragments.java
+  s_0af420b20b4753::t_6701290d5403e6 1-62
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/thrift/ThriftAnalyzerTest.java
+  s_0af420b20b4753::t_2828b10f48c9c0 1-29
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/thrift/ThriftExamples.java
+  s_0af420b20b4753::t_7b11a9665e6d60 1-29
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/ts/TypeScriptAnalyzerTest.java
+  s_0af420b20b4753::t_29e02ed0a2fc16 1-49
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/ts/TypeScriptCodeFragments.java
+  s_0af420b20b4753::t_fa6cb7e378d2df 1-44
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/vb/VisualBasicAnalyzerTest.java
+  s_0af420b20b4753::t_85426208f7c44f 1-113
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/yaml/YamlAnalyzerTest.java
+  s_0af420b20b4753::t_bc9f81abb4c033 1-36
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/lang/yaml/YamlCodeSamples.java
+  s_0af420b20b4753::t_f99cbee53e56aa 1-22
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/ComplexOperationTest.java
+  s_0af420b20b4753::t_4c6c90809a0a4b 1-34
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/StringOperationFactoryTest.java
+  s_0af420b20b4753::t_3d0f6bff40d83e 1-41
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/AppendOperationTest.java
+  s_0af420b20b4753::t_46255c249ff57d 1-33
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/ExtractRegexOperationTest.java
+  s_0af420b20b4753::t_4c9afe04cde4b6 1-32
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/LowerCaseOperationTest.java
+  s_0af420b20b4753::t_3ca1fec59f2e62 1-24
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/NoOpsOperationTest.java
+  s_0af420b20b4753::t_a51849349c788f 1-26
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/PrependOperationTest.java
+  s_0af420b20b4753::t_734abbd2678960 1-33
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/RemoveRegexOperationTest.java
+  s_0af420b20b4753::t_8c97b55c57e69b 1-30
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/ReplaceOperationTest.java
+  s_0af420b20b4753::t_23d6aea008a914 1-52
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/TrimOperationTest.java
+  s_0af420b20b4753::t_d56dea63961c4c 1-26
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/operations/impl/UpperCaseOperationTest.java
+  s_0af420b20b4753::t_88ed3da415a98c 1-24
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/search/FoundLineTest.java
+  s_0af420b20b4753::t_f07e6556bef288 1-17
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/search/ReplacePairTest.java
+  s_0af420b20b4753::t_81480b6f287935 1-21
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/search/SearchExpressionTest.java
+  s_0af420b20b4753::t_fab9b0ffcea98e 1-23
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/search/SearchResultCleanerTest.java
+  s_0af420b20b4753::t_c15ea8038aa9bd 1-49
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/search/SearchResultDependenciesTest.java
+  s_0af420b20b4753::t_4f19168f714849 1-127
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/threshold/ThresholdsTest.java
+  s_0af420b20b4753::t_4ac9c518e26792 1-23
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/units/CStyleHeuristicUnitsExtractorTest.java
+  s_0af420b20b4753::t_f089f93df1a2c7 1-334
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/units/PythonHeuristicUnitsExtractorTest.java
+  s_0af420b20b4753::t_6a7c2421040bae 1-36
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/units/UnitUtilsTest.java
+  s_0af420b20b4753::t_6e216c84effc62 1-329
+variants/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/units/UnitsExtractorTest.java
+  s_0af420b20b4753::t_127aba0f74b1cd 1-72
+variants/a/codeexplorer/pom.xml
+  s_0af420b20b4753::t_3eec7dbb33d848 1-93
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/CodeExplorerLauncher.java
+  s_0af420b20b4753::t_36710f65f96fe2 1-39
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/charts/ChartUtils.java
+  s_0af420b20b4753::t_111a473e96c582 1-35
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/charts/FileSizeDistributionChartPanel.java
+  s_0af420b20b4753::t_8b3c576293b7f9 1-152
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/AspectFilesBrowserPane.java
+  s_0af420b20b4753::t_fe4165c25d6c83 1-229
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/AspectsTablePane.java
+  s_0af420b20b4753::t_16537e38e51dc1 1-250
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/CodeBrowserPane.java
+  s_0af420b20b4753::t_33cb6dfa39e55e 1-288
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/CodeExplorerToolbar.java
+  s_0af420b20b4753::t_3ba00ccfecfef4 1-28
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/FileListPane.java
+  s_0af420b20b4753::t_a4fb56c1172ef7 1-145
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/codebrowser/TableViewUtils.java
+  s_0af420b20b4753::t_9b70f0ceea7177 1-71
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/common/NumericBarCellFactory.java
+  s_0af420b20b4753::t_4e85e5411e1400 1-95
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/common/PathCellRenderer.java
+  s_0af420b20b4753::t_04c2b4bdcfcc31 1-57
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/common/ProgressFeedbackPane.java
+  s_0af420b20b4753::t_14ad116a6858b3 1-79
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/common/SvgIcons.java
+  s_0af420b20b4753::t_d5e4f89c751d3b 1-269
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/common/UXUtils.java
+  s_0af420b20b4753::t_fc4dba7c367046 1-124
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/configuration/CodeConfigurationView.java
+  s_0af420b20b4753::t_7eef1c286ed594 1-248
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/configuration/ConfigurationEditorView.java
+  s_0af420b20b4753::t_a9d23eb9496cab 1-115
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/console/Console.java
+  s_0af420b20b4753::t_3a5e286bdb5e48 1-9
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/console/TextAreaConsole.java
+  s_0af420b20b4753::t_bb4cc4708a1d1b 1-84
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/console/WebViewConsole.java
+  s_0af420b20b4753::t_0c9696134e10bf 1-133
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/dependencies/DependenciesMatrix.java
+  s_0af420b20b4753::t_c17e2687170130 1-127
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/dependencies/DependenciesPane.java
+  s_0af420b20b4753::t_9f9e4836d5394d 1-320
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/dependencies/DependenciesView.java
+  s_0af420b20b4753::t_1d697d2e30fdfc 1-66
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/duplication/DuplicatesPane.java
+  s_0af420b20b4753::t_4c911c3cb8485c 1-222
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/newanalysis/NewAnalysisDialog.java
+  s_0af420b20b4753::t_edfd6eda53127e 1-190
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/preview/CodePreviewEditor.java
+  s_0af420b20b4753::t_3472ab1f0a4244 1-115
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/preview/CodePreviewView.java
+  s_0af420b20b4753::t_c9d046dad5b0db 1-225
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/preview/SimpleCodePreviewView.java
+  s_0af420b20b4753::t_353c2e4aaa21bf 1-45
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/PredefinedFiltersMenuPopulator.java
+  s_0af420b20b4753::t_b3e9995cec4664 1-50
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchCleanerPane.java
+  s_0af420b20b4753::t_5fa62b5e7152a7 1-113
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchDependenciesPane.java
+  s_0af420b20b4753::t_f52c1dcb69bb93 1-22
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchPane.java
+  s_0af420b20b4753::t_103cfc8e4c2fd3 1-173
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchResultCellRenderer.java
+  s_0af420b20b4753::t_c237936f77c8ad 1-42
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchResultsDistributionTablePane.java
+  s_0af420b20b4753::t_aa2f3ff803e78b 1-99
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchStatsPane.java
+  s_0af420b20b4753::t_99e6ef31da2e68 1-42
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchSummaryPane.java
+  s_0af420b20b4753::t_ab38a63ad2032a 1-72
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/search/SearchVizPane.java
+  s_0af420b20b4753::t_df9e301bd58c1e 1-99
+variants/a/codeexplorer/src/main/java/nl/obren/sokrates/codeexplorer/units/UnitsPane.java
+  s_0af420b20b4753::t_d67925c2bfabfe 1-258
+variants/a/codeexplorer/src/test/java/nl/obren/sokrates/codeexplorer/common/PathCellRendererTest.java
+  s_0af420b20b4753::t_167eadd8f5635c 1-24
+variants/a/codeexplorer/src/test/java/nl/obren/sokrates/codeexplorer/io/RegexUtilsTest.java
+  s_0af420b20b4753::t_d659a7b4e2c89c 1-45
+variants/a/codeexplorer/src/test/java/nl/obren/sokrates/reports/utils/DataImageUtilsTest.java
+  s_0af420b20b4753::t_ada10c876b7892 1-15
+variants/a/common/pom.xml
+  s_0af420b20b4753::t_8b12aa3a5854da 1-25
+variants/a/common/src/main/java/nl/obren/sokrates/common/analysis/Finding.java
+  s_0af420b20b4753::t_713725f6a3c00b 1-106
+variants/a/common/src/main/java/nl/obren/sokrates/common/analysis/ValidationMessage.java
+  s_0af420b20b4753::t_157ae623f279f5 1-38
+variants/a/common/src/main/java/nl/obren/sokrates/common/io/JsonGenerator.java
+  s_0af420b20b4753::t_67607c7f166741 1-18
+variants/a/common/src/main/java/nl/obren/sokrates/common/io/JsonMapper.java
+  s_0af420b20b4753::t_5b6de74708cbf8 1-66
+variants/a/common/src/main/java/nl/obren/sokrates/common/io/UserProperties.java
+  s_0af420b20b4753::t_9a02e9d0283f40 1-136
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/ExplorerTemplate.java
+  s_0af420b20b4753::t_4a6bcac2e7b283 1-38
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizSettings.java
+  s_0af420b20b4753::t_ce5fe04d0fb1fe 1-100
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/GraphvizUtil.java
+  s_0af420b20b4753::t_d21b67c169fd8a 1-102
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/RacingChartItem.java
+  s_0af420b20b4753::t_57a64421d31eab 1-38
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtils.java
+  s_0af420b20b4753::t_7aad114e616407 1-122
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/Threshold.java
+  s_0af420b20b4753::t_1661687d4efc6a 1-43
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/Thresholds.java
+  s_0af420b20b4753::t_624c76070e98ad 1-72
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationItem.java
+  s_0af420b20b4753::t_e505e126ce6c99 1-58
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/VisualizationTemplate.java
+  s_0af420b20b4753::t_6c38689c77fb10 1-101
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/charts/BarChart.java
+  s_0af420b20b4753::t_97da90d7d67fb6 1-126
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChart.java
+  s_0af420b20b4753::t_138bdbb9b1c4fe 1-59
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/charts/OrgChartItem.java
+  s_0af420b20b4753::t_7b3cba349ac9a8 1-40
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/charts/Palette.java
+  s_0af420b20b4753::t_2dc2624d93143b 1-62
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/charts/PieChart.java
+  s_0af420b20b4753::t_00c82c2bbfea4a 1-119
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DLink.java
+  s_0af420b20b4753::t_32fae36e889d1f 1-47
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DNode.java
+  s_0af420b20b4753::t_384f27c52fe556 1-34
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/force3d/Force3DObject.java
+  s_0af420b20b4753::t_5618f569fe252f 1-25
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/Unit3D.java
+  s_0af420b20b4753::t_5e2ee1b5b3d8e5 1-43
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomExporter.java
+  s_0af420b20b4753::t_3499132cd3c353 1-171
+variants/a/common/src/main/java/nl/obren/sokrates/common/renderingutils/x3d/X3DomNodeInfo.java
+  s_0af420b20b4753::t_242e19b1dbcc25 1-70
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/BasicColorInfo.java
+  s_0af420b20b4753::t_3a23fb1d46a2b5 1-44
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/ExplorerStringUtils.java
+  s_0af420b20b4753::t_d5d25a0c07f2a7 1-25
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/FormattingUtils.java
+  s_0af420b20b4753::t_352a229d31ab1f 1-115
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/ProcessingStopwatch.java
+  s_0af420b20b4753::t_c5de1a04bd69ce 1-78
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/ProcessingTimes.java
+  s_0af420b20b4753::t_3995b830fc2807 1-49
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/ProgressFeedback.java
+  s_0af420b20b4753::t_d05539e3d721fd 1-19
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/ReflectionUtils.java
+  s_0af420b20b4753::t_4dc992a18facfa 1-83
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/RegexUtils.java
+  s_0af420b20b4753::t_7a5e871cc254b3 1-120
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/SystemUtils.java
+  s_0af420b20b4753::t_f55a3ba4c99a25 1-68
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/Templates.java
+  s_0af420b20b4753::t_17c3ef01de6455 1-45
+variants/a/common/src/main/java/nl/obren/sokrates/common/utils/UnzipToTempFilesUtil.java
+  s_0af420b20b4753::t_76cde88c90c336 1-44
+variants/a/common/src/main/resources/archive.sh
+  s_0af420b20b4753::t_c88b9c00e7aa96 1
+variants/a/common/src/main/resources/templates/codepreview.html
+  s_0af420b20b4753::t_e98bf4fe30f118 1-95
+variants/a/common/src/main/resources/templates/editor.html
+  s_0af420b20b4753::t_f104127407c24e 1-105
+variants/a/common/src/main/resources/templates/files-explorer.html
+  s_0af420b20b4753::t_ffe97017b5ed00 1-285
+variants/a/common/src/main/resources/templates/repository-explorer.html
+  s_0af420b20b4753::t_97e6925ab28fce 1-256
+variants/a/common/src/main/resources/vis_templates/bar_chart_races.html
+  s_0af420b20b4753::t_12a5b9c4c59288 1-364
+variants/a/common/src/main/resources/vis_templates/bubble_chart.html
+  s_0af420b20b4753::t_0440a6cfa9e372 1-90
+variants/a/common/src/main/resources/vis_templates/force_2d.html
+  s_0af420b20b4753::t_e0143e041bdc30 1-39
+variants/a/common/src/main/resources/vis_templates/force_3d.html
+  s_0af420b20b4753::t_e86f1ffcc3dbff 1-33
+variants/a/common/src/main/resources/vis_templates/treemap.html
+  s_0af420b20b4753::t_f732d90880b271 1-145
+variants/a/common/src/main/resources/vis_templates/zoomable_circles.html
+  s_0af420b20b4753::t_1212de1e5ee0c0 1-143
+variants/a/common/src/main/resources/vis_templates/zoomable_sunburst.html
+  s_0af420b20b4753::t_a64dd0b563a0a2 1-175
+variants/a/common/src/test/java/nl/obren/sokrates/common/analysis/FindingTest.java
+  s_0af420b20b4753::t_ff56f1514734ce 1-26
+variants/a/common/src/test/java/nl/obren/sokrates/common/io/JsonGeneratorTest.java
+  s_0af420b20b4753::t_b82df8e8c38b3d 1-30
+variants/a/common/src/test/java/nl/obren/sokrates/common/io/JsonMapperTest.java
+  s_0af420b20b4753::t_0517ec42cb219f 1-29
+variants/a/common/src/test/java/nl/obren/sokrates/common/io/UserPropertiesTest.java
+  s_0af420b20b4753::t_e7e6a97142de8d 1-39
+variants/a/common/src/test/java/nl/obren/sokrates/common/renderingutils/RichTextRenderingUtilsTest.java
+  s_0af420b20b4753::t_74b11828d8cd02 1-41
+variants/a/common/src/test/java/nl/obren/sokrates/common/utils/FormattingUtilsTest.java
+  s_0af420b20b4753::t_21da0cd14bd51b 1-107
+variants/a/common/src/test/java/nl/obren/sokrates/common/utils/ReflectionUtilsTest.java
+  s_0af420b20b4753::t_164f3ae07c8f14 1-71
+variants/a/common/src/test/java/nl/obren/sokrates/common/utils/SystemUtilsTest.java
+  s_0af420b20b4753::t_ee4b0f2f373b1b 1-20
+variants/a/dockerfile
+  s_0af420b20b4753::t_03129cb8f4c63e 1-28
+variants/a/git-commands.txt
+  s_0af420b20b4753::t_30a966abda40dc 1-3
+variants/a/pom.xml
+  s_0af420b20b4753::t_09b4466ca1dd9a 1-139
+variants/a/reports/pom.xml
+  s_0af420b20b4753::t_bf77968c6d9330 1-49
+variants/a/reports/sokrates.json
+  s_0af420b20b4753::t_6d1e7343a61716 1
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/charts/SimpleOneBarChart.java
+  s_0af420b20b4753::t_9755d82eb7e0a0 1-236
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/AnalysisEngine.java
+  s_0af420b20b4753::t_92021caaf79ce5 1-15
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/Figure.java
+  s_0af420b20b4753::t_52e25fe4cdcfd5 1-40
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportConstants.java
+  s_0af420b20b4753::t_60c6392b5ab14f 1-232
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+  s_0af420b20b4753::t_a097bbec3332be 1-1204
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportGenerator.java
+  s_0af420b20b4753::t_0d209764f7c0d7 1-12
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportRenderer.java
+  s_0af420b20b4753::t_1480f846fdc2fd 1-153
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportRenderingClient.java
+  s_0af420b20b4753::t_9725abaf0b691e 1-12
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportsContainer.java
+  s_0af420b20b4753::t_26b2c939a62bb8 1-27
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/RichTextFragment.java
+  s_0af420b20b4753::t_9d11cc4943d6b8 1-69
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/RichTextReport.java
+  s_0af420b20b4753::t_68665f6125b623 1-518
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/Scope.java
+  s_0af420b20b4753::t_c5ea809b1759a8 1-8
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java
+  s_0af420b20b4753::t_83493a5bc546b8 1-688
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExportUtils.java
+  s_0af420b20b4753::t_e5c3b5df009876 1-25
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+  s_0af420b20b4753::t_a545bc751fa921 1-959
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependenciesExportInfo.java
+  s_0af420b20b4753::t_fda1cdbc348e0a 1-41
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependenciesExporter.java
+  s_0af420b20b4753::t_0e4cd8493d50cf 1-37
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfo.java
+  s_0af420b20b4753::t_95bf95408c67cf 1-63
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyExportInfo.java
+  s_0af420b20b4753::t_cf65cee3d85701 1-53
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/SourceFileDependencyExportInfo.java
+  s_0af420b20b4753::t_0a2f676051c01f 1-37
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateExportInfo.java
+  s_0af420b20b4753::t_7ec9dcf473760e 1-29
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfo.java
+  s_0af420b20b4753::t_1cd06e4a00f85e 1-64
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExportInfo.java
+  s_0af420b20b4753::t_b01de49cfe5e76 1-52
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExporter.java
+  s_0af420b20b4753::t_8219d16ceb9ee3 1-55
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/files/FileExportInfo.java
+  s_0af420b20b4753::t_2ddb3bca61ba52 1-78
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/files/FileListExporter.java
+  s_0af420b20b4753::t_bd75fab748a7f7 1-38
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/files/FilesExportInfo.java
+  s_0af420b20b4753::t_f053a2c28fe394 1-74
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/trends/MetricsTrendExporter.java
+  s_0af420b20b4753::t_0c1dc35a295dfd 1-113
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/trends/MetricsTrendInfo.java
+  s_0af420b20b4753::t_7f17ee92170eef 1-54
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/trends/ReferenceResultsLoader.java
+  s_0af420b20b4753::t_b81831a54f1949 1-55
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/trends/ValueSnapshotPair.java
+  s_0af420b20b4753::t_84f948b25ddc72 1-34
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExport.java
+  s_0af420b20b4753::t_b020996fff4b3b 1-127
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitListExporter.java
+  s_0af420b20b4753::t_d6c35e57ec4669 1-46
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitsExportInfo.java
+  s_0af420b20b4753::t_51cef0c09fc065 1-74
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/explorers/FilesExplorerGenerators.java
+  s_0af420b20b4753::t_56e2269955d364 1-58
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/BasicSourceCodeReportGenerator.java
+  s_0af420b20b4753::t_e42945e66ffd49 1-246
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitTrendsExtractors.java
+  s_0af420b20b4753::t_27e47157be03fb 1-69
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
+  s_0af420b20b4753::t_ee1e72ac9b21e0 1-235
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConcernsReportGenerator.java
+  s_0af420b20b4753::t_5cae618ceec9a5 1-298
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConditionalComplexityReportGenerator.java
+  s_0af420b20b4753::t_8233dd41915ddc 1-121
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
+  s_0af420b20b4753::t_050171168ec5b5 1-598
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java
+  s_0af420b20b4753::t_1ecf5773c8a996 1-217
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ControlsReportGenerator.java
+  s_0af420b20b4753::t_bc80e280965b4f 1-81
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
+  s_0af420b20b4753::t_e2ea4a4d37efa1 1-496
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
+  s_0af420b20b4753::t_59f9feaa2ee423 1-288
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
+  s_0af420b20b4753::t_09a00abf82a075 1-274
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+  s_0af420b20b4753::t_3826256e2f61e2 1-240
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
+  s_0af420b20b4753::t_2e7f3a79ce71d0 1-214
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FindingsReportGenerator.java
+  s_0af420b20b4753::t_0f5f840bd524ed 1-87
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ForceGraphExporter.java
+  s_0af420b20b4753::t_31cdb8acc72240 1-59
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/HistoryPerLanguageGenerator.java
+  s_0af420b20b4753::t_a88fe5128393d1 1-254
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+  s_0af420b20b4753::t_dded2a4c58cd40 1-736
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/MetricsListReportGenerator.java
+  s_0af420b20b4753::t_d429953e89e133 1-66
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
+  s_0af420b20b4753::t_535c4489bb2236 1-295
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/RacingComponentsBarChartsExporter.java
+  s_0af420b20b4753::t_12b81773f04568 1-89
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/TrendReportGenerator.java
+  s_0af420b20b4753::t_50bba3407d8634 1-242
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java
+  s_0af420b20b4753::t_4e2c8cc5e73687 1-133
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/VisualizationTools.java
+  s_0af420b20b4753::t_2bd6ae427079e9 1-18
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorExport.java
+  s_0af420b20b4753::t_c79e8a3bbe3b0b 1-56
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExport.java
+  s_0af420b20b4753::t_b1152ee0be275c 1-114
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/LandscapeDataExport.java
+  s_0af420b20b4753::t_7b8cf2fbbdea8a 1-230
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/RepositoryExport.java
+  s_0af420b20b4753::t_9fa2a06580f152 1-165
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeAnalysisCommands.java
+  s_0af420b20b4753::t_e166962ab5de55 1-140
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java
+  s_0af420b20b4753::t_abfb13ffd06d9e 1-257
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java
+  s_0af420b20b4753::t_4785919395d26c 1-566
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+  s_0af420b20b4753::t_34ac662faaa7e0 1-1284
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+  s_0af420b20b4753::t_0533d0b10eaedf 1-1836
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
+  s_0af420b20b4753::t_bc24d64ce39fc8 1-711
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+  s_0af420b20b4753::t_0267fcd60781e7 1-905
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesTagsLine.java
+  s_0af420b20b4753::t_f74ae588b50829 1-113
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesTagsMatrixReport.java
+  s_0af420b20b4753::t_6c2a1204db1c27 1-249
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesTagsReport.java
+  s_0af420b20b4753::t_8e6fca8a293fd1 1-471
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/TagMap.java
+  s_0af420b20b4753::t_0ab225aaedc114 1-115
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/ContributorPerExtensionHelper.java
+  s_0af420b20b4753::t_2e36300ecfcd04 1-68
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/ContributorsExtractor.java
+  s_0af420b20b4753::t_76b1670872c738 1-7
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/CorrelationDiagramGenerator.java
+  s_0af420b20b4753::t_98e5b42b7ec988 1-164
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/Counter.java
+  s_0af420b20b4753::t_690ffb3823d927 1-7
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/ExtractStringListValue.java
+  s_0af420b20b4753::t_94da30936c5ee4 1-9
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/FeaturesOfInterestAggregator.java
+  s_0af420b20b4753::t_77b24e73ada51c 1-116
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/Force3DGraphExporter.java
+  s_0af420b20b4753::t_73c2d1d52608e9 1-57
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeGeneratorUtils.java
+  s_0af420b20b4753::t_17c8ce27e34a26 1-48
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeVisualsGenerator.java
+  s_0af420b20b4753::t_a4936d9a0ebded 1-137
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/RacingLanguagesBarChartsExporter.java
+  s_0af420b20b4753::t_5842bc431ee716 1-115
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/RacingRepositoriesBarChartsExporter.java
+  s_0af420b20b4753::t_436c02fe91ddaf 1-152
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/RepositoryConcernData.java
+  s_0af420b20b4753::t_fe1a99be6a36ff 1-40
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/TagStats.java
+  s_0af420b20b4753::t_4aa939f5d987bd 1-32
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/AnimalIcons.java
+  s_0af420b20b4753::t_cc2136d7aa3134 1-81
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ChartUtils.java
+  s_0af420b20b4753::t_46fda5381909cd 1-49
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/DataImageUtils.java
+  s_0af420b20b4753::t_667f30ad57b072 1-319
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/DateUtils.java
+  s_0af420b20b4753::t_5b07f5648e6b15 1-17
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/DuplicationReportUtils.java
+  s_0af420b20b4753::t_462ac8c794c0d9 1-93
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/FilesReportUtils.java
+  s_0af420b20b4753::t_f9ce046a25ad32 1-100
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/GraphvizDependencyRenderer.java
+  s_0af420b20b4753::t_4b734b9f0bc5b8 1-268
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/HtmlTemplateUtils.java
+  s_0af420b20b4753::t_70fdece2b016b9 1-33
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/PieChartUtils.java
+  s_0af420b20b4753::t_49033768645879 1-43
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/PromptsUtils.java
+  s_0af420b20b4753::t_ffb73174a7df9d 1-68
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ReportUtils.java
+  s_0af420b20b4753::t_e4f5076e86969f 1-45
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/RiskDistributionStatsReportUtils.java
+  s_0af420b20b4753::t_9538a1ecdb4816 1-67
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ScopeRendererItem.java
+  s_0af420b20b4753::t_9685cfe91868a7 1-37
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ScopesRenderer.java
+  s_0af420b20b4753::t_b99a3e2e603027 1-397
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ToStringFunction.java
+  s_0af420b20b4753::t_862135831f097b 1-5
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/UtilsReportUtils.java
+  s_0af420b20b4753::t_ededa1f042f99d 1-57
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ZipEntryContent.java
+  s_0af420b20b4753::t_6f87285d9bb301 1-34
+variants/a/reports/src/main/java/nl/obren/sokrates/reports/utils/ZipUtils.java
+  s_0af420b20b4753::t_909e89368fcc8a 1-96
+variants/a/reports/src/main/resources/icons/3d.svg
+  s_0af420b20b4753::t_99cc5c7efc28ef 1
+variants/a/reports/src/main/resources/icons/bear.svg
+  s_0af420b20b4753::t_7828cefec44d09 1-3
+variants/a/reports/src/main/resources/icons/bird.svg
+  s_0af420b20b4753::t_e042d0cc3dd27b 1-6
+variants/a/reports/src/main/resources/icons/bot.svg
+  s_0af420b20b4753::t_d4336445ddb1ae 1-7
+variants/a/reports/src/main/resources/icons/buffalo.svg
+  s_0af420b20b4753::t_22a6ba594109a7 1-6
+variants/a/reports/src/main/resources/icons/build.svg
+  s_0af420b20b4753::t_3527b41ce8e519 1-6
+variants/a/reports/src/main/resources/icons/build_and_deployment.svg
+  s_0af420b20b4753::t_eb98d2a158cd4e 1-6
+variants/a/reports/src/main/resources/icons/bull.svg
+  s_0af420b20b4753::t_92243d1ea9bb28 1-13
+variants/a/reports/src/main/resources/icons/camel.svg
+  s_0af420b20b4753::t_ce8f6be574834a 1-7
+variants/a/reports/src/main/resources/icons/cat.svg
+  s_0af420b20b4753::t_a31ed8d96f4264 1-3
+variants/a/reports/src/main/resources/icons/change.svg
+  s_0af420b20b4753::t_5dfcd1778f4374 1-10
+variants/a/reports/src/main/resources/icons/code_organization.svg
+  s_0af420b20b4753::t_b60c54e13e5f20 1-2
+variants/a/reports/src/main/resources/icons/codebase.svg
+  s_0af420b20b4753::t_0d7d8422e0f59a 1-8
+variants/a/reports/src/main/resources/icons/codebase_prev.svg
+  s_0af420b20b4753::t_fdf04e15f7a6dd 1-2
+variants/a/reports/src/main/resources/icons/commits.svg
+  s_0af420b20b4753::t_bdde7efe206683 1-5
+variants/a/reports/src/main/resources/icons/conditional.svg
+  s_0af420b20b4753::t_01923ffe4b06c3 1-2
+variants/a/reports/src/main/resources/icons/contributor.svg
+  s_0af420b20b4753::t_ad5bdefdfb3364 1
+variants/a/reports/src/main/resources/icons/contributor_historical.svg
+  s_0af420b20b4753::t_041bc98d4f79cf 1
+variants/a/reports/src/main/resources/icons/contributors.svg
+  s_0af420b20b4753::t_25c227c2807aa8 1-3
+variants/a/reports/src/main/resources/icons/contributors_prev.svg
+  s_0af420b20b4753::t_cd05d35aab9fab 1-5
+variants/a/reports/src/main/resources/icons/cross_cutting_concerns.svg
+  s_0af420b20b4753::t_10847385b9a185 1
+variants/a/reports/src/main/resources/icons/dependencies.svg
+  s_0af420b20b4753::t_9b2a6789f4e587 1-2
+variants/a/reports/src/main/resources/icons/details.svg
+  s_0af420b20b4753::t_3a06b13a850c7d 1
+variants/a/reports/src/main/resources/icons/dog.svg
+  s_0af420b20b4753::t_7a61940cf7c344 1-3
+variants/a/reports/src/main/resources/icons/donkey.svg
+  s_0af420b20b4753::t_37809030bfde10 1-6
+variants/a/reports/src/main/resources/icons/duplication.svg
+  s_0af420b20b4753::t_d82c4664031cdf 1-13
+variants/a/reports/src/main/resources/icons/duplication_prev.svg
+  s_0af420b20b4753::t_d6be7770a79ba6 1
+variants/a/reports/src/main/resources/icons/elephant.svg
+  s_0af420b20b4753::t_38379b66e58760 1-7
+variants/a/reports/src/main/resources/icons/file_history.svg
+  s_0af420b20b4753::t_444c723be12ec0 1-13
+variants/a/reports/src/main/resources/icons/file_history_prev.svg
+  s_0af420b20b4753::t_ef67843d89465a 1-11
+variants/a/reports/src/main/resources/icons/file_size.svg
+  s_0af420b20b4753::t_e5794cdca71158 1-7
+variants/a/reports/src/main/resources/icons/file_size_prev.svg
+  s_0af420b20b4753::t_15dfb3c34726b0 1
+variants/a/reports/src/main/resources/icons/fox.svg
+  s_0af420b20b4753::t_5906e5f3279084 1-3
+variants/a/reports/src/main/resources/icons/generated.svg
+  s_0af420b20b4753::t_32a46c0121c809 1-3
+variants/a/reports/src/main/resources/icons/giraffe.svg
+  s_0af420b20b4753::t_248dcb141c2992 1-10
+variants/a/reports/src/main/resources/icons/goal.svg
+  s_0af420b20b4753::t_b63a3250eaa4be 1-2
+variants/a/reports/src/main/resources/icons/gorilla.svg
+  s_0af420b20b4753::t_05db7f4a685d1d 1-6
+variants/a/reports/src/main/resources/icons/heat.svg
+  s_0af420b20b4753::t_959b0e2f80baaf 1
+variants/a/reports/src/main/resources/icons/hippo.svg
+  s_0af420b20b4753::t_441616d72ff5c1 1-7
+variants/a/reports/src/main/resources/icons/horse.svg
+  s_0af420b20b4753::t_53536821acd006 1-6
+variants/a/reports/src/main/resources/icons/main.svg
+  s_0af420b20b4753::t_060b6bf4e62286 1-10
+variants/a/reports/src/main/resources/icons/metrics.svg
+  s_0af420b20b4753::t_85b5a1cd766d2d 1-2
+variants/a/reports/src/main/resources/icons/mouse.svg
+  s_0af420b20b4753::t_460b58dda9b55d 1-7
+variants/a/reports/src/main/resources/icons/new.svg
+  s_0af420b20b4753::t_77cc7fddb0c12b 1-6
+variants/a/reports/src/main/resources/icons/new_tab.svg
+  s_0af420b20b4753::t_fafa34a7f04694 1-6
+variants/a/reports/src/main/resources/icons/notes.svg
+  s_0af420b20b4753::t_f39d173ba7937a 1
+variants/a/reports/src/main/resources/icons/other.svg
+  s_0af420b20b4753::t_eaedd56570a173 1-10
+variants/a/reports/src/main/resources/icons/rabbit.svg
+  s_0af420b20b4753::t_c1a36f8b103f25 1-3
+variants/a/reports/src/main/resources/icons/report.svg
+  s_0af420b20b4753::t_90b15cefa92b03 1
+variants/a/reports/src/main/resources/icons/repository.svg
+  s_0af420b20b4753::t_932b3464839682 1-3
+variants/a/reports/src/main/resources/icons/rhino.svg
+  s_0af420b20b4753::t_b2e8dba6017330 1-6
+variants/a/reports/src/main/resources/icons/sheep.svg
+  s_0af420b20b4753::t_848b45c86909fc 1-3
+variants/a/reports/src/main/resources/icons/tags.svg
+  s_0af420b20b4753::t_8be29f45f1b869 1
+variants/a/reports/src/main/resources/icons/teams.svg
+  s_0af420b20b4753::t_7f997da468a305 1-17
+variants/a/reports/src/main/resources/icons/temporal_dependency.svg
+  s_0af420b20b4753::t_4b0174b01991b5 1
+variants/a/reports/src/main/resources/icons/test.svg
+  s_0af420b20b4753::t_7dd7e227bf4551 1-9
+variants/a/reports/src/main/resources/icons/touch.svg
+  s_0af420b20b4753::t_8583bfd23cbdc3 1-3
+variants/a/reports/src/main/resources/icons/trend.svg
+  s_0af420b20b4753::t_14725385717856 1-2
+variants/a/reports/src/main/resources/icons/unit_size.svg
+  s_0af420b20b4753::t_82c906547d6055 1-3
+variants/a/reports/src/main/resources/icons/unit_size_prev.svg
+  s_0af420b20b4753::t_b1a6bc76953ae2 1-2
+variants/a/reports/src/main/resources/icons/whale.svg
+  s_0af420b20b4753::t_0f64614c99ec2c 1-10
+variants/a/reports/src/main/resources/icons/wolf.svg
+  s_0af420b20b4753::t_4820e80c3fbc05 1-3
+variants/a/reports/src/main/resources/icons/workload.svg
+  s_0af420b20b4753::t_0bfb0590b77b9f 1-6
+variants/a/reports/src/main/resources/prompts/git-history-analyzer.txt
+  s_0af420b20b4753::t_c5207dde7d5717 1-89
+variants/a/reports/src/main/resources/prompts/landscape-commits-analyzer.txt
+  s_0af420b20b4753::t_fc82c62db0a025 1-24
+variants/a/reports/src/main/resources/prompts/landscape-repository-insights.txt
+  s_0af420b20b4753::t_458fcf42206b73 1-36
+variants/a/reports/src/main/resources/prompts/path-name-conventions-analyzer.txt
+  s_0af420b20b4753::t_431d4d4bf48ae0 1-14
+variants/a/reports/src/main/resources/prompts/technology-analyzer.txt
+  s_0af420b20b4753::t_5d02692fe6e0c0 1-35
+variants/a/reports/src/main/resources/style/style.css
+  s_0af420b20b4753::t_5dd4c9487ff7c7 1-79
+variants/a/reports/src/main/resources/templates/CodeFragmentFile.html
+  s_0af420b20b4753::t_65ae49f492f88b 1-26
+variants/a/reports/src/main/resources/templates/CodeFragmentUnit.html
+  s_0af420b20b4753::t_0a81ffee8eb854 1-22
+variants/a/reports/src/main/resources/templates/Structure.html
+  s_0af420b20b4753::t_3b363e9e116c24 1-351
+variants/a/reports/src/main/resources/templates/mermaid.html
+  s_0af420b20b4753::t_6cc4a8c907fb56 1-32
+variants/a/reports/src/test/java/nl/obren/sokrates/reports/core/ReportFileExporterTest.java
+  s_0af420b20b4753::t_86080d63f44012 1-16
+analysis/a/config.json
+  s_0af420b20b4753::t_a4a564a4ee8d11 1-465
+scripts/analyze_variant.sh
+  s_0af420b20b4753::t_2db028270786bc 1-16
+tasks/t01-undefined-team-active/acceptance/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/landscape/analysis/UndefinedTeamActiveContributorsTest.java
+  s_0af420b20b4753::t_1f47310b0b9645 1-81
+tasks/t01-undefined-team-active/meta.json
+  s_0af420b20b4753::t_264af767bc4e40 1-14
+tasks/t01-undefined-team-active/task.md
+  s_0af420b20b4753::t_8553336f6c1cba 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "38301f6dbd406ab8527f1242dfb3aced62736bf1",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
