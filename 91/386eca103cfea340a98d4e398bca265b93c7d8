@@ -1,0 +1,19 @@
+variants/b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java
+  s_0af420b20b4753::t_6cfcf56f5368cb 34-56,90,92,122,124
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "91386eca103cfea340a98d4e398bca265b93c7d8",
+  "prompts": {},
+  "sessions": {
+    "s_0af420b20b4753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f8fc5201-db12-4f99-a873-2c992f5fc97e",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
