@@ -1,0 +1,14 @@
+{
+  "id": "t07-past-90d-block",
+  "kind": "target",
+  "title": "Fix the 'past 90d' repositories block showing the 180-day LOC",
+  "reference_commit": "90fa40b1",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java"
+  ],
+  "target_unit": "addBigRepositoriesSummary() in LandscapeReportGenerator (file of 1,587 LOC, very high risk; the unit itself is about 40 LOC, below the unit threshold)",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=RepositoriesPast90DaysBlockTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "A one-line fix (+1/-1): the 'past 90d' info block passed loc180Days as its LOC text (copy-paste from the 180d block) while its count and percentage used the 90-day figures; the reference diff applies to the snapshot as is. In variant B the block sits in LandscapeReportOverviewSection.addBigRepositoriesSummary (file of 318 LOC). The acceptance test builds a landscape with two repositories — 500 LOC with commits in the past 30/90/180 days, 2,000 LOC with commits only in the past 180 days — generates index.html into a @TempDir and reads the LOC figure of each info block (the text between the block's label and the first ' LOC' after it): 180d = 2.5K, 90d = 500, 30d = 500. Verification: A before = compiles, FAILS (past 90d: expected 500 but was 2.5K); A after (git show 90fa40b1 applied with patch -p1) = PASSES, reports module green (mvn -q -o -pl reports -am test); B before = compiles, FAILS the same way; B after (same line in LandscapeReportOverviewSection) = PASSES, reports module green."
+}

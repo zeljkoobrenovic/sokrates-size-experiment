@@ -1,0 +1,38 @@
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/ContributorListsSection.java	2026-10-09 11:36:50
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/ContributorListsSection.java	2026-10-09 11:58:08
+@@ -188,7 +188,7 @@
+         int index[] = {0};
+ 
+         StringBuilder barsHtml = new StringBuilder();
+-        recentContributors.stream().limit(landscapeAnalysisResults.getConfiguration().getContributorsListLimit()).forEach(c -> {
++        recentContributors.forEach(c -> {
+             index[0] += 1;
+             Contributor contributor = c.getContributor();
+             int count = contributor.getCommitsCount30Days();
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java	2026-10-09 11:36:50
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java	2026-10-09 11:58:26
+@@ -97,23 +97,17 @@
+         }
+         int counter[] = {0};
+ 
+-        int limit = landscapeAnalysisResults.getConfiguration().getContributorsListLimit();
+         contributors.stream()
+                 .sorted((a, b) -> b.getContributor().getCommitsCount() - a.getContributor().getCommitsCount())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount365Days() - a.getContributor().getCommitsCount365Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount180Days() - a.getContributor().getCommitsCount180Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount90Days() - a.getContributor().getCommitsCount90Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount30Days() - a.getContributor().getCommitsCount30Days())
+-                .limit(limit).forEach(contributor -> {
++                .forEach(contributor -> {
+                     contributorsLinkedFromTables.add(contributor.getContributor().getEmail());
+                     addContributor(totalCommits, counter, contributor);
+                 });
+         report.endTable();
+-
+-        if (limit < contributors.size()) {
+-            report.addParagraph("The list is limited to " + limit + " items (out of " + contributors.size() + ").",
+-                    "color:grey; font-size: 90%; margin-top: 16px; margin-left: 11px");
+-        }
+     }
+ 
+     private void addContributor(int totalCommits, int[] counter, ContributorRepositories contributor) {

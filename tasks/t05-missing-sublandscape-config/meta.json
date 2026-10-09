@@ -1,0 +1,14 @@
+{
+  "id": "t05-missing-sublandscape-config",
+  "kind": "target",
+  "title": "Don't crash the landscape report when a sub-landscape config is missing",
+  "reference_commit": "54369e67",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java"
+  ],
+  "target_unit": "addSubLandscapeSection() in LandscapeReportGenerator (unit of 128 LOC, McCabe 17; file of 1,587 LOC, very high risk)",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=MissingSubLandscapeConfigTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The real change is +7/-0 in addSubLandscapeSection: getSubLandscapeConfig(...) returns null when the sub-landscape's config.json is missing or unreadable, and the row dereferenced it (.getMetadata()) without a guard while the analysis-results value of the same row was already null-tolerant; the fix falls back to a default LandscapeConfiguration so the row renders with the default logo. In variant B the same row code sits in LandscapeReportSubLandscapesSection.addSubLandscapeRow (file of 290 LOC). The acceptance test builds a landscape with one repository and two sub-landscape links, one with a config.json (logo 'present-logo.png') and one whose folder does not exist, generates the report into a @TempDir and asserts no exception plus both rows (own logo / default logo) in index.html. Verification: A before = compiles, FAILS (assertDoesNotThrow: NullPointerException 'subLandscapeConfig is null'); A after (git show 54369e67 applied with patch -p1) = PASSES, reports module green (mvn -q -o -pl reports -am test); B before = compiles, FAILS the same way; B after (same 7 lines in LandscapeReportSubLandscapesSection) = PASSES, reports module green."
+}

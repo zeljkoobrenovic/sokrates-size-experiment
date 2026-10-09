@@ -1,0 +1,14 @@
+{
+  "id": "t06-all-contributors-exported",
+  "kind": "target",
+  "title": "Export all contributors to the report (drop the contributorsListLimit cap)",
+  "reference_commit": "e4ac6240",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java"
+  ],
+  "target_unit": "addRecentContributorsSection() in LandscapeReportContributorsTab (unit of 73 LOC; file of 1,076 LOC, very high risk); the same cap is also applied by the contributor tables in LandscapeContributorsReport (257 LOC, not a target), which the task covers too",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=AllContributorsExportedTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "Re-derived: the reference commit (+6/-7) removes .limit(contributorsListLimit) from the client-rendered contributor export (toExports), which does not exist in the snapshot; in the snapshot the cap sits in two server-rendered places: the recent-commits bar chart of addRecentContributorsSection (LandscapeReportContributorsTab, the target unit) and the contributor tables of LandscapeContributorsReport (with the 'The list is limited to' paragraph). The re-derived change (+2/-7 in A) drops .limit(...) in both and the paragraph; the configuration key stays. In variant B the bar-chart code sits in ContributorListsSection.getBarsHtml (file of 286 LOC) and the table code in LandscapeContributorsReport (280 LOC). The cap is configurable (LandscapeConfiguration.setContributorsListLimit), so the acceptance test sets it to 2 with 4 recently active contributors in one repository, exports every report of the generator into a @TempDir and asserts that contributors.html and contributors-recent.html list all four emails without the 'limited to' note, and that index.html has four recent-commit bars (one 'cumulative commits (top ' tooltip each). Verification: A before = compiles, FAILS (contributors.html lists cid@acme.com: expected true); A after = PASSES, reports module green (mvn -q -o -pl reports -am test); B before = compiles, FAILS the same way; B after (same change in ContributorListsSection + LandscapeContributorsReport) = PASSES, reports module green."
+}
