@@ -284,3 +284,103 @@ customers in their region.
 ## 72 Dashboard
 One summary for a given date: number of open orders, value of open orders, overdue invoice amount, stock value, open
 tickets, back orders, and orders waiting for discount approval.
+
+# Second batch (used only if the first 72 do not reach the entry criteria)
+
+## 73 Orders per sales channel
+Orders now record the channel they came from (web, phone, email, field sales). List the orders of a channel between
+two dates, and report the number of orders and revenue per channel.
+
+## 74 Open orders per warehouse
+For each warehouse, list the open orders whose lines it can fully ship from its own stock, and those it cannot.
+
+## 75 Customer order history export
+For a customer, list every order with its date, status, number of lines and total, oldest first, and the same for the
+orders of all customers of a region.
+
+## 76 Invoices per sales rep
+List the open invoices of the customers of a sales rep, the overdue ones, and the paid ones between two dates.
+
+## 77 Shipments per customer
+List the shipments of a customer between two dates, those still in transit, and those delivered late.
+
+## 78 Returns per product
+List the returns containing a product between two dates, and report the returned quantity per product, most returned
+first, overall and for one category.
+
+## 79 Returns per reason
+Report the number of returns and the returned value per reason between two dates, overall and per region.
+
+## 80 Purchase orders per warehouse
+Purchase orders now name the warehouse they will be received into. List the open purchase orders of a warehouse and
+those overdue on a given date.
+
+## 81 Supplier spending
+Report, between two dates, the value of received purchase orders per supplier, biggest first, and per country.
+
+## 82 Product margin
+Show, per product between two dates, the revenue, the purchase cost of the units sold (at the last purchase cost) and
+the margin; the products with the lowest margin first.
+
+## 83 Category margin
+The same margin report per category, and the categories whose margin fell below a given percentage.
+
+## 84 Customers per region report
+Per region: number of active customers, customers on hold, new customers between two dates, and dormant customers on
+a given date.
+
+## 85 Overdue invoices per sales rep
+For each rep, the number and amount of overdue invoices of their customers on a given date, biggest amount first.
+
+## 86 Back orders per warehouse
+List the back orders that a given warehouse could ship now from its stock, and the back orders per product category.
+
+## 87 Promotion usage
+Report per promotion between two dates: the number of order lines it was applied to, the discount given and the
+revenue of those lines; the unused promotions.
+
+## 88 Price list usage
+Report per customer with a price list, between two dates, the revenue at special prices and what it would have been at
+catalogue prices.
+
+## 89 Credit notes per period
+List the credit notes between two dates, all and per region, and report the credited amount per reason of the
+underlying returns.
+
+## 90 Payments per sales rep
+List the payments received from the customers of a sales rep between two dates, and the total per rep.
+
+## 91 Tickets per product
+Tickets can name a product. List the open tickets about a product, and report tickets per product between two dates.
+
+## 92 Tickets per region
+List the open tickets of the customers of a region, per priority, and the high-priority tickets older than N days on a
+given date.
+
+## 93 Stock per category
+Show the stock quantity and value per category, per warehouse and in total, and the categories with no stock in a
+warehouse.
+
+## 94 Slow-moving stock
+List the products with stock but no shipment in the N days before a given date, per warehouse and in total, by stock
+value.
+
+## 95 Order line search
+Search order lines by any combination of product, category, customer, date range and minimum quantity, newest first.
+
+## 96 Shipment search
+Search shipments by any combination of carrier, warehouse, customer, status (in transit or delivered) and date range.
+
+## 97 Purchase order search
+Search purchase orders by any combination of supplier, warehouse, status and expected date range.
+
+## 98 Return search
+Search returns by any combination of customer, product, reason and date range.
+
+## 99 Monthly sales report
+For a year, report per month: number of orders, revenue, number of new customers, number of returns and credited
+amount.
+
+## 100 Year-over-year comparison
+For a month, compare revenue, orders and average order value with the same month of the previous year, overall and
+per region.
