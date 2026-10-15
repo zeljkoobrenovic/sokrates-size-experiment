@@ -1,0 +1,151 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+index 732345e8..39940c13 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+@@ -71,7 +71,7 @@ public class AnalysisUtils {
+         }
+ 
+         SourceCodeAspectUtils.getAspectsPerExtensions(aspect).forEach(aspectPerExtension -> {
+-            String extensionMetricName = name + "_EXT_" + aspectPerExtension.getName().replace("*.", "");
++            String extensionMetricName = name + "_EXT_" + aspectPerExtension.getName();
+             metricsList.addMetric()
+                     .id(getMetricId("NUMBER_OF_FILES_" + extensionMetricName))
+                     .value(aspectPerExtension.getSourceFiles().size());
+@@ -80,7 +80,7 @@ public class AnalysisUtils {
+                     .id(getMetricId("LINES_OF_CODE_" + extensionMetricName))
+                     .value(aspectPerExtension.getLinesOfCode());
+ 
+-            detailedInfo(textSummary, progressFeedback, aspectPerExtension.getName() + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
++            detailedInfo(textSummary, progressFeedback, "  *." + aspectPerExtension.getName() + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
+             aspectAnalysisResults.getFileCountPerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getSourceFiles().size()));
+             aspectAnalysisResults.getLinesOfCodePerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getLinesOfCode()));
+         });
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+index 403de833..ec8f8a05 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+@@ -150,6 +150,13 @@ public class SourceCodeAspectUtils {
+         return commonPrefix;
+     }
+ 
++    // Strips the legacy "  *." decoration older analyses wrote into per-extension metric names
++    // (e.g. "  *.java" -> "java"), so data produced before and after that change compares equal.
++    public static String extensionName(String perExtensionName) {
++        return perExtensionName == null ? "" : perExtensionName.replace("*.", "").trim().toLowerCase();
++    }
++
++    // One aspect per (lower-cased) file extension, named by the bare extension ("java", "ts"), sorted by LOC desc.
+     @JsonIgnore
+     public static List<NamedSourceCodeAspect> getAspectsPerExtensions(NamedSourceCodeAspect aspect) {
+         Map<String, NamedSourceCodeAspect> map = new HashMap<>();
+@@ -158,7 +165,7 @@ public class SourceCodeAspectUtils {
+             String extension = ExtensionGroupExtractor.getExtension(sourceFile.getFile().getPath()).toLowerCase();
+             NamedSourceCodeAspect extensionAspect = map.get(extension);
+             if (extensionAspect == null) {
+-                extensionAspect = new NamedSourceCodeAspect("  *." + extension);
++                extensionAspect = new NamedSourceCodeAspect(extension);
+                 map.put(extension, extensionAspect);
+             }
+             extensionAspect.getSourceFiles().add(sourceFile);
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index d0fec47d..4c93f255 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -10,6 +10,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.FilesHistoryAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
++import nl.obren.sokrates.sourcecode.aspects.SourceCodeAspectUtils;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
+@@ -516,7 +517,8 @@ public class LandscapeAnalysisResults {
+                 repositoryLinesOfCodePerExtension = repositoryAnalysisResults.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCodePerExtension();
+             }
+             repositoryLinesOfCodePerExtension.forEach(metric -> {
+-                String id = metric.getName().toLowerCase();
++                // older reports name these "  *.java"; current ones "java" — merge both under the bare extension
++                String id = SourceCodeAspectUtils.extensionName(metric.getName());
+                 Optional<NumericMetric> existingMetric = linesOfCodePerExtension.stream().filter(c -> c.getName().equalsIgnoreCase(id)).findAny();
+                 if (existingMetric.isPresent()) {
+                     NumericMetric metricObject = existingMetric.get();
+@@ -540,10 +542,11 @@ public class LandscapeAnalysisResults {
+ 
+         metricLists.forEach(list -> {
+             list.forEach(metric -> {
+-                if (mergedMap.containsKey(metric.getName())) {
+-                    mergedMap.get(metric.getName()).setValue(mergedMap.get(metric.getName()).getValue().doubleValue() + metric.getValue().doubleValue());
++                String name = SourceCodeAspectUtils.extensionName(metric.getName());
++                if (mergedMap.containsKey(name)) {
++                    mergedMap.get(name).setValue(mergedMap.get(name).getValue().doubleValue() + metric.getValue().doubleValue());
+                 } else {
+-                    NumericMetric newMetric = new NumericMetric(metric.getName(), metric.getValue());
++                    NumericMetric newMetric = new NumericMetric(name, metric.getValue());
+                     merged.add(newMetric);
+                     mergedMap.put(newMetric.getName(), newMetric);
+                 }
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+index a121a2d1..327ac5dd 100644
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+@@ -41,9 +41,9 @@ public class CodeConfigurationTest {
+ 
+         assertEquals(scopesWithExtensions.size(), 8);
+         assertEquals(scopesWithExtensions.get(0).getName(), "main");
+-        assertEquals(scopesWithExtensions.get(1).getName(), "  *.java");
+-        assertEquals(scopesWithExtensions.get(2).getName(), "  *.js");
+-        assertEquals(scopesWithExtensions.get(3).getName(), "  *.html");
++        assertEquals(scopesWithExtensions.get(1).getName(), "java");
++        assertEquals(scopesWithExtensions.get(2).getName(), "js");
++        assertEquals(scopesWithExtensions.get(3).getName(), "html");
+         assertEquals(scopesWithExtensions.get(4).getName(), "test");
+         assertEquals(scopesWithExtensions.get(5).getName(), "generated");
+         assertEquals(scopesWithExtensions.get(6).getName(), "build and deployment");
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+index a5cc65d5..97173d43 100644
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+@@ -70,17 +70,17 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/A.java")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+ 
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/a.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+ 
+@@ -88,11 +88,11 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/b.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(1).getFile().getName(), "B.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(1).getFile().getName(), "b.js");
+@@ -115,7 +115,7 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(sourceFile3);
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 3);
+     }
+ 

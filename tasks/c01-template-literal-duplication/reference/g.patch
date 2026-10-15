@@ -1,0 +1,10 @@
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/CStyleHeuristicUnitsExtractor.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/units/CStyleHeuristicUnitsExtractor.java
+@@ -231,6 +231,7 @@
+         cleanedContent = cleanedContent.replaceAll("@\".*?\"", "\"\"");
+         cleanedContent = cleanedContent.replaceAll("\".*?\"", "\"\"");
+         cleanedContent = cleanedContent.replaceAll("'.*?'", "''");
++        cleanedContent = cleanedContent.replaceAll("`[^`]*`", "``");
+         cleanedContent = cleanedContent.replaceAll("/.+?/", "\"\"");
+         cleanedContent = cleanedContent.replace("://", ":/ /");
+         cleanedContent = cleanedContent.replaceAll("[<].*?[>]", "");

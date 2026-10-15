@@ -1,0 +1,21 @@
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+@@ -366,7 +366,7 @@
+             if (groupDependenciesMap.containsKey(key1)) {
+                 groupDependenciesMap.get(key1).setCount(groupDependenciesMap.get(key1).getCount() + dependency.getCount());
+             } else if (groupDependenciesMap.containsKey(key2)) {
+-                groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key1).getCount() + dependency.getCount());
++                groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key2).getCount() + dependency.getCount());
+             } else {
+                 ComponentDependency newDependency = new ComponentDependency(from, to);
+                 newDependency.setCount(dependency.getCount());
+@@ -651,7 +651,8 @@
+         chart.setBarStartXOffset(2);
+         chart.setSmallerFontSize();
+ 
+-        double percentage = 100.0 * locFromDuplications / fromComponentByName.getLinesOfCode();
++        int componentLinesOfCode = fromComponentByName.getLinesOfCode();
++        double percentage = componentLinesOfCode > 0 ? 100.0 * locFromDuplications / componentLinesOfCode : 0;
+         String percentageText = FormattingUtils.getFormattedPercentage(percentage) + "%";
+ 
+         String textRight = dependencyCount + " "

@@ -1,0 +1,57 @@
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index 6abbdb8..ce025a5 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -70,7 +70,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
+  * <p>
+  * Command &rarr; handler (the table in {@code createCommandHandlers()}, used by {@link #run}): {@code init} &rarr; {@code init};
+  * {@code updateConfig} &rarr; {@code updateConfig}; {@code exportStandardConventions} &rarr; {@code exportConventions};
+- * {@code updateLandscape} &rarr; {@code updateLandscape}; {@code createConventionsFile} &rarr; {@code createNewConventionsFile};
++ * {@code analyzeLandscape} and {@code updateLandscape} &rarr; {@code updateLandscape}; {@code createConventionsFile} &rarr; {@code createNewConventionsFile};
+  * {@code extractGitSubHistory} &rarr; {@code extractGitSubHistory}; {@code extractFiles} &rarr; {@code extractFiles};
+  * {@code extractGitHistory} &rarr; {@code extractGitHistory}; {@code generateReports} &rarr; {@code generateReports};
+  * anything else prints the usage.
+@@ -101,7 +101,9 @@ public class CommandLineInterface {
+         handlers.put(Commands.INIT, this::init);
+         handlers.put(Commands.UPDATE_CONFIG, this::updateConfig);
+         handlers.put(Commands.EXPORT_STANDARD_CONVENTIONS, this::exportConventions);
+-        handlers.put(Commands.UPDATE_LANDSCAPE, this::updateLandscape);
++        // same implementation as updateLandscape; analyzeLandscape is the name that mirrors analyze
++        handlers.put(Commands.ANALYZE_LANDSCAPE, args -> updateLandscape(args, Commands.ANALYZE_LANDSCAPE, Commands.ANALYZE_LANDSCAPE_DESCRIPTION));
++        handlers.put(Commands.UPDATE_LANDSCAPE, args -> updateLandscape(args, Commands.UPDATE_LANDSCAPE, Commands.UPDATE_LANDSCAPE_DESCRIPTION));
+         handlers.put(Commands.INIT_CONVENTIONS, this::createNewConventionsFile);
+         handlers.put(Commands.EXTRACT_GIT_SUB_HISTORY, this::extractGitSubHistory);
+         handlers.put(Commands.EXTRACT_FILES, this::extractFiles);
+@@ -244,8 +246,8 @@ public class CommandLineInterface {
+         }
+     }
+ 
+-    private void updateLandscape(String[] args) throws ParseException {
+-        CommandLine cmd = parseArgsOrShowHelp(args, commands::getUpdateLandscapeOptions, Commands.UPDATE_LANDSCAPE, Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++    private void updateLandscape(String[] args, String commandName, String commandDescription) throws ParseException {
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getUpdateLandscapeOptions, commandName, commandDescription);
+         if (cmd == null) {
+             return;
+         }
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+index 1548040..bbd7aaa 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -34,6 +34,9 @@ public class Commands {
+     public static final String UPDATE_CONFIG = "updateConfig";
+     public static final String UPDATE_CONFIG_DESCRIPTION = "Updates an analysis configuration file and completes missing fields";
+ 
++    public static final String ANALYZE_LANDSCAPE = "analyzeLandscape";
++    public static final String ANALYZE_LANDSCAPE_DESCRIPTION = "Creates or updates a Sokrates landscape report aggregating the repository analyses found under the analysis root (the landscape counterpart of analyze). Same behavior and options as updateLandscape, which is kept as the older name.";
++
+     public static final String UPDATE_LANDSCAPE = "updateLandscape";
+     public static final String UPDATE_LANDSCAPE_DESCRIPTION = "Updates or creates a Sokrates landscape report, aggregating results of multiple analyses";
+ 
+@@ -128,6 +131,7 @@ public class Commands {
+ 
+         commands.add(new CommandUsage(INIT, INIT_DESCRIPTION, getInitOptions()));
+         commands.add(new CommandUsage(GENERATE_REPORTS, GENERATE_REPORTS_DESCRIPTION, getReportingOptions()));
++        commands.add(new CommandUsage(ANALYZE_LANDSCAPE, ANALYZE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_LANDSCAPE, UPDATE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_CONFIG, UPDATE_CONFIG_DESCRIPTION, getUpdateConfigOptions()));
+         commands.add(new CommandUsage(EXTRACT_GIT_HISTORY, EXTRACT_GIT_HISTORY_DESCRIPTION, getExtractGitHistoryOption()));

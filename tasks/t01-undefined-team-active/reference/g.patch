@@ -1,0 +1,13 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index f02629c..9412c38 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -761,7 +761,7 @@ public class LandscapeAnalysisResults {
+                 added = true;
+             }
+ 
+-            if (!added && !remainder.getMembers().contains(email)) {
++            if (!added && contributor.getContributor().isActive() && !remainder.getMembers().contains(contributor)) {
+                 remainder.getMembers().add(contributor);
+                 contributor.getRepositories().forEach(repo -> {
+                     addRepoToTeam(repo, remainder);
