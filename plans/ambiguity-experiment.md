@@ -153,3 +153,16 @@ diff, acceptance; the transcript (per-call usage) and the tool log. Added:
 2. Write the 15 tasks and acceptance tests on A; reference patches; register the hypotheses (this file, committed).
 3. Build S and SD (script), D, D-names and R (blind agents); behaviour checks; ambiguity and length measured.
 4. Pilot (135 Sonnet runs); then the series.
+
+## Log
+
+- **2026-10-16 00:08**: first growth (`grow.sh`, `STANDING.md`) started, features 1–72, Sonnet 5.5.
+- **2026-10-16 ~01:10, the registered adjustment, decided early.** After 40 features `DataStore.java` had 2,403
+  lines (≈ 55 per feature, projecting ≈ 4.5–5k at 72) and almost no near-copies: after 19 features, 7 twin pairs
+  (Jaccard ≥ 0.6) and 1 cluster of ≥ 3 in the whole codebase; the methods "open orders" hits had a mean similarity
+  of 0.01. Left to the plain standing instruction, Sonnet writes distinct, if verbose, methods: the length and
+  duplication entry criteria would fail. So the second growth (`grow-v2.sh`, `STANDING-v2.md`: "add each new query
+  next to the most similar existing one: copy that method and adapt it; no shared helpers") was started in
+  parallel, with features 1–100 (73–100 added for length), rather than after the first finished. The first growth
+  runs to its end and is kept as the record of unguided growth; A is taken from whichever growth meets the entry
+  criteria (the second, if the projection holds), and the choice is recorded here.
