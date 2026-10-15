@@ -213,7 +213,15 @@ Leakage control for `g`: the refactoring list is drawn up by an agent given only
 code. It never sees `tasks/` (run it in a copy without that folder). The list is committed before any `g` run
 (record the commit hash here). Every refactoring passes the module tests and `scripts/golden.sh g`.
 
-**Tailored arm `p-<task>`:** a separate agent gets the task's reference patch and makes a preparatory refactoring
+**How `g` is implemented (2026-10-15).** By blind agents too: one `claude -p` session (Opus 5.5) per refactoring,
+in the proposal's order (R7, R1, R2, R6, R4, R5, R3, R9, R8, R10), in an isolated folder with A as a git repository,
+`proposal.md`, the brief (`plans/g-design/IMPLEMENT.md`) and `check.sh`. `check.sh` builds and runs all tests,
+then runs the built CLI and A's CLI over the golden fixture (skipCorrelations, so every report page is written) and
+requires identical normalized output (906 files). It was shown to fail on a one-character change to a report
+string. The agent commits only after `CHECK PASSED`; the driver re-runs the check after every session and reverts a
+step that fails.
+
+**Tailored arm `p-<task>`:** (running since 2026-10-15, brief `plans/p-design/PREPARE.md`) a separate agent gets the task's reference patch and makes a preparatory refactoring
 that makes the patch small and local, *without making the change itself*. The acceptance test must still fail
 afterwards, tests stay green and golden output identical. Record the tokens the preparation costs, since a saving
 only counts net of it (break-even, as in the Fowler comparison).
