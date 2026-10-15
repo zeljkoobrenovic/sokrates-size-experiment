@@ -1,0 +1,36 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..b14e523 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -561,6 +561,7 @@ public class DataExporter {
+ 
+             DuplicationAnalysisResults duplicationAnalysisResults = analysisResults.getDuplicationAnalysisResults();
+             saveDuplicateFragmentFiles(duplicationAnalysisResults.getLongestDuplicates(), "longest_duplicates");
++            saveDuplicateFragmentFiles(duplicationAnalysisResults.getMostFrequentDuplicates(), "most_frequent_duplicates");
+             saveDuplicateFragmentFiles(duplicationAnalysisResults.getUnitDuplicates(), "unit_duplicates");
+         }
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
+index de8890f..d89bf82 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
+@@ -122,6 +122,9 @@ public class DuplicationReportGenerator {
+         ProcessingStopwatch.start("reporting/duplication/longest duplicates");
+         addLongestDuplicatesList(report);
+         ProcessingStopwatch.end("reporting/duplication/longest duplicates");
++        ProcessingStopwatch.start("reporting/duplication/most frequent duplicates");
++        addMostFrequentDuplicatesList(report);
++        ProcessingStopwatch.end("reporting/duplication/most frequent duplicates");
+         ProcessingStopwatch.start("reporting/duplication/duplicated units");
+         addDuplicatedUnitsList(report);
+         ProcessingStopwatch.end("reporting/duplication/duplicated units");
+@@ -485,7 +488,8 @@ public class DuplicationReportGenerator {
+     }
+ 
+ 
+-    private void addMostFrequentDuplicatesList(RichTextReport report) {
++    // Package-private for testing.
++    void addMostFrequentDuplicatesList(RichTextReport report) {
+         List<DuplicationInstance> duplicates = codeAnalysisResults.getDuplicationAnalysisResults().getMostFrequentDuplicates();
+         if (duplicates.size() > 0) {
+             report.startSection("Most Frequent Duplicates", "The list of " + duplicates.size() + " most frequently found duplicates.");

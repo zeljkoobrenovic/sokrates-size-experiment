@@ -1,0 +1,14 @@
+{
+  "id": "h14-hidden-files-scoping",
+  "kind": "held-out",
+  "title": "Stop ignoring all dotted files: ignore only VCS folders, scope IDE/tool folders as build-and-deployment",
+  "reference_commit": "8937f539",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java"
+  ],
+  "target_unit": "addIgnoreConventions() (150 LOC, very high) and addBuildAndDeploymentConventions() in ScopingConventions (file of 514 LOC, high risk)",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=HiddenFilesScopingTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference commit (\"scoping bug fix\") removes the blanket \"Hidden files\" ignore rule, narrows the hidden-directory ignore rule to .git/.svn/.hg/.bzr, adds a build-and-deployment rule (.*/)?[.](idea|vscode|vs|gradle|mvn|settings|metadata|circleci)/.* and drops the .*/dependencies/.* ignore rule. In between, the real history had replaced the snapshot's single rule .*/[.][a-zA-Z0-9_]+.* (\"Hidden files and folders\") with a two-rule version (hidden files with a CI exemption + a VCS/IDE directory list), so the diff does not apply; the end state was re-derived against the snapshot: the snapshot's rule is replaced by the VCS rule, the build-and-deployment rule is added, the dependencies rule removed (+3/-2 in ScopingConventions). The commit's unrelated files-explorer.html change (removing two history links) is not part of the task. The acceptance test (7 cases, Convention.pathMatches over getIgnoredFilesConventions/getBuildAndDeploymentFilesConventions) covers ordinary sources, plain dotfiles and CI dotfiles kept, source under an incidental dotted folder kept, VCS folders ignored at every depth (incl. a root-level .git/config), the 8 IDE/tool folders not ignored and in build-and-deployment, a dependencies folder kept, and .yarn releases/plugins still ignored. A before: compiles and fails with assertion failures (5 of 7). A after: passes; mvn -o -pl codeanalyzer -am test green (337 tests, 0 failures, 3 skipped)."
+}

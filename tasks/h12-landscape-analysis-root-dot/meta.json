@@ -1,0 +1,15 @@
+{
+  "id": "h12-landscape-analysis-root-dot",
+  "kind": "held-out",
+  "title": "Store the landscape analysisRoot as \".\" in the default layout and heal broken configs on update",
+  "reference_commit": "47eb87d9",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java",
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java"
+  ],
+  "target_unit": "initConfiguration() in LandscapeAnalysisInitiator (file of 93 LOC) and updateConfiguration() in LandscapeAnalysisUpdater (file of 91 LOC); both below the size thresholds",
+  "module": "codeanalyzer",
+  "test_command": "mvn -q -o -pl codeanalyzer test -Dtest=LandscapeAnalysisRootTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference commit has three parts; only the first is reproducible in the snapshot and makes up this task: (1) LandscapeAnalysisInitiator gets a public static analysisRootPath(root, configFile) that returns \".\" when the config file is null or its grandparent is (canonically) the root, else the given path, and initConfiguration stores that; LandscapeAnalysisUpdater.updateConfiguration normalizes an existing non-\".\" analysisRoot to \".\" when the new config says \".\". Left out: (2) ignoring a landscape's own data/data.zip during discovery (the snapshot has no data.zip packaging and discovers data/analysisResults.json only, which a landscape folder does not contain) and (3) -org accepting GitHub URLs (analyzeGitHubOrg does not exist in the snapshot). The snapshot has the same bug: LandscapeAnalyzer.getRepositoryAnalysisFile resolves a root starting with \".\" against the landscape folder's parent. The applied change is +28/-1 in the two files (re-derived by hand: the initiator hunk context differs from the snapshot). The acceptance test (4 cases, public API only: updateConfiguration, initConfiguration) covers a relative ./target/... root with one repository, an absolute temp root, a config kept elsewhere (keeps the root; passes before as well) and healing of an existing \"./acme\" value. A before: compiles and fails with assertion failures (3 of 4: expected <.> but was <./target/...>, </var/...>, <./acme>). A after: passes; mvn -o -pl codeanalyzer -am test green (334 tests, 0 failures, 3 skipped)."
+}

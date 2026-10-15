@@ -1,0 +1,115 @@
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index aa63084..9025096 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -544,6 +544,12 @@ public class CommandLineInterface {
+             };
+         }
+ 
++        boolean dataOnly = cmd.hasOption(commands.getDataOnly().getOpt());
++        dataExporter.setDataOnly(dataOnly);
++        if (dataOnly) {
++            LOG.info("-" + Commands.ARG_DATA_ONLY + ": storing only the analysis data (no HTML reports, explorers, visuals or source code cache).");
++        }
++
+         try {
+             CodeAnalyzer codeAnalyzer = new CodeAnalyzer(getCodeAnalyzerSettings(cmd), codeConfiguration, sokratesConfigFile);
+             CodeAnalysisResults analysisResults = codeAnalyzer.analyze(progressFeedback);
+@@ -553,11 +559,13 @@ public class CommandLineInterface {
+             saveTextualSummary(reportsFolder, analysisResults);
+             ProcessingStopwatch.end("saving data");
+ 
+-            ProcessingStopwatch.start("generating visuals");
+-            generateVisuals(reportsFolder, analysisResults);
+-            ProcessingStopwatch.end("generating visuals");
++            if (!dataOnly) {
++                ProcessingStopwatch.start("generating visuals");
++                generateVisuals(reportsFolder, analysisResults);
++                ProcessingStopwatch.end("generating visuals");
+ 
+-            generateAndSaveReports(sokratesConfigFile, reportsFolder, sokratesConfigFile.getParentFile(), codeAnalyzer, analysisResults);
++                generateAndSaveReports(sokratesConfigFile, reportsFolder, sokratesConfigFile.getParentFile(), codeAnalyzer, analysisResults);
++            }
+             saveExecutionStats(dataExporter.getDataFolder());
+         } catch (Exception e) {
+             e.printStackTrace();
+@@ -887,6 +895,7 @@ public class CommandLineInterface {
+ 
+     private CodeAnalyzerSettings getCodeAnalyzerSettings(CommandLine cmd) {
+         CodeAnalyzerSettings settings = new CodeAnalyzerSettings();
++        settings.setDataOnly(cmd.hasOption(commands.getDataOnly().getOpt()));
+ 
+         if (codeConfiguration.getAnalysis().isSkipDependencies()) {
+             settings.setAnalyzeStaticDependencies(false);
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+index 366f1bb..c29822d 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -62,6 +62,7 @@ public class Commands {
+     public static final String ARG_HELP = "help";
+ 
+     public static final String ARG_SKIP_DUPLICATION_ANALYSES = "skipDuplication";
++    public static final String ARG_DATA_ONLY = "dataOnly";
+     public static final String ARG_SKIP_CORRELATION_ANALYSES = "skipCorrelations";
+     public static final String ARG_ENABLE_DUPLICATION_ANALYSES = "enableDuplication";
+     public static final String ARG_SKIP_COMPLEX_ANALYSES = "skipComplexAnalyses";
+@@ -96,6 +97,7 @@ public class Commands {
+     private Option skipComplexAnalyses = new Option(ARG_SKIP_COMPLEX_ANALYSES, false, "[OPTIONAL] skips complex analyses (duplication, dependencies, file caching)");
+     private Option recursive = new Option(RECURSIVE, false, "[OPTIONAL] performs the operation recursively in all sub-folders");
+ 
++    private Option dataOnly = new Option(ARG_DATA_ONLY, false, "[OPTIONAL] stores only the analysis data (the data folder) — no HTML reports, explorers, visuals or source code cache");
+     private Option skipDuplicationAnalyses = new Option(ARG_SKIP_DUPLICATION_ANALYSES, false, "[OPTIONAL] skips duplication analyses");
+     private Option skipCorrelationAnalyses = new Option(ARG_SKIP_CORRELATION_ANALYSES, false, "[OPTIONAL] skips correlations analyses");
+     private Option enableDuplicationAnalyses = new Option(ARG_ENABLE_DUPLICATION_ANALYSES, false, "[OPTIONAL] enables duplication analyses");
+@@ -178,6 +180,7 @@ public class Commands {
+         Options options = new Options();
+         options.addOption(confFile);
+         options.addOption(outputFolder);
++        options.addOption(dataOnly);
+         options.addOption(internalGraphviz);
+         options.addOption(timeout);
+         options.addOption(date);
+@@ -348,6 +351,10 @@ public class Commands {
+         return outputFolder;
+     }
+ 
++    public Option getDataOnly() {
++        return dataOnly;
++    }
++
+     public Option getSkipComplexAnalyses() {
+         return skipComplexAnalyses;
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..9de0098 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -79,6 +79,9 @@ public class DataExporter {
+     private File textDataFolder;
+     private File extraAnalysisDataFolder;
+ 
++    // -dataOnly: write nothing outside data/ (no html/Structure.html, no source code cache in src/).
++    private boolean dataOnly = false;
++
+     public DataExporter(ProgressFeedback progressFeedback) {
+         this.progressFeedback = progressFeedback;
+     }
+@@ -537,7 +540,18 @@ public class DataExporter {
+         }
+     }
+ 
++    public void setDataOnly(boolean dataOnly) {
++        this.dataOnly = dataOnly;
++    }
++
++    public boolean isDataOnly() {
++        return dataOnly;
++    }
++
+     private void exportSourceFile() throws IOException {
++        if (dataOnly) {
++            return;
++        }
+         this.codeCacheFolder = getCodeCacheFolder();
+ 
+         detailedInfo("Saving details and source code cache:");

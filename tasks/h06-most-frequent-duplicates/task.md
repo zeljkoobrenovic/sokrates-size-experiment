@@ -1,0 +1,5 @@
+The duplication analysis already finds the most frequently repeated duplicates (blocks of code copied to the most places) and stores them in the analysis results, but they only show up in the exported data: the Duplication report never shows them.
+
+Add a "Most Frequent Duplicates" section to the Duplication report, right after the "Longest Duplicates" section. Its description should read "The list of N most frequently found duplicates." (N being the number of listed duplicates), followed by the same kind of table the Longest Duplicates section uses (size, number of copies, folders, files, lines and, when code fragments are saved, a "Code" link). When the analysis found no such duplicates, the section is left out entirely.
+
+The "Code" links of the new table must work too: when `saveCodeFragments` is enabled in the analysis config, the code fragments of the most frequent duplicates should be saved with the other source-code fragments, as `most_frequent_duplicates/most_frequent_duplicates_<n>.<extension>`, just as is already done for the longest duplicates and the duplicated units.

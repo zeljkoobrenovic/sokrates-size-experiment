@@ -1,0 +1,16 @@
+{
+  "id": "h09-generate-reports-data-only",
+  "kind": "held-out",
+  "title": "Add -dataOnly to generateReports",
+  "reference_commit": "494ad74a",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java",
+    "cli/src/main/java/nl/obren/sokrates/cli/Commands.java",
+    "reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java"
+  ],
+  "target_unit": "generateReports(CommandLine) in CommandLineInterface (file of 744 LOC, high risk), plus getReportingOptions() in Commands and exportSourceFile() in DataExporter (file of 813 LOC, high risk)",
+  "module": "cli",
+  "test_command": "mvn -q -o -pl cli test -Dtest=DataOnlyReportsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "Re-derived, reduced to what exists in the snapshot. The real commit (+105/-11 over 7 files incl. docs and tests) adds -dataOnly to analyze, analyzeGitRepo, generateReports and analyzeLandscape and keeps only reports/data/data.zip (also skipping data-preview.html); the snapshot has only generateReports of those commands and no data.zip/data-preview/viewer, so the task is -dataOnly on generateReports keeping the data/ folder. The re-derived change (+34/-4 in 3 files): a dataOnly Option in Commands (added to getReportingOptions, with a getter), CommandLineInterface.generateReports sets dataExporter.setDataOnly(...), logs it and skips generateVisuals/generateAndSaveReports, getCodeAnalyzerSettings sets CodeAnalyzerSettings.dataOnly, and DataExporter gets a dataOnly switch that skips exportSourceFile (src/ cache and html/Structure.html). An empty history/ folder is still created by saveData; the test does not mind it. The acceptance test runs init on a 2-file temp repo, then generateReports -dataOnly, then generateReports again without it. A before: compiles and fails with an assertion failure (the unknown option makes generateReports print usage and store nothing, so data/analysisResults.json is missing). A after: passes, and mvn -o -pl cli -am test is green (351 tests in the reactor, 0 failures; the cli module had no tests before)."
+}

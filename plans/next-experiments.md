@@ -227,6 +227,27 @@ and passing with the reference change are taken, and each skipped one is recorde
 `6df44dc0`, `7cfd01cb`, `00232dac`, `f8e04e14`, `a27a5686`, `faa3e12d`, `6c9ac2b4`, `9f03561c`, `494ad74a`,
 `f81c0ab0`, `89be4f3a`, `47eb87d9`, `0ef770d8`, `8937f539`, `f9fd704e`, `4f5d869b`.
 
+**Held-out tasks written (2026-10-15)**, by three task-author agents that did not read `plans/`, `results/` or
+`docs/`; all six verified by `scripts/check_tasks.py` on A (fail before, pass after). Candidates 1–14 were
+evaluated in order and the evaluation stopped at the sixth feasible one (15 and 16 not evaluated):
+
+| # | commit | outcome | reason / task |
+|---|---|---|---|
+| 1 | `6df44dc0` | skipped | the language-grouped bubble chart it changes does not exist in the snapshot |
+| 2 | `7cfd01cb` | **h02-escape-landscape-tooltips** | the user-visible half (escape two tooltips); the test-only tripwire half has no counterpart |
+| 3 | `00232dac` | skipped | the files explorer has no history columns to add a 90-day one to |
+| 4 | `f8e04e14` | skipped | the snapshot has no sidebar |
+| 5 | `a27a5686` | skipped | the behaviour (logo in the header) is already in the snapshot |
+| 6 | `faa3e12d` | **h06-most-frequent-duplicates** | applies as is |
+| 7 | `6c9ac2b4` | skipped | the snapshot neither writes nor ignores the trailers file |
+| 8 | `9f03561c` | skipped | the bug came in after the snapshot; its regression cases already pass on A |
+| 9 | `494ad74a` | **h09-generate-reports-data-only** | reduced to `generateReports` (the other three commands do not exist yet) |
+| 10 | `f81c0ab0` | **h10-always-ignore-sokrates-output** | applies (one hunk placed by hand) |
+| 11 | `89be4f3a` | skipped | pure performance change, no behavioural acceptance test |
+| 12 | `47eb87d9` | **h12-landscape-analysis-root-dot** | the analysisRoot half; data.zip and `-org` URLs build on later code |
+| 13 | `0ef770d8` | skipped | builds entirely on later features (and overlaps h09) |
+| 14 | `8937f539` | **h14-hidden-files-scoping** | end state re-derived against the snapshot |
+
 ### Runs
 
 - 12 tasks + held-out tasks × {a, g}, 10 repeats: ≈ 340 runs; tailored: 10 tasks × p-<task>, 10 repeats: 100 runs

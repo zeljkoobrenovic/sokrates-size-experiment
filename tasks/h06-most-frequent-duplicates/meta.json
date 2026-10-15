@@ -1,0 +1,15 @@
+{
+  "id": "h06-most-frequent-duplicates",
+  "kind": "held-out",
+  "title": "Wire up the Most Frequent Duplicates report section",
+  "reference_commit": "faa3e12d",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java",
+    "reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java"
+  ],
+  "target_unit": "addDuplicationToReport() in DuplicationReportGenerator (file of 425 LOC, below the threshold) and exportSourceFile() in DataExporter (file of 813 LOC, high risk)",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=MostFrequentDuplicatesSectionTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The real change is +6/-1: addDuplicationToReport() calls the existing but unused addMostFrequentDuplicatesList() after the longest duplicates (with stopwatch lines; the commit also makes that method package-private for its own test), and exportSourceFile() saves the most_frequent_duplicates fragment files. The real diff applies to the snapshot as is. The acceptance test (3 cases) renders the duplication report through the public addDuplicationToReport() and runs DataExporter.saveData() on a synthetic analysis into a @TempDir. A before: compiles, 2 of 3 fail with assertion failures (no section; no most_frequent_duplicates_1.java). A after (reference diff applied): 3/3 pass, and mvn -o -pl reports -am test is green (353 tests in the reactor, 0 failures)."
+}

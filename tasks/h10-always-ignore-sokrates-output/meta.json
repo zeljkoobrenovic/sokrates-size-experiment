@@ -1,0 +1,16 @@
+{
+  "id": "h10-always-ignore-sokrates-output",
+  "kind": "held-out",
+  "title": "Always ignore Sokrates' own output: unconditional at init, a safety net at analysis time",
+  "reference_commit": "f81c0ab0",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java",
+    "codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopeCreator.java",
+    "cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java"
+  ],
+  "target_unit": "addConventions() and addIgnoreConventions() in ScopingConventions (file of 514 LOC, high risk; addIgnoreConventions is a 150-LOC unit), createScopeFromConventions() in ScopeCreator (161 LOC) and generateReports(CommandLine) in CommandLineInterface (file of 744 LOC, high risk)",
+  "module": "cli",
+  "test_command": "mvn -q -o -pl cli test -Dtest=SokratesOutputNeverAnalyzedTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference change (+33/-4 in 3 files): ScopingConventions gets a public SOKRATES_OUTPUT_CONVENTIONS list (the four rules moved out of addIgnoreConventions) and ensureSokratesOutputIgnored(List<SourceFileFilter>) that adds the missing ones (matched by path and content pattern); addConventions() and ScopeCreator.createScopeFromConventions() (after the custom conventions) call it, and generateReports calls it on the loaded configuration (in memory). The codeanalyzer part of the real diff applies to the snapshot as is (one hunk with an offset); the one-line CLI hunk was placed by hand in the snapshot's generateReports(CommandLine). The commit message's scenario (a second run analysing the first run's _sokrates/reports) does not occur in the snapshot, whose tree scan already skips folders named _sokrates, so the task and the test use the git exports and a _sokrates_landscape folder created after init instead. The acceptance test (cli, end to end): init on a temp repo with src/a.ts and notes.txt, check the four rules in config.json, add git-history.txt, git-merges.txt and _sokrates_landscape/notes.txt, run generateReports and check the data/text/aspect_*.txt lists; then remove the rules from config.json, run again, and check the same plus that config.json is unchanged. A before: compiles and fails with an assertion failure (init does not write .*/_sokrates/.*). With only the codeanalyzer part applied it fails in the second phase (git-history.txt analysed), so both halves are tested. A after: passes, and mvn -o -pl cli -am test is green (351 tests in the reactor, 0 failures)."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "h02-escape-landscape-tooltips",
+  "kind": "held-out",
+  "title": "Escape repository names in two landscape overview tooltips",
+  "reference_commit": "7cfd01cb",
+  "reference_repo": "zeljkoobrenovic/sokrates",
+  "source_files": [
+    "reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java"
+  ],
+  "target_unit": "addZooSection() (79 LOC, McCabe 18, high) and addLangInfo(NumericMetric) in LandscapeReportGenerator (file of 1,587 LOC, very high risk)",
+  "module": "reports",
+  "test_command": "mvn -q -o -pl reports test -Dtest=LandscapeRepositoryNameTooltipsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "notes": "The reference commit escapes the repository name in two title-attribute tooltips of the landscape overview (the per-language repository list built in addLangInfo(NumericMetric) and the size-category table in addZooSection) with HtmlEscapeUtils.escape; its other half (hardening the RichTextReportSinkEscapingTest tripwire) is test-only and has no counterpart in the snapshot, which has neither HtmlEscapeUtils nor the tripwire, so the task keeps only the observable half. Re-derived against the snapshot with commons-text StringEscapeUtils.escapeHtml4 (already used in the reports module): +3/-2 in LandscapeReportGenerator (two .map lambdas and an import). The acceptance test generates the landscape index for one repository named acme <b>\"shop\"</b> with 5,000 LOC of *.java, collects every double-quoted title attribute, decodes entities and collapses whitespace (so any HTML escaper works), and requires the full name in both tooltips. Verification on variant A: before = compiles and FAILS (assertion: the java block's tooltip is cut at the quote, '1 repository: acme <b>'); each half of the fix alone still fails on the other tooltip; after = PASSES, and mvn -o -pl reports -am test is green (common 19, codeanalyzer 330 (3 skipped), reports 2). Variant B not verified here (a.patch only)."
+}

@@ -1,0 +1,30 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+index 478d334..0950c86 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -41,6 +41,7 @@ import nl.obren.sokrates.sourcecode.stats.RiskDistributionStats;
+ import nl.obren.sokrates.sourcecode.stats.SourceFileAgeDistribution;
+ import org.apache.commons.io.FileUtils;
+ import org.apache.commons.lang3.StringUtils;
++import org.apache.commons.text.StringEscapeUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ 
+@@ -1194,7 +1195,7 @@ public class LandscapeReportGenerator {
+         addLangInfoBlock(smallTextForNumber, extension.getName().replace("*.", "").trim(),
+                 size + " " + (size == 1 ? "repository" : "repositories") + ":\n  " +
+                         extension.getDescription().stream()
+-                                .map(a -> a.getName() + " (" + FormattingUtils.formatCount(a.getValue().intValue()) + " LOC)")
++                                .map(a -> StringEscapeUtils.escapeHtml4(a.getName()) + " (" + FormattingUtils.formatCount(a.getValue().intValue()) + " LOC)")
+                                 .collect(Collectors.joining("\n  ")));
+     }
+ 
+@@ -1451,7 +1452,7 @@ public class LandscapeReportGenerator {
+             String info = "";
+             if (count > 0) {
+                 info += animalCounts.get(animal).stream()
+-                        .map(a -> a.getAnalysisResults().getMetadata().getName() + " " + a.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode())
++                        .map(a -> StringEscapeUtils.escapeHtml4(a.getAnalysisResults().getMetadata().getName()) + " " + a.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode())
+                         .collect(Collectors.joining("\n"));
+             }
+ 

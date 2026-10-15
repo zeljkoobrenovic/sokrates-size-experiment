@@ -1,0 +1,58 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java
+index 75accde..9befdf2 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisInitiator.java
+@@ -32,7 +32,7 @@ public class LandscapeAnalysisInitiator {
+     public LandscapeConfiguration initConfiguration(File analysisRoot, File landscapeConfigFile, boolean saveFile) {
+         this.saveFile = saveFile;
+         LandscapeConfiguration landscapeConfiguration = new LandscapeConfiguration();
+-        landscapeConfiguration.setAnalysisRoot(analysisRoot.getPath());
++        landscapeConfiguration.setAnalysisRoot(analysisRootPath(analysisRoot, landscapeConfigFile));
+ 
+         try (Stream<Path> paths = Files.walk(Paths.get(analysisRoot.getPath()))) {
+             paths.filter(file -> isSokratesLandscapeFile(file)).forEach(file -> {
+@@ -98,6 +98,28 @@ public class LandscapeAnalysisInitiator {
+         }
+     }
+ 
++    /**
++     * The analysisRoot stored in the configuration. "." whenever the configuration lives in the
++     * default place, {@code <analysisRoot>/_sokrates_landscape/config.json} (the analyzer resolves a
++     * root starting with "." against that folder's parent, so only "." is right there; a relative
++     * path like "./acme" would be resolved to "./acme/./acme" and find no repository).
++     * Any other layout keeps the path as given.
++     */
++    public static String analysisRootPath(File analysisRoot, File landscapeConfigFile) {
++        if (landscapeConfigFile == null) {
++            return ".";
++        }
++        try {
++            File configRoot = landscapeConfigFile.getAbsoluteFile().getParentFile().getParentFile();
++            if (configRoot != null && configRoot.getCanonicalFile().equals(analysisRoot.getCanonicalFile())) {
++                return ".";
++            }
++        } catch (IOException e) {
++            LOG.warn("Could not resolve " + analysisRoot.getPath() + ": " + e.getMessage());
++        }
++        return analysisRoot.getPath();
++    }
++
+     private boolean isSokratesAnalysisFile(Path file) {
+         return file.endsWith("data/analysisResults.json");
+     }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java
+index c0def2d..31f0ec9 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisUpdater.java
+@@ -39,6 +39,11 @@ public class LandscapeAnalysisUpdater {
+                 LandscapeConfiguration existingConfiguration = (LandscapeConfiguration) new JsonMapper().getObject(json, LandscapeConfiguration.class);
+                 existingConfiguration.setSubLandscapes(newConfig.getSubLandscapes());
+                 existingConfiguration.setRepositories(newConfig.getRepositories());
++                if (".".equals(newConfig.getAnalysisRoot()) && !".".equals(existingConfiguration.getAnalysisRoot())) {
++                    // Default layout: the only correct stored root is "." (see LandscapeAnalysisInitiator.analysisRootPath).
++                    LOG.info("Normalizing analysisRoot '" + existingConfiguration.getAnalysisRoot() + "' to '.'");
++                    existingConfiguration.setAnalysisRoot(".");
++                }
+                 updateMetadata(existingConfiguration, metadata);
+                 save(landscapeConfigFile, landscapeInfoFile, existingConfiguration);
+                 return existingConfiguration;
