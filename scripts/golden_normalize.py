@@ -29,7 +29,11 @@ def scrub(obj):
     return obj
 
 
+TIMING_CELL = re.compile(r"(TOTAL_ANALYSIS_TIME_IN_MILLIS</b>\s*</td>\s*<td[^>]*>\s*)\d+")  # the value sits lines below the id
+
+
 def normalize_text(text):
+    text = TIMING_CELL.sub(r"\1N", text)
     lines = [l for l in text.splitlines() if not VOLATILE_LINE.search(l)]
     text = "\n".join(lines)
     text = DATE.sub("DATE", text)
