@@ -1,0 +1,46 @@
+tasks/t07-past-90d-block/reference/p-t07.patch
+  s_3bdacd10641e87::t_2ae3591855e5c8 1-11
+tasks/t02-extension-metric-names/reference/p-t02.patch
+  s_3bdacd10641e87::t_83f0307fe62286 1-90
+tasks/t01-undefined-team-active/reference/p-t01.patch
+  s_3bdacd10641e87::t_9a64180e25ce10 1,4-13
+  s_3bdacd10641e87::t_0c6db9ac2119a8 2-3
+tasks/t03-scoping-conventions-never-matched/reference/p-t03.patch
+  s_3bdacd10641e87::t_f8ce4b8ff0411b 1-21
+tasks/t05-missing-sublandscape-config/reference/p-t05.patch
+  s_3bdacd10641e87::t_0edfe67421046f 1-14
+tasks/t04-mock-folder-is-test-code/reference/p-t04.patch
+  s_3bdacd10641e87::t_9385211da34554 1-18
+tasks/t06-all-contributors-exported/reference/p-t06.patch
+  s_3bdacd10641e87::t_93c54bdfb138d1 1-58
+tasks/t09-analyzelandscape-command/reference/p-t09.patch
+  s_3bdacd10641e87::t_dc8d189a513bc9 1-35
+tasks/t10-group-dependency-npe/reference/p-t10.patch
+  s_3bdacd10641e87::t_a8ed4f5b55f5cb 1-24
+tasks/t08-scope-file-lists-named-after-aspects/reference/p-t08.patch
+  s_cfbca12fcc257b::t_5f7ef42163e9ee 1-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e01a950187a524bba78bb52d202f9f240102782",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_cfbca12fcc257b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2da9fa7f-c355-42c1-bbc3-9954e8105dc0",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
