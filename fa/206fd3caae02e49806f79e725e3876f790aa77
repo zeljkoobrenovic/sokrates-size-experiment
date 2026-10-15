@@ -1,0 +1,461 @@
+scripts/pilots/pilot_g.sh
+  s_3bdacd10641e87::t_142bb212ff8177 1-11
+results/runs/t02-extension-metric-names-g-r03-20261015-221554.json
+  s_3bdacd10641e87::t_142bb212ff8177 1-44
+scripts/pilots/pilot_haiku.sh
+  s_3bdacd10641e87::t_142bb212ff8177 1-12
+results/pilot-g.csv
+  s_3bdacd10641e87::t_142bb212ff8177 71
+  s_3bdacd10641e87::t_023f5204dabec9 68-70
+  s_3bdacd10641e87::t_15092dec59b63d 72-74
+  s_3bdacd10641e87::t_3b26ab9666015a 1-67,75-79
+scripts/pilots/pilot_p.sh
+  s_3bdacd10641e87::t_142bb212ff8177 1-11
+results/pilot-g-worker-g.log
+  s_3bdacd10641e87::t_142bb212ff8177 93-94
+  s_3bdacd10641e87::t_adc46fea18e0f1 90-92
+  s_3bdacd10641e87::t_3617abc368e6b0 95-97
+  s_3bdacd10641e87::t_e6543812d45b96 1-89,98-110
+results/pilot-g-worker-a.log
+  s_3bdacd10641e87::t_da7d6261f9db02 1
+  s_3bdacd10641e87::t_460bef1ee24c6d 2-4
+  s_3bdacd10641e87::t_bf5213f1de9392 5-50
+results/runs/t02-extension-metric-names-g-r03-20261015-221554.tools.jsonl
+  s_3bdacd10641e87::t_142bb212ff8177 1-16
+results/runs/c01-template-literal-duplication-a-r01-20261015-221717.json
+  s_3bdacd10641e87::t_1e32146f19a2a1 1-44
+results/runs/c01-template-literal-duplication-a-r01-20261015-221717.tools.jsonl
+  s_3bdacd10641e87::t_918231102d3fa3 1-33
+results/runs/c01-template-literal-duplication-a-r03-20261015-213009.json
+  s_8500800ebaf663::t_6226e144bca7d7 1-44
+results/runs/c01-template-literal-duplication-a-r03-20261015-213009.tools.jsonl
+  s_8500800ebaf663::t_b0e0f0eec3d1d2 1-17
+results/runs/c01-template-literal-duplication-g-r01-20261015-221717.json
+  s_3d26c65f3c74b8::t_8e72200a5259a6 1-44
+results/runs/c01-template-literal-duplication-g-r01-20261015-221717.tools.jsonl
+  s_4142693a54e3f7::t_5a7a50a4c46dd5 1-24
+results/runs/c02-component-duplication-metrics-a-r01-20261015-222018.json
+  s_6e9a91ed2ae240::t_e3de9f26aeead3 1-44
+results/runs/c02-component-duplication-metrics-a-r01-20261015-222018.tools.jsonl
+  s_6e9a91ed2ae240::t_dde48dd4deeade 1-9
+results/runs/c02-component-duplication-metrics-g-r01-20261015-221949.json
+  s_388dc4817fb12c::t_3a950572ff119d 1-44
+results/runs/c02-component-duplication-metrics-g-r01-20261015-221949.tools.jsonl
+  s_388dc4817fb12c::t_6b86127fcedfde 1-12
+results/runs/c02-component-duplication-metrics-g-r03-20261015-220737.json
+  s_c8f5153a417831::t_6df9ccdbeeed96 1-44
+results/runs/c02-component-duplication-metrics-g-r03-20261015-220737.tools.jsonl
+  s_c8f5153a417831::t_1df483e28af9a5 1-11
+results/runs/h02-escape-landscape-tooltips-a-r03-20261015-214903.json
+  s_a0bc105ac9b8f6::t_a0d09559c15db5 1-44
+results/runs/h02-escape-landscape-tooltips-a-r03-20261015-214903.tools.jsonl
+  s_a0bc105ac9b8f6::t_ab9759359265d7 1-12
+results/runs/h02-escape-landscape-tooltips-g-r01-20261015-222103.json
+  s_86311247ea3f85::t_7123609a9ff0d9 1-44
+results/runs/h02-escape-landscape-tooltips-g-r01-20261015-222103.tools.jsonl
+  s_86311247ea3f85::t_8cd7c7f87c2d00 1-12
+results/runs/h06-most-frequent-duplicates-a-r01-20261015-222252.json
+  s_8342be3bd96bb5::t_55a79a1e875675 1-44
+results/runs/h06-most-frequent-duplicates-a-r01-20261015-222252.tools.jsonl
+  s_8342be3bd96bb5::t_b31288694af840 1-16
+results/runs/h06-most-frequent-duplicates-a-r03-20261015-215003.json
+  s_92a98421c5957e::t_015865771b7e30 1-44
+results/runs/h06-most-frequent-duplicates-a-r03-20261015-215003.tools.jsonl
+  s_92a98421c5957e::t_a5047d12fa91b3 1-10
+results/runs/h06-most-frequent-duplicates-g-r01-20261015-222200.json
+  s_ee1f9c0a146857::t_47c78de95a7be6 1-44
+results/runs/h06-most-frequent-duplicates-g-r01-20261015-222200.tools.jsonl
+  s_ee1f9c0a146857::t_b395a1f1624e87 1-15
+results/runs/h06-most-frequent-duplicates-g-r03-20261015-220944.json
+  s_3bdacd10641e87::t_e165e9b7e64dca 1-44
+results/runs/h06-most-frequent-duplicates-g-r03-20261015-220944.tools.jsonl
+  s_3bdacd10641e87::t_53679bae165fc1 1-8
+results/runs/h09-generate-reports-data-only-a-r03-20261015-215055.json
+  s_36949420cae964::t_927b264dc6c188 1-44
+results/runs/h09-generate-reports-data-only-a-r03-20261015-215055.tools.jsonl
+  s_36949420cae964::t_26fe3118991b66 1-22
+results/runs/h09-generate-reports-data-only-g-r02-20261015-215025.json
+  s_92a98421c5957e::t_632d817e0337f2 1-44
+results/runs/h09-generate-reports-data-only-g-r02-20261015-215025.tools.jsonl
+  s_92a98421c5957e::t_58847aa52b4257 1-22
+results/runs/h09-generate-reports-data-only-g-r03-20261015-221039.json
+  s_0bf0ac0598515e::t_71f4422f1643a2 1-44
+results/runs/h09-generate-reports-data-only-g-r03-20261015-221039.tools.jsonl
+  s_0bf0ac0598515e::t_9e381c02d3a2e5 1-21
+results/runs/h10-always-ignore-sokrates-output-a-r02-20261015-212637.json
+  s_cfb0e355fc59e4::t_fb6fac7f3fc99b 1-44
+results/runs/h10-always-ignore-sokrates-output-a-r02-20261015-212637.tools.jsonl
+  s_cfb0e355fc59e4::t_ba2e23cd2e1102 1-19
+results/runs/h10-always-ignore-sokrates-output-a-r03-20261015-215233.json
+  s_36949420cae964::t_12b0b68732e335 1-44
+results/runs/h10-always-ignore-sokrates-output-a-r03-20261015-215233.tools.jsonl
+  s_36949420cae964::t_98b3f6366c5bdc 1-14
+results/runs/h12-landscape-analysis-root-dot-a-r03-20261015-215344.json
+  s_7fe5c899cd0b7d::t_9158afb41ebeb0 1-44
+results/runs/h12-landscape-analysis-root-dot-a-r03-20261015-215344.tools.jsonl
+  s_7fe5c899cd0b7d::t_4a06f2218d88f9 1-11
+results/runs/h14-hidden-files-scoping-a-r02-20261015-212911.json
+  s_2b5d667c0d92e5::t_3155ca718f602d 1-44
+results/runs/h14-hidden-files-scoping-a-r02-20261015-212911.tools.jsonl
+  s_2b5d667c0d92e5::t_d5e1020d74ea28 1-10
+results/runs/h14-hidden-files-scoping-a-r03-20261015-215441.json
+  s_3bdacd10641e87::t_32042564b77546 1-44
+results/runs/h14-hidden-files-scoping-a-r03-20261015-215441.tools.jsonl
+  s_3bdacd10641e87::t_5b66d3ddd1706c 1-9
+results/runs/t01-undefined-team-active-p-t01-r01-20261015-221717.json
+  s_0a71c4140c3ba8::t_c0209555dd1ac6 1-44
+results/runs/t01-undefined-team-active-p-t01-r01-20261015-221717.tools.jsonl
+  s_0a71c4140c3ba8::t_8cdb432d1f7989 1-14
+results/runs/t03-scoping-conventions-never-matched-g-r02-20261015-215849.json
+  s_ac78fd4f7d612c::t_48b6e0c46b0cba 1-44
+results/runs/t03-scoping-conventions-never-matched-g-r02-20261015-215849.tools.jsonl
+  s_ac78fd4f7d612c::t_976fcf531e1d7c 1-14
+results/runs/t03-scoping-conventions-never-matched-p-t03-r01-20261015-222142.json
+  s_ee1f9c0a146857::t_d287affabbaff6 1-44
+results/runs/t03-scoping-conventions-never-matched-p-t03-r01-20261015-222142.tools.jsonl
+  s_ee1f9c0a146857::t_4ba702def13524 1-12
+results/runs/t04-mock-folder-is-test-code-g-r02-20261015-220005.json
+  s_49bfb66fade175::t_195209504fbe57 1-44
+results/runs/t04-mock-folder-is-test-code-g-r02-20261015-220005.tools.jsonl
+  s_49bfb66fade175::t_572c661779044a 1-11
+results/runs/t05-missing-sublandscape-config-g-r03-20261015-221931.json
+  s_3d26c65f3c74b8::t_3b457f37ddb446 1-44
+results/runs/t05-missing-sublandscape-config-g-r03-20261015-221931.tools.jsonl
+  s_3d26c65f3c74b8::t_1c3f0f78b5ae62 1-8
+results/runs/t06-all-contributors-exported-g-r03-20261015-222014.json
+  s_1209debf88dc75::t_5be74988e8389b 1-44
+results/runs/t06-all-contributors-exported-g-r03-20261015-222014.tools.jsonl
+  s_1209debf88dc75::t_e6d9e8623e27c9 1-11
+results/runs/t07-past-90d-block-g-r03-20261015-222122.json
+  s_3bdacd10641e87::t_00b4e6a3841b24 1-44
+results/runs/t07-past-90d-block-g-r03-20261015-222122.tools.jsonl
+  s_3bdacd10641e87::t_b813ecaf40e072 1-5
+results/runs/t08-scope-file-lists-named-after-aspects-g-r03-20261015-222208.json
+  s_ee1f9c0a146857::t_896c477c7c4525 1-44
+results/runs/t08-scope-file-lists-named-after-aspects-g-r03-20261015-222208.tools.jsonl
+  s_ee1f9c0a146857::t_a26c0badc5398c 1-7
+results/runs/t09-analyzelandscape-command-g-r01-20261015-212816.json
+  s_52f386447be232::t_918c25accbdb64 1-44
+results/runs/t09-analyzelandscape-command-g-r01-20261015-212816.tools.jsonl
+  s_52f386447be232::t_e518a136919993 1-14
+results/runs/t10-group-dependency-npe-g-r01-20261015-212922.json
+  s_2b5d667c0d92e5::t_5ff233e5777430 1-44
+results/runs/t10-group-dependency-npe-g-r01-20261015-212922.tools.jsonl
+  s_2b5d667c0d92e5::t_85733b0ba76f14 1-8
+results/runs/t10-group-dependency-npe-g-r03-20261015-222426.json
+  s_3bdacd10641e87::t_a29ce89f28f1fc 1-44
+results/runs/t10-group-dependency-npe-g-r03-20261015-222426.tools.jsonl
+  s_3bdacd10641e87::t_032a2995ffeed5 1-10
+results/runs/c01-template-literal-duplication-g-r02-20261015-213009.json
+  s_3bdacd10641e87::t_236076627998a1 1-44
+results/runs/c01-template-literal-duplication-g-r02-20261015-213009.tools.jsonl
+  s_3bdacd10641e87::t_cbcb314c7a9652 1-9
+results/runs/c01-template-literal-duplication-g-r03-20261015-220611.json
+  s_3bdacd10641e87::t_8ff1e78a6d45aa 1-44
+results/runs/c01-template-literal-duplication-g-r03-20261015-220611.tools.jsonl
+  s_3bdacd10641e87::t_2951656c0f0cf6 1-15
+results/runs/c02-component-duplication-metrics-a-r03-20261015-214751.json
+  s_3bdacd10641e87::t_fb1dcbc4051348 1-44
+results/runs/c02-component-duplication-metrics-a-r03-20261015-214751.tools.jsonl
+  s_3bdacd10641e87::t_bcda71e3687f3d 1-11
+results/runs/c02-component-duplication-metrics-g-r02-20261015-214729.json
+  s_3bdacd10641e87::t_7161f3525150d0 1-44
+results/runs/c02-component-duplication-metrics-g-r02-20261015-214729.tools.jsonl
+  s_3bdacd10641e87::t_1e5c992800d56c 1-11
+results/runs/h02-escape-landscape-tooltips-a-r01-20261015-222132.json
+  s_3bdacd10641e87::t_b76136527d4c53 1-44
+results/runs/h02-escape-landscape-tooltips-a-r01-20261015-222132.tools.jsonl
+  s_3bdacd10641e87::t_5207d4920e708e 1-14
+results/runs/h02-escape-landscape-tooltips-g-r02-20261015-214831.json
+  s_3bdacd10641e87::t_9e9d50f22aceb6 1-44
+results/runs/h02-escape-landscape-tooltips-g-r02-20261015-214831.tools.jsonl
+  s_3bdacd10641e87::t_4872a3ff378345 1-11
+results/runs/h02-escape-landscape-tooltips-g-r03-20261015-220843.json
+  s_3bdacd10641e87::t_1f6d4a268066c1 1-44
+results/runs/h02-escape-landscape-tooltips-g-r03-20261015-220843.tools.jsonl
+  s_3bdacd10641e87::t_31f4652d330a09 1-12
+results/runs/h06-most-frequent-duplicates-g-r02-20261015-214935.json
+  s_3bdacd10641e87::t_0f954d1d9f2aa9 1-44
+results/runs/h06-most-frequent-duplicates-g-r02-20261015-214935.tools.jsonl
+  s_3bdacd10641e87::t_b39f0de0a6358e 1-10
+results/runs/h10-always-ignore-sokrates-output-g-r02-20261015-215212.json
+  s_3bdacd10641e87::t_cb18780ec582ad 1-44
+results/runs/h10-always-ignore-sokrates-output-g-r02-20261015-215212.tools.jsonl
+  s_3bdacd10641e87::t_2adae91e3b9c3c 1-18
+results/runs/h10-always-ignore-sokrates-output-g-r03-20261015-221207.json
+  s_3bdacd10641e87::t_c4cbcc19fa9bf9 1-44
+results/runs/h10-always-ignore-sokrates-output-g-r03-20261015-221207.tools.jsonl
+  s_3bdacd10641e87::t_b7fdba79e8f596 1-16
+results/runs/h12-landscape-analysis-root-dot-a-r02-20261015-212808.json
+  s_3bdacd10641e87::t_92782b399b2506 1-44
+results/runs/h12-landscape-analysis-root-dot-a-r02-20261015-212808.tools.jsonl
+  s_3bdacd10641e87::t_1de5923d5d40fa 1-10
+results/runs/h12-landscape-analysis-root-dot-g-r02-20261015-215348.json
+  s_3bdacd10641e87::t_f5a3ca2170ce98 1-44
+results/runs/h12-landscape-analysis-root-dot-g-r02-20261015-215348.tools.jsonl
+  s_3bdacd10641e87::t_7fcc30336a6617 1-9
+results/runs/h12-landscape-analysis-root-dot-g-r03-20261015-221326.json
+  s_3bdacd10641e87::t_a38bd390a17733 1-44
+results/runs/h12-landscape-analysis-root-dot-g-r03-20261015-221326.tools.jsonl
+  s_3bdacd10641e87::t_b6c2fe34567280 1-9
+results/runs/h14-hidden-files-scoping-g-r02-20261015-215454.json
+  s_3bdacd10641e87::t_fb1ec9d3e2e5eb 1-44
+results/runs/h14-hidden-files-scoping-g-r02-20261015-215454.tools.jsonl
+  s_3bdacd10641e87::t_ab87e24aebed75 1-11
+results/runs/h14-hidden-files-scoping-g-r03-20261015-221417.json
+  s_3bdacd10641e87::t_10ce44e24af64d 1-44
+results/runs/h14-hidden-files-scoping-g-r03-20261015-221417.tools.jsonl
+  s_3bdacd10641e87::t_59a25ca2c22eda 1-9
+results/runs/t01-undefined-team-active-g-r02-20261015-215609.json
+  s_3bdacd10641e87::t_93550c7ff432be 1-44
+results/runs/t01-undefined-team-active-g-r02-20261015-215609.tools.jsonl
+  s_3bdacd10641e87::t_4286450ffa84fd 1-10
+results/runs/t01-undefined-team-active-g-r03-20261015-221508.json
+  s_3bdacd10641e87::t_d2921f8b6c5ccd 1-44
+results/runs/t01-undefined-team-active-g-r03-20261015-221508.tools.jsonl
+  s_3bdacd10641e87::t_9117e85120f369 1-7
+results/runs/t02-extension-metric-names-g-r02-20261015-215714.json
+  s_3bdacd10641e87::t_1d83779c11b4d3 1-44
+results/runs/t02-extension-metric-names-g-r02-20261015-215714.tools.jsonl
+  s_3bdacd10641e87::t_1a6df095f4489d 1-16
+results/runs/t02-extension-metric-names-p-t02-r01-20261015-221851.json
+  s_3bdacd10641e87::t_81626c6c2be321 1-44
+results/runs/t02-extension-metric-names-p-t02-r01-20261015-221851.tools.jsonl
+  s_3bdacd10641e87::t_ffc1c4c0f9b909 1-27
+results/runs/t03-scoping-conventions-never-matched-g-r03-20261015-221715.json
+  s_3bdacd10641e87::t_0504e8ae04887e 1-44
+results/runs/t03-scoping-conventions-never-matched-g-r03-20261015-221715.tools.jsonl
+  s_3bdacd10641e87::t_c95b296bc95bbf 1-12
+results/runs/t04-mock-folder-is-test-code-g-r03-20261015-221832.json
+  s_3bdacd10641e87::t_64d25d82e108da 1-44
+results/runs/t04-mock-folder-is-test-code-g-r03-20261015-221832.tools.jsonl
+  s_3bdacd10641e87::t_2cacbc7e79d38d 1-11
+results/runs/t04-mock-folder-is-test-code-p-t04-r01-20261015-222315.json
+  s_3bdacd10641e87::t_347df75c5f22e1 1-44
+results/runs/t04-mock-folder-is-test-code-p-t04-r01-20261015-222315.tools.jsonl
+  s_3bdacd10641e87::t_a32d589172d9d0 1-12
+results/runs/t05-missing-sublandscape-config-g-r02-20261015-220107.json
+  s_3bdacd10641e87::t_e4ea5efe13ac54 1-44
+results/runs/t05-missing-sublandscape-config-g-r02-20261015-220107.tools.jsonl
+  s_3bdacd10641e87::t_77b09d97870ceb 1-7
+results/runs/t06-all-contributors-exported-g-r01-20261015-212606.json
+  s_3bdacd10641e87::t_f95443244811f9 1-44
+results/runs/t06-all-contributors-exported-g-r01-20261015-212606.tools.jsonl
+  s_3bdacd10641e87::t_2c557b26a54a57 1-9
+results/runs/t06-all-contributors-exported-g-r02-20261015-220150.json
+  s_3bdacd10641e87::t_8b4b208dc7b4fa 1-44
+results/runs/t06-all-contributors-exported-g-r02-20261015-220150.tools.jsonl
+  s_3bdacd10641e87::t_48801c39e6a30d 1-10
+results/runs/t07-past-90d-block-g-r01-20261015-212653.json
+  s_3bdacd10641e87::t_c477d24b1f5d6c 1-44
+results/runs/t07-past-90d-block-g-r01-20261015-212653.tools.jsonl
+  s_3bdacd10641e87::t_a79a9760641d55 1-5
+results/runs/t07-past-90d-block-g-r02-20261015-220246.json
+  s_3bdacd10641e87::t_290fe02a78544f 1-44
+results/runs/t07-past-90d-block-g-r02-20261015-220246.tools.jsonl
+  s_3bdacd10641e87::t_f452c26d2cf156 1-10
+results/runs/t08-scope-file-lists-named-after-aspects-g-r01-20261015-212729.json
+  s_3bdacd10641e87::t_bae2200a64e2f4 1-44
+results/runs/t08-scope-file-lists-named-after-aspects-g-r01-20261015-212729.tools.jsonl
+  s_3bdacd10641e87::t_0ac252dd71f209 1-7
+results/runs/t08-scope-file-lists-named-after-aspects-g-r02-20261015-220326.json
+  s_3bdacd10641e87::t_2782715be180b1 1-44
+results/runs/t08-scope-file-lists-named-after-aspects-g-r02-20261015-220326.tools.jsonl
+  s_3bdacd10641e87::t_c814edbbe4e3fa 1-8
+results/runs/t09-analyzelandscape-command-g-r02-20261015-220416.json
+  s_3bdacd10641e87::t_f5842f00fd2c19 1-44
+results/runs/t09-analyzelandscape-command-g-r02-20261015-220416.tools.jsonl
+  s_3bdacd10641e87::t_9f9bd467fa62f9 1-16
+results/runs/t09-analyzelandscape-command-g-r03-20261015-222310.json
+  s_3bdacd10641e87::t_ac8577be9f4827 1-44
+results/runs/t09-analyzelandscape-command-g-r03-20261015-222310.tools.jsonl
+  s_3bdacd10641e87::t_d8fd03086e0d27 1-14
+results/runs/t10-group-dependency-npe-g-r02-20261015-220527.json
+  s_3bdacd10641e87::t_93d32e86ab1720 1-44
+results/runs/t10-group-dependency-npe-g-r02-20261015-220527.tools.jsonl
+  s_3bdacd10641e87::t_81aaf9e304e135 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fa206fd3caae02e49806f79e725e3876f790aa77",
+  "prompts": {},
+  "sessions": {
+    "s_0a71c4140c3ba8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ed28ee17-37b8-4f9a-863d-55cf75816826",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_0bf0ac0598515e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42bf4404-f654-4f98-afe7-73c953102cb9",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_1209debf88dc75": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c902efd5-4e20-4dc4-acdb-1814dd4aa96b",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_2b5d667c0d92e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "38fa8e48-c1e4-489c-97b8-0d33e876166c",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_36949420cae964": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6a5386fe-e628-4e25-bdf5-5e01e726fd5a",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_388dc4817fb12c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "786f4d48-7f67-4e0f-86cb-be33340c60d9",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_3d26c65f3c74b8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d383b9a-5ef5-41dc-868d-f0cce7bcdcc6",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_4142693a54e3f7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eba68fe6-6ad4-4623-8204-873287d901a3",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_49bfb66fade175": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d7effeb-1011-4546-bde5-9d7abacf95c9",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_52f386447be232": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9e4da4eb-04d2-42d3-a00a-90ae59c48d66",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6e9a91ed2ae240": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a6572fa7-439b-4b02-9010-a5fb4f482070",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_7fe5c899cd0b7d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a8c82ee3-f1a9-4937-8ad2-5371d8bdb587",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_8342be3bd96bb5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cfc12d0a-05db-45de-af5e-891bfcb6a2b4",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_8500800ebaf663": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "610d0090-a221-47c2-94a9-f47317821783",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_86311247ea3f85": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "00ac4229-00f8-488d-8c27-7c30221bbcda",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_92a98421c5957e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "28424b73-cc3f-4f23-a980-71458fe3e3f2",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a0bc105ac9b8f6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "922c5051-4a5b-4174-b9a6-ab86eed932c3",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_ac78fd4f7d612c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "70fdb5e9-10bf-4c54-8eb2-3528de3fc41c",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_c8f5153a417831": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dbdce38b-842d-41ab-9ee9-eb1ea13f218a",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_cfb0e355fc59e4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c634cb9-6ce1-4fea-af42-9d55e216ff5c",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_ee1f9c0a146857": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "745e4bd0-a452-453e-b2cb-d11f75448728",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
