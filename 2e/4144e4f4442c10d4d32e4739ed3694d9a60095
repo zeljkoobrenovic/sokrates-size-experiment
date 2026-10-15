@@ -1,0 +1,69 @@
+tasks/h06-most-frequent-duplicates/acceptance/a/reports/src/test/java/nl/obren/sokrates/reports/generators/statichtml/MostFrequentDuplicatesSectionTest.java
+  s_3bdacd10641e87::t_18f06b245ccec8 1-112
+tasks/h12-landscape-analysis-root-dot/task.md
+  s_3bdacd10641e87::t_10268de42c466d 1-3
+tasks/h09-generate-reports-data-only/acceptance/a/cli/src/test/java/nl/obren/sokrates/cli/DataOnlyReportsTest.java
+  s_3bdacd10641e87::t_e5354560d04255 1-47
+tasks/h12-landscape-analysis-root-dot/meta.json
+  s_3bdacd10641e87::t_10268de42c466d 1-15
+tasks/h02-escape-landscape-tooltips/meta.json
+  s_3bdacd10641e87::t_7da3f4a73cf3a5 1-14
+tasks/h12-landscape-analysis-root-dot/reference/a.patch
+  s_3bdacd10641e87::t_10268de42c466d 1-58
+tasks/h14-hidden-files-scoping/task.md
+  s_3bdacd10641e87::t_4494bac127d783 1,3
+  s_3bdacd10641e87::t_e81124b79f3be8 2
+tasks/h12-landscape-analysis-root-dot/acceptance/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/landscape/init/LandscapeAnalysisRootTest.java
+  s_3bdacd10641e87::t_10268de42c466d 1-72
+tasks/h06-most-frequent-duplicates/meta.json
+  s_3bdacd10641e87::t_18f06b245ccec8 1-15
+tasks/h09-generate-reports-data-only/reference/a.patch
+  s_3bdacd10641e87::t_e5354560d04255 1-115
+tasks/h06-most-frequent-duplicates/task.md
+  s_3bdacd10641e87::t_18f06b245ccec8 1-5
+tasks/h14-hidden-files-scoping/meta.json
+  s_3bdacd10641e87::t_e81124b79f3be8 1-14
+tasks/h06-most-frequent-duplicates/reference/a.patch
+  s_3bdacd10641e87::t_18f06b245ccec8 1-36
+tasks/h09-generate-reports-data-only/task.md
+  s_3bdacd10641e87::t_e5354560d04255 1-2,4-5
+  s_3bdacd10641e87::t_218bebb79850c7 3
+tasks/h02-escape-landscape-tooltips/task.md
+  s_3bdacd10641e87::t_7da3f4a73cf3a5 1-3
+tasks/h10-always-ignore-sokrates-output/task.md
+  s_3bdacd10641e87::t_07259693b9d07b 1-3
+tasks/h14-hidden-files-scoping/acceptance/a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/HiddenFilesScopingTest.java
+  s_3bdacd10641e87::t_e81124b79f3be8 1-83
+tasks/h10-always-ignore-sokrates-output/reference/a.patch
+  s_3bdacd10641e87::t_07259693b9d07b 1-94
+tasks/h14-hidden-files-scoping/reference/a.patch
+  s_3bdacd10641e87::t_e81124b79f3be8 1-30
+tasks/h02-escape-landscape-tooltips/reference/a.patch
+  s_3bdacd10641e87::t_7da3f4a73cf3a5 1-30
+tasks/h10-always-ignore-sokrates-output/acceptance/a/cli/src/test/java/nl/obren/sokrates/cli/SokratesOutputNeverAnalyzedTest.java
+  s_3bdacd10641e87::t_07259693b9d07b 1-93
+tasks/h02-escape-landscape-tooltips/acceptance/a/reports/src/test/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeRepositoryNameTooltipsTest.java
+  s_3bdacd10641e87::t_7da3f4a73cf3a5 1-85
+tasks/h09-generate-reports-data-only/meta.json
+  s_3bdacd10641e87::t_e5354560d04255 1-16
+tasks/h10-always-ignore-sokrates-output/meta.json
+  s_3bdacd10641e87::t_07259693b9d07b 1-16
+plans/next-experiments.md
+  s_3bdacd10641e87::t_358b0e8dd5d6ea 230-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2e4144e4f4442c10d4d32e4739ed3694d9a60095",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
