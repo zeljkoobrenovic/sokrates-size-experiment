@@ -1,0 +1,18 @@
+diff -ruN a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -405,9 +405,11 @@
+      */
+     private void addMockResourcesConventions() {
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        // mock-resources folders: the folder name starts with "__mock" or "mock"
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        // mock-resources folders: the folder name starts with "__mock" or "mock"; the rest of the name is matched
++        // with [^/]* (any characters within the one folder name), so a folder named plainly "mock", one with a dot
++        // such as "mock.data" and one with non-ASCII characters match too
++        testFilesConventions.add(new Convention(".*/__mock[^/]*/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[^/]*/.*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+     }
+ 

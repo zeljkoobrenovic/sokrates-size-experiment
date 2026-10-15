@@ -1,0 +1,14 @@
+diff -ruN a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -823,6 +823,10 @@
+     private void addSubLandscapeLogoCell(SubLandscapeLink subLandscape, String labelText, String href) {
+         LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+         LandscapeConfiguration subLandscapeConfig = getSubLandscapeConfig(subLandscape);
++        if (subLandscapeConfig == null) {
++            // a missing or unreadable config.json: fall back to defaults, so the row renders with the default logo
++            subLandscapeConfig = new LandscapeConfiguration();
++        }
+         Metadata metadata = subLandscapeConfig.getMetadata();
+         landscapeReport.addTableCell(!labelText.contains("/") ? ("<a href='" + href + "' target='_blank'>" +
+                 (StringUtils.isNotBlank(metadata.getLogoLink())

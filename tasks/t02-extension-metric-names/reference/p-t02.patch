@@ -1,0 +1,90 @@
+diff -ruN a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+@@ -155,9 +155,9 @@
+     }
+ 
+     // Naming of the per-extension entries (linesOfCodePerExtension, fileCountPerExtension in analysisResults.json,
+-    // and the per-extension aspects below). Today an entry is named with a decorated label, "  *.java".
++    // and the per-extension aspects below). An entry is named by the bare extension, "java".
+     public static String perExtensionName(String extension) {
+-        return decoratedExtensionLabel(extension);
++        return extension;
+     }
+ 
+     // The decorated "  *.java" label (also used by the indented lines of the textual analysis summary).
+@@ -173,9 +173,9 @@
+ 
+     // The key under which a landscape merges/aggregates the per-extension lines-of-code entries of its repositories
+     // (main scope, and the merged "other" category: build and deployment, generated, other).
+-    // Entries with the same key are merged into one entry.
++    // Entries with the same key are merged into one entry; legacy ("  *.java") and bare ("java") names share a key.
+     public static String landscapeAggregationKey(String perExtensionName) {
+-        return perExtensionName.toLowerCase();
++        return extensionName(perExtensionName);
+     }
+ 
+     // One aspect per (lower-cased) file extension, named by perExtensionName(extension), sorted by LOC desc.
+diff -ruN a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+@@ -39,9 +39,9 @@
+ 
+         assertEquals(scopesWithExtensions.size(), 8);
+         assertEquals(scopesWithExtensions.get(0).getName(), "main");
+-        assertEquals(scopesWithExtensions.get(1).getName(), "  *.java");
+-        assertEquals(scopesWithExtensions.get(2).getName(), "  *.js");
+-        assertEquals(scopesWithExtensions.get(3).getName(), "  *.html");
++        assertEquals(scopesWithExtensions.get(1).getName(), "java");
++        assertEquals(scopesWithExtensions.get(2).getName(), "js");
++        assertEquals(scopesWithExtensions.get(3).getName(), "html");
+         assertEquals(scopesWithExtensions.get(4).getName(), "test");
+         assertEquals(scopesWithExtensions.get(5).getName(), "generated");
+         assertEquals(scopesWithExtensions.get(6).getName(), "build and deployment");
+diff -ruN a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+@@ -70,17 +70,17 @@
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/A.java")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+ 
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/a.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+ 
+@@ -88,11 +88,11 @@
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/b.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(1).getFile().getName(), "B.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(1).getFile().getName(), "b.js");
+@@ -115,7 +115,7 @@
+         aspect.getSourceFiles().add(sourceFile3);
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 3);
+     }
+ 

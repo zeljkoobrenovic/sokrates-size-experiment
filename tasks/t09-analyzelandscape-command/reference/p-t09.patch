@@ -1,0 +1,35 @@
+diff -ruN a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -104,6 +104,10 @@
+             } else if (args[0].equalsIgnoreCase(Commands.EXPORT_STANDARD_CONVENTIONS)) {
+                 exportConventions(args);
+                 return;
++            } else if (args[0].equalsIgnoreCase(Commands.ANALYZE_LANDSCAPE)) {
++                // analyzeLandscape: the documented name of updateLandscape (same implementation and options)
++                updateLandscape(args, Commands.ANALYZE_LANDSCAPE, Commands.ANALYZE_LANDSCAPE_DESCRIPTION);
++                return;
+             } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)) {
+                 // landscape command: creates or refreshes the landscape report (-analysisRoot, -recursive, -confFile, ...)
+                 updateLandscape(args, Commands.UPDATE_LANDSCAPE, Commands.UPDATE_LANDSCAPE_DESCRIPTION);
+diff -ruN a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -25,6 +25,9 @@
+     public static final String UPDATE_CONFIG_DESCRIPTION = "Updates an analysis configuration file and completes missing fields";
+ 
+     // landscape command(s): create or refresh the landscape report (dispatched in CommandLineInterface.run)
++    public static final String ANALYZE_LANDSCAPE = "analyzeLandscape";
++    public static final String ANALYZE_LANDSCAPE_DESCRIPTION = "Creates or updates a Sokrates landscape report aggregating the repository analyses found under the analysis root (the landscape counterpart of analyze). Same behavior and options as updateLandscape, which is kept as the older name.";
++
+     public static final String UPDATE_LANDSCAPE = "updateLandscape";
+     public static final String UPDATE_LANDSCAPE_DESCRIPTION = "Updates or creates a Sokrates landscape report, aggregating results of multiple analyses";
+ 
+@@ -114,6 +117,7 @@
+         commands.add(new CommandUsage(INIT, INIT_DESCRIPTION, getInitOptions()));
+         commands.add(new CommandUsage(GENERATE_REPORTS, GENERATE_REPORTS_DESCRIPTION, getReportingOptions()));
+         // landscape command(s), listed in the no-argument usage overview
++        commands.add(new CommandUsage(ANALYZE_LANDSCAPE, ANALYZE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_LANDSCAPE, UPDATE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_CONFIG, UPDATE_CONFIG_DESCRIPTION, getUpdateConfigOptions()));
+         commands.add(new CommandUsage(EXTRACT_GIT_HISTORY, EXTRACT_GIT_HISTORY_DESCRIPTION, getExtractGitHistoryOption()));

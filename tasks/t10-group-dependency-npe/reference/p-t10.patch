@@ -1,0 +1,24 @@
+diff -ruN a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+@@ -382,7 +382,7 @@
+             groupDependenciesMap.get(key1).setCount(groupDependenciesMap.get(key1).getCount() + count);
+         } else if (groupDependenciesMap.containsKey(key2)) {
+             // reverse direction
+-            groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key1).getCount() + count);
++            groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key2).getCount() + count);
+         } else {
+             ComponentDependency newDependency = new ComponentDependency(from, to);
+             newDependency.setCount(count);
+@@ -678,9 +678,9 @@
+         return chart.getPercentageSvg(percentage, "", textRight);
+     }
+ 
+-    /** Percentage of the component's lines of code (componentLinesOfCode) covered by the dependent lines of code. */
++    /** Percentage of the component's lines of code (componentLinesOfCode) covered by the dependent lines of code; 0 for a component without lines of code. */
+     private double getShareOfComponentLinesOfCode(int dependentLinesOfCode, int componentLinesOfCode) {
+-        return 100.0 * dependentLinesOfCode / componentLinesOfCode;
++        return componentLinesOfCode > 0 ? 100.0 * dependentLinesOfCode / componentLinesOfCode : 0;
+     }
+ 
+     private String getDecompositionDescription(LogicalDecompositionAnalysisResults logicalDecomposition) {

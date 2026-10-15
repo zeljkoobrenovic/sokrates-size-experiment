@@ -1,0 +1,13 @@
+diff -ruN a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -765,8 +765,7 @@
+      * the remainder "Undefined Team". Configured teams do not use this check; they keep all their members.
+      */
+     private boolean belongsToUndefinedTeam(ContributorRepositories contributor, ContributorRepositories undefinedTeam) {
+-        String email = contributor.getContributor().getEmail();
+-        return !undefinedTeam.getMembers().contains(email);
++        return contributor.getContributor().isActive() && !undefinedTeam.getMembers().contains(contributor);
+     }
+ 
+     private void addRepoToTeam(ContributorRepositoryInfo repo, ContributorRepositories team) {
