@@ -17,6 +17,7 @@ Output: one JSON document (see TRACE_FORMAT below) that docs/trace.html renders.
 """
 import argparse
 import glob
+import gzip
 import json
 import os
 import re
@@ -68,6 +69,9 @@ def find_transcript(args):
     if args.run:
         cwd = os.path.join(ROOT, "work", args.run, "repo")
     files = transcripts_for(cwd)
+    archived = os.path.join(ROOT, "results", "transcripts", f"{args.run}.jsonl.gz") if args.run else ""
+    if not files and archived and os.path.exists(archived):  # Claude Code has cleaned it up; use the harness's copy
+        return archived
     if getattr(args, "session", None):
         files = [f for f in files if os.path.basename(f).startswith(args.session)]
     if not files:
@@ -104,7 +108,8 @@ def result_text(block):
 def load(transcript):
     """Group the transcript into API calls (one per assistant message id) with their tool results attached."""
     turns, by_id, results, cwd = [], {}, {}, None
-    for line in open(transcript, encoding="utf-8"):
+    opener = gzip.open if transcript.endswith(".gz") else open
+    for line in opener(transcript, "rt", encoding="utf-8"):
         try:
             o = json.loads(line)
         except json.JSONDecodeError:

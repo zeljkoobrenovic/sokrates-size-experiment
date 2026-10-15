@@ -12,7 +12,8 @@ For every (repeat, task, variant) the harness:
      parses the usage (input, cache read/write and output tokens, cost, turns, duration);
   5. saves the diff the agent produced, copies the task's acceptance tests in (tasks/<task>/acceptance/<variant>/,
      falling back to acceptance/a/) and runs the task's test command — pass/fail is the outcome;
-  6. appends one row to results/runs.csv and writes results/runs/<run id>.json with everything.
+  6. appends one row to results/runs.csv and writes results/runs/<run id>.json with everything, and keeps
+     the session transcript gzipped as results/transcripts/<run id>.jsonl.gz.
 
 Usage:
   harness/run.py --tasks t01 t02 --variants a b --repeats 10 [--model …] [--keep] [--dry-run]
@@ -21,7 +22,10 @@ import argparse
 import csv
 import datetime as dt
 import fcntl
+import glob
+import gzip
 import json
+import re
 import os
 import shutil
 import statistics
@@ -238,6 +242,20 @@ def append_row(row):
         shutil.copy(row["tools_log"], os.path.join(RESULTS, "runs", row["run_id"] + ".tools.jsonl"))
 
 
+def archive_transcript(repo, run_id):
+    """Claude Code keeps the session transcript (per-call usage, tool calls and results) under
+    ~/.claude/projects/<cwd slug>/ and deletes it after cleanupPeriodDays; keep a gzipped copy in results/."""
+    slug = re.sub(r"[^A-Za-z0-9]", "-", os.path.realpath(repo))
+    sessions = sorted(glob.glob(os.path.join(os.path.expanduser("~/.claude/projects"), slug, "*.jsonl")), key=os.path.getmtime)
+    if not sessions:
+        return ""
+    os.makedirs(os.path.join(RESULTS, "transcripts"), exist_ok=True)
+    out = os.path.join(RESULTS, "transcripts", run_id + ".jsonl.gz")
+    with open(sessions[-1], "rb") as i, gzip.open(out, "wb") as o:
+        shutil.copyfileobj(i, o)
+    return out
+
+
 def one_run(task, variant, repeat, model, keep, dry_run):
     task_dir = os.path.join(ROOT, "tasks", task)
     meta = json.load(open(os.path.join(task_dir, "meta.json")))
@@ -289,6 +307,7 @@ def one_run(task, variant, repeat, model, keep, dry_run):
         row["acceptance_s"] = round(acc_s, 1)
         row["result_text"] = (result.get("result") or "")[:2000]
         row["work"] = work if keep else ""
+        row["transcript"] = archive_transcript(repo, run_id)
     except Exception as e:  # record the failure and go on with the next run
         row["agent_error"] = True
         row["success"] = False
