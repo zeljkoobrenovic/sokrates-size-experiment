@@ -1,0 +1,1 @@
+-- BackOffice database schema (H2). Tables are added here as features need them.
