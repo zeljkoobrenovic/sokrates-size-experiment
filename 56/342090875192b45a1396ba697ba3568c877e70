@@ -1,0 +1,38 @@
+ambiguity/grow/skeleton/src/test/java/com/acme/backoffice/DemoScenarioTest.java
+  s_3bdacd10641e87::t_8e1f29c526a349 1-17
+ambiguity/grow/skeleton/src/main/java/com/acme/backoffice/Database.java
+  s_3bdacd10641e87::t_8e1f29c526a349 1-33
+ambiguity/grow/STANDING.md
+  s_3bdacd10641e87::t_877089fcd1adbd 1-20
+ambiguity/grow/grow.sh
+  s_3bdacd10641e87::t_8ef8ce6a82c356 1-59
+ambiguity/grow/features.md
+  s_3bdacd10641e87::t_50d97168c9afbd 1-286
+ambiguity/grow/skeleton/src/main/resources/schema.sql
+  s_3bdacd10641e87::t_8e1f29c526a349 1
+ambiguity/grow/skeleton/.gitignore
+  s_3bdacd10641e87::t_8e1f29c526a349 1
+ambiguity/grow/skeleton/pom.xml
+  s_3bdacd10641e87::t_8e1f29c526a349 1-41
+ambiguity/grow/skeleton/src/main/java/com/acme/backoffice/DemoScenario.java
+  s_3bdacd10641e87::t_9149ad25bbe023 7
+  s_3bdacd10641e87::t_8e1f29c526a349 1-6,8-17
+ambiguity/grow/skeleton/src/main/java/com/acme/backoffice/DataStore.java
+  s_3bdacd10641e87::t_8e1f29c526a349 1-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "56342090875192b45a1396ba697ba3568c877e70",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
