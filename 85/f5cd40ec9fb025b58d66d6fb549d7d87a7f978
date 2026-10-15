@@ -1,0 +1,23 @@
+plans/g-design/README.md
+  s_3bdacd10641e87::t_aaa7675f285f5e 1-13
+plans/g-design/proposal.md
+  s_3bdacd10641e87::t_59627cef80b94f 1-436
+plans/g-design/run.json
+  s_3bdacd10641e87::t_83998105c8b383 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "85f5cd40ec9fb025b58d66d6fb549d7d87a7f978",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
