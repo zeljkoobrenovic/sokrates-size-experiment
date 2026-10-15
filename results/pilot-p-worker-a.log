@@ -1,0 +1,62 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-pilot-a from ~/.m2/repository
+=== t01-undefined-team-active-a-r01-20261015-205455
+  success=True turns=9 input=178390 output=1542 cost=0.09347029999999999 lines_read=0
+=== t02-extension-metric-names-a-r01-20261015-205556
+  success=True turns=25 input=522286 output=7490 cost=0.2800345 lines_read=0
+=== t03-scoping-conventions-never-matched-a-r01-20261015-205816
+  success=True turns=17 input=297112 output=4159 cost=0.1452167 lines_read=0
+=== t04-mock-folder-is-test-code-a-r01-20261015-205940
+  success=True turns=14 input=267144 output=2954 cost=0.1133531 lines_read=0
+=== t05-missing-sublandscape-config-a-r01-20261015-210058
+  success=True turns=11 input=213466 output=1756 cost=0.09460539999999999 lines_read=0
+=== t06-all-contributors-exported-a-r01-20261015-210154
+  success=True turns=15 input=242840 output=3302 cost=0.1153973 lines_read=0
+=== t07-past-90d-block-a-r01-20261015-210248
+  success=True turns=8 input=178602 output=1160 cost=0.0877722 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r01-20261015-210326
+  success=True turns=9 input=188424 output=3069 cost=0.12202869999999999 lines_read=0
+=== t09-analyzelandscape-command-a-r01-20261015-210416
+  success=True turns=15 input=257881 output=4334 cost=0.1494281 lines_read=0
+=== t10-group-dependency-npe-a-r01-20261015-210517
+  success=True turns=12 input=225553 output=2293 cost=0.10675720000000002 lines_read=0
+=== t01-undefined-team-active-a-r02-20261015-210606
+  success=True turns=8 input=162597 output=1496 cost=0.09497620000000001 lines_read=0
+=== t02-extension-metric-names-a-r02-20261015-210650
+  success=True turns=24 input=572422 output=7130 cost=0.30126790000000003 lines_read=0
+=== t03-scoping-conventions-never-matched-a-r02-20261015-210829
+  success=True turns=14 input=204659 output=3350 cost=0.1158034 lines_read=0
+=== t04-mock-folder-is-test-code-a-r02-20261015-210930
+  success=True turns=20 input=478299 output=5817 cost=0.18454400000000004 lines_read=3
+=== t05-missing-sublandscape-config-a-r02-20261015-211105
+  success=True turns=10 input=204392 output=1805 cost=0.102772 lines_read=150
+=== t06-all-contributors-exported-a-r02-20261015-211200
+  success=True turns=11 input=184043 output=2606 cost=0.11049830000000002 lines_read=0
+=== t07-past-90d-block-a-r02-20261015-211247
+  success=True turns=8 input=186574 output=1075 cost=0.0876375 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r02-20261015-211328
+  success=True turns=12 input=277901 output=3548 cost=0.13778630000000003 lines_read=0
+=== t09-analyzelandscape-command-a-r02-20261015-211424
+  success=True turns=18 input=320912 output=4958 cost=0.16578510000000002 lines_read=30
+=== t10-group-dependency-npe-a-r02-20261015-211527
+  success=True turns=12 input=221769 output=2432 cost=0.10497639999999998 lines_read=0
+=== t01-undefined-team-active-a-r03-20261015-211615
+  success=True turns=11 input=226597 output=1937 cost=0.10066130000000001 lines_read=0
+=== t02-extension-metric-names-a-r03-20261015-211702
+  success=True turns=26 input=799080 output=8755 cost=0.34761669999999995 lines_read=0
+=== t03-scoping-conventions-never-matched-a-r03-20261015-211849
+  success=True turns=18 input=313285 output=4105 cost=0.14247189999999998 lines_read=0
+=== t04-mock-folder-is-test-code-a-r03-20261015-211950
+  success=True turns=12 input=227197 output=2822 cost=0.11051509999999999 lines_read=20
+=== t05-missing-sublandscape-config-a-r03-20261015-212044
+  success=True turns=10 input=234685 output=1733 cost=0.10733540000000001 lines_read=160
+=== t06-all-contributors-exported-a-r03-20261015-212131
+  success=True turns=12 input=210536 output=3126 cost=0.11645990000000002 lines_read=0
+=== t07-past-90d-block-a-r03-20261015-212228
+  success=True turns=7 input=149608 output=1090 cost=0.0775936 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r03-20261015-212310
+  success=True turns=10 input=214308 output=3068 cost=0.1175753 lines_read=0
+=== t09-analyzelandscape-command-a-r03-20261015-212405
+  success=True turns=17 input=312653 output=5115 cost=0.1893483 lines_read=0
+=== t10-group-dependency-npe-a-r03-20261015-212516
+  success=True turns=9 input=177134 output=1776 cost=0.08925750000000002 lines_read=0
+worker a done

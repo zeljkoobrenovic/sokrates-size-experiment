@@ -1,0 +1,5 @@
+{"t": 1792092167.059, "tool": "Bash", "command": "grep -rn \"180\" --include=*.java -il . | xargs grep -ln \"getRepositoriesWithCommitsPast\\|Past90\\|past90\\|Past180\" | head", "lines": 1, "response_chars": 139}
+{"t": 1792092168.51, "tool": "Bash", "command": "grep -rniE \"past ?90|180\" --include=*.java . | grep -i \"landscape\" | grep -iE \"loc|repositor\" | head -20", "lines": 1, "response_chars": 139}
+{"t": 1792092170.087, "tool": "Bash", "command": "grep -rnE \"Past90|Past180|past90|90d\" . --include='*.java' | grep -v /test/ | head -20", "lines": 5, "response_chars": 1201}
+{"t": 1792092171.518, "tool": "Bash", "command": "sed -n 855,930p reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "lines": 76, "response_chars": 7586}
+{"t": 1792092176.382, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t07-past-90d-block-a-r03-20261015-212228/repo/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java", "response_chars": 123161}
