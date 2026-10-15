@@ -1,0 +1,33 @@
+plans/g-design/check.sh
+  s_3bdacd10641e87::t_d4597afbebf084 1-46
+plans/p-design/run_all.sh
+  s_3bdacd10641e87::t_d4597afbebf084 1-21
+plans/p-design/PREPARE.md
+  s_3bdacd10641e87::t_d4597afbebf084 1-41
+plans/g-design/fixture_config.py
+  s_3bdacd10641e87::t_d4597afbebf084 1-8
+plans/next-experiments.md
+  s_3bdacd10641e87::t_d4597afbebf084 216-224
+plans/g-design/IMPLEMENT.md
+  s_3bdacd10641e87::t_d4597afbebf084 1-36
+plans/g-design/run_all.sh
+  s_3bdacd10641e87::t_d4597afbebf084 1-25
+plans/p-design/accept-t01.sh
+  s_3bdacd10641e87::t_d4597afbebf084 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b2118a029f0d76ad55909a149abf40ce48a9024b",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
