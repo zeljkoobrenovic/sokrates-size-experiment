@@ -155,14 +155,38 @@ Which behaviour-preserving changes, made before a task, cut the agent's cost of 
 re-sent context + tool output. A refactoring can only help by (a) cutting turns (fewer places to find, change and
 fix, a first grep that lands) or (b) shrinking what each turn adds (smaller test and build output).
 
-### Step 2.0: where the turns go (from the archived transcripts, no new runs)
+### Step 2.0: where the turns go (done 2026-10-15, `scripts/turn_analysis.py`, `results/turn-analysis.json`)
 
-Classify each turn of the 480 A/B runs: *locate* (grep/find/ls), *read*, *edit*, *build/test*,
-*fix after failed build/test*, *verify/other*. Per task: the share of turns and of tool-output characters per
-class, and the "wasted" locate turns (greps whose hits the agent never opens). This shows which lever is worth
-pulling for which task, before anything is refactored. A first guess from the data: t02 (654k, the most expensive)
-is shotgun surgery (the `"  *.ext"` label is built and stripped in several places); t10's extra cost in B came
-from finding a second place.
+All 480 A/B runs, every API call classified (locate, read, edit, build, fix, other) from the archived transcripts.
+Input tokens decompose exactly (model/measured 1.000): what a call adds is re-sent by every later call.
+
+| share of cost (price-weighted, mean run) | Sonnet | Haiku |
+|---|---|---|
+| shared prefix (system prompt, tools) + session setup (task prompt, environment), paid on every call | 46% | 34% |
+| locate (search calls) | 18% | 20% |
+| read | 14% | 24% |
+| edit | 11% | 12% |
+| build + fix after a failed build/test | 5% | 7% |
+| other | 5% | 3% |
+
+In dollars a Sonnet run is 38% cache reads, 37% cache writes, 25% output.
+
+**Within a task, the number of calls drives the cost:** r = 0.90 (Sonnet), 0.85 (Haiku); one extra call adds 6.6%
+(Sonnet) and 5.2% (Haiku). The calls that vary are locate and read (r with cost 0.62 / 0.57 for Sonnet) and the
+number of files the agent opens (0.52); for Haiku also edits and fixes (0.49 / 0.42). Search noise (files a grep
+hit and the agent never opened) is highest on the most expensive tasks: c01 32 and t02 23.5 per Sonnet run,
+against a median of 4.
+
+**Consequences for the arms:**
+- The lever is **calls spent finding and reading**: findability (the first search lands on the place) and
+  locality (one behaviour in one place, fewer files to open per change).
+- **Build and test output is not worth refactoring for** (≤ 3% of cost): quieter Maven output is dropped from `g`.
+  Focused tests can only touch the 5–7% of build and fix calls; kept as a low-priority item.
+- **Fixed context costs on every call.** A `ctx` code map adds to the setup on every call, so it pays only if it
+  saves more than about one call per 2k tokens it adds.
+- Refactorings must not change what the acceptance tests use (public and package-private classes and
+  signatures), which rules out plain renames of those. Renames of private members, and domain words in comments
+  and Javadoc that a grep finds, stay possible.
 
 ### Arms
 
@@ -177,11 +201,13 @@ from finding a second place.
 
 | refactoring | Sokrates signal | expected effect |
 |---|---|---|
-| Consolidate duplicated logic and repeated literals/keys into one place | duplication report; repeated string literals across files (a new concern regex) | fewer places to edit, fewer missed spots, fewer fix turns |
-| Co-locate or unify code that changes together | temporal (change) coupling between files from the history | fewer files to find per change |
-| Rename to the domain's words (classes, methods, report section ids) | a new findability measure: identifiers from past commit messages vs. names in code | the first grep lands; fewer locate turns |
-| Focused, fast tests per component | test-to-main ratio per component; test runtime per module | the agent runs one test class instead of a module build |
-| Quieter build and test output (surefire `trimStackTrace`, test log level, `redirectTestOutputToFile`) | n/a (repository-level) | smaller tool output per test turn |
+| Consolidate duplicated logic and repeated literals/keys into one place | duplication report; repeated string literals across files (a new concern regex) | fewer places to find, read and edit |
+| Co-locate or unify code that changes together | temporal (change) coupling between files from the history | fewer files to open per change |
+| Domain words where a grep finds them (private names, comments, Javadoc of the entry points of a feature) | words of past commit messages vs. names in the code | the first search lands; fewer locate calls, less search noise |
+| Focused, fast tests per component (low priority) | test-to-main ratio per component | fewer build and fix calls |
+
+The brief for the agent that draws up the list is `scripts/g_brief.md`; it gives the 2.0 findings (what costs
+calls) and the constraints, nothing about the tasks.
 
 Leakage control for `g`: the refactoring list is drawn up by an agent given only the Sokrates reports and the
 code. It never sees `tasks/` (run it in a copy without that folder). The list is committed before any `g` run

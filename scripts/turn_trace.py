@@ -255,7 +255,9 @@ def analyze_bash(command, out, root, cwd=""):
 
 def count_patch_lines(structured):
     n = 0
-    for hunk in (structured or {}).get("structuredPatch") or []:
+    if not isinstance(structured, dict):  # a failed edit's result is its error text
+        return 0
+    for hunk in structured.get("structuredPatch") or []:
         n += sum(1 for l in hunk.get("lines", []) if l.startswith("+"))
     return n
 
