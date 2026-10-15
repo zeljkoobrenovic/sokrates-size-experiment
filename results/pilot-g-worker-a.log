@@ -1,0 +1,50 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-pilot-ga from ~/.m2/repository
+=== c01-template-literal-duplication-a-r01-20261015-211044
+  success=True turns=14 input=295851 output=2855 cost=0.11761269999999999 lines_read=0
+=== c02-component-duplication-metrics-a-r01-20261015-211157
+  success=True turns=13 input=319009 output=4185 cost=0.1636447 lines_read=0
+=== h02-escape-landscape-tooltips-a-r01-20261015-211259
+  success=True turns=15 input=343266 output=3149 cost=0.14474739999999997 lines_read=0
+=== h06-most-frequent-duplicates-a-r01-20261015-211356
+  success=True turns=12 input=220449 output=3074 cost=0.134372 lines_read=0
+=== h09-generate-reports-data-only-a-r01-20261015-211445
+  success=True turns=34 input=947334 output=10142 cost=0.3670802000000001 lines_read=100
+=== h10-always-ignore-sokrates-output-a-r01-20261015-211642
+  success=True turns=24 input=479455 output=8542 cost=0.25440820000000003 lines_read=113
+=== h12-landscape-analysis-root-dot-a-r01-20261015-211826
+  success=True turns=12 input=238752 output=3739 cost=0.1308714 lines_read=0
+=== h14-hidden-files-scoping-a-r01-20261015-211923
+  success=True turns=11 input=203631 output=2622 cost=0.10495349999999999 lines_read=0
+=== c01-template-literal-duplication-a-r02-20261015-212014
+  success=True turns=21 input=589070 output=6019 cost=0.24530689999999997 lines_read=0
+=== c02-component-duplication-metrics-a-r02-20261015-212134
+  success=True turns=12 input=267416 output=3859 cost=0.167495 lines_read=0
+=== h02-escape-landscape-tooltips-a-r02-20261015-212258
+  success=True turns=15 input=309418 output=4353 cost=0.1512616 lines_read=0
+=== h06-most-frequent-duplicates-a-r02-20261015-212408
+  success=False turns=9 input=214200 output=2343 cost=0.10962420000000002 lines_read=0
+=== h09-generate-reports-data-only-a-r02-20261015-212502
+  success=True turns=26 input=542906 output=8156 cost=0.26858540000000003 lines_read=28
+=== h10-always-ignore-sokrates-output-a-r02-20261015-212637
+  success=True turns=23 input=496873 output=8361 cost=0.2631618 lines_read=153
+=== h12-landscape-analysis-root-dot-a-r02-20261015-212808
+  success=True turns=13 input=218540 output=4754 cost=0.14630110000000002 lines_read=0
+=== h14-hidden-files-scoping-a-r02-20261015-212911
+  success=True turns=13 input=259858 output=3694 cost=0.1337448 lines_read=0
+=== c01-template-literal-duplication-a-r03-20261015-213009
+  success=True turns=21 input=544661 output=5321 cost=0.21879689999999996 lines_read=150
+=== c02-component-duplication-metrics-a-r03-20261015-214751
+  success=True turns=17 input=436959 output=5963 cost=0.202864 lines_read=0
+=== h02-escape-landscape-tooltips-a-r03-20261015-214903
+  success=True turns=15 input=336144 output=4152 cost=0.15661190000000003 lines_read=0
+=== h06-most-frequent-duplicates-a-r03-20261015-215003
+  success=True turns=13 input=270616 output=3748 cost=0.1462104 lines_read=0
+=== h09-generate-reports-data-only-a-r03-20261015-215055
+  success=True turns=28 input=768711 output=9950 cost=0.3467991 lines_read=0
+=== h10-always-ignore-sokrates-output-a-r03-20261015-215233
+  success=True turns=16 input=326286 output=5352 cost=0.1895715 lines_read=0
+=== h12-landscape-analysis-root-dot-a-r03-20261015-215344
+  success=True turns=13 input=206601 output=3717 cost=0.1307631 lines_read=224
+=== h14-hidden-files-scoping-a-r03-20261015-215441
+  success=True turns=11 input=178275 output=2528 cost=0.10551059999999998 lines_read=0
+worker a done
