@@ -1,0 +1,28 @@
+ambiguity/briefs/D.md
+  s_3bdacd10641e87::t_66e79afd909530 35-36
+  s_3bdacd10641e87::t_0aa46285682354 1-34,37-49
+ambiguity/tools/check.sh
+  s_3bdacd10641e87::t_bc8c8fb10dc877 1-17
+ambiguity/briefs/TASKS.md
+  s_3bdacd10641e87::t_2387e2f5a13339 1-47
+ambiguity/briefs/DNAMES.md
+  s_3bdacd10641e87::t_0aa46285682354 1-44
+ambiguity/briefs/R.md
+  s_3bdacd10641e87::t_0aa46285682354 1-42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7ea952d2e1d34d45a6f369b10059a2486b77bc3",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
