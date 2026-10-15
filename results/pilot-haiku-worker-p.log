@@ -1,0 +1,62 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-haiku-p from ~/.m2/repository
+=== t01-undefined-team-active-p-t01-r01-20261015-221717
+  success=True turns=22 input=618058 output=7043 cost=0.014698120000000002 lines_read=0
+=== t02-extension-metric-names-p-t02-r01-20261015-221851
+  success=True turns=32 input=1841216 output=22659 cost=0.04625695999999999 lines_read=70
+=== t03-scoping-conventions-never-matched-p-t03-r01-20261015-222142
+  success=True turns=17 input=646117 output=8366 cost=0.017628400000000006 lines_read=0
+=== t04-mock-folder-is-test-code-p-t04-r01-20261015-222315
+  success=True turns=17 input=482725 output=7285 cost=0.013130469999999998 lines_read=50
+=== t05-missing-sublandscape-config-p-t05-r01-20261015-222444
+  success=True turns=10 input=269777 output=3844 cost=0.00868928 lines_read=0
+=== t06-all-contributors-exported-p-t06-r01-20261015-222537
+  success=True turns=12 input=282011 output=4178 cost=0.00867955 lines_read=0
+=== t07-past-90d-block-p-t07-r01-20261015-222635
+  success=True turns=12 input=365956 output=3042 cost=0.010191500000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-p-t08-r01-20261015-222729
+  success=True turns=20 input=752793 output=9443 cost=0.018829310000000002 lines_read=0
+=== t09-analyzelandscape-command-p-t09-r01-20261015-222915
+  success=True turns=21 input=572499 output=7388 cost=0.015313569999999999 lines_read=0
+=== t10-group-dependency-npe-p-t10-r01-20261015-223028
+  success=True turns=15 input=396111 output=5048 cost=0.01130584 lines_read=0
+=== t01-undefined-team-active-p-t01-r02-20261015-223129
+  success=True turns=15 input=366415 output=4761 cost=0.01030432 lines_read=343
+=== t02-extension-metric-names-p-t02-r02-20261015-223232
+  success=True turns=68 input=3228732 output=34495 cost=0.16426578999999997 lines_read=0
+=== t03-scoping-conventions-never-matched-p-t03-r02-20261015-223625
+  success=True turns=13 input=409824 output=7075 cost=0.012956559999999999 lines_read=0
+=== t04-mock-folder-is-test-code-p-t04-r02-20261015-223731
+  success=True turns=17 input=525502 output=10022 cost=0.015425300000000001 lines_read=60
+=== t05-missing-sublandscape-config-p-t05-r02-20261015-223900
+  success=True turns=11 input=309084 output=4127 cost=0.009415360000000001 lines_read=0
+=== t06-all-contributors-exported-p-t06-r02-20261015-223954
+  success=True turns=14 input=264456 output=4136 cost=0.008382309999999999 lines_read=17
+=== t07-past-90d-block-p-t07-r02-20261015-224054
+  success=True turns=10 input=296269 output=2528 cost=0.008894510000000001 lines_read=90
+=== t08-scope-file-lists-named-after-aspects-p-t08-r02-20261015-224136
+  success=True turns=17 input=558044 output=7850 cost=0.014978219999999999 lines_read=16
+=== t09-analyzelandscape-command-p-t09-r02-20261015-224251
+  success=True turns=30 input=1248628 output=10924 cost=0.027652280000000005 lines_read=1100
+=== t10-group-dependency-npe-p-t10-r02-20261015-224428
+  success=True turns=24 input=765715 output=8492 cost=0.01792554 lines_read=0
+=== t01-undefined-team-active-p-t01-r03-20261015-224553
+  success=True turns=13 input=313371 output=5083 cost=0.01007968 lines_read=343
+=== t02-extension-metric-names-p-t02-r03-20261015-224649
+  success=True turns=23 input=1130628 output=15597 cost=0.031332990000000005 lines_read=66
+=== t03-scoping-conventions-never-matched-p-t03-r03-20261015-224832
+  success=True turns=21 input=695743 output=9508 cost=0.017953680000000003 lines_read=0
+=== t04-mock-folder-is-test-code-p-t04-r03-20261015-225010
+  success=True turns=18 input=543832 output=8423 cost=0.014710669999999999 lines_read=293
+=== t05-missing-sublandscape-config-p-t05-r03-20261015-225123
+  success=True turns=13 input=311678 output=4182 cost=0.009532450000000001 lines_read=146
+=== t06-all-contributors-exported-p-t06-r03-20261015-225212
+  success=True turns=11 input=270724 output=4024 cost=0.008458720000000001 lines_read=0
+=== t07-past-90d-block-p-t07-r03-20261015-225307
+  success=True turns=11 input=324836 output=2979 cost=0.0096407 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-p-t08-r03-20261015-225357
+  success=True turns=19 input=634458 output=9728 cost=0.01744971 lines_read=0
+=== t09-analyzelandscape-command-p-t09-r03-20261015-225518
+  success=True turns=21 input=500902 output=8243 cost=0.014558660000000001 lines_read=0
+=== t10-group-dependency-npe-p-t10-r03-20261015-225628
+  success=True turns=15 input=509572 output=5107 cost=0.015187149999999998 lines_read=1112
+worker p done
