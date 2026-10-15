@@ -218,8 +218,14 @@ that makes the patch small and local, *without making the change itself*. The ac
 afterwards, tests stay green and golden output identical. Record the tokens the preparation costs, since a saving
 only counts net of it (break-even, as in the Fowler comparison).
 
-**Held-out tasks.** To check that `g` was not tuned to the known tasks, mine and write 4–6 new tasks from
-`tasks/candidates.md` *after* the `g` list is committed. Their B/A-style ratio is the honest number.
+**Held-out tasks.** To check that `g` was not tuned to the known tasks, 6 new tasks from `tasks/candidates.md`,
+written *after* the `g` list is committed. Their g/A ratio is the honest number. So that the choice cannot follow
+the `g` list either, the selection was fixed on 2026-10-15 while the blind agent was still working, before its
+proposal was read: the candidates with a test, in `candidates.md` order (tests first, smallest first), skipping the
+12 used commits; the first 6 that re-derive into a self-contained behaviour with an acceptance test failing on A
+and passing with the reference change are taken, and each skipped one is recorded with its reason. The order:
+`6df44dc0`, `7cfd01cb`, `00232dac`, `f8e04e14`, `a27a5686`, `faa3e12d`, `6c9ac2b4`, `9f03561c`, `494ad74a`,
+`f81c0ab0`, `89be4f3a`, `47eb87d9`, `0ef770d8`, `8937f539`, `f9fd704e`, `4f5d869b`.
 
 ### Runs
 
