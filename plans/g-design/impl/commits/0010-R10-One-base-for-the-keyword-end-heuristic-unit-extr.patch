@@ -1,0 +1,696 @@
+From d24f5f9de4c036ae4ae3abc4871ff9504fa41525 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 21:01:50 +0200
+Subject: [PATCH 10/10] =?UTF-8?q?R10:=20One=20base=20for=20the=20"keyword?=
+ =?UTF-8?q?=20=E2=80=A6=20end"=20heuristic=20unit=20extractors=20(Julia,?=
+ =?UTF-8?q?=20Lua,=20ObjectPascal)?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../EndKeywordHeuristicUnitsExtractor.java    | 177 ++++++++++++++++++
+ .../julia/JuliaHeuristicUnitsExtractor.java   | 135 ++-----------
+ .../lang/lua/LuaHeuristicUnitsExtractor.java  | 132 ++-----------
+ .../ObjectPascalHeuristicUnitsExtractor.java  | 139 +++-----------
+ 4 files changed, 236 insertions(+), 347 deletions(-)
+ create mode 100644 codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/EndKeywordHeuristicUnitsExtractor.java
+
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/EndKeywordHeuristicUnitsExtractor.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/EndKeywordHeuristicUnitsExtractor.java
+new file mode 100644
+index 0000000..092bc53
+--- /dev/null
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/EndKeywordHeuristicUnitsExtractor.java
+@@ -0,0 +1,177 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.sourcecode.lang;
++
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.cleaners.CommentsAndEmptyLinesCleaner;
++import nl.obren.sokrates.sourcecode.units.UnitInfo;
++import org.apache.commons.lang3.StringUtils;
++
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
++import java.util.function.Supplier;
++
++/**
++ * Shared heuristic unit (function / procedure) extractor for languages whose units start with a keyword line
++ * and end with an "end" line at the same indentation (Julia, Lua, ObjectPascal).
++ * <p>
++ * Subclasses provide the language-specific hooks: {@link #isFunctionStartLine(String)},
++ * {@link #isUnitEnd(String, String)}, {@link #getParameterSeparatorRegex()} and {@link #getMcCabeKeywords()}.
++ * The McCabe index is 1 plus the number of occurrences of each keyword in the cleaned unit body.
++ */
++public abstract class EndKeywordHeuristicUnitsExtractor {
++    private UnitInfo unit = null;
++    private StringBuilder unitBody = null;
++    private StringBuilder cleanedUnitBody = null;
++    private String prefix = "";
++    private int loc = 0;
++    private SourceFile sourceFile;
++    private String cleanedFileContent;
++    private Supplier<CommentsAndEmptyLinesCleaner> cleanerSupplier;
++
++    protected EndKeywordHeuristicUnitsExtractor(SourceFile sourceFile, String cleanedFileContent, Supplier<CommentsAndEmptyLinesCleaner> cleanerSupplier) {
++        this.sourceFile = sourceFile;
++        this.cleanedFileContent = cleanedFileContent;
++        this.cleanerSupplier = cleanerSupplier;
++    }
++
++    /** @return true if the line starts a new unit */
++    protected abstract boolean isFunctionStartLine(String line);
++
++    /** @return true if the line ends the current unit; prefix is the indentation of the unit's first line */
++    protected abstract boolean isUnitEnd(String line, String prefix);
++
++    /** @return the regex used to split the text between the first parentheses into parameters */
++    protected abstract String getParameterSeparatorRegex();
++
++    /** @return the strings counted (with StringUtils.countMatches) in the search body to compute the McCabe index */
++    protected abstract List<String> getMcCabeKeywords();
++
++    /**
++     * @return the text searched for McCabe keywords, built from the cleaned unit body;
++     * by default, newlines become spaces and a space is put before every "(" and "{"
++     */
++    protected String getBodyForMcCabeSearch(String cleanedBody) {
++        String bodyForSearch = " " + cleanedBody.replace("\n", " ");
++        bodyForSearch = bodyForSearch.replace("(", " (");
++        bodyForSearch = bodyForSearch.replace("{", " {");
++        return bodyForSearch;
++    }
++
++    /**
++     * @return true if parameters are counted only when the unit's first line contains "(";
++     * by default, the first parentheses anywhere in the body are used
++     */
++    protected boolean countParametersOnlyIfSignatureHasParenthesis() {
++        return false;
++    }
++
++    public List<UnitInfo> extractUnits() {
++        List<UnitInfo> units = new ArrayList<>();
++
++        List<String> lines = Arrays.asList(cleanedFileContent.replace("\t", "    ").split("\n"));
++
++        int lineIndex = 1;
++        for (String line : lines) {
++            if (isFunctionStartLine(line)) {
++                initUnit(units, line, lineIndex);
++            } else if (unit != null) {
++                updateUnit(line);
++
++                if (isUnitEnd(line, prefix)) {
++                    endUnit(lineIndex);
++                }
++            }
++            lineIndex++;
++        }
++
++        return units;
++    }
++
++    private void updateUnit(String line) {
++        unitBody.append(line).append("\n");
++        if (!line.trim().isEmpty()) {
++            cleanedUnitBody.append(line).append("\n");
++            loc += 1;
++        }
++    }
++
++    private void endUnit(int lineIndex) {
++        unit.setBody(unitBody.toString());
++        unit.setCleanedBody(cleanedUnitBody.toString());
++        unit.setLinesOfCode(loc);
++        unit.setEndLine(lineIndex);
++
++        updateParamsAndMcCabeIndex(unitBody.toString());
++        unit = null;
++        unitBody = null;
++        cleanedUnitBody = null;
++    }
++
++    private void initUnit(List<UnitInfo> units, String line, int lineIndex) {
++        String trimmedLine = line.trim();
++        unit = new UnitInfo();
++        units.add(unit);
++        unit.setStartLine(lineIndex);
++
++        unit.setSourceFile(sourceFile);
++
++        prefix = "";
++        int i = 0;
++        while (line.charAt(i++) == ' ') {
++            prefix += ' ';
++        }
++
++        unitBody = new StringBuilder();
++        unitBody.append(line).append("\n");
++
++        cleanedUnitBody = new StringBuilder();
++        cleanedUnitBody.append(line).append("\n");
++
++        unit.setShortName(trimmedLine.replaceAll("[(].*", "()"));
++        loc = 1;
++    }
++
++    private CommentsAndEmptyLinesCleaner getCommentsAndEmptyLinesCleanerExtraString() {
++        CommentsAndEmptyLinesCleaner cleaner = cleanerSupplier.get();
++        cleaner.getCodeBlockParsers().forEach(codeBlockParser -> codeBlockParser.setRemoveWhenCleaning(true));
++        return cleaner;
++    }
++
++    private void updateParamsAndMcCabeIndex(String body) {
++        CommentsAndEmptyLinesCleaner cleaner = getCommentsAndEmptyLinesCleanerExtraString();
++        String content = cleaner.cleanKeepEmptyLines(body);
++
++        String bodyForSearch = getBodyForMcCabeSearch(content);
++
++        boolean signatureHasParenthesis = unit.getShortName().contains("(");
++        if (signatureHasParenthesis) {
++            unit.setShortName(unit.getShortName().substring(0, unit.getShortName().indexOf("(")).trim() + "()");
++        }
++        if (signatureHasParenthesis || !countParametersOnlyIfSignatureHasParenthesis()) {
++            updateNumberOfParameters(body);
++        }
++
++        int mcCabeIndex = 1;
++        for (String keyword : getMcCabeKeywords()) {
++            mcCabeIndex += StringUtils.countMatches(bodyForSearch, keyword);
++        }
++
++        unit.setMcCabeIndex(mcCabeIndex);
++    }
++
++    private void updateNumberOfParameters(String body) {
++        int startOfParamsSearchIndex = body.indexOf("(");
++        int endOfParamsSearchIndex = body.indexOf(")", startOfParamsSearchIndex + 1);
++        if (startOfParamsSearchIndex > 0 && endOfParamsSearchIndex > 0 && endOfParamsSearchIndex > startOfParamsSearchIndex) {
++            String trimmedParams = body.substring(startOfParamsSearchIndex + 1, endOfParamsSearchIndex).trim();
++            if (!trimmedParams.isEmpty()) {
++                String[] params = trimmedParams.split(getParameterSeparatorRegex());
++                unit.setNumberOfParameters(params.length);
++            }
++        }
++    }
++}
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaHeuristicUnitsExtractor.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaHeuristicUnitsExtractor.java
+index 7177a06..318e086 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaHeuristicUnitsExtractor.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/julia/JuliaHeuristicUnitsExtractor.java
+@@ -5,140 +5,39 @@
+ package nl.obren.sokrates.sourcecode.lang.julia;
+ 
+ import nl.obren.sokrates.sourcecode.SourceFile;
+-import nl.obren.sokrates.sourcecode.cleaners.CommentsAndEmptyLinesCleaner;
+-import nl.obren.sokrates.sourcecode.units.UnitInfo;
+-import org.apache.commons.lang3.StringUtils;
++import nl.obren.sokrates.sourcecode.lang.EndKeywordHeuristicUnitsExtractor;
+ 
+-import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
+ 
+-public class JuliaHeuristicUnitsExtractor {
+-    private UnitInfo unit = null;
+-    private StringBuilder unitBody = null;
+-    private StringBuilder cleanedUnitBody = null;
+-    private String prefix = "";
+-    private int loc = 0;
+-    private SourceFile sourceFile;
+-    private String cleanedFileContent;
+-    private JuliaAnalyzer analyzer;
++public class JuliaHeuristicUnitsExtractor extends EndKeywordHeuristicUnitsExtractor {
++    // " \\? " is passed as is to countMatches (not a regex), so it only matches a literal " \? "
++    private static final List<String> MCCABE_KEYWORDS = Arrays.asList(
++            " if ", " elseif ", " ifelse ", " \\? ", " for ", " while ", " catch ", " && ", " || ");
+ 
+     public JuliaHeuristicUnitsExtractor(SourceFile sourceFile, String cleanedFileContent, JuliaAnalyzer analyzer) {
+-        this.sourceFile = sourceFile;
+-        this.cleanedFileContent = cleanedFileContent;
+-        this.analyzer = analyzer;
++        super(sourceFile, cleanedFileContent, analyzer::getCommentsAndEmptyLinesCleaner);
+     }
+ 
+-    public List<UnitInfo> extractUnits() {
+-        List<UnitInfo> units = new ArrayList<>();
+-
+-        List<String> lines = Arrays.asList(cleanedFileContent.replace("\t", "    ").split("\n"));
+-
+-        int lineIndex = 1;
+-        for (String line : lines) {
+-            if (isFunctionStartLine(line)) {
+-                initUnit(units, line, lineIndex);
+-            } else if (unit != null) {
+-                updateUnit(line);
+-
+-                if (line.startsWith(prefix + "end")) {
+-                    endUnit(lineIndex);
+-                }
+-            }
+-            lineIndex++;
+-        }
+-
+-        return units;
+-    }
+-
+-    private boolean isFunctionStartLine(String line) {
++    @Override
++    protected boolean isFunctionStartLine(String line) {
+         String trimmedLine = line.trim();
+         return trimmedLine.startsWith("function ") || trimmedLine.startsWith("function(")
+                 || (trimmedLine.startsWith("@") && trimmedLine.contains(" function"));
+     }
+ 
+-    private void updateUnit(String line) {
+-        unitBody.append(line).append("\n");
+-        if (!line.trim().isEmpty()) {
+-            cleanedUnitBody.append(line).append("\n");
+-            loc += 1;
+-        }
++    @Override
++    protected boolean isUnitEnd(String line, String prefix) {
++        return line.startsWith(prefix + "end");
+     }
+ 
+-    private void endUnit(int lineIndex) {
+-        unit.setBody(unitBody.toString());
+-        unit.setCleanedBody(cleanedUnitBody.toString());
+-        unit.setLinesOfCode(loc);
+-        unit.setEndLine(lineIndex);
+-
+-        updateParamsAndMcCabeIndex(unitBody.toString());
+-        unit = null;
+-        unitBody = null;
+-        cleanedUnitBody = null;
++    @Override
++    protected String getParameterSeparatorRegex() {
++        return "\\,";
+     }
+ 
+-    private void initUnit(List<UnitInfo> units, String line, int lineIndex) {
+-        String trimmedLine = line.trim();
+-        unit = new UnitInfo();
+-        units.add(unit);
+-        unit.setStartLine(lineIndex);
+-
+-        unit.setSourceFile(sourceFile);
+-
+-        prefix = "";
+-        int i = 0;
+-        while (line.charAt(i++) == ' ') {
+-            prefix += ' ';
+-        }
+-
+-        unitBody = new StringBuilder();
+-        unitBody.append(line).append("\n");
+-
+-        cleanedUnitBody = new StringBuilder();
+-        cleanedUnitBody.append(line).append("\n");
+-
+-        unit.setShortName(trimmedLine.replaceAll("[(].*", "()"));
+-        loc = 1;
+-    }
+-
+-    private CommentsAndEmptyLinesCleaner getCommentsAndEmptyLinesCleanerExtraString() {
+-        CommentsAndEmptyLinesCleaner cleaner = analyzer.getCommentsAndEmptyLinesCleaner();
+-        cleaner.getCodeBlockParsers().forEach(codeBlockParser -> codeBlockParser.setRemoveWhenCleaning(true));
+-        return cleaner;
+-    }
+-
+-    private void updateParamsAndMcCabeIndex(String body) {
+-        CommentsAndEmptyLinesCleaner cleaner = getCommentsAndEmptyLinesCleanerExtraString();
+-        String content = cleaner.cleanKeepEmptyLines(body);
+-
+-        String bodyForSearch = " " + content.replace("\n", " ");
+-        bodyForSearch = bodyForSearch.replace("(", " (");
+-        bodyForSearch = bodyForSearch.replace("{", " {");
+-
+-        int startOfParamsSearchIndex = body.indexOf("(");
+-        int endOfParamsSearchIndex = body.indexOf(")", startOfParamsSearchIndex + 1);
+-        if (unit.getShortName().contains("(")) {
+-            unit.setShortName(unit.getShortName().substring(0, unit.getShortName().indexOf("(")).trim() + "()");
+-        }
+-        if (startOfParamsSearchIndex > 0 && endOfParamsSearchIndex > 0 && endOfParamsSearchIndex > startOfParamsSearchIndex) {
+-            String trimedParams = body.substring(startOfParamsSearchIndex + 1, endOfParamsSearchIndex).trim();
+-            if (!trimedParams.isEmpty()) {
+-                String[] params = trimedParams.split("\\,");
+-                unit.setNumberOfParameters(params.length);
+-            }
+-        }
+-
+-        int mcCabeIndex = 1;
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " if ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " elseif ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " ifelse ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " \\? ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " for ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " while ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " catch ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " && ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " || ");
+-
+-        unit.setMcCabeIndex(mcCabeIndex);
++    @Override
++    protected List<String> getMcCabeKeywords() {
++        return MCCABE_KEYWORDS;
+     }
+ }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaHeuristicUnitsExtractor.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaHeuristicUnitsExtractor.java
+index 051e5c3..8ead4f4 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaHeuristicUnitsExtractor.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/lua/LuaHeuristicUnitsExtractor.java
+@@ -6,139 +6,39 @@ package nl.obren.sokrates.sourcecode.lang.lua;
+ 
+ import nl.obren.sokrates.common.utils.RegexUtils;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+-import nl.obren.sokrates.sourcecode.cleaners.CommentsAndEmptyLinesCleaner;
+-import nl.obren.sokrates.sourcecode.units.UnitInfo;
+-import org.apache.commons.lang3.StringUtils;
++import nl.obren.sokrates.sourcecode.lang.EndKeywordHeuristicUnitsExtractor;
+ 
+-import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
+ 
+-public class LuaHeuristicUnitsExtractor {
+-    private UnitInfo unit = null;
+-    private StringBuilder unitBody = null;
+-    private StringBuilder cleanedUnitBody = null;
+-    private String prefix = "";
+-    private int loc = 0;
+-    private SourceFile sourceFile;
+-    private String cleanedFileContent;
+-    private LuaAnalyzer analyzer;
++public class LuaHeuristicUnitsExtractor extends EndKeywordHeuristicUnitsExtractor {
++    private static final List<String> MCCABE_KEYWORDS = Arrays.asList(
++            " if ", " elseif ", " while ", " repeat ", " for ", " && ", " || ");
+ 
+     public LuaHeuristicUnitsExtractor(SourceFile sourceFile, String cleanedFileContent, LuaAnalyzer analyzer) {
+-        this.sourceFile = sourceFile;
+-        this.cleanedFileContent = cleanedFileContent;
+-        this.analyzer = analyzer;
++        super(sourceFile, cleanedFileContent, analyzer::getCommentsAndEmptyLinesCleaner);
+     }
+ 
+-    public List<UnitInfo> extractUnits() {
+-        List<UnitInfo> units = new ArrayList<>();
+-
+-        List<String> lines = Arrays.asList(cleanedFileContent.replace("\t", "    ").split("\n"));
+-
+-        int lineIndex = 1;
+-        for (String line : lines) {
+-            if (isFunctionStartLine(line)) {
+-                initUnit(units, line, lineIndex);
+-            } else if (unit != null) {
+-                updateUnit(line);
+-
+-                if (line.startsWith(prefix + "end")) {
+-                    endUnit(lineIndex);
+-                }
+-            }
+-            lineIndex++;
+-        }
+-
+-        return units;
+-    }
+-
+-    private boolean isFunctionStartLine(String line) {
++    @Override
++    protected boolean isFunctionStartLine(String line) {
+         String trimmedLine = line.trim();
+         return (trimmedLine.startsWith("function ") || trimmedLine.startsWith("function(")
+                 || RegexUtils.matchesEntirely(".*[=][ ]*function[ ]*[(].*", trimmedLine))
+                 && !(trimmedLine.endsWith("end)") || trimmedLine.endsWith("end"));
+     }
+ 
+-    private void updateUnit(String line) {
+-        unitBody.append(line).append("\n");
+-        if (!line.trim().isEmpty()) {
+-            cleanedUnitBody.append(line).append("\n");
+-            loc += 1;
+-        }
++    @Override
++    protected boolean isUnitEnd(String line, String prefix) {
++        return line.startsWith(prefix + "end");
+     }
+ 
+-    private void endUnit(int lineIndex) {
+-        unit.setBody(unitBody.toString());
+-        unit.setCleanedBody(cleanedUnitBody.toString());
+-        unit.setLinesOfCode(loc);
+-        unit.setEndLine(lineIndex);
+-
+-        updateParamsAndMcCabeIndex(unitBody.toString());
+-        unit = null;
+-        unitBody = null;
+-        cleanedUnitBody = null;
++    @Override
++    protected String getParameterSeparatorRegex() {
++        return "\\,";
+     }
+ 
+-    private void initUnit(List<UnitInfo> units, String line, int lineIndex) {
+-        String trimmedLine = line.trim();
+-        unit = new UnitInfo();
+-        units.add(unit);
+-        unit.setStartLine(lineIndex);
+-
+-        unit.setSourceFile(sourceFile);
+-
+-        prefix = "";
+-        int i = 0;
+-        while (line.charAt(i++) == ' ') {
+-            prefix += ' ';
+-        }
+-
+-        unitBody = new StringBuilder();
+-        unitBody.append(line).append("\n");
+-
+-        cleanedUnitBody = new StringBuilder();
+-        cleanedUnitBody.append(line).append("\n");
+-
+-        unit.setShortName(trimmedLine.replaceAll("[(].*", "()"));
+-        loc = 1;
+-    }
+-
+-    private CommentsAndEmptyLinesCleaner getCommentsAndEmptyLinesCleanerExtraString() {
+-        CommentsAndEmptyLinesCleaner cleaner = analyzer.getCommentsAndEmptyLinesCleaner();
+-        cleaner.getCodeBlockParsers().forEach(codeBlockParser -> codeBlockParser.setRemoveWhenCleaning(true));
+-        return cleaner;
+-    }
+-
+-    private void updateParamsAndMcCabeIndex(String body) {
+-        CommentsAndEmptyLinesCleaner cleaner = getCommentsAndEmptyLinesCleanerExtraString();
+-        String content = cleaner.cleanKeepEmptyLines(body);
+-
+-        String bodyForSearch = " " + content.replace("\n", " ");
+-        bodyForSearch = bodyForSearch.replace("(", " (");
+-        bodyForSearch = bodyForSearch.replace("{", " {");
+-
+-        int startOfParamsSearchIndex = body.indexOf("(");
+-        int endOfParamsSearchIndex = body.indexOf(")", startOfParamsSearchIndex + 1);
+-        if (unit.getShortName().contains("(")) {
+-            unit.setShortName(unit.getShortName().substring(0, unit.getShortName().indexOf("(")).trim() + "()");
+-        }
+-        if (startOfParamsSearchIndex > 0 && endOfParamsSearchIndex > 0 && endOfParamsSearchIndex > startOfParamsSearchIndex) {
+-            String trimedParams = body.substring(startOfParamsSearchIndex + 1, endOfParamsSearchIndex).trim();
+-            if (!trimedParams.isEmpty()) {
+-                String[] params = trimedParams.split("\\,");
+-                unit.setNumberOfParameters(params.length);
+-            }
+-        }
+-
+-        int mcCabeIndex = 1;
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " if ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " elseif ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " while ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " repeat ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " for ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " && ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " || ");
+-
+-        unit.setMcCabeIndex(mcCabeIndex);
++    @Override
++    protected List<String> getMcCabeKeywords() {
++        return MCCABE_KEYWORDS;
+     }
+ }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalHeuristicUnitsExtractor.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalHeuristicUnitsExtractor.java
+index b3375d9..52964f0 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalHeuristicUnitsExtractor.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/lang/objectpascal/ObjectPascalHeuristicUnitsExtractor.java
+@@ -6,138 +6,51 @@ package nl.obren.sokrates.sourcecode.lang.objectpascal;
+ 
+ import nl.obren.sokrates.common.utils.RegexUtils;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+-import nl.obren.sokrates.sourcecode.cleaners.CommentsAndEmptyLinesCleaner;
+-import nl.obren.sokrates.sourcecode.units.UnitInfo;
+-import org.apache.commons.lang3.StringUtils;
++import nl.obren.sokrates.sourcecode.lang.EndKeywordHeuristicUnitsExtractor;
+ 
+-import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
+ 
+-public class ObjectPascalHeuristicUnitsExtractor {
+-    private UnitInfo unit = null;
+-    private StringBuilder unitBody = null;
+-    private StringBuilder cleanedUnitBody = null;
+-    private String prefix = "";
+-    private int loc = 0;
+-    private SourceFile sourceFile;
+-    private String cleanedFileContent;
+-    private ObjectPascalAnalyzer analyzer;
++public class ObjectPascalHeuristicUnitsExtractor extends EndKeywordHeuristicUnitsExtractor {
++    // the search body is lower-cased, so the upper-case " AND" and " OR " never match
++    private static final List<String> MCCABE_KEYWORDS = Arrays.asList(
++            " if ", " repeat ", " while ", " for ", " case ", " AND", " OR ");
+ 
+     public ObjectPascalHeuristicUnitsExtractor(SourceFile sourceFile, String cleanedFileContent, ObjectPascalAnalyzer analyzer) {
+-        this.sourceFile = sourceFile;
+-        this.cleanedFileContent = cleanedFileContent;
+-        this.analyzer = analyzer;
++        super(sourceFile, cleanedFileContent, analyzer::getCommentsAndEmptyLinesCleaner);
+     }
+ 
+-    public List<UnitInfo> extractUnits() {
+-        List<UnitInfo> units = new ArrayList<>();
+-
+-        List<String> lines = Arrays.asList(cleanedFileContent.replace("\t", "    ").split("\n"));
+-
+-        int lineIndex = 1;
+-        for (String line : lines) {
+-            if (isFunctionStartLine(line)) {
+-                initUnit(units, line, lineIndex);
+-            } else if (unit != null) {
+-                updateUnit(line);
+-
+-                if (line.equals(prefix + "end;")) {
+-                    endUnit(lineIndex);
+-                }
+-            }
+-            lineIndex++;
+-        }
+-
+-        return units;
+-    }
+-
+-    private boolean isFunctionStartLine(String line) {
++    @Override
++    protected boolean isFunctionStartLine(String line) {
+         String trimmedLine = line.trim().replace("\t", " ");
+         return RegexUtils.matchesEntirely("(class[ ]+)?(procedure|function|method)[ ]+([a-zA-Z0-9_]+[.])+[a-zA-Z0-9_]+[ ]*(\\(|;).*", trimmedLine);
+     }
+ 
+-    private void updateUnit(String line) {
+-        unitBody.append(line).append("\n");
+-        if (!line.trim().isEmpty()) {
+-            cleanedUnitBody.append(line).append("\n");
+-            loc += 1;
+-        }
++    @Override
++    protected boolean isUnitEnd(String line, String prefix) {
++        return line.equals(prefix + "end;");
+     }
+ 
+-    private void endUnit(int lineIndex) {
+-        unit.setBody(unitBody.toString());
+-        unit.setCleanedBody(cleanedUnitBody.toString());
+-        unit.setLinesOfCode(loc);
+-        unit.setEndLine(lineIndex);
+-
+-        updateParamsAndMcCabeIndex(unitBody.toString());
+-        unit = null;
+-        unitBody = null;
+-        cleanedUnitBody = null;
++    @Override
++    protected String getParameterSeparatorRegex() {
++        return "\\;";
+     }
+ 
+-    private void initUnit(List<UnitInfo> units, String line, int lineIndex) {
+-        String trimmedLine = line.trim();
+-        unit = new UnitInfo();
+-        units.add(unit);
+-        unit.setStartLine(lineIndex);
+-
+-        unit.setSourceFile(sourceFile);
+-
+-        prefix = "";
+-        int i = 0;
+-        while (line.charAt(i++) == ' ') {
+-            prefix += ' ';
+-        }
+-
+-        unitBody = new StringBuilder();
+-        unitBody.append(line).append("\n");
+-
+-        cleanedUnitBody = new StringBuilder();
+-        cleanedUnitBody.append(line).append("\n");
+-
+-        unit.setShortName(trimmedLine.replaceAll("[(].*", "()"));
+-        loc = 1;
++    @Override
++    protected List<String> getMcCabeKeywords() {
++        return MCCABE_KEYWORDS;
+     }
+ 
+-    private CommentsAndEmptyLinesCleaner getCommentsAndEmptyLinesCleanerExtraString() {
+-        CommentsAndEmptyLinesCleaner cleaner = analyzer.getCommentsAndEmptyLinesCleaner();
+-        cleaner.getCodeBlockParsers().forEach(codeBlockParser -> codeBlockParser.setRemoveWhenCleaning(true));
+-        return cleaner;
+-    }
+-
+-    private void updateParamsAndMcCabeIndex(String body) {
+-        CommentsAndEmptyLinesCleaner cleaner = getCommentsAndEmptyLinesCleanerExtraString();
+-        String content = cleaner.cleanKeepEmptyLines(body);
+-
+-        String bodyForSearch = " " + content.replace("\n", " ");
++    // unlike Julia and Lua, no space is put before "{" and the body is lower-cased
++    @Override
++    protected String getBodyForMcCabeSearch(String cleanedBody) {
++        String bodyForSearch = " " + cleanedBody.replace("\n", " ");
+         bodyForSearch = bodyForSearch.replace("(", " (");
++        return bodyForSearch.toLowerCase();
++    }
+ 
+-        if (unit.getShortName().contains("(")) {
+-            unit.setShortName(unit.getShortName().substring(0, unit.getShortName().indexOf("(")).trim() + "()");
+-            int startOfParamsSearchIndex = body.indexOf("(");
+-            int endOfParamsSearchIndex = body.indexOf(")", startOfParamsSearchIndex + 1);
+-            if (startOfParamsSearchIndex > 0 && endOfParamsSearchIndex > 0 && endOfParamsSearchIndex > startOfParamsSearchIndex) {
+-                String trimmedParams = body.substring(startOfParamsSearchIndex + 1, endOfParamsSearchIndex).trim();
+-                if (!trimmedParams.isEmpty()) {
+-                    String[] params = trimmedParams.split("\\;");
+-                    unit.setNumberOfParameters(params.length);
+-                }
+-            }
+-        }
+-
+-        bodyForSearch = bodyForSearch.toLowerCase();
+-
+-        int mcCabeIndex = 1;
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " if ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " repeat ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " while ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " for ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " case ");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " AND");
+-        mcCabeIndex += StringUtils.countMatches(bodyForSearch, " OR ");
+-
+-        unit.setMcCabeIndex(mcCabeIndex);
++    @Override
++    protected boolean countParametersOnlyIfSignatureHasParenthesis() {
++        return true;
+     }
+ }
+-- 
+2.50.1 (Apple Git-155)
+

@@ -1,0 +1,1767 @@
+From b260b7a46cfe41291d4515f71505791c67ae0780 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 20:47:48 +0200
+Subject: [PATCH 07/10] R3: Remove the copied contributor charts between
+ LandscapeReportGenerator and LandscapeReportContributorsTab
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../LandscapeContributorsCharts.java          | 511 ++++++++++++++++++
+ .../LandscapeReportContributorsTab.java       | 468 +---------------
+ .../statichtml/LandscapeReportGenerator.java  | 383 +------------
+ .../LandscapeReportPeopleTopologyTab.java     |  85 +--
+ 4 files changed, 559 insertions(+), 888 deletions(-)
+ create mode 100644 reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsCharts.java
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsCharts.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsCharts.java
+new file mode 100644
+index 0000000..65dfe65
+--- /dev/null
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsCharts.java
+@@ -0,0 +1,511 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.reports.landscape.statichtml;
++
++import nl.obren.sokrates.common.utils.FormattingUtils;
++import nl.obren.sokrates.reports.core.ReportFileExporter;
++import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.landscape.utils.ExtractStringListValue;
++import nl.obren.sokrates.reports.landscape.utils.Force3DGraphExporter;
++import nl.obren.sokrates.reports.utils.DataImageUtils;
++import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
++import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
++import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
++import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
++import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
++import nl.obren.sokrates.sourcecode.landscape.LandscapeConfiguration;
++import nl.obren.sokrates.sourcecode.landscape.TeamsConfig;
++import nl.obren.sokrates.sourcecode.landscape.analysis.ContributorRepositories;
++import nl.obren.sokrates.sourcecode.landscape.analysis.LandscapeAnalysisResults;
++import org.apache.commons.lang3.StringUtils;
++
++import java.io.File;
++import java.util.*;
++import java.util.stream.Collectors;
++
++import static nl.obren.sokrates.reports.landscape.statichtml.LandscapeReportGenerator.*;
++
++/**
++ * The contributor charts shared by the landscape overview page ({@link LandscapeReportGenerator}), the
++ * contributors / teams tabs ({@link LandscapeReportContributorsTab}) and the team topology tab
++ * ({@link LandscapeReportPeopleTopologyTab}): contributors (and commits) per year, contributors per file extension,
++ * the extension dependencies graph ("knowledge topology"), the big "people" info blocks and the per day / week /
++ * month / year contributor maps (with rookies).
++ * <p>
++ * Synonyms not used in the code: contributors per year = yearly activity / commit trend; contributors per extension =
++ * people per language / technology; extension dependencies = language coupling via shared contributors.
++ * <p>
++ * Where the pages differ, the difference is an explicit parameter (title, sorting, contributor count), so that a
++ * change here shows up on every page that renders the chart.
++ */
++class LandscapeContributorsCharts {
++    static final String PEOPLE_COLOR = "#ADD8E6";
++    static final String CURRENT_YEAR_COLOR = "#343434";
++    static final String PAST_YEAR_COLOR = "#989898";
++    /** The height in pixels of the tallest bar in the per-period bar charts. */
++    static final double BAR_MAX_HEIGHT = 64.0;
++    /** Lists longer than this show the first items and hide the rest behind "show all...". */
++    static final int SHOW_MORE_CUTOFF = 25;
++    /** The maximal number of dependencies in a graph and of contributors listed in a tooltip. */
++    static final int MAX_DEPENDENCIES = 100;
++
++    private RichTextReport landscapeReport;
++    private final LandscapeAnalysisResults landscapeAnalysisResults;
++    private final List<ContributorRepositories> contributors;
++    private final LandscapeReportContributorsTab.Type type;
++    private final TeamsConfig teamsConfig;
++    private final File reportsFolder;
++    private final Map<String, List<String>> contributorsPerWeekMap = new HashMap<>();
++    private final Map<String, List<String>> rookiesPerWeekMap = new HashMap<>();
++    private final Map<String, List<String>> contributorsPerDayMap = new HashMap<>();
++    private final Map<String, List<String>> rookiesPerDayMap = new HashMap<>();
++    private final Map<String, List<String>> contributorsPerMonthMap = new HashMap<>();
++    private final Map<String, List<String>> rookiesPerMonthMap = new HashMap<>();
++    private final Map<String, List<String>> contributorsPerYearMap = new HashMap<>();
++    private final Map<String, List<String>> rookiesPerYearMap = new HashMap<>();
++
++    LandscapeContributorsCharts(RichTextReport landscapeReport, LandscapeAnalysisResults landscapeAnalysisResults,
++                                List<ContributorRepositories> contributors, LandscapeReportContributorsTab.Type type,
++                                TeamsConfig teamsConfig, File reportsFolder) {
++        this.landscapeReport = landscapeReport;
++        this.landscapeAnalysisResults = landscapeAnalysisResults;
++        this.contributors = contributors;
++        this.type = type;
++        this.teamsConfig = teamsConfig;
++        this.reportsFolder = reportsFolder;
++
++        populateTimeSlotMaps();
++    }
++
++    void setLandscapeReport(RichTextReport landscapeReport) {
++        this.landscapeReport = landscapeReport;
++    }
++
++    // --- empty time slots ---
++
++    static List<ContributionTimeSlot> getContributionDays(List<ContributionTimeSlot> contributorsPerDayOriginal, int pastDays, String lastCommitDate) {
++        return addMissingTimeSlots(contributorsPerDayOriginal, DateUtils.getPastDays(pastDays, lastCommitDate));
++    }
++
++    static List<ContributionTimeSlot> getContributionWeeks(List<ContributionTimeSlot> contributorsPerWeekOriginal, int pastWeeks, String lastCommitDate) {
++        return addMissingTimeSlots(contributorsPerWeekOriginal, DateUtils.getPastWeeks(pastWeeks, lastCommitDate));
++    }
++
++    static List<ContributionTimeSlot> getContributionMonths(List<ContributionTimeSlot> contributorsPerMonthOriginal, int pastMonths, String lastCommitDate) {
++        return addMissingTimeSlots(contributorsPerMonthOriginal, DateUtils.getPastMonths(pastMonths, lastCommitDate));
++    }
++
++    static List<ContributionTimeSlot> getContributionYears(List<ContributionTimeSlot> contributorsPerYearOriginal, int pastYears, String lastCommitDate) {
++        return addMissingTimeSlots(contributorsPerYearOriginal, DateUtils.getPastYears(pastYears, lastCommitDate));
++    }
++
++    private static List<ContributionTimeSlot> addMissingTimeSlots(List<ContributionTimeSlot> original, List<String> pastDates) {
++        List<ContributionTimeSlot> timeSlots = new ArrayList<>(original);
++        List<String> slots = timeSlots.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
++        pastDates.forEach(pastDate -> {
++            if (!slots.contains(pastDate)) {
++                timeSlots.add(new ContributionTimeSlot(pastDate));
++            }
++        });
++        return timeSlots;
++    }
++
++    // --- contributors (and commits) per year ---
++
++    void addContributorsPerYear(boolean showContributorsCount, int contributorsCount) {
++        List<ContributionTimeSlot> contributorsPerYear = landscapeAnalysisResults.getContributorsPerYear();
++        if (contributorsPerYear.size() > 0) {
++            int limit = landscapeAnalysisResults.getConfiguration().getCommitsMaxYears();
++            if (contributorsPerYear.size() > limit) {
++                contributorsPerYear = contributorsPerYear.subList(0, limit);
++            }
++
++            int maxCommits = contributorsPerYear.stream().mapToInt(c -> c.getCommitsCount()).max().orElse(1);
++
++            landscapeReport.startDiv("overflow-y: none;");
++            landscapeReport.startTable();
++
++            landscapeReport.startTableRow();
++            landscapeReport.startTableCell("border: none; height: 100px");
++            int commitsCount = landscapeAnalysisResults.getCommitsCount();
++            if (commitsCount > 0) {
++                landscapeReport.startDiv("max-height: 105px");
++                addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(commitsCount), "commits", "white", "");
++                landscapeReport.endDiv();
++            }
++            landscapeReport.endTableCell();
++            String style = "border: none; text-align: center; vertical-align: bottom; font-size: 80%; height: 100px";
++            int thisYear = Calendar.getInstance().get(Calendar.YEAR);
++            contributorsPerYear.forEach(year -> {
++                landscapeReport.startTableCell(style);
++                int count = year.getCommitsCount();
++                String color = year.getTimeSlot().equals(thisYear + "") ? CURRENT_YEAR_COLOR : PAST_YEAR_COLOR;
++                landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color);
++                int height = 1 + (int) (BAR_MAX_HEIGHT * count / maxCommits);
++                String bgColor = year.getTimeSlot().equals(thisYear + "") ? CURRENT_YEAR_COLOR : "lightgrey";
++                landscapeReport.addHtmlContent("<div style='width: 100%; background-color: " + bgColor + "; height:" + height + "px'></div>");
++                landscapeReport.endTableCell();
++            });
++            landscapeReport.endTableRow();
++
++            if (showContributorsCount) {
++                int maxContributors[] = {1};
++                contributorsPerYear.forEach(year -> {
++                    int count = getContributorsCountPerYear(year.getTimeSlot());
++                    maxContributors[0] = Math.max(maxContributors[0], count);
++                });
++                landscapeReport.startTableRow();
++                landscapeReport.startTableCell("border: none; height: 100px");
++                if (contributorsCount > 0) {
++                    landscapeReport.startDiv("max-height: 105px");
++                    addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(contributorsCount), "contributors", "white", "");
++                    landscapeReport.endDiv();
++                }
++                landscapeReport.endTableCell();
++                contributorsPerYear.forEach(year -> {
++                    landscapeReport.startTableCell(style);
++                    int count = getContributorsCountPerYear(year.getTimeSlot());
++                    String color = year.getTimeSlot().equals(thisYear + "") ? CURRENT_YEAR_COLOR : PAST_YEAR_COLOR;
++                    landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color + ";");
++                    int height = 1 + (int) (BAR_MAX_HEIGHT * count / maxContributors[0]);
++                    landscapeReport.addHtmlContent("<div style='width: 100%; background-color: skyblue; height:" + height + "px'></div>");
++                    landscapeReport.endTableCell();
++                });
++                landscapeReport.endTableRow();
++            }
++
++            landscapeReport.startTableRow();
++            landscapeReport.addTableCell("", "border: none; ");
++            var ref = new Object() {
++                String latestCommitDate = landscapeAnalysisResults.getLatestCommitDate();
++            };
++            if (ref.latestCommitDate.length() > 5) {
++                ref.latestCommitDate = ref.latestCommitDate.substring(5);
++            }
++            contributorsPerYear.forEach(year -> {
++                String color = year.getTimeSlot().equals(thisYear + "") ? CURRENT_YEAR_COLOR : PAST_YEAR_COLOR;
++                landscapeReport.startTableCell("vertical-align: top; border: none; text-align: center; font-size: 90%; color: " + color);
++                landscapeReport.addHtmlContent(year.getTimeSlot());
++                if (landscapeAnalysisResults.getLatestCommitDate().startsWith(year.getTimeSlot() + "-")) {
++                    landscapeReport.addContentInDiv(ref.latestCommitDate, "text-align: center; color: grey; font-size: 9px");
++                }
++                landscapeReport.endTableCell();
++            });
++            landscapeReport.endTableRow();
++
++            landscapeReport.endTable();
++            landscapeReport.endDiv();
++
++            landscapeReport.addLineBreak();
++        }
++    }
++
++    // --- contributors per file extension (past 30 days) and extension dependencies ---
++
++    /**
++     * @param title          the sub-section title (the overview page and the tabs word it differently)
++     * @param sortByActivity when true, the shown extensions are re-sorted by recent commits and then by the number of
++     *                       contributors (or teams); when false, they keep the order by number of contributors
++     */
++    void addContributorsPerExtension(String title, boolean linkCharts, boolean sortByActivity) {
++        landscapeReport.startSubSection(title, "");
++
++        if (linkCharts) {
++            landscapeReport.startDiv("");
++            landscapeReport.addNewTabLink("bubble chart", "visuals/bubble_chart_extensions_" + type.plural() + "_30d.html");
++            landscapeReport.addHtmlContent(" | ");
++            landscapeReport.addNewTabLink("tree map", "visuals/tree_map_extensions_" + type.plural() + "_30d.html");
++            landscapeReport.addLineBreak();
++            landscapeReport.addLineBreak();
++            landscapeReport.endDiv();
++        }
++
++        landscapeReport.startDiv("");
++        List<String> mainExtensions = getMainExtensions();
++        List<CommitsPerExtension> contributorsPerExtension = landscapeAnalysisResults.getContributorsPerExtension()
++                .stream().filter(c -> mainExtensions.contains(c.getExtension())).collect(Collectors.toList());
++        Collections.sort(contributorsPerExtension, (a, b) -> b.getCommitters30Days().size() - a.getCommitters30Days().size());
++        boolean tooLong = contributorsPerExtension.size() > SHOW_MORE_CUTOFF;
++        List<CommitsPerExtension> contributorsPerExtensionDisplay = tooLong ? contributorsPerExtension.subList(0, SHOW_MORE_CUTOFF) : contributorsPerExtension;
++        List<CommitsPerExtension> linesOfCodePerExtensionHide = tooLong ? contributorsPerExtension.subList(SHOW_MORE_CUTOFF, contributorsPerExtension.size()) : new ArrayList<>();
++
++        ExtractStringListValue<CommitsPerExtension> valueFunction;
++
++        if (isContributorReport()) {
++            valueFunction = (e) -> e.getCommitters30Days();
++        } else {
++            valueFunction = (e) -> e.getTeams30Days(teamsConfig);
++        }
++
++        if (sortByActivity) {
++            contributorsPerExtensionDisplay.stream()
++                    .filter(e -> e.getCommitters30Days().size() > 0)
++                    .sorted((a, b) -> b.getCommitsCount30Days() - a.getCommitsCount30Days())
++                    .sorted((a, b) -> valueFunction.getValue(b).size() - valueFunction.getValue(a).size())
++                    .forEach(extension -> {
++                        addLangInfo(extension, valueFunction, extension.getCommitsCount30Days(), getSvgIcon());
++                    });
++        } else {
++            contributorsPerExtensionDisplay.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(extension -> {
++                addLangInfo(extension, valueFunction, extension.getCommitsCount30Days(), getSvgIcon());
++            });
++        }
++
++        if (linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).count() > 0) {
++            landscapeReport.startShowMoreBlockDisappear("", "show all...");
++            linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(extension -> {
++                addLangInfo(extension, valueFunction, extension.getCommitsCount30Days(), getSvgIcon());
++            });
++            landscapeReport.endShowMoreBlock();
++        }
++        landscapeReport.endDiv();
++
++        addContributorDependencies(contributorsPerExtension);
++
++        landscapeReport.endSection();
++    }
++
++    private String getSvgIcon() {
++        return isContributorReport() ? DEVELOPER_SVG_ICON : TEAM_SVG_ICON;
++    }
++
++    /** The extension dependencies graph; rendered only for contributors (the teams tab computes but does not show it). */
++    private void addContributorDependencies(List<CommitsPerExtension> contributorsPerExtension) {
++        Map<String, List<String>> contrExtMap = new HashMap<>();
++        Set<String> extensionsNames = new HashSet<>();
++        contributorsPerExtension.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(commitsPerExtension -> {
++            String extensionDisplayLabel = commitsPerExtension.getExtension() + " (" + commitsPerExtension.getCommitters30Days().size() + ")";
++            extensionsNames.add(extensionDisplayLabel);
++            commitsPerExtension.getCommitters30Days().forEach(contributor -> {
++                if (contrExtMap.containsKey(contributor)) {
++                    contrExtMap.get(contributor).add(extensionDisplayLabel);
++                } else {
++                    contrExtMap.put(contributor, new ArrayList<>(Arrays.asList(extensionDisplayLabel)));
++                }
++            });
++        });
++        List<ComponentDependency> dependencies = new ArrayList<>();
++        Map<String, ComponentDependency> dependencyMap = new HashMap<>();
++
++        List<String> mainExtensions = getMainExtensions();
++        contrExtMap.values().stream().filter(v -> v.size() > 1).forEach(extensions -> {
++            extensions.stream().filter(extension1 -> mainExtensions.contains(extension1.replaceAll("\\(.*\\)", "").trim())).forEach(extension1 -> {
++                extensions.stream().filter(extension2 -> mainExtensions.contains(extension2.replaceAll("\\(.*\\)", "").trim())).filter(extension2 -> !extension1.equalsIgnoreCase(extension2)).forEach(extension2 -> {
++                    String key1 = extension1 + "::" + extension2;
++                    String key2 = extension2 + "::" + extension1;
++
++                    if (dependencyMap.containsKey(key1)) {
++                        dependencyMap.get(key1).increment(1);
++                    } else if (dependencyMap.containsKey(key2)) {
++                        dependencyMap.get(key2).increment(1);
++                    } else {
++                        ComponentDependency dependency = new ComponentDependency(extension1, extension2);
++                        dependencyMap.put(key1, dependency);
++                        dependencies.add(dependency);
++                    }
++                });
++            });
++        });
++
++        dependencies.forEach(dependency -> dependency.setCount(dependency.getCount() / 2));
++
++        GraphvizDependencyRenderer renderer = new GraphvizDependencyRenderer();
++        renderer.setMaxNumberOfDependencies(MAX_DEPENDENCIES);
++        renderer.setDefaultNodeFillColor("deepskyblue2");
++        renderer.setTypeGraph();
++        String graphvizContent = renderer.getGraphvizContent(new ArrayList<>(extensionsNames), dependencies);
++
++        if (isContributorReport()) {
++            landscapeReport.startShowMoreBlock("show extension dependencies...");
++            landscapeReport.addGraphvizFigure("extension_dependencies_30d", "Extension dependencies", graphvizContent);
++            addDownloadLinks("extension_dependencies_30d");
++            landscapeReport.endShowMoreBlock();
++            landscapeReport.addLineBreak();
++            landscapeReport.addNewTabLink(" - show extension dependencies as 2D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_2d.html");
++            landscapeReport.addNewTabLink(" - show extension dependencies as 3D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_3d.html");
++            new Force3DGraphExporter().export2D3DForceGraph(dependencies, reportsFolder, "extension_dependencies_30d");
++        }
++    }
++
++    private List<String> getMainExtensions() {
++        return landscapeAnalysisResults.getMainLinesOfCodePerExtension().stream()
++                .map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
++    }
++
++    private void addLangInfo(CommitsPerExtension extension, ExtractStringListValue<CommitsPerExtension> extractor, int commitsCount, String suffix) {
++        int size = extractor.getValue(extension).size();
++        String smallTextForNumber = FormattingUtils.getSmallTextForNumber(size) + suffix;
++        addLangInfoBlockExtra(smallTextForNumber, extension.getExtension().replace("*.", "").trim(),
++                size + " " + (size == 1 ? "contributor" : "contributors (" + commitsCount + " commits)") + ":\n" +
++                        extractor.getValue(extension).stream().limit(MAX_DEPENDENCIES)
++                                .collect(Collectors.joining(", ")), FormattingUtils.getSmallTextForNumber(commitsCount) + " commits");
++    }
++
++    private void addLangInfoBlockExtra(String value, String lang, String description, String extra) {
++        String style = "border-radius: 8px; margin: 4px 4px 4px 0px; display: inline-block; " +
++                "width: 80px; height: 114px;background-color: #dedede; " +
++                "text-align: center; vertical-align: middle; margin-bottom: 16px;";
++
++        landscapeReport.startDivWithLabel(description, style);
++
++        landscapeReport.addContentInDiv("", "margin-top: 8px");
++        landscapeReport.addHtmlContent(DataImageUtils.getLangDataImageDiv42(lang));
++        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
++        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + lang + "</div>");
++        landscapeReport.addHtmlContent("<div style='color: #767676; font-size: 9px; margin-top: 1px;'>" + extra + "</div>");
++        landscapeReport.endDiv();
++    }
++
++    void addDownloadLinks(String graphId) {
++        landscapeReport.startDiv("");
++        landscapeReport.addHtmlContent("Download: ");
++        landscapeReport.addNewTabLink("SVG", "visuals/" + graphId + ".svg");
++        landscapeReport.addHtmlContent(" ");
++        landscapeReport.addNewTabLink("DOT", "visuals/" + graphId + ".dot.txt");
++        landscapeReport.addHtmlContent(" ");
++        landscapeReport.addNewTabLink("(open online Graphviz editor)", "https://obren.io/tools/graphviz/");
++        landscapeReport.endDiv();
++    }
++
++    // --- info blocks ---
++
++    String getExtraPeopleInfo(List<ContributorRepositories> contributors, long contributorsCount) {
++        String info = "";
++
++        int recentContributorsCount6Months = landscapeAnalysisResults.getRecentContributorsCount6Months(contributors);
++        int recentContributorsCount3Months = landscapeAnalysisResults.getRecentContributorsCount3Months(contributors);
++        info += FormattingUtils.getPlainTextForNumber(landscapeAnalysisResults.getRecentContributorsCount(contributors)) + " contributors (30 days)\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (" + ActivityWindows.LABEL_3_MONTHS + ")\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (" + ActivityWindows.LABEL_6_MONTHS + ")\n";
++
++        LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
++        int thresholdCommits = configuration.getContributorThresholdCommits();
++        info += FormattingUtils.getPlainTextForNumber((int) contributorsCount) + " contributors (all time)\n";
++        info += "\nOnly the contributors with " + (thresholdCommits > 1 ? "(" + thresholdCommits + "+&nbsp;commits)" : "") + " included";
++
++        return info;
++    }
++
++    void addPeopleInfoBlock(String mainValue, String subtitle, String description, String tooltip) {
++        addPeopleInfoBlockWithColor(mainValue, subtitle, description, tooltip, PEOPLE_COLOR);
++    }
++
++    void addPeopleInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
++        if (StringUtils.isNotBlank(description)) {
++            subtitle += "<br/><span style='color: #707070; font-size: 80%'>" + description + "</span>";
++        }
++        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, isContributorReport() ? "contributors" : "teams");
++    }
++
++    void addWorkloadInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
++        if (StringUtils.isNotBlank(description)) {
++            subtitle += "<br/><span style='color: grey; font-size: 80%'>" + description + "</span>";
++        }
++        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, "workload");
++    }
++
++    void addInfoBlockWithColor(String mainValue, String subtitle, String color, String tooltip, String icon) {
++        String style = "border-radius: 12px;";
++
++        style += "margin: 12px 12px 12px 0px;";
++        style += "display: inline-block; width: 160px; height: 120px;";
++        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 36px;";
++        style += "box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;";
++
++        landscapeReport.startDiv("display: inline-block; text-align: center", tooltip);
++        landscapeReport.addContentInDiv(ReportFileExporter.getIconSvg(icon, 48), "margin-top: 18px; margin-bottom: -12px");
++        landscapeReport.startDiv(style, tooltip);
++        String specialColor = mainValue.equals("<b>0</b>") ? " color: grey;" : "";
++        landscapeReport.addHtmlContent("<div style='font-size: 50px; margin-top: 20px;" + specialColor + "'>" + mainValue + "</div>");
++        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 15px;" + specialColor + "'>" + subtitle + "</div>");
++        landscapeReport.endDiv();
++        landscapeReport.endDiv();
++    }
++
++    void addSmallInfoBlock(String value, String subtitle, String color, String link) {
++        String style = "border-radius: 8px;";
++
++        style += "margin: 4px 4px 4px 0px;";
++        style += "display: inline-block; width: 80px; height: 76px;";
++        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 16px;";
++
++        landscapeReport.startDiv(style);
++        if (StringUtils.isNotBlank(link)) {
++            landscapeReport.startNewTabLink(link, "text-decoration: none");
++        }
++        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
++        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + subtitle + "</div>");
++        if (StringUtils.isNotBlank(link)) {
++            landscapeReport.endNewTabLink();
++        }
++        landscapeReport.endDiv();
++    }
++
++    // --- contributors (and rookies) per day / week / month / year ---
++
++    int getContributorsCountPerYear(String year) {
++        return this.contributorsPerYearMap.containsKey(year) ? contributorsPerYearMap.get(year).size() : 0;
++    }
++
++    List<String> getContributorsPerDay(String day, boolean rookiesOnly) {
++        Map<String, List<String>> map = rookiesOnly ? rookiesPerDayMap : contributorsPerDayMap;
++        return map.containsKey(day) ? map.get(day) : new ArrayList<>();
++    }
++
++    List<String> getContributorsPerWeek(String week, boolean rookiesOnly) {
++        Map<String, List<String>> map = rookiesOnly ? rookiesPerWeekMap : contributorsPerWeekMap;
++        return map.containsKey(week) ? map.get(week) : new ArrayList<>();
++    }
++
++    List<String> getContributorsPerMonth(String month, boolean rookiesOnly) {
++        Map<String, List<String>> map = rookiesOnly ? rookiesPerMonthMap : contributorsPerMonthMap;
++        return map.containsKey(month) ? map.get(month) : new ArrayList<>();
++    }
++
++    private void populateTimeSlotMaps() {
++        contributors.forEach(contributorRepositories -> {
++            List<String> commitDates = contributorRepositories.getContributor().getCommitDates();
++            commitDates.forEach(day -> {
++                String week = DateUtils.getWeekMonday(day);
++                String month = DateUtils.getMonth(day);
++                String year = DateUtils.getYear(day);
++
++                updateTimeSlotMap(contributorRepositories, contributorsPerDayMap, rookiesPerDayMap, day, day);
++                updateTimeSlotMap(contributorRepositories, contributorsPerWeekMap, rookiesPerWeekMap, week, week);
++                updateTimeSlotMap(contributorRepositories, contributorsPerMonthMap, rookiesPerMonthMap, month, month + "-01");
++                updateTimeSlotMap(contributorRepositories, contributorsPerYearMap, rookiesPerYearMap, year, year + "-01-01");
++            });
++        });
++
++    }
++
++    private void updateTimeSlotMap(ContributorRepositories contributorRepositories,
++                                   Map<String, List<String>> map, Map<String, List<String>> rookiesMap, String key, String rookieDate) {
++        boolean rookie = contributorRepositories.getContributor().isRookieAtDate(rookieDate);
++
++        String email = contributorRepositories.getContributor().getEmail();
++        if (map.containsKey(key)) {
++            if (!map.get(key).contains(email)) {
++                map.get(key).add(email);
++            }
++        } else {
++            map.put(key, new ArrayList<>(Arrays.asList(email)));
++        }
++        if (rookie) {
++            if (rookiesMap.containsKey(key)) {
++                if (!rookiesMap.get(key).contains(email)) {
++                    rookiesMap.get(key).add(email);
++                }
++            } else {
++                rookiesMap.put(key, new ArrayList<>(Arrays.asList(email)));
++            }
++        }
++    }
++
++    private boolean isContributorReport() {
++        return type == LandscapeReportContributorsTab.Type.CONTRIBUTORS;
++    }
++}
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+index 5561261..5edddb0 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+@@ -7,11 +7,9 @@ package nl.obren.sokrates.reports.landscape.statichtml;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.ReportConstants;
+-import nl.obren.sokrates.reports.core.ReportFileExporter;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.landscape.utils.*;
+ import nl.obren.sokrates.reports.utils.DataImageUtils;
+-import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
+@@ -29,8 +27,14 @@ import java.io.File;
+ import java.util.*;
+ import java.util.stream.Collectors;
+ 
++import static nl.obren.sokrates.reports.landscape.statichtml.LandscapeContributorsCharts.BAR_MAX_HEIGHT;
+ import static nl.obren.sokrates.reports.landscape.statichtml.LandscapeReportGenerator.*;
+ 
++/**
++ * The "Contributors" and "Teams" tabs of the landscape report. The charts shared with the overview page
++ * (contributors per year, per file extension, info blocks, per-period contributor maps) live in
++ * {@link LandscapeContributorsCharts}.
++ */
+ public class LandscapeReportContributorsTab {
+ 
+     private List<RichTextReport> individualReports = new ArrayList<>();
+@@ -59,7 +63,7 @@ public class LandscapeReportContributorsTab {
+     }
+ 
+     private static final Log LOG = LogFactory.getLog(LandscapeReportContributorsTab.class);
+-    public static final String PEOPLE_COLOR = "#ADD8E6";
++    public static final String PEOPLE_COLOR = LandscapeContributorsCharts.PEOPLE_COLOR;
+     private final List<ContributorRepositories> contributors;
+     private RichTextReport landscapeRecentContributorsReport = new RichTextReport("", "${type}-recent.html");
+     private RichTextReport landscapeContributorsReport = new RichTextReport("", "${type}.html");
+@@ -67,14 +71,7 @@ public class LandscapeReportContributorsTab {
+     private LandscapeAnalysisResults landscapeAnalysisResults;
+     private File folder;
+     private File reportsFolder;
+-    private Map<String, List<String>> contributorsPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerYearMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerYearMap = new HashMap<>();
++    private final LandscapeContributorsCharts charts;
+     private RichTextReport landscapeReport;
+     private final Type type;
+     private final TeamsConfig teamsConfig;
+@@ -96,7 +93,7 @@ public class LandscapeReportContributorsTab {
+         landscapeContributorsReport.setEmbedded(true);
+         landscapeBotsReport.setEmbedded(true);
+ 
+-        populateTimeSlotMaps();
++        charts = new LandscapeContributorsCharts(landscapeReport, landscapeAnalysisResults, contributors, type, teamsConfig, reportsFolder);
+ 
+         landscapeContributorsReport.setEmbedded(true);
+         landscapeBotsReport.setEmbedded(true);
+@@ -110,7 +107,7 @@ public class LandscapeReportContributorsTab {
+         LOG.info("Adding big contributors summary...");
+         addBigContributorsSummary();
+         if (recentContributorsCount > 0) {
+-            addContributorsPerExtension(true);
++            charts.addContributorsPerExtension(StringUtils.capitalize(type.plural()) + " Per File Extension (past 30 days)", true, true);
+         }
+         addIFrames(landscapeAnalysisResults.getConfiguration().getiFramesContributorsAtStart());
+         LOG.info("Adding contributors...");
+@@ -130,51 +127,19 @@ public class LandscapeReportContributorsTab {
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionDays(List<ContributionTimeSlot> contributorsPerDayOriginal, int pastDays, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerDay = new ArrayList<>(contributorsPerDayOriginal);
+-        List<String> slots = contributorsPerDay.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastDays(pastDays, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerDay.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerDay;
++        return LandscapeContributorsCharts.getContributionDays(contributorsPerDayOriginal, pastDays, lastCommitDate);
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionWeeks(List<ContributionTimeSlot> contributorsPerWeekOriginal, int pastWeeks, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerWeek = new ArrayList<>(contributorsPerWeekOriginal);
+-        List<String> slots = contributorsPerWeek.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastWeeks(pastWeeks, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerWeek.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerWeek;
++        return LandscapeContributorsCharts.getContributionWeeks(contributorsPerWeekOriginal, pastWeeks, lastCommitDate);
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionYears(List<ContributionTimeSlot> contributorsPerWeekOriginal, int pastYears, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerWeek = new ArrayList<>(contributorsPerWeekOriginal);
+-        List<String> slots = contributorsPerWeek.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastYears(pastYears, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerWeek.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerWeek;
++        return LandscapeContributorsCharts.getContributionYears(contributorsPerWeekOriginal, pastYears, lastCommitDate);
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionMonths(List<ContributionTimeSlot> contributorsPerMonthOriginal, int pastMonths, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerMonth = new ArrayList<>(contributorsPerMonthOriginal);
+-        List<String> slots = contributorsPerMonth.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastMonths(pastMonths, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerMonth.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerMonth;
++        return LandscapeContributorsCharts.getContributionMonths(contributorsPerMonthOriginal, pastMonths, lastCommitDate);
+     }
+ 
+     private void addBigContributorsSummary() {
+@@ -189,14 +154,14 @@ public class LandscapeReportContributorsTab {
+                 locPerRecentContributor = (int) Math.round((double) mainLocActive / recentContributorsCount);
+                 locNewPerRecentContributor = (int) Math.round((double) mainLocNew / recentContributorsCount);
+             }
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent " + type.plural(),
+-                    "(" + ActivityWindows.PAST_30_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent " + type.singular());
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount3Months(contributors)), "3m " + type.plural(),
+-                    "(" + ActivityWindows.PAST_90_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount));
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount6Months(contributors)), "6m " + type.plural(),
+-                    "(" + ActivityWindows.PAST_180_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount));
++            charts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent " + type.plural(),
++                    "(" + ActivityWindows.PAST_30_DAYS + ")", charts.getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent " + type.singular());
++            charts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount3Months(contributors)), "3m " + type.plural(),
++                    "(" + ActivityWindows.PAST_90_DAYS + ")", charts.getExtraPeopleInfo(contributors, contributorsCount));
++            charts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount6Months(contributors)), "6m " + type.plural(),
++                    "(" + ActivityWindows.PAST_180_DAYS + ")", charts.getExtraPeopleInfo(contributors, contributorsCount));
+             int rookiesContributorsCount = landscapeAnalysisResults.getRookiesContributorsCount(contributors);
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
++            charts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
+                     ("rookie " + type.plural()),
+                     "(started in past year)", "active contributors with the first commit in past year");
+             addWorkloadInfoBlock(FormattingUtils.getSmallTextForNumber(locPerRecentContributor), type.singular() + " load",
+@@ -212,7 +177,7 @@ public class LandscapeReportContributorsTab {
+         int significantContributorMinCommitDaysPerYear = configuration.getSignificantContributorMinCommitDaysPerYear();
+ 
+         landscapeReport.startSubSection("Per Year", "Past " + commitsMaxYears + " years");
+-        addContributorsPerYear(true);
++        charts.addContributorsPerYear(true, contributors.size());
+         landscapeReport.endSection();
+         LOG.info("Adding contributors per extension...");
+ 
+@@ -264,133 +229,6 @@ public class LandscapeReportContributorsTab {
+         }
+     }
+ 
+-    private void addContributorsPerExtension(boolean linkCharts) {
+-        landscapeReport.startSubSection(StringUtils.capitalize(type.plural()) + " Per File Extension (past 30 days)", "");
+-
+-        if (linkCharts) {
+-            landscapeReport.startDiv("");
+-            landscapeReport.addNewTabLink("bubble chart", "visuals/bubble_chart_extensions_" + type.plural() + "_30d.html");
+-            landscapeReport.addHtmlContent(" | ");
+-            landscapeReport.addNewTabLink("tree map", "visuals/tree_map_extensions_" + type.plural() + "_30d.html");
+-            landscapeReport.addLineBreak();
+-            landscapeReport.addLineBreak();
+-            landscapeReport.endDiv();
+-        }
+-
+-        landscapeReport.startDiv("");
+-        List<String> mainExtensions = getMainExtensions();
+-        List<CommitsPerExtension> contributorsPerExtension = landscapeAnalysisResults.getContributorsPerExtension()
+-                .stream().filter(c -> mainExtensions.contains(c.getExtension())).collect(Collectors.toList());
+-        Collections.sort(contributorsPerExtension, (a, b) -> b.getCommitters30Days().size() - a.getCommitters30Days().size());
+-        boolean tooLong = contributorsPerExtension.size() > 25;
+-        List<CommitsPerExtension> contributorsPerExtensionDisplay = tooLong ? contributorsPerExtension.subList(0, 25) : contributorsPerExtension;
+-        List<CommitsPerExtension> linesOfCodePerExtensionHide = tooLong ? contributorsPerExtension.subList(25, contributorsPerExtension.size()) : new ArrayList<>();
+-
+-        ExtractStringListValue<CommitsPerExtension> valueFunction;
+-
+-        if (isContributorReport()) {
+-            valueFunction = (e) -> e.getCommitters30Days();
+-        } else {
+-            valueFunction = (e) -> e.getTeams30Days(teamsConfig);
+-        }
+-
+-        contributorsPerExtensionDisplay.stream()
+-                .filter(e -> e.getCommitters30Days().size() > 0)
+-                .sorted((a, b) -> b.getCommitsCount30Days() - a.getCommitsCount30Days())
+-                .sorted((a, b) -> valueFunction.getValue(b).size() - valueFunction.getValue(a).size())
+-                .forEach(extension -> {
+-                    addLangInfo(extension, valueFunction, extension.getCommitsCount30Days(), getSvgIcon());
+-                });
+-
+-        if (linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).count() > 0) {
+-            landscapeReport.startShowMoreBlockDisappear("", "show all...");
+-            linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(extension -> {
+-                addLangInfo(extension, valueFunction, extension.getCommitsCount30Days(), getSvgIcon());
+-            });
+-            landscapeReport.endShowMoreBlock();
+-        }
+-        landscapeReport.endDiv();
+-
+-        addContributorDependencies(contributorsPerExtension);
+-
+-        landscapeReport.endSection();
+-    }
+-
+-    private String getSvgIcon() {
+-        return isContributorReport() ? DEVELOPER_SVG_ICON : TEAM_SVG_ICON;
+-    }
+-
+-    private void addContributorDependencies(List<CommitsPerExtension> contributorsPerExtension) {
+-        Map<String, List<String>> contrExtMap = new HashMap<>();
+-        Set<String> extensionsNames = new HashSet<>();
+-        contributorsPerExtension.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(commitsPerExtension -> {
+-            String extensionDisplayLabel = commitsPerExtension.getExtension() + " (" + commitsPerExtension.getCommitters30Days().size() + ")";
+-            extensionsNames.add(extensionDisplayLabel);
+-            commitsPerExtension.getCommitters30Days().forEach(contributor -> {
+-                if (contrExtMap.containsKey(contributor)) {
+-                    contrExtMap.get(contributor).add(extensionDisplayLabel);
+-                } else {
+-                    contrExtMap.put(contributor, new ArrayList<>(Arrays.asList(extensionDisplayLabel)));
+-                }
+-            });
+-        });
+-        List<ComponentDependency> dependencies = new ArrayList<>();
+-        Map<String, ComponentDependency> dependencyMap = new HashMap<>();
+-
+-        List<String> mainExtensions = getMainExtensions();
+-        contrExtMap.values().stream().filter(v -> v.size() > 1).forEach(extensions -> {
+-            extensions.stream().filter(extension1 -> mainExtensions.contains(extension1.replaceAll("\\(.*\\)", "").trim())).forEach(extension1 -> {
+-                extensions.stream().filter(extension2 -> mainExtensions.contains(extension2.replaceAll("\\(.*\\)", "").trim())).filter(extension2 -> !extension1.equalsIgnoreCase(extension2)).forEach(extension2 -> {
+-                    String key1 = extension1 + "::" + extension2;
+-                    String key2 = extension2 + "::" + extension1;
+-
+-                    if (dependencyMap.containsKey(key1)) {
+-                        dependencyMap.get(key1).increment(1);
+-                    } else if (dependencyMap.containsKey(key2)) {
+-                        dependencyMap.get(key2).increment(1);
+-                    } else {
+-                        ComponentDependency dependency = new ComponentDependency(extension1, extension2);
+-                        dependencyMap.put(key1, dependency);
+-                        dependencies.add(dependency);
+-                    }
+-                });
+-            });
+-        });
+-
+-        dependencies.forEach(dependency -> dependency.setCount(dependency.getCount() / 2));
+-
+-        GraphvizDependencyRenderer renderer = new GraphvizDependencyRenderer();
+-        renderer.setMaxNumberOfDependencies(100);
+-        renderer.setDefaultNodeFillColor("deepskyblue2");
+-        renderer.setTypeGraph();
+-        String graphvizContent = renderer.getGraphvizContent(new ArrayList<>(extensionsNames), dependencies);
+-
+-        if (isContributorReport()) {
+-            landscapeReport.startShowMoreBlock("show extension dependencies...");
+-            landscapeReport.addGraphvizFigure("extension_dependencies_30d", "Extension dependencies", graphvizContent);
+-            addDownloadLinks("extension_dependencies_30d");
+-            landscapeReport.endShowMoreBlock();
+-            landscapeReport.addLineBreak();
+-            landscapeReport.addNewTabLink(" - show extension dependencies as 2D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_2d.html");
+-            landscapeReport.addNewTabLink(" - show extension dependencies as 3D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_3d.html");
+-            new Force3DGraphExporter().export2D3DForceGraph(dependencies, reportsFolder, "extension_dependencies_30d");
+-        }
+-    }
+-
+-    private List<String> getMainExtensions() {
+-        return landscapeAnalysisResults.getMainLinesOfCodePerExtension().stream()
+-                .map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
+-    }
+-
+-    private void addLangInfo(CommitsPerExtension extension, ExtractStringListValue<CommitsPerExtension> extractor, int commitsCount, String suffix) {
+-        int size = extractor.getValue(extension).size();
+-        String smallTextForNumber = FormattingUtils.getSmallTextForNumber(size) + suffix;
+-        addLangInfoBlockExtra(smallTextForNumber, extension.getExtension().replace("*.", "").trim(),
+-                size + " " + (size == 1 ? "contributor" : "contributors (" + commitsCount + " commits)") + ":\n" +
+-                        extractor.getValue(extension).stream().limit(100)
+-                                .collect(Collectors.joining(", ")), FormattingUtils.getSmallTextForNumber(commitsCount) + " commits");
+-    }
+-
+     private void addContributors() {
+         ProcessingStopwatch.start("reporting/contributors");
+         int contributorsCount = landscapeAnalysisResults.getContributorsCount(contributors);
+@@ -648,184 +486,8 @@ public class LandscapeReportContributorsTab {
+         landscapeReport.endTableRow();
+     }
+ 
+-    private String getExtraPeopleInfo(List<ContributorRepositories> contributors, long contributorsCount) {
+-        String info = "";
+-
+-        int recentContributorsCount6Months = landscapeAnalysisResults.getRecentContributorsCount6Months(contributors);
+-        int recentContributorsCount3Months = landscapeAnalysisResults.getRecentContributorsCount3Months(contributors);
+-        info += FormattingUtils.getPlainTextForNumber(landscapeAnalysisResults.getRecentContributorsCount(contributors)) + " contributors (30 days)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (" + ActivityWindows.LABEL_3_MONTHS + ")\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (" + ActivityWindows.LABEL_6_MONTHS + ")\n";
+-
+-        LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+-        int thresholdCommits = configuration.getContributorThresholdCommits();
+-        info += FormattingUtils.getPlainTextForNumber((int) contributorsCount) + " contributors (all time)\n";
+-        info += "\nOnly the contributors with " + (thresholdCommits > 1 ? "(" + thresholdCommits + "+&nbsp;commits)" : "") + " included";
+-
+-        return info;
+-    }
+-
+-    private void addPeopleInfoBlock(String mainValue, String subtitle, String description, String tooltip) {
+-        addPeopleInfoBlockWithColor(mainValue, subtitle, description, tooltip, PEOPLE_COLOR);
+-    }
+-
+     private void addWorkloadInfoBlock(String mainValue, String subtitle, String description, String tooltip) {
+-        addWorkloadInfoBlockWithColor(mainValue, subtitle, description, tooltip, "orange");
+-    }
+-
+-    private void addPeopleInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+-        if (StringUtils.isNotBlank(description)) {
+-            subtitle += "<br/><span style='color: #707070; font-size: 80%'>" + description + "</span>";
+-        }
+-        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, isContributorReport() ? "contributors" : "teams");
+-    }
+-
+-    private void addWorkloadInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+-        if (StringUtils.isNotBlank(description)) {
+-            subtitle += "<br/><span style='color: grey; font-size: 80%'>" + description + "</span>";
+-        }
+-        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, "workload");
+-    }
+-
+-    private void addInfoBlockWithColor(String mainValue, String subtitle, String color, String tooltip, String icon) {
+-        String style = "border-radius: 12px;";
+-
+-        style += "margin: 12px 12px 12px 0px;";
+-        style += "display: inline-block; width: 160px; height: 120px;";
+-        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 36px;";
+-        style += "box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;";
+-
+-        landscapeReport.startDiv("display: inline-block; text-align: center", tooltip);
+-        landscapeReport.addContentInDiv(ReportFileExporter.getIconSvg(icon, 48), "margin-top: 18px; margin-bottom: -12px");
+-        landscapeReport.startDiv(style, tooltip);
+-        String specialColor = mainValue.equals("<b>0</b>") ? " color: grey;" : "";
+-        landscapeReport.addHtmlContent("<div style='font-size: 50px; margin-top: 20px;" + specialColor + "'>" + mainValue + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 15px;" + specialColor + "'>" + subtitle + "</div>");
+-        landscapeReport.endDiv();
+-        landscapeReport.endDiv();
+-    }
+-
+-    private void addLangInfoBlockExtra(String value, String lang, String description, String extra) {
+-        String style = "border-radius: 8px; margin: 4px 4px 4px 0px; display: inline-block; " +
+-                "width: 80px; height: 114px;background-color: #dedede; " +
+-                "text-align: center; vertical-align: middle; margin-bottom: 16px;";
+-
+-        landscapeReport.startDivWithLabel(description, style);
+-
+-        landscapeReport.addContentInDiv("", "margin-top: 8px");
+-        landscapeReport.addHtmlContent(DataImageUtils.getLangDataImageDiv42(lang));
+-        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + lang + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #767676; font-size: 9px; margin-top: 1px;'>" + extra + "</div>");
+-        landscapeReport.endDiv();
+-    }
+-
+-    private void addSmallInfoBlock(String value, String subtitle, String color, String link) {
+-        String style = "border-radius: 8px;";
+-
+-        style += "margin: 4px 4px 4px 0px;";
+-        style += "display: inline-block; width: 80px; height: 76px;";
+-        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 16px;";
+-
+-        landscapeReport.startDiv(style);
+-        if (StringUtils.isNotBlank(link)) {
+-            landscapeReport.startNewTabLink(link, "text-decoration: none");
+-        }
+-        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + subtitle + "</div>");
+-        if (StringUtils.isNotBlank(link)) {
+-            landscapeReport.endNewTabLink();
+-        }
+-        landscapeReport.endDiv();
+-    }
+-
+-    private void addContributorsPerYear(boolean showContributorsCount) {
+-        List<ContributionTimeSlot> contributorsPerYear = landscapeAnalysisResults.getContributorsPerYear();
+-        if (contributorsPerYear.size() > 0) {
+-            int limit = landscapeAnalysisResults.getConfiguration().getCommitsMaxYears();
+-            if (contributorsPerYear.size() > limit) {
+-                contributorsPerYear = contributorsPerYear.subList(0, limit);
+-            }
+-
+-            int maxCommits = contributorsPerYear.stream().mapToInt(c -> c.getCommitsCount()).max().orElse(1);
+-
+-            landscapeReport.startDiv("overflow-y: none;");
+-            landscapeReport.startTable();
+-
+-            landscapeReport.startTableRow();
+-            landscapeReport.startTableCell("border: none; height: 100px");
+-            int commitsCount = landscapeAnalysisResults.getCommitsCount();
+-            if (commitsCount > 0) {
+-                landscapeReport.startDiv("max-height: 105px");
+-                addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(commitsCount), "commits", "white", "");
+-                landscapeReport.endDiv();
+-            }
+-            landscapeReport.endTableCell();
+-            String style = "border: none; text-align: center; vertical-align: bottom; font-size: 80%; height: 100px";
+-            int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+-            contributorsPerYear.forEach(year -> {
+-                landscapeReport.startTableCell(style);
+-                int count = year.getCommitsCount();
+-                String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color);
+-                int height = 1 + (int) (64.0 * count / maxCommits);
+-                String bgColor = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "lightgrey";
+-                landscapeReport.addHtmlContent("<div style='width: 100%; background-color: " + bgColor + "; height:" + height + "px'></div>");
+-                landscapeReport.endTableCell();
+-            });
+-            landscapeReport.endTableRow();
+-
+-            if (showContributorsCount) {
+-                int maxContributors[] = {1};
+-                contributorsPerYear.forEach(year -> {
+-                    int count = getContributorsCountPerYear(year.getTimeSlot());
+-                    maxContributors[0] = Math.max(maxContributors[0], count);
+-                });
+-                landscapeReport.startTableRow();
+-                landscapeReport.startTableCell("border: none; height: 100px");
+-                int contributorsCount = contributors.size();
+-                if (contributorsCount > 0) {
+-                    landscapeReport.startDiv("max-height: 105px");
+-                    addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(contributorsCount), "contributors", "white", "");
+-                    landscapeReport.endDiv();
+-                }
+-                landscapeReport.endTableCell();
+-                contributorsPerYear.forEach(year -> {
+-                    landscapeReport.startTableCell(style);
+-                    int count = getContributorsCountPerYear(year.getTimeSlot());
+-                    String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                    landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color + ";");
+-                    int height = 1 + (int) (64.0 * count / maxContributors[0]);
+-                    landscapeReport.addHtmlContent("<div style='width: 100%; background-color: skyblue; height:" + height + "px'></div>");
+-                    landscapeReport.endTableCell();
+-                });
+-                landscapeReport.endTableRow();
+-            }
+-
+-            landscapeReport.startTableRow();
+-            landscapeReport.addTableCell("", "border: none; ");
+-            var ref = new Object() {
+-                String latestCommitDate = landscapeAnalysisResults.getLatestCommitDate();
+-            };
+-            if (ref.latestCommitDate.length() > 5) {
+-                ref.latestCommitDate = ref.latestCommitDate.substring(5);
+-            }
+-            contributorsPerYear.forEach(year -> {
+-                String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                landscapeReport.startTableCell("vertical-align: top; border: none; text-align: center; font-size: 90%; color: " + color);
+-                landscapeReport.addHtmlContent(year.getTimeSlot());
+-                if (landscapeAnalysisResults.getLatestCommitDate().startsWith(year.getTimeSlot() + "-")) {
+-                    landscapeReport.addContentInDiv(ref.latestCommitDate, "text-align: center; color: grey; font-size: 9px");
+-                }
+-                landscapeReport.endTableCell();
+-            });
+-            landscapeReport.endTableRow();
+-
+-            landscapeReport.endTable();
+-            landscapeReport.endDiv();
+-
+-            landscapeReport.addLineBreak();
+-        }
++        charts.addWorkloadInfoBlockWithColor(mainValue, subtitle, description, tooltip, "orange");
+     }
+ 
+     private void addContributorsPerWeek() {
+@@ -846,7 +508,7 @@ public class LandscapeReportContributorsTab {
+             int minMaxWindow = contributorsPerWeek.size() >= 4 ? 4 : contributorsPerWeek.size();
+ 
+             addChartRows(contributorsPerWeek, "weeks", minMaxWindow,
+-                    (timeSlot, rookiesOnly) -> getContributorsPerWeek(timeSlot, rookiesOnly),
++                    (timeSlot, rookiesOnly) -> charts.getContributorsPerWeek(timeSlot, rookiesOnly),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerWeek(timeSlot, true),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerWeek(timeSlot, false), 14);
+ 
+@@ -875,7 +537,7 @@ public class LandscapeReportContributorsTab {
+             int minMaxWindow = contributorsPerDay.size() >= 4 ? 4 : contributorsPerDay.size();
+ 
+             addChartRows(contributorsPerDay, "days", minMaxWindow,
+-                    (timeSlot, rookiesOnly) -> getContributorsPerDay(timeSlot, rookiesOnly),
++                    (timeSlot, rookiesOnly) -> charts.getContributorsPerDay(timeSlot, rookiesOnly),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerDay(timeSlot, true),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerDay(timeSlot, false), 14);
+ 
+@@ -906,7 +568,7 @@ public class LandscapeReportContributorsTab {
+ 
+             int minMaxWindow = contributorsPerMonth.size() >= 3 ? 3 : contributorsPerMonth.size();
+ 
+-            addChartRows(contributorsPerMonth, "months", minMaxWindow, (timeSlot, rookiesOnly) -> getContributorsPerMonth(timeSlot, rookiesOnly),
++            addChartRows(contributorsPerMonth, "months", minMaxWindow, (timeSlot, rookiesOnly) -> charts.getContributorsPerMonth(timeSlot, rookiesOnly),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerMonth(timeSlot, true),
+                     (timeSlot, rookiesOnly) -> getLastContributorsPerMonth(timeSlot, false), 40);
+ 
+@@ -965,8 +627,8 @@ public class LandscapeReportContributorsTab {
+             List<String> rookies = contributorsExtractor.getContributors(week.getTimeSlot(), true);
+             int count = extractedContributors.size();
+             int rookiesCount = rookies.size();
+-            int height = 2 + (int) (64.0 * count / maxContributors);
+-            int heightRookies = 1 + (int) (64.0 * rookiesCount / maxContributors);
++            int height = 2 + (int) (BAR_MAX_HEIGHT * count / maxContributors);
++            int heightRookies = 1 + (int) (BAR_MAX_HEIGHT * rookiesCount / maxContributors);
+             String title = "period " + week.getTimeSlot() + " = " + count + " extractedContributors (" + rookiesCount + " rookies):\n\n" +
+                     extractedContributors.subList(0, extractedContributors.size() < 200 ? extractedContributors.size() : 200).stream().collect(Collectors.joining(", "));
+             String yearString = week.getTimeSlot().split("[-]")[0];
+@@ -998,7 +660,7 @@ public class LandscapeReportContributorsTab {
+             landscapeReport.startTableCell("max-width: 20px; padding: 0; margin: 1px; border: none; text-align: center; vertical-align: " + valign + "; font-size: 80%; height: 100px");
+             List<String> extractedContributors = contributorsExtractor.getContributors(timeUnit.getTimeSlot(), true);
+             int count = extractedContributors.size();
+-            int height = 4 + (int) (64.0 * count / maxContributors);
++            int height = 4 + (int) (BAR_MAX_HEIGHT * count / maxContributors);
+             String title = "timeUnit of " + timeUnit.getTimeSlot() + " = " + count + " extractedContributors:\n\n" +
+                     extractedContributors.subList(0, extractedContributors.size() < 200 ? extractedContributors.size() : 200).stream().collect(Collectors.joining(", "));
+             String yearString = timeUnit.getTimeSlot().split("[-]")[0];
+@@ -1085,7 +747,7 @@ public class LandscapeReportContributorsTab {
+         contributorsPerWeek.forEach(week -> {
+             landscapeReport.startTableCell("width: " + barWidth + "px; min-width: " + barWidth + "px; padding: 0; margin: 1px; border: none; text-align: center; vertical-align: bottom; font-size: 80%; height: 100px");
+             int count = week.getCommitsCount();
+-            int height = 1 + (int) (64.0 * count / maxCommits);
++            int height = 1 + (int) (BAR_MAX_HEIGHT * count / maxCommits);
+             String title = "week of " + week.getTimeSlot() + " = " + count + " commits";
+             String yearString = week.getTimeSlot().split("[-]")[0];
+ 
+@@ -1103,27 +765,6 @@ public class LandscapeReportContributorsTab {
+         landscapeReport.endTableRow();
+     }
+ 
+-    private int getContributorsCountPerYear(String year) {
+-        return this.contributorsPerYearMap.containsKey(year) ? contributorsPerYearMap.get(year).size() : 0;
+-    }
+-
+-    private void populateTimeSlotMaps() {
+-        contributors.forEach(contributorRepositories -> {
+-            List<String> commitDates = contributorRepositories.getContributor().getCommitDates();
+-            commitDates.forEach(day -> {
+-                String week = DateUtils.getWeekMonday(day);
+-                String month = DateUtils.getMonth(day);
+-                String year = DateUtils.getYear(day);
+-
+-                updateTimeSlotMap(contributorRepositories, contributorsPerDayMap, rookiesPerDayMap, day, day);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerWeekMap, rookiesPerWeekMap, week, week);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerMonthMap, rookiesPerMonthMap, month, month + "-01");
+-                updateTimeSlotMap(contributorRepositories, contributorsPerYearMap, rookiesPerYearMap, year, year + "-01-01");
+-            });
+-        });
+-
+-    }
+-
+     private List<String> getSignificantContributorsPerYear(List<ContributorRepositories> contributorRepositories, String year, boolean rookiesOnly, int thresholdCommitDays) {
+         if (rookiesOnly) {
+             return getLastContributorsPerYear(year, true);
+@@ -1134,39 +775,6 @@ public class LandscapeReportContributorsTab {
+                 .collect(Collectors.toList());
+     }
+ 
+-    private void updateTimeSlotMap(ContributorRepositories contributorRepositories,
+-                                   Map<String, List<String>> map, Map<String, List<String>> rookiesMap, String key, String rookieDate) {
+-        boolean rookie = contributorRepositories.getContributor().isRookieAtDate(rookieDate);
+-
+-        String email = contributorRepositories.getContributor().getEmail();
+-        if (map.containsKey(key)) {
+-            if (!map.get(key).contains(email)) {
+-                map.get(key).add(email);
+-            }
+-        } else {
+-            map.put(key, new ArrayList<>(Arrays.asList(email)));
+-        }
+-        if (rookie) {
+-            if (rookiesMap.containsKey(key)) {
+-                if (!rookiesMap.get(key).contains(email)) {
+-                    rookiesMap.get(key).add(email);
+-                }
+-            } else {
+-                rookiesMap.put(key, new ArrayList<>(Arrays.asList(email)));
+-            }
+-        }
+-    }
+-
+-    private List<String> getContributorsPerWeek(String week, boolean rookiesOnly) {
+-        Map<String, List<String>> map = rookiesOnly ? rookiesPerWeekMap : contributorsPerWeekMap;
+-        return map.containsKey(week) ? map.get(week) : new ArrayList<>();
+-    }
+-
+-    private List<String> getContributorsPerDay(String day, boolean rookiesOnly) {
+-        Map<String, List<String>> map = rookiesOnly ? rookiesPerDayMap : contributorsPerDayMap;
+-        return map.containsKey(day) ? map.get(day) : new ArrayList<>();
+-    }
+-
+     private List<String> getLastContributorsPerWeek(String week, boolean first) {
+         Map<String, String> emails = new HashMap<>();
+ 
+@@ -1204,11 +812,6 @@ public class LandscapeReportContributorsTab {
+         return new ArrayList<>(emails.values());
+     }
+ 
+-    private List<String> getContributorsPerMonth(String month, boolean rookiesOnly) {
+-        Map<String, List<String>> map = rookiesOnly ? rookiesPerMonthMap : contributorsPerMonthMap;
+-        return map.containsKey(month) ? map.get(month) : new ArrayList<>();
+-    }
+-
+     private List<String> getLastContributorsPerYear(String year, boolean first) {
+         Map<String, String> emails = new HashMap<>();
+ 
+@@ -1252,17 +855,6 @@ public class LandscapeReportContributorsTab {
+         return type == Type.CONTRIBUTORS;
+     }
+ 
+-    private void addDownloadLinks(String graphId) {
+-        landscapeReport.startDiv("");
+-        landscapeReport.addHtmlContent("Download: ");
+-        landscapeReport.addNewTabLink("SVG", "visuals/" + graphId + ".svg");
+-        landscapeReport.addHtmlContent(" ");
+-        landscapeReport.addNewTabLink("DOT", "visuals/" + graphId + ".dot.txt");
+-        landscapeReport.addHtmlContent(" ");
+-        landscapeReport.addNewTabLink("(open online Graphviz editor)", "https://obren.io/tools/graphviz/");
+-        landscapeReport.endDiv();
+-    }
+-
+     public RichTextReport getLandscapeContributorsReport() {
+         return landscapeContributorsReport;
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+index 97256ca..8142124 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -119,7 +119,7 @@ public class LandscapeReportGenerator {
+     public static final String MAIN_LOC_FRESH_COLOR = "#E0FFFF";
+     public static final String MAIN_LOC_COLOR = "#D6E4E1";
+     public static final String TEST_LOC_COLOR = "#f0f0f0";
+-    public static final String PEOPLE_COLOR = "#ADD8E6";
++    public static final String PEOPLE_COLOR = LandscapeContributorsCharts.PEOPLE_COLOR;
+     private final TagMap customTagsMap;
+     private final TeamsConfig teamsConfig;
+     private final LandscapeReportContributorsTab landscapeReportContributorsTab;
+@@ -142,14 +142,7 @@ public class LandscapeReportGenerator {
+     private List<TagGroup> tagGroups;
+     private File folder;
+     private File reportsFolder;
+-    private Map<String, List<String>> contributorsPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerYearMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerYearMap = new HashMap<>();
++    private LandscapeContributorsCharts contributorsCharts;
+     private SourceFileAgeDistribution overallFileLastModifiedDistribution;
+     private SourceFileAgeDistribution overallFileFirstModifiedDistribution;
+ 
+@@ -163,7 +156,7 @@ public class LandscapeReportGenerator {
+ 
+         overallFileFirstModifiedDistribution = analysisResults.getOverallFileFirstModifiedDistribution();
+         overallFileLastModifiedDistribution = analysisResults.getOverallFileLastModifiedDistribution();
+-        populateTimeSlotMaps();
++        contributorsCharts = new LandscapeContributorsCharts(landscapeReport, analysisResults, analysisResults.getContributors(), LandscapeReportContributorsTab.Type.CONTRIBUTORS, teamsConfig, reportsFolder);
+ 
+         landscapeReportContributorsTab = new LandscapeReportContributorsTab(analysisResults, analysisResults.getContributors(), landscapeReport, folder, reportsFolder, LandscapeReportContributorsTab.Type.CONTRIBUTORS, teamsConfig);
+         landscapeReportTeamsTab = new LandscapeReportContributorsTab(analysisResults, analysisResults.getTeams(), landscapeReport, folder, reportsFolder, LandscapeReportContributorsTab.Type.TEAMS, teamsConfig);
+@@ -568,39 +561,15 @@ public class LandscapeReportGenerator {
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionDays(List<ContributionTimeSlot> contributorsPerDayOriginal, int pastDays, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerDay = new ArrayList<>(contributorsPerDayOriginal);
+-        List<String> slots = contributorsPerDay.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastDays(pastDays, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerDay.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerDay;
++        return LandscapeContributorsCharts.getContributionDays(contributorsPerDayOriginal, pastDays, lastCommitDate);
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionWeeks(List<ContributionTimeSlot> contributorsPerWeekOriginal, int pastWeeks, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerWeek = new ArrayList<>(contributorsPerWeekOriginal);
+-        List<String> slots = contributorsPerWeek.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastWeeks(pastWeeks, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerWeek.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerWeek;
++        return LandscapeContributorsCharts.getContributionWeeks(contributorsPerWeekOriginal, pastWeeks, lastCommitDate);
+     }
+ 
+     public static List<ContributionTimeSlot> getContributionYears(List<ContributionTimeSlot> contributorsPerWeekOriginal, int pastYears, String lastCommitDate) {
+-        List<ContributionTimeSlot> contributorsPerWeek = new ArrayList<>(contributorsPerWeekOriginal);
+-        List<String> slots = contributorsPerWeek.stream().map(slot -> slot.getTimeSlot()).collect(Collectors.toCollection(ArrayList::new));
+-        List<String> pastDates = DateUtils.getPastYears(pastYears, lastCommitDate);
+-        pastDates.forEach(pastDate -> {
+-            if (!slots.contains(pastDate)) {
+-                contributorsPerWeek.add(new ContributionTimeSlot(pastDate));
+-            }
+-        });
+-        return contributorsPerWeek;
++        return LandscapeContributorsCharts.getContributionYears(contributorsPerWeekOriginal, pastYears, lastCommitDate);
+     }
+ 
+     private List<RepositoryAnalysisResults> getRepositories() {
+@@ -871,15 +840,15 @@ public class LandscapeReportGenerator {
+             if (recentContributorsCount > 0) {
+                 locPerRecentContributor = (int) Math.round((double) mainLoc1YearActive / recentContributorsCount);
+             }
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent contributors",
+-                    "(" + ActivityWindows.PAST_30_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent contributor");
++            contributorsCharts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent contributors",
++                    "(" + ActivityWindows.PAST_30_DAYS + ")", contributorsCharts.getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent contributor");
+             int rookiesContributorsCount = landscapeAnalysisResults.getRookiesContributorsCount(contributors);
+-            addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
++            contributorsCharts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
+                     rookiesContributorsCount == 1 ? "active rookie" : "active rookies",
+                     "(started in past year)", "active contributors with the first commit in past year");
+         }
+ 
+-        addContributorsPerYear(configuration.isShowContributorsTrendsOnFirstTab());
++        contributorsCharts.addContributorsPerYear(configuration.isShowContributorsTrendsOnFirstTab(), landscapeAnalysisResults.getContributors().size());
+ 
+         landscapeReport.endDiv();
+         landscapeReport.addLineBreak();
+@@ -1020,7 +989,7 @@ public class LandscapeReportGenerator {
+         List<NumericMetric> linesOfCodePerExtensionMain = LandscapeGeneratorUtils.getLinesOfCodePerExtension(landscapeAnalysisResults, landscapeAnalysisResults.getMainLinesOfCodePerExtension());
+         addMainExtensions("Main", linesOfCodePerExtensionMain, true);
+         if (landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors()) > 0) {
+-            addContributorsPerExtension(true);
++            contributorsCharts.addContributorsPerExtension("Contributors per File Extensions (past 30 days)", true, false);
+         }
+         landscapeReport.startShowMoreBlockDisappear("", "&nbsp;&nbsp;>&nbsp;Show test and other code...");
+         addMainExtensions("Test", LandscapeGeneratorUtils.getLinesOfCodePerExtension(landscapeAnalysisResults, landscapeAnalysisResults.getTestLinesOfCodePerExtension()), false);
+@@ -1096,109 +1065,6 @@ public class LandscapeReportGenerator {
+         landscapeReport.endSection();
+     }
+ 
+-    private void addContributorsPerExtension(boolean linkCharts) {
+-        landscapeReport.startSubSection("Contributors per File Extensions (past 30 days)", "");
+-        if (linkCharts) {
+-            landscapeReport.startDiv("");
+-            landscapeReport.addNewTabLink("bubble chart", "visuals/bubble_chart_extensions_contributors_30d.html");
+-            landscapeReport.addHtmlContent(" | ");
+-            landscapeReport.addNewTabLink("tree map", "visuals/tree_map_extensions_contributors_30d.html");
+-            landscapeReport.addLineBreak();
+-            landscapeReport.addLineBreak();
+-            landscapeReport.endDiv();
+-        }
+-        landscapeReport.startDiv("");
+-        List<String> mainExtensions = getMainExtensions();
+-        List<CommitsPerExtension> contributorsPerExtension = landscapeAnalysisResults.getContributorsPerExtension()
+-                .stream().filter(c -> mainExtensions.contains(c.getExtension())).collect(Collectors.toList());
+-        Collections.sort(contributorsPerExtension, (a, b) -> b.getCommitters30Days().size() - a.getCommitters30Days().size());
+-        boolean tooLong = contributorsPerExtension.size() > 25;
+-        List<CommitsPerExtension> contributorsPerExtensionDisplay = tooLong ? contributorsPerExtension.subList(0, 25) : contributorsPerExtension;
+-        List<CommitsPerExtension> linesOfCodePerExtensionHide = tooLong ? contributorsPerExtension.subList(25, contributorsPerExtension.size()) : new ArrayList<>();
+-        contributorsPerExtensionDisplay.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(extension -> {
+-            addLangInfo(extension, (e) -> e.getCommitters30Days(), extension.getCommitsCount30Days(), DEVELOPER_SVG_ICON);
+-        });
+-        if (linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).count() > 0) {
+-            landscapeReport.startShowMoreBlockDisappear("", "show all...");
+-            linesOfCodePerExtensionHide.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(extension -> {
+-                addLangInfo(extension, (e) -> e.getCommitters30Days(), extension.getCommitsCount30Days(), DEVELOPER_SVG_ICON);
+-            });
+-            landscapeReport.endShowMoreBlock();
+-        }
+-        landscapeReport.endDiv();
+-        addContributorDependencies(contributorsPerExtension);
+-        landscapeReport.endSection();
+-    }
+-
+-    private void addContributorDependencies(List<CommitsPerExtension> contributorsPerExtension) {
+-        Map<String, List<String>> contrExtMap = new HashMap<>();
+-        Set<String> extensionsNames = new HashSet<>();
+-        contributorsPerExtension.stream().filter(e -> e.getCommitters30Days().size() > 0).forEach(commitsPerExtension -> {
+-            String extensionDisplayLabel = commitsPerExtension.getExtension() + " (" + commitsPerExtension.getCommitters30Days().size() + ")";
+-            extensionsNames.add(extensionDisplayLabel);
+-            commitsPerExtension.getCommitters30Days().forEach(contributor -> {
+-                if (contrExtMap.containsKey(contributor)) {
+-                    contrExtMap.get(contributor).add(extensionDisplayLabel);
+-                } else {
+-                    contrExtMap.put(contributor, new ArrayList<>(Arrays.asList(extensionDisplayLabel)));
+-                }
+-            });
+-        });
+-        List<ComponentDependency> dependencies = new ArrayList<>();
+-        Map<String, ComponentDependency> dependencyMap = new HashMap<>();
+-
+-        List<String> mainExtensions = getMainExtensions();
+-        contrExtMap.values().stream().filter(v -> v.size() > 1).forEach(extensions -> {
+-            extensions.stream().filter(extension1 -> mainExtensions.contains(extension1.replaceAll("\\(.*\\)", "").trim())).forEach(extension1 -> {
+-                extensions.stream().filter(extension2 -> mainExtensions.contains(extension2.replaceAll("\\(.*\\)", "").trim())).filter(extension2 -> !extension1.equalsIgnoreCase(extension2)).forEach(extension2 -> {
+-                    String key1 = extension1 + "::" + extension2;
+-                    String key2 = extension2 + "::" + extension1;
+-
+-                    if (dependencyMap.containsKey(key1)) {
+-                        dependencyMap.get(key1).increment(1);
+-                    } else if (dependencyMap.containsKey(key2)) {
+-                        dependencyMap.get(key2).increment(1);
+-                    } else {
+-                        ComponentDependency dependency = new ComponentDependency(extension1, extension2);
+-                        dependencyMap.put(key1, dependency);
+-                        dependencies.add(dependency);
+-                    }
+-                });
+-            });
+-        });
+-
+-        dependencies.forEach(dependency -> dependency.setCount(dependency.getCount() / 2));
+-
+-        GraphvizDependencyRenderer renderer = new GraphvizDependencyRenderer();
+-        renderer.setMaxNumberOfDependencies(100);
+-        renderer.setDefaultNodeFillColor("deepskyblue2");
+-        renderer.setTypeGraph();
+-        String graphvizContent = renderer.getGraphvizContent(new ArrayList<>(extensionsNames), dependencies);
+-
+-        landscapeReport.startShowMoreBlock("show extension dependencies...");
+-        landscapeReport.addGraphvizFigure("extension_dependencies_30d", "Extension dependencies", graphvizContent);
+-        addDownloadLinks("extension_dependencies_30d");
+-        landscapeReport.endShowMoreBlock();
+-        landscapeReport.addLineBreak();
+-        landscapeReport.addNewTabLink(" - show extension dependencies as 2D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_2d.html");
+-        landscapeReport.addNewTabLink(" - show extension dependencies as 3D force graph&nbsp;" + OPEN_IN_NEW_TAB_SVG_ICON, "visuals/extension_dependencies_30d_force_3d.html");
+-        new Force3DGraphExporter().export2D3DForceGraph(dependencies, reportsFolder, "extension_dependencies_30d");
+-    }
+-
+-    private List<String> getMainExtensions() {
+-        return landscapeAnalysisResults.getMainLinesOfCodePerExtension().stream()
+-                .map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
+-    }
+-
+-    private void addLangInfo(CommitsPerExtension extension, ExtractStringListValue<CommitsPerExtension> extractor, int commitsCount, String suffix) {
+-        int size = extractor.getValue(extension).size();
+-        String smallTextForNumber = FormattingUtils.getSmallTextForNumber(size) + suffix;
+-        addLangInfoBlockExtra(smallTextForNumber, extension.getExtension().replace("*.", "").trim(),
+-                size + " " + (size == 1 ? "contributor" : "contributors (" + commitsCount + " commits)") + ":\n" +
+-                        extractor.getValue(extension).stream().limit(100)
+-                                .collect(Collectors.joining(", ")), FormattingUtils.getSmallTextForNumber(commitsCount) + " commits");
+-    }
+-
+     private void addLangInfo(NumericMetric extension) {
+         String smallTextForNumber = FormattingUtils.getSmallTextForNumber(extension.getValue().intValue());
+         int size = extension.getDescription().size();
+@@ -1537,41 +1403,6 @@ public class LandscapeReportGenerator {
+         addInfoBlockWithColor(mainValue, subtitle, color, tooltip, icon);
+     }
+ 
+-    private String getExtraPeopleInfo(List<ContributorRepositories> contributors, long contributorsCount) {
+-        String info = "";
+-
+-        int recentContributorsCount6Months = landscapeAnalysisResults.getRecentContributorsCount6Months(contributors);
+-        int recentContributorsCount3Months = landscapeAnalysisResults.getRecentContributorsCount3Months(contributors);
+-        info += FormattingUtils.getPlainTextForNumber(landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors())) + " contributors (30 days)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (" + ActivityWindows.LABEL_3_MONTHS + ")\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (" + ActivityWindows.LABEL_6_MONTHS + ")\n";
+-
+-        LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+-        int thresholdCommits = configuration.getContributorThresholdCommits();
+-        info += FormattingUtils.getPlainTextForNumber((int) contributorsCount) + " contributors (all time)\n";
+-        info += "\nOnly the contributors with " + (thresholdCommits > 1 ? "(" + thresholdCommits + "+&nbsp;commits)" : "") + " included";
+-
+-        return info;
+-    }
+-
+-    private void addPeopleInfoBlock(String mainValue, String subtitle, String description, String tooltip) {
+-        addPeopleInfoBlockWithColor(mainValue, subtitle, description, tooltip, PEOPLE_COLOR);
+-    }
+-
+-    private void addPeopleInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+-        if (StringUtils.isNotBlank(description)) {
+-            subtitle += "<br/><span style='color: #707070; font-size: 80%'>" + description + "</span>";
+-        }
+-        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, "contributors");
+-    }
+-
+-    private void addWorkloadInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+-        if (StringUtils.isNotBlank(description)) {
+-            subtitle += "<br/><span style='color: grey; font-size: 80%'>" + description + "</span>";
+-        }
+-        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, "workload");
+-    }
+-
+     private void addRepositoriesInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+         if (StringUtils.isNotBlank(description)) {
+             subtitle += "<br/><span style='color: grey; font-size: 80%'>" + description + "</span>";
+@@ -1580,21 +1411,7 @@ public class LandscapeReportGenerator {
+     }
+ 
+     private void addInfoBlockWithColor(String mainValue, String subtitle, String color, String tooltip, String icon) {
+-        String style = "border-radius: 12px;";
+-
+-        style += "margin: 12px 12px 12px 0px;";
+-        style += "display: inline-block; width: 160px; height: 120px;";
+-        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 36px;";
+-        style += "box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;";
+-
+-        landscapeReport.startDiv("display: inline-block; text-align: center", tooltip);
+-        landscapeReport.addContentInDiv(ReportFileExporter.getIconSvg(icon, 48), "margin-top: 18px; margin-bottom: -12px");
+-        landscapeReport.startDiv(style, tooltip);
+-        String specialColor = mainValue.equals("<b>0</b>") ? " color: grey;" : "";
+-        landscapeReport.addHtmlContent("<div style='font-size: 50px; margin-top: 20px;" + specialColor + "'>" + mainValue + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 15px;" + specialColor + "'>" + subtitle + "</div>");
+-        landscapeReport.endDiv();
+-        landscapeReport.endDiv();
++        contributorsCharts.addInfoBlockWithColor(mainValue, subtitle, color, tooltip, icon);
+     }
+ 
+     private String getRiskProfileVisual(RiskDistributionStats distributionStats, Palette palette) {
+@@ -1629,40 +1446,6 @@ public class LandscapeReportGenerator {
+         landscapeReport.endDiv();
+     }
+ 
+-    private void addLangInfoBlockExtra(String value, String lang, String description, String extra) {
+-        String style = "border-radius: 8px; margin: 4px 4px 4px 0px; display: inline-block; " +
+-                "width: 80px; height: 114px;background-color: #dedede; " +
+-                "text-align: center; vertical-align: middle; margin-bottom: 16px;";
+-
+-        landscapeReport.startDivWithLabel(description, style);
+-
+-        landscapeReport.addContentInDiv("", "margin-top: 8px");
+-        landscapeReport.addHtmlContent(DataImageUtils.getLangDataImageDiv42(lang));
+-        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + lang + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #767676; font-size: 9px; margin-top: 1px;'>" + extra + "</div>");
+-        landscapeReport.endDiv();
+-    }
+-
+-    private void addSmallInfoBlock(String value, String subtitle, String color, String link) {
+-        String style = "border-radius: 8px;";
+-
+-        style += "margin: 4px 4px 4px 0px;";
+-        style += "display: inline-block; width: 80px; height: 76px;";
+-        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 16px;";
+-
+-        landscapeReport.startDiv(style);
+-        if (StringUtils.isNotBlank(link)) {
+-            landscapeReport.startNewTabLink(link, "text-decoration: none");
+-        }
+-        landscapeReport.addHtmlContent("<div style='font-size: 24px; margin-top: 8px;'>" + value + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 13px'>" + subtitle + "</div>");
+-        if (StringUtils.isNotBlank(link)) {
+-            landscapeReport.endNewTabLink();
+-        }
+-        landscapeReport.endDiv();
+-    }
+-
+     public List<RichTextReport> report() {
+         List<RichTextReport> reports = new ArrayList<>();
+ 
+@@ -1686,148 +1469,8 @@ public class LandscapeReportGenerator {
+         return reports;
+     }
+ 
+-    private void addContributorsPerYear(boolean showContributorsCount) {
+-        List<ContributionTimeSlot> contributorsPerYear = landscapeAnalysisResults.getContributorsPerYear();
+-        if (contributorsPerYear.size() > 0) {
+-            int limit = landscapeAnalysisResults.getConfiguration().getCommitsMaxYears();
+-            if (contributorsPerYear.size() > limit) {
+-                contributorsPerYear = contributorsPerYear.subList(0, limit);
+-            }
+-
+-            int maxCommits = contributorsPerYear.stream().mapToInt(c -> c.getCommitsCount()).max().orElse(1);
+-
+-            landscapeReport.startDiv("overflow-y: none;");
+-            landscapeReport.startTable();
+-
+-            landscapeReport.startTableRow();
+-            landscapeReport.startTableCell("border: none; height: 100px");
+-            int commitsCount = landscapeAnalysisResults.getCommitsCount();
+-            if (commitsCount > 0) {
+-                landscapeReport.startDiv("max-height: 105px");
+-                addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(commitsCount), "commits", "white", "");
+-                landscapeReport.endDiv();
+-            }
+-            landscapeReport.endTableCell();
+-            String style = "border: none; text-align: center; vertical-align: bottom; font-size: 80%; height: 100px";
+-            int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+-            contributorsPerYear.forEach(year -> {
+-                landscapeReport.startTableCell(style);
+-                int count = year.getCommitsCount();
+-                String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color);
+-                int height = 1 + (int) (64.0 * count / maxCommits);
+-                String bgColor = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "lightgrey";
+-                landscapeReport.addHtmlContent("<div style='width: 100%; background-color: " + bgColor + "; height:" + height + "px'></div>");
+-                landscapeReport.endTableCell();
+-            });
+-            landscapeReport.endTableRow();
+-
+-            if (showContributorsCount) {
+-                int maxContributors[] = {1};
+-                contributorsPerYear.forEach(year -> {
+-                    int count = getContributorsCountPerYear(year.getTimeSlot());
+-                    maxContributors[0] = Math.max(maxContributors[0], count);
+-                });
+-                landscapeReport.startTableRow();
+-                landscapeReport.startTableCell("border: none; height: 100px");
+-                int contributorsCount = landscapeAnalysisResults.getContributors().size();
+-                if (contributorsCount > 0) {
+-                    landscapeReport.startDiv("max-height: 105px");
+-                    addSmallInfoBlock(FormattingUtils.getSmallTextForNumber(contributorsCount), "contributors", "white", "");
+-                    landscapeReport.endDiv();
+-                }
+-                landscapeReport.endTableCell();
+-                contributorsPerYear.forEach(year -> {
+-                    landscapeReport.startTableCell(style);
+-                    int count = getContributorsCountPerYear(year.getTimeSlot());
+-                    String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                    landscapeReport.addParagraph(count + "", "margin: 2px; color: " + color + ";");
+-                    int height = 1 + (int) (64.0 * count / maxContributors[0]);
+-                    landscapeReport.addHtmlContent("<div style='width: 100%; background-color: skyblue; height:" + height + "px'></div>");
+-                    landscapeReport.endTableCell();
+-                });
+-                landscapeReport.endTableRow();
+-            }
+-
+-            landscapeReport.startTableRow();
+-            landscapeReport.addTableCell("", "border: none; ");
+-            var ref = new Object() {
+-                String latestCommitDate = landscapeAnalysisResults.getLatestCommitDate();
+-            };
+-            if (ref.latestCommitDate.length() > 5) {
+-                ref.latestCommitDate = ref.latestCommitDate.substring(5);
+-            }
+-            contributorsPerYear.forEach(year -> {
+-                String color = year.getTimeSlot().equals(thisYear + "") ? "#343434" : "#989898";
+-                landscapeReport.startTableCell("vertical-align: top; border: none; text-align: center; font-size: 90%; color: " + color);
+-                landscapeReport.addHtmlContent(year.getTimeSlot());
+-                if (landscapeAnalysisResults.getLatestCommitDate().startsWith(year.getTimeSlot() + "-")) {
+-                    landscapeReport.addContentInDiv(ref.latestCommitDate, "text-align: center; color: grey; font-size: 9px");
+-                }
+-                landscapeReport.endTableCell();
+-            });
+-            landscapeReport.endTableRow();
+-
+-            landscapeReport.endTable();
+-            landscapeReport.endDiv();
+-
+-            landscapeReport.addLineBreak();
+-        }
+-    }
+-
+-    private int getContributorsCountPerYear(String year) {
+-        return this.contributorsPerYearMap.containsKey(year) ? contributorsPerYearMap.get(year).size() : 0;
+-    }
+-
+-    private void populateTimeSlotMaps() {
+-        landscapeAnalysisResults.getContributors().forEach(contributorRepositories -> {
+-            List<String> commitDates = contributorRepositories.getContributor().getCommitDates();
+-            commitDates.forEach(day -> {
+-                String week = DateUtils.getWeekMonday(day);
+-                String month = DateUtils.getMonth(day);
+-                String year = DateUtils.getYear(day);
+-
+-                updateTimeSlotMap(contributorRepositories, contributorsPerDayMap, rookiesPerDayMap, day, day);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerWeekMap, rookiesPerWeekMap, week, week);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerMonthMap, rookiesPerMonthMap, month, month + "-01");
+-                updateTimeSlotMap(contributorRepositories, contributorsPerYearMap, rookiesPerYearMap, year, year + "-01-01");
+-            });
+-        });
+-
+-    }
+-
+-    private void updateTimeSlotMap(ContributorRepositories contributorRepositories,
+-                                   Map<String, List<String>> map, Map<String, List<String>> rookiesMap, String key, String rookieDate) {
+-        boolean rookie = contributorRepositories.getContributor().isRookieAtDate(rookieDate);
+-
+-        String email = contributorRepositories.getContributor().getEmail();
+-        if (map.containsKey(key)) {
+-            if (!map.get(key).contains(email)) {
+-                map.get(key).add(email);
+-            }
+-        } else {
+-            map.put(key, new ArrayList<>(Arrays.asList(email)));
+-        }
+-        if (rookie) {
+-            if (rookiesMap.containsKey(key)) {
+-                if (!rookiesMap.get(key).contains(email)) {
+-                    rookiesMap.get(key).add(email);
+-                }
+-            } else {
+-                rookiesMap.put(key, new ArrayList<>(Arrays.asList(email)));
+-            }
+-        }
+-    }
+-
+     private void addDownloadLinks(String graphId) {
+-        landscapeReport.startDiv("");
+-        landscapeReport.addHtmlContent("Download: ");
+-        landscapeReport.addNewTabLink("SVG", "visuals/" + graphId + ".svg");
+-        landscapeReport.addHtmlContent(" ");
+-        landscapeReport.addNewTabLink("DOT", "visuals/" + graphId + ".dot.txt");
+-        landscapeReport.addHtmlContent(" ");
+-        landscapeReport.addNewTabLink("(open online Graphviz editor)", "https://obren.io/tools/graphviz/");
+-        landscapeReport.endDiv();
++        contributorsCharts.addDownloadLinks(graphId);
+     }
+ 
+     abstract class ZommableCircleCountExtractors {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
+index e4bec4a..87be861 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
+@@ -38,20 +38,13 @@ public class LandscapeReportPeopleTopologyTab {
+     public static final String REMAINDER = "Undefined Team";
+ 
+     private static final Log LOG = LogFactory.getLog(LandscapeReportPeopleTopologyTab.class);
+-    public static final String PEOPLE_COLOR = "#ADD8E6";
++    public static final String PEOPLE_COLOR = LandscapeContributorsCharts.PEOPLE_COLOR;
+     private final List<ContributorRepositories> contributors;
+     private LandscapeAnalysisResults landscapeAnalysisResults;
+     private int dependencyVisualCounter = 1;
+     private File folder;
+     private File reportsFolder;
+-    private Map<String, List<String>> contributorsPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerWeekMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerDayMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerMonthMap = new HashMap<>();
+-    private Map<String, List<String>> contributorsPerYearMap = new HashMap<>();
+-    private Map<String, List<String>> rookiesPerYearMap = new HashMap<>();
++    private final LandscapeContributorsCharts charts;
+     private RichTextReport landscapeReport;
+     private final LandscapeReportContributorsTab.Type type;
+     private final TeamsConfig teamsConfig;
+@@ -66,7 +59,7 @@ public class LandscapeReportPeopleTopologyTab {
+ 
+         this.landscapeAnalysisResults = landscapeAnalysisResults;
+ 
+-        populateTimeSlotMaps();
++        charts = new LandscapeContributorsCharts(landscapeReport, landscapeAnalysisResults, contributors, type, teamsConfig, reportsFolder);
+     }
+ 
+     void render30DaysTopology() {
+@@ -220,76 +213,7 @@ public class LandscapeReportPeopleTopologyTab {
+     void addPeopleInfoBlock() {
+         int recentContributorsCount = landscapeAnalysisResults.getRecentContributorsCount(contributors);
+ 
+-        addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), recentContributorsCount == 1 ? type.singular() : type.plural(), "30 days", "");
+-    }
+-
+-    private void addPeopleInfoBlock(String mainValue, String subtitle, String description, String tooltip) {
+-        addPeopleInfoBlockWithColor(mainValue, subtitle, description, tooltip, PEOPLE_COLOR);
+-    }
+-
+-    private void addPeopleInfoBlockWithColor(String mainValue, String subtitle, String description, String tooltip, String color) {
+-        if (StringUtils.isNotBlank(description)) {
+-            subtitle += "<br/><span style='color: #707070; font-size: 80%'>" + description + "</span>";
+-        }
+-        addInfoBlockWithColor(mainValue, subtitle, color, tooltip, isContributorReport() ? "contributors" : "teams");
+-    }
+-
+-    private void addInfoBlockWithColor(String mainValue, String subtitle, String color, String tooltip, String icon) {
+-        String style = "border-radius: 12px;";
+-
+-        style += "margin: 12px 12px 12px 0px;";
+-        style += "display: inline-block; width: 160px; height: 120px;";
+-        style += "background-color: " + color + "; text-align: center; vertical-align: middle; margin-bottom: 36px;";
+-        style += "box-shadow: rgb(0 0 0 / 12%) 0px 1px 3px, rgb(0 0 0 / 24%) 0px 1px 2px;";
+-
+-        landscapeReport.startDiv("display: inline-block; text-align: center", tooltip);
+-        landscapeReport.addContentInDiv(ReportFileExporter.getIconSvg(icon, 48), "margin-top: 18px; margin-bottom: -12px");
+-        landscapeReport.startDiv(style, tooltip);
+-        String specialColor = mainValue.equals("<b>0</b>") ? " color: grey;" : "";
+-        landscapeReport.addHtmlContent("<div style='font-size: 50px; margin-top: 20px;" + specialColor + "'>" + mainValue + "</div>");
+-        landscapeReport.addHtmlContent("<div style='color: #434343; font-size: 15px;" + specialColor + "'>" + subtitle + "</div>");
+-        landscapeReport.endDiv();
+-        landscapeReport.endDiv();
+-    }
+-
+-    private void populateTimeSlotMaps() {
+-        contributors.forEach(contributorRepositories -> {
+-            List<String> commitDates = contributorRepositories.getContributor().getCommitDates();
+-            commitDates.forEach(day -> {
+-                String week = DateUtils.getWeekMonday(day);
+-                String month = DateUtils.getMonth(day);
+-                String year = DateUtils.getYear(day);
+-
+-                updateTimeSlotMap(contributorRepositories, contributorsPerDayMap, rookiesPerDayMap, day, day);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerWeekMap, rookiesPerWeekMap, week, week);
+-                updateTimeSlotMap(contributorRepositories, contributorsPerMonthMap, rookiesPerMonthMap, month, month + "-01");
+-                updateTimeSlotMap(contributorRepositories, contributorsPerYearMap, rookiesPerYearMap, year, year + "-01-01");
+-            });
+-        });
+-
+-    }
+-
+-    private void updateTimeSlotMap(ContributorRepositories contributorRepositories,
+-                                   Map<String, List<String>> map, Map<String, List<String>> rookiesMap, String key, String rookieDate) {
+-        boolean rookie = contributorRepositories.getContributor().isRookieAtDate(rookieDate);
+-
+-        String email = contributorRepositories.getContributor().getEmail();
+-        if (map.containsKey(key)) {
+-            if (!map.get(key).contains(email)) {
+-                map.get(key).add(email);
+-            }
+-        } else {
+-            map.put(key, new ArrayList<>(Arrays.asList(email)));
+-        }
+-        if (rookie) {
+-            if (rookiesMap.containsKey(key)) {
+-                if (!rookiesMap.get(key).contains(email)) {
+-                    rookiesMap.get(key).add(email);
+-                }
+-            } else {
+-                rookiesMap.put(key, new ArrayList<>(Arrays.asList(email)));
+-            }
+-        }
++        charts.addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), recentContributorsCount == 1 ? type.singular() : type.plural(), "30 days", "");
+     }
+ 
+     private void renderPeopleDependencies(List<ComponentDependency> peopleDependencies,
+@@ -703,5 +627,6 @@ public class LandscapeReportPeopleTopologyTab {
+ 
+     public void setLandscapeReport(RichTextReport report) {
+         this.landscapeReport = report;
++        charts.setLandscapeReport(report);
+     }
+ }
+-- 
+2.50.1 (Apple Git-155)
+

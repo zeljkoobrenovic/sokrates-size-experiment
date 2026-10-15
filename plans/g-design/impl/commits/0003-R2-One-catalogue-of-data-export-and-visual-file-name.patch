@@ -1,0 +1,1361 @@
+From 4dd4c7d9fa8658e8f976b822a6de0626d66e20ae Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 19:21:50 +0200
+Subject: [PATCH 03/10] R2: One catalogue of data-export and visual file names
+ (ReportDataFiles)
+
+---
+ .../sokrates/cli/CommandLineInterface.java    |  45 ++--
+ .../sokrates/cli/git/GitHistoryExtractor.java |   3 +-
+ .../reports/core/ReportFileExporter.java      |  75 +++---
+ .../reports/dataexporters/DataExporter.java   | 114 +++++-----
+ .../dataexporters/ReportDataFiles.java        | 214 ++++++++++++++++++
+ .../statichtml/CommitsReportGenerator.java    |  11 +-
+ .../ConditionalComplexityReportGenerator.java |   5 +-
+ .../ContributorsReportGenerator.java          |  13 +-
+ .../DuplicationReportGenerator.java           |   7 +-
+ .../statichtml/FileAgeReportGenerator.java    |  13 +-
+ .../statichtml/FileChurnReportGenerator.java  |  19 +-
+ .../statichtml/FileSizeReportGenerator.java   |  11 +-
+ ...leTemporalDependenciesReportGenerator.java |   5 +-
+ .../statichtml/OverviewReportGenerator.java   |   5 +-
+ .../statichtml/TrendReportGenerator.java      |  15 +-
+ .../statichtml/UnitsSizeReportGenerator.java  |   5 +-
+ 16 files changed, 393 insertions(+), 167 deletions(-)
+ create mode 100644 reports/src/main/java/nl/obren/sokrates/reports/dataexporters/ReportDataFiles.java
+
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index 573cb36..a18b4fe 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -20,6 +20,7 @@ import nl.obren.sokrates.common.utils.*;
+ import nl.obren.sokrates.reports.core.ReportFileExporter;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.dataexporters.DataExporter;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.generators.explorers.FilesExplorerGenerators;
+ import nl.obren.sokrates.reports.generators.statichtml.BasicSourceCodeReportGenerator;
+ import nl.obren.sokrates.reports.landscape.statichtml.LandscapeAnalysisCommands;
+@@ -289,11 +290,11 @@ public class CommandLineInterface {
+                 LOG.info(" -  " + landscapeConfigFile.getPath());
+             });
+             if (landscapeConfigFiles.size() > 0) {
+-                saveExecutionStats(new File(landscapeConfigFiles.get(landscapeConfigFiles.size() - 1).getParentFile(), "data"));
++                saveExecutionStats(new File(landscapeConfigFiles.get(landscapeConfigFiles.size() - 1).getParentFile(), ReportDataFiles.DATA_FOLDER));
+             }
+         } else {
+             File reportsFolder = LandscapeAnalysisCommands.update(root, confFilePath != null ? new File(confFilePath) : null, metadata);
+-            saveExecutionStats(new File(reportsFolder, "data"));
++            saveExecutionStats(new File(reportsFolder, ReportDataFiles.DATA_FOLDER));
+         }
+     }
+ 
+@@ -650,7 +651,7 @@ public class CommandLineInterface {
+             info("Generating the '" + report.getId().toUpperCase() + "' report...");
+             String processingName = "saving report/" + report.getId().toLowerCase() + "";
+             ProcessingStopwatch.start(processingName);
+-            ReportFileExporter.exportHtml(reportsFolder, "html", report, analysisResults.getCodeConfiguration().getAnalysis().getCustomHtmlReportHeaderFragment());
++            ReportFileExporter.exportHtml(reportsFolder, Commands.ARG_HTML_REPORTS_FOLDER_NAME, report, analysisResults.getCodeConfiguration().getAnalysis().getCustomHtmlReportHeaderFragment());
+             ProcessingStopwatch.end(processingName);
+         });
+         ProcessingStopwatch.start("saving report/index");
+@@ -682,7 +683,7 @@ public class CommandLineInterface {
+             try {
+                 String nameSuffix = "components_" + index.toString() + ".html";
+                 String nameSuffixDependencies = "dependencies_" + index.toString() + ".html";
+-                File folder = new File(reportsFolder, "html/visuals");
++                File folder = new File(reportsFolder, Commands.ARG_HTML_REPORTS_FOLDER_NAME + "/" + ReportDataFiles.VISUALS_FOLDER);
+                 folder.mkdirs();
+                 FileUtils.write(new File(folder, "bubble_chart_" + nameSuffix), new VisualizationTemplate().renderBubbleChart(items), UTF_8);
+                 FileUtils.write(new File(folder, "tree_map_" + nameSuffix), new VisualizationTemplate().renderTreeMap(items), UTF_8);
+@@ -696,7 +697,7 @@ public class CommandLineInterface {
+         });
+ 
+         try {
+-            File folder = new File(reportsFolder, "html/visuals");
++            File folder = new File(reportsFolder, Commands.ARG_HTML_REPORTS_FOLDER_NAME + "/" + ReportDataFiles.VISUALS_FOLDER);
+             folder.mkdirs();
+ 
+             List<SourceFile> mainSourceFiles = analysisResults.getMainAspectAnalysisResults().getAspect().getSourceFiles();
+@@ -718,16 +719,16 @@ public class CommandLineInterface {
+             addContributorsZoomableCircles("main", folder, mainSourceFiles, 365);
+             addContributorsZoomableCircles("main", folder, mainSourceFiles, 0);
+ 
+-            addRiskColoredZoomableCircles(folder, mainSourceFiles, "loc", codeConfiguration.getAnalysis().getFileSizeThresholds(), Palette.getRiskPalette(), (sourceFile) -> sourceFile.getLinesOfCode(), (sourceFile) -> sourceFile.getLinesOfCode());
++            addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_LOC, codeConfiguration.getAnalysis().getFileSizeThresholds(), Palette.getRiskPalette(), (sourceFile) -> sourceFile.getLinesOfCode(), (sourceFile) -> sourceFile.getLinesOfCode());
+ 
+-            addRiskColoredZoomableCircles(folder, mainSourceFiles, "age", codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getAgePalette(), (sourceFile) -> sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().daysSinceFirstUpdate() : 0, (sourceFile) -> sourceFile.getLinesOfCode());
+-            addRiskColoredZoomableCircles(folder, mainSourceFiles, "freshness", codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getFreshnessPalette(),
++            addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_AGE, codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getAgePalette(), (sourceFile) -> sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().daysSinceFirstUpdate() : 0, (sourceFile) -> sourceFile.getLinesOfCode());
++            addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_FRESHNESS, codeConfiguration.getAnalysis().getFileAgeThresholds(), Palette.getFreshnessPalette(),
+                     (sourceFile) -> sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().daysSinceLatestUpdate() : 0, (sourceFile) -> sourceFile.getLinesOfCode());
+ 
+-            addRiskColoredZoomableCircles(folder, mainSourceFiles, "update_frequency", codeConfiguration.getAnalysis().getFileUpdateFrequencyThresholds(), Palette.getHeatPalette(),
++            addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_UPDATE_FREQUENCY, codeConfiguration.getAnalysis().getFileUpdateFrequencyThresholds(), Palette.getHeatPalette(),
+                     (sourceFile) -> sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().getDates().size() : 0, (sourceFile) -> sourceFile.getLinesOfCode());
+ 
+-            addRiskColoredZoomableCircles(folder, mainSourceFiles, "contributors_count", codeConfiguration.getAnalysis().getFileContributorsCountThresholds(), Palette.getHeatPalette(),
++            addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_CONTRIBUTORS_COUNT, codeConfiguration.getAnalysis().getFileContributorsCountThresholds(), Palette.getHeatPalette(),
+                     (sourceFile) -> sourceFile.getFileModificationHistory() != null ? sourceFile.getFileModificationHistory().countContributors() : 0, (sourceFile) -> sourceFile.getLinesOfCode());
+ 
+             generate3DUnitsView(folder, analysisResults);
+@@ -739,31 +740,29 @@ public class CommandLineInterface {
+ 
+     private void generateFileStructureExplorers(String nameSuffix, File folder, List<SourceFile> sourceFiles) throws IOException {
+         List<VisualizationItem> items = getZoomableCirclesItems(sourceFiles);
+-        FileUtils.write(new File(folder, "zoomable_circles_" + nameSuffix + ".html"), new VisualizationTemplate().renderZoomableCircles(items), UTF_8);
+-        FileUtils.write(new File(folder, "zoomable_sunburst_" + nameSuffix + ".html"), new VisualizationTemplate().renderZoomableSunburst(items), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableCircles(nameSuffix)), new VisualizationTemplate().renderZoomableCircles(items), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableSunburst(nameSuffix)), new VisualizationTemplate().renderZoomableSunburst(items), UTF_8);
+     }
+ 
+     private void addCommitZoomableCircles(String nameSuffix, File folder, List<SourceFile> sourceFiles, int daysAgo) throws IOException {
+         List<VisualizationItem> commitItems = getZoomableCirclesCommitItems(sourceFiles, daysAgo > 0 ? daysAgo : THOUSAND_YEARS);
+-        String suffix = daysAgo > 0 ? "_" + daysAgo + "_" + nameSuffix : "";
+-        FileUtils.write(new File(folder, "zoomable_circles_commits" + suffix + ".html"), new VisualizationTemplate().renderZoomableCircles(commitItems), UTF_8);
+-        FileUtils.write(new File(folder, "zoomable_sunburst_commits" + suffix + ".html"), new VisualizationTemplate().renderZoomableSunburst(commitItems), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableCirclesCommits(daysAgo, nameSuffix)), new VisualizationTemplate().renderZoomableCircles(commitItems), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableSunburstCommits(daysAgo, nameSuffix)), new VisualizationTemplate().renderZoomableSunburst(commitItems), UTF_8);
+     }
+ 
+     private void addContributorsZoomableCircles(String nameSuffix, File folder, List<SourceFile> sourceFiles, int daysAgo) throws IOException {
+         List<VisualizationItem> commitItems = getZoomableCirclesContributorItems(sourceFiles, daysAgo > 0 ? daysAgo : THOUSAND_YEARS);
+-        String suffix = (daysAgo > 0 ? ("_" + daysAgo) : "") + ("_" + nameSuffix);
+-        FileUtils.write(new File(folder, "zoomable_circles_contributors" + suffix + ".html"), new VisualizationTemplate().renderZoomableCircles(commitItems), UTF_8);
+-        FileUtils.write(new File(folder, "zoomable_sunburst_contributors" + suffix + ".html"), new VisualizationTemplate().renderZoomableSunburst(commitItems), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableCirclesContributors(daysAgo, nameSuffix)), new VisualizationTemplate().renderZoomableCircles(commitItems), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableSunburstContributors(daysAgo, nameSuffix)), new VisualizationTemplate().renderZoomableSunburst(commitItems), UTF_8);
+     }
+ 
+     private void addRiskColoredZoomableCircles(File folder, List<SourceFile> sourceFiles, String type,
+                                                nl.obren.sokrates.sourcecode.threshold.Thresholds thresholds, Palette palette, DirectoryNode.SourceFileValueExtractor colorValueExtractor, DirectoryNode.SourceFileValueExtractor sizeValueExtractor) throws IOException {
+         List<VisualizationItem> items = getZoomableCirclesRiskProfileItems(sourceFiles, thresholds, palette, colorValueExtractor, sizeValueExtractor);
+-        FileUtils.write(new File(folder, "zoomable_circles_main_" + type + "_coloring.html"), new VisualizationTemplate().renderZoomableCircles(items), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableCirclesMainColoring(type)), new VisualizationTemplate().renderZoomableCircles(items), UTF_8);
+ 
+         List<VisualizationItem> itemsByCategory = getZoomableCirclesRiskProfileItemsCategories(sourceFiles, thresholds, palette, colorValueExtractor);
+-        FileUtils.write(new File(folder, "zoomable_circles_main_" + type + "_coloring_categories.html"), new VisualizationTemplate().renderZoomableCircles(itemsByCategory), UTF_8);
++        FileUtils.write(new File(folder, ReportDataFiles.zoomableCirclesMainColoringCategories(type)), new VisualizationTemplate().renderZoomableCircles(itemsByCategory), UTF_8);
+     }
+ 
+     private List<VisualizationItem> getZoomableCirclesItems(List<SourceFile> sourceFiles) {
+@@ -860,11 +859,11 @@ public class CommandLineInterface {
+             files3D.add(new Unit3D(file.getFile().getPath(), file.getLinesOfCode(), color));
+         });
+ 
+-        new X3DomExporter(new File(visualsFolder, "units_3d_complexity.html"), "A 3D View of All Units (Conditional Complexity)", "Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its conditional complexity category.").export(unit3DConditionalComplexity, false, 10);
++        new X3DomExporter(new File(visualsFolder, ReportDataFiles.UNITS_3D_COMPLEXITY_HTML), "A 3D View of All Units (Conditional Complexity)", "Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its conditional complexity category.").export(unit3DConditionalComplexity, false, 10);
+ 
+-        new X3DomExporter(new File(visualsFolder, "units_3d_size.html"), "A 3D View of All Units (Unit Size)", "Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its size category.").export(unit3DSize, false, 10);
++        new X3DomExporter(new File(visualsFolder, ReportDataFiles.UNITS_3D_SIZE_HTML), "A 3D View of All Units (Unit Size)", "Each block is one unit. The height of the block represents the file unit size in lines of code. The color of the unit represents its size category.").export(unit3DSize, false, 10);
+ 
+-        new X3DomExporter(new File(visualsFolder, "files_3d.html"), "A 3D View of All Files", "Each block is one file. The height of the block represents the file relative size in lines of code. The color of the file represents its size category.").export(files3D, false, 50);
++        new X3DomExporter(new File(visualsFolder, ReportDataFiles.FILES_3D_HTML), "A 3D View of All Files", "Each block is one file. The height of the block represents the file relative size in lines of code. The color of the file represents its size category.").export(files3D, false, 50);
+     }
+ 
+     public BasicColorInfo getFileSizeColor(SourceFileSizeDistribution distribution, int linesOfCode) {
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java b/cli/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
+index 5625d35..0d99ebc 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/git/GitHistoryExtractor.java
+@@ -1,5 +1,6 @@
+ package nl.obren.sokrates.cli.git;
+ 
++import nl.obren.sokrates.sourcecode.githistory.GitHistoryUtils;
+ import org.apache.commons.io.FileUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+@@ -33,7 +34,7 @@ public class GitHistoryExtractor {
+ 
+     public void extractGitHistory(File root) {
+         FileRepositoryBuilder builder = new FileRepositoryBuilder();
+-        File gitHistoryFile = new File(root, "git-history.txt");
++        File gitHistoryFile = new File(root, GitHistoryUtils.GIT_HISTORY_FILE_NAME);
+         try {
+             LOG.info("Extracted git history...");
+             FileUtils.writeStringToFile(gitHistoryFile, "", StandardCharsets.UTF_8);
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+index c913c6c..80a2cda 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+@@ -5,6 +5,7 @@
+ package nl.obren.sokrates.reports.core;
+ 
+ import nl.obren.sokrates.common.utils.FormattingUtils;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.generators.statichtml.ContributorsReportUtils;
+ import nl.obren.sokrates.reports.generators.statichtml.HistoryPerLanguageGenerator;
+ import nl.obren.sokrates.reports.utils.DataImageUtils;
+@@ -93,7 +94,7 @@ public class ReportFileExporter {
+ 
+             @Override
+             public File getVisualsExportFolder() {
+-                File visualsFolder = new File(reportsFolder, "visuals");
++                File visualsFolder = new File(reportsFolder, ReportDataFiles.VISUALS_FOLDER);
+                 visualsFolder.mkdirs();
+                 return visualsFolder;
+             }
+@@ -303,7 +304,7 @@ public class ReportFileExporter {
+         String dateOfUpdate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+         String referenceDate = new SimpleDateFormat("yyyy-MM-dd").format(DateUtils.getCalendar().getTime());
+         indexReport.addParagraph("generated by <a target='_blank' href='https://sokrates.dev/'>sokrates.dev</a> " +
+-                        " (<a href='../data/config.json' target='_blank'>configuration</a>)" +
++                        " (<a href='" + ReportDataFiles.dataLink(ReportDataFiles.CONFIG_JSON) + "' target='_blank'>configuration</a>)" +
+                         " on " + dateOfUpdate + (!referenceDate.equals(dateOfUpdate) ? "; reference date: " + referenceDate : ""),
+                 "color: grey; font-size: 80%; margin-left: 10px; margin-bottom: 30px");
+         export(htmlExportFolder, indexReport, "index.html", analysisResults.getCodeConfiguration().getAnalysis().getCustomHtmlReportHeaderFragment());
+@@ -312,11 +313,11 @@ public class ReportFileExporter {
+     private static void addPrompts(RichTextReport report, CodeAnalysisResults analysisResults) {
+         report.addParagraph("Generative AI tools, like ChatGPT or Gemini, can help you explore and discuss various aspects of source code repositories using simple prompts and file uploads. Sokrates provides you with curated data that you can use to analyze your source code further.", "");
+ 
+-        PromptsUtils.addRepositoryPromptSection("git-history-analyzer", report, analysisResults, "Example Prompt 1: Repository Evolution Analyzer (based on git history)", "", Arrays.asList(new Link[]{new Link("git-history.zip", "../data/zips/git-history.zip")}));
++        PromptsUtils.addRepositoryPromptSection("git-history-analyzer", report, analysisResults, "Example Prompt 1: Repository Evolution Analyzer (based on git history)", "", Arrays.asList(new Link[]{new Link(ReportDataFiles.GIT_HISTORY_ZIP, ReportDataFiles.zipLink(ReportDataFiles.GIT_HISTORY_ZIP))}));
+ 
+-        PromptsUtils.addRepositoryPromptSection("path-name-conventions-analyzer", report, analysisResults, "Example Prompt 2: File name conventions", "", Arrays.asList(new Link("files.json", "../data/files.json")));
++        PromptsUtils.addRepositoryPromptSection("path-name-conventions-analyzer", report, analysisResults, "Example Prompt 2: File name conventions", "", Arrays.asList(new Link(ReportDataFiles.FILES_JSON, ReportDataFiles.dataLink(ReportDataFiles.FILES_JSON))));
+ 
+-        PromptsUtils.addRepositoryPromptSection("technology-analyzer", report, analysisResults, "Example Prompt 3: Technology analyzer (based of file paths)", "", Arrays.asList(new Link("files.json", "../data/files.json")));
++        PromptsUtils.addRepositoryPromptSection("technology-analyzer", report, analysisResults, "Example Prompt 3: Technology analyzer (based of file paths)", "", Arrays.asList(new Link(ReportDataFiles.FILES_JSON, ReportDataFiles.dataLink(ReportDataFiles.FILES_JSON))));
+     }
+ 
+     private static void addSummaryActivityTable(ContributorsAnalysisResults contributorsAnalysisResults, RichTextReport indexReport) {
+@@ -394,13 +395,13 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("3D view of file size", "visuals/files_3d.html");
++        report.addNewTabLink("3D view of file size", ReportDataFiles.visualLink(ReportDataFiles.FILES_3D_HTML));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by size category", "visuals/zoomable_circles_main_loc_coloring_categories.html");
++        report.addNewTabLink("files grouped by size category", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_LOC)));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by folder", "visuals/zoomable_circles_main_loc_coloring.html");
++        report.addNewTabLink("files grouped by folder", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_LOC)));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTable();
+@@ -443,10 +444,10 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by age category", "visuals/zoomable_circles_main_age_coloring_categories.html");
++        report.addNewTabLink("files grouped by age category", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_AGE)));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by folder", "visuals/zoomable_circles_main_age_coloring.html");
++        report.addNewTabLink("files grouped by folder", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_AGE)));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTableCell();
+@@ -458,10 +459,10 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by freshness category", "visuals/zoomable_circles_main_freshness_coloring_categories.html");
++        report.addNewTabLink("files grouped by freshness category", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_FRESHNESS)));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by folder", "visuals/zoomable_circles_main_freshness_coloring.html");
++        report.addNewTabLink("files grouped by folder", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_FRESHNESS)));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTableCell();
+@@ -477,10 +478,10 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by change frequency category", "visuals/zoomable_circles_main_update_frequency_coloring_categories.html");
++        report.addNewTabLink("files grouped by change frequency category", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_UPDATE_FREQUENCY)));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by folder", "visuals/zoomable_circles_main_update_frequency_coloring.html");
++        report.addNewTabLink("files grouped by folder", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_UPDATE_FREQUENCY)));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTableCell();
+@@ -496,10 +497,10 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by number of contributors category", "visuals/zoomable_circles_main_contributors_count_coloring_categories.html");
++        report.addNewTabLink("files grouped by number of contributors category", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("files grouped by folder", "visuals/zoomable_circles_main_contributors_count_coloring.html");
++        report.addNewTabLink("files grouped by folder", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTableCell();
+@@ -777,10 +778,10 @@ public class ReportFileExporter {
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("3D view of unit size", "visuals/units_3d_size.html");
++        report.addNewTabLink("3D view of unit size", ReportDataFiles.visualLink(ReportDataFiles.UNITS_3D_SIZE_HTML));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("3D view of unit complexity", "visuals/units_3d_complexity.html");
++        report.addNewTabLink("3D view of unit complexity", ReportDataFiles.visualLink(ReportDataFiles.UNITS_3D_COMPLEXITY_HTML));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTableCell();
+@@ -808,13 +809,13 @@ public class ReportFileExporter {
+         addListsOfFilesInScope(report, "other", other.getFilesCount());
+         report.startListItem();
+         report.addHtmlContent("FILES: ");
+-        report.addNewTabLink("History Data", "../data/text/mainFilesWithHistory.txt");
++        report.addNewTabLink("History Data", ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT));
+         report.endListItem();
+         report.startListItem();
+         report.addHtmlContent("IGNORED FILES: ");
+-        report.addNewTabLink("By Extension", "../data/text/excluded_files_ignored_extensions.txt");
++        report.addNewTabLink("By Extension", ReportDataFiles.textDataLink(ReportDataFiles.EXCLUDED_FILES_IGNORED_EXTENSIONS_TXT));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("By Rule", "../data/text/excluded_files_ignored_rules.txt");
++        report.addNewTabLink("By Rule", ReportDataFiles.textDataLink(ReportDataFiles.EXCLUDED_FILES_IGNORED_RULES_TXT));
+         report.endListItem();
+         report.endUnorderedList();
+ 
+@@ -824,53 +825,53 @@ public class ReportFileExporter {
+ 
+         report.startListItem();
+         report.addHtmlContent("CONFIGURATION: ");
+-        report.addNewTabLink("JSON", "../data/config.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.CONFIG_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("ALL ANALYSIS RESULTS: ");
+-        report.addNewTabLink("JSON", "../data/analysisResults.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.ANALYSIS_RESULTS_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("DUPLICATES: ");
+-        report.addNewTabLink("TXT", "../data/text/duplicates.txt");
++        report.addNewTabLink("TXT", ReportDataFiles.textDataLink(ReportDataFiles.DUPLICATES_TXT));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("JSON", "../data/duplicates.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.DUPLICATES_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("UNITS: ");
+-        report.addNewTabLink("TXT", "../data/text/units.txt");
++        report.addNewTabLink("TXT", ReportDataFiles.textDataLink(ReportDataFiles.UNITS_TXT));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("JSON", "../data/units.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.UNITS_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("CONTRIBUTORS: ");
+-        report.addNewTabLink("TXT", "../data/text/contributors.txt");
++        report.addNewTabLink("TXT", ReportDataFiles.textDataLink(ReportDataFiles.CONTRIBUTORS_TXT));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("JSON", "../data/contributors.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.CONTRIBUTORS_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("LOGICAL DECOMPOSITIONS: ");
+-        report.addNewTabLink("JSON", "../data/logical_decompositions.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.LOGICAL_DECOMPOSITIONS_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("CONCERNS: ");
+-        report.addNewTabLink("JSON", "../data/concerns.json");
++        report.addNewTabLink("JSON", ReportDataFiles.dataLink(ReportDataFiles.CONCERNS_JSON));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("CONTROLS: ");
+-        report.addNewTabLink("TXT", "../data/text/controls.txt");
++        report.addNewTabLink("TXT", ReportDataFiles.textDataLink(ReportDataFiles.CONTROLS_TXT));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("ALL METRICS: ");
+-        report.addNewTabLink("TXT", "../data/text/metrics.txt");
++        report.addNewTabLink("TXT", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TXT));
+         report.endListItem();
+ 
+ 
+@@ -884,12 +885,12 @@ public class ReportFileExporter {
+ 
+         report.startListItem();
+         report.addHtmlContent("GIT HISTORY: ");
+-        report.addNewTabLink("ZIP", "../data/zips/git-history.zip");
++        report.addNewTabLink("ZIP", ReportDataFiles.zipLink(ReportDataFiles.GIT_HISTORY_ZIP));
+         report.endListItem();
+ 
+         report.startListItem();
+         report.addHtmlContent("ALL FILES IN ALL ANALYSIS SCOPES: ");
+-        report.addNewTabLink("ZIP", "../data/zips/all_files.zip");
++        report.addNewTabLink("ZIP", ReportDataFiles.zipLink(ReportDataFiles.ALL_FILES_ZIP));
+         report.endListItem();
+ 
+ 
+@@ -920,14 +921,14 @@ public class ReportFileExporter {
+         report.addTableCell(scopeName.toUpperCase() + " (" + filesCount + ")", "");
+         report.startTableCell();
+         if (exists) {
+-            report.addNewTabLink("Circles", "visuals/zoomable_circles_" + technicalName.replace("_and_deployment", "") + ".html");
++            report.addNewTabLink("Circles", ReportDataFiles.visualLink(ReportDataFiles.zoomableCircles(technicalName.replace("_and_deployment", ""))));
+         } else {
+             report.addContentInDiv("Circles", "color: #c0c0c0");
+         }
+         report.endTableCell();
+         report.startTableCell();
+         if (exists) {
+-            report.addNewTabLink("Sunburst", "visuals/zoomable_sunburst_" + technicalName.replace("_and_deployment", "") + ".html");
++            report.addNewTabLink("Sunburst", ReportDataFiles.visualLink(ReportDataFiles.zoomableSunburst(technicalName.replace("_and_deployment", ""))));
+         } else {
+             report.addContentInDiv("Sunburst", "color: #c0c0c0");
+         }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 582ad72..e24b83f 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -65,14 +65,14 @@ import static java.nio.charset.StandardCharsets.UTF_8;
+  * <p>
+  * Synonyms not used in the code: export, data files, raw data, JSON/CSV/text dumps, analysis results files.
+  * <p>
+- * The file names are string literals here; the same names are read or linked elsewhere (the landscape
+- * analysis in codeanalyzer, {@code ReportFileExporter}, {@code SummaryUtils}), so search for the file name
+- * to find both producer and consumer before renaming one.
++ * The file names are constants in {@link ReportDataFiles}, which the report pages ({@code ReportFileExporter},
++ * the page generators) use to link to them; search for the constant to find producer and consumers.
++ * The landscape analysis in codeanalyzer still reads some of these names as literals.
+  */
+ public class DataExporter {
+     public static final String INTERACTIVE_HTML_FOLDER_NAME = "explorers";
+     public static final String SRC_CACHE_FOLDER_NAME = "src";
+-    public static final String DATA_FOLDER_NAME = "data";
++    public static final String DATA_FOLDER_NAME = ReportDataFiles.DATA_FOLDER;
+     public static final String HISTORY_FOLDER_NAME = "history";
+     public static final String SEPARATOR = "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
+     public static final String FOUND_TEXT_PER_FILE_SUFFIX = "_found_text_per_file";
+@@ -141,13 +141,13 @@ public class DataExporter {
+         MetricsTrendExporter exporter = new MetricsTrendExporter(sokratesConfigFile, analysisResults);
+ 
+         try {
+-            FileUtils.write(new File(textDataFolder, "metrics_trend.txt"), exporter.getText(), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_loc_per_extension.txt"), exporter.getText("LINES_OF_CODE_MAIN_.*"), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_loc_duplication.txt"), exporter.getText("(DUPLICATION_NUMBER_OF_CLEANED_LINES|DUPLICATION_NUMBER_OF_DUPLICATED_LINES)"), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_unit_size_loc.txt"), exporter.getText("UNIT_SIZE_DISTRIBUTION_.*_LOC"), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_conditional_complexity_loc.txt"), exporter.getText("CONDITIONAL_COMPLEXITY_.*_LOC"), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_loc_logical_decompositions.txt"), exporter.getText("LINES_OF_CODE_DECOMPOSITION_.*", ".*_EXT_.*"), UTF_8);
+-            FileUtils.write(new File(textDataFolder, "metrics_trend_loc_file_size.txt"), exporter.getText("FILE_SIZE_.*", ".*_EXT_.*"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_TXT), exporter.getText(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_LOC_PER_EXTENSION_TXT), exporter.getText("LINES_OF_CODE_MAIN_.*"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_LOC_DUPLICATION_TXT), exporter.getText("(DUPLICATION_NUMBER_OF_CLEANED_LINES|DUPLICATION_NUMBER_OF_DUPLICATED_LINES)"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_UNIT_SIZE_LOC_TXT), exporter.getText("UNIT_SIZE_DISTRIBUTION_.*_LOC"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_CONDITIONAL_COMPLEXITY_LOC_TXT), exporter.getText("CONDITIONAL_COMPLEXITY_.*_LOC"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_LOC_LOGICAL_DECOMPOSITIONS_TXT), exporter.getText("LINES_OF_CODE_DECOMPOSITION_.*", ".*_EXT_.*"), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TREND_LOC_FILE_SIZE_TXT), exporter.getText("FILE_SIZE_.*", ".*_EXT_.*"), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -163,7 +163,7 @@ public class DataExporter {
+             content.append("\n");
+         });
+         try {
+-            FileUtils.write(new File(textDataFolder, "metrics.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.METRICS_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -184,7 +184,7 @@ public class DataExporter {
+             });
+         });
+         try {
+-            FileUtils.write(new File(textDataFolder, "controls.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.CONTROLS_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -212,15 +212,15 @@ public class DataExporter {
+             content.append(FormattingUtils.getFormattedPercentage(percentage) + "%\n");
+         });
+         try {
+-            FileUtils.write(new File(textDataFolder, "contributors.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.CONTRIBUTORS_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+     }
+ 
+     private void exportDuplicates() {
+-        exportDuplicates(analysisResults.getDuplicationAnalysisResults().getAllDuplicates(), "duplicates");
+-        exportDuplicates(analysisResults.getDuplicationAnalysisResults().getUnitDuplicates(), "unit_duplicates");
++        exportDuplicates(analysisResults.getDuplicationAnalysisResults().getAllDuplicates(), ReportDataFiles.DUPLICATES_TXT);
++        exportDuplicates(analysisResults.getDuplicationAnalysisResults().getUnitDuplicates(), ReportDataFiles.UNIT_DUPLICATES_TXT);
+     }
+ 
+     private void exportDuplicates(List<DuplicationInstance> instances, final String fileName) {
+@@ -247,7 +247,7 @@ public class DataExporter {
+             id[0]++;
+         });
+         try {
+-            FileUtils.write(new File(textDataFolder, fileName + ".txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, fileName), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -271,7 +271,7 @@ public class DataExporter {
+             id[0]++;
+         });
+         try {
+-            FileUtils.write(new File(textDataFolder, "units.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.UNITS_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -289,14 +289,14 @@ public class DataExporter {
+     private void saveTemporalDependencies(CodeAnalysisResults analysisResults) {
+         List<FilePairChangedTogether> filePairsChangedTogether = analysisResults.getFilesHistoryAnalysisResults().getFilePairsChangedTogether();
+         exportFilesChangedTogether(filePairsChangedTogether,
+-                "temporal_dependencies.txt");
++                ReportDataFiles.TEMPORAL_DEPENDENCIES_TXT);
+         exportFilesChangedTogether(analysisResults.getFilesHistoryAnalysisResults().getFilePairsChangedTogetherInDifferentFolders(filePairsChangedTogether),
+-                "temporal_dependencies_different_folders.txt");
++                ReportDataFiles.TEMPORAL_DEPENDENCIES_DIFFERENT_FOLDERS_TXT);
+         List<FilePairChangedTogether> filePairsChangedTogether30Days = analysisResults.getFilesHistoryAnalysisResults().getFilePairsChangedTogether30Days();
+         exportFilesChangedTogether(filePairsChangedTogether30Days,
+-                "temporal_dependencies_30_days.txt");
++                ReportDataFiles.TEMPORAL_DEPENDENCIES_30_DAYS_TXT);
+         exportFilesChangedTogether(analysisResults.getFilesHistoryAnalysisResults().getFilePairsChangedTogetherInDifferentFolders(filePairsChangedTogether30Days),
+-                "temporal_dependencies_different_folders_30_days.txt");
++                ReportDataFiles.TEMPORAL_DEPENDENCIES_DIFFERENT_FOLDERS_30_DAYS_TXT);
+     }
+ 
+     private void exportFilesChangedTogether(List<FilePairChangedTogether> filePairsChangedTogether, String fileName) {
+@@ -379,7 +379,7 @@ public class DataExporter {
+         });
+ 
+         try {
+-            FileUtils.write(new File(textDataFolder, "excluded_files_ignored_extensions.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.EXCLUDED_FILES_IGNORED_EXTENSIONS_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -459,7 +459,7 @@ public class DataExporter {
+         });
+ 
+         try {
+-            FileUtils.write(new File(textDataFolder, "excluded_files_ignored_rules.txt"), content.toString(), UTF_8);
++            FileUtils.write(new File(textDataFolder, ReportDataFiles.EXCLUDED_FILES_IGNORED_RULES_TXT), content.toString(), UTF_8);
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+@@ -597,69 +597,69 @@ public class DataExporter {
+ 
+     private void exportJson() throws IOException {
+         String analysisResultsJson = new JsonGenerator().generate(analysisResults);
+-        FileUtils.write(new File(dataFolder, "analysisResults.json"), analysisResultsJson, UTF_8);
++        FileUtils.write(new File(dataFolder, ReportDataFiles.ANALYSIS_RESULTS_JSON), analysisResultsJson, UTF_8);
+ 
+         String configJson = FileUtils.readFileToString(sokratesConfigFile, UTF_8);
+-        FileUtils.write(new File(dataFolder, "config.json"), configJson, UTF_8);
++        FileUtils.write(new File(dataFolder, ReportDataFiles.CONFIG_JSON), configJson, UTF_8);
+ 
+         if (codeConfiguration.getTrendAnalysis().isSaveHistory()) {
+-            ZipUtils.stringToZipFile(new File(getTodayHistoryFolder(), "analysisResults.zip"),
+-                    new String[][]{{"config.json", configJson},
+-                            {"analysisResults.json", analysisResultsJson}});
+-            ZipUtils.stringToZipFile(new File(getLatestHistoryFolder(), "analysisResults.zip"),
+-                    new String[][]{{"config.json", configJson},
+-                            {"analysisResults.json", analysisResultsJson}});
++            ZipUtils.stringToZipFile(new File(getTodayHistoryFolder(), ReportDataFiles.ANALYSIS_RESULTS_ZIP),
++                    new String[][]{{ReportDataFiles.CONFIG_JSON, configJson},
++                            {ReportDataFiles.ANALYSIS_RESULTS_JSON, analysisResultsJson}});
++            ZipUtils.stringToZipFile(new File(getLatestHistoryFolder(), ReportDataFiles.ANALYSIS_RESULTS_ZIP),
++                    new String[][]{{ReportDataFiles.CONFIG_JSON, configJson},
++                            {ReportDataFiles.ANALYSIS_RESULTS_JSON, analysisResultsJson}});
+         }
+ 
+         List<SourceFile> mainSourceFiles = analysisResults.getMainAspectAnalysisResults().getAspect().getSourceFiles();
+-        FileUtils.write(new File(dataFolder, "mainFiles.json"), new JsonGenerator().generate(mainSourceFiles), UTF_8);
++        FileUtils.write(new File(dataFolder, ReportDataFiles.MAIN_FILES_JSON), new JsonGenerator().generate(mainSourceFiles), UTF_8);
+ 
+         if (codeConfiguration.getFileHistoryAnalysis().filesHistoryImportPathExists(sokratesConfigFile.getParentFile())) {
+             saveExtraAnalysesConfig();
+         }
+ 
+-        FileUtils.write(new File(textDataFolder, "mainFiles.txt"), getFilesAsTxt(mainSourceFiles), UTF_8);
+-        FileUtils.write(new File(textDataFolder, "mainFilesWithHistory.txt"), getFilesWithHistoryAsTxt(mainSourceFiles), UTF_8);
+-        FileUtils.write(new File(textDataFolder, "mainFilesWithoutHistory.txt"), getFilesWithoutHistoryAsTxt(mainSourceFiles), UTF_8);
++        FileUtils.write(new File(textDataFolder, ReportDataFiles.MAIN_FILES_TXT), getFilesAsTxt(mainSourceFiles), UTF_8);
++        FileUtils.write(new File(textDataFolder, ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT), getFilesWithHistoryAsTxt(mainSourceFiles), UTF_8);
++        FileUtils.write(new File(textDataFolder, ReportDataFiles.MAIN_FILES_WITHOUT_HISTORY_TXT), getFilesWithoutHistoryAsTxt(mainSourceFiles), UTF_8);
+         try {
+             List<SourceFile> testSourceFile = analysisResults.getTestAspectAnalysisResults().getAspect().getSourceFiles();
+             List<SourceFile> generatedSourceFiles = analysisResults.getGeneratedAspectAnalysisResults().getAspect().getSourceFiles();
+             List<SourceFile> buildAndDeploymentSourceFiles = analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect().getSourceFiles();
+             List<SourceFile> otherSourceFiles = analysisResults.getOtherAspectAnalysisResults().getAspect().getSourceFiles();
+ 
+-            FileUtils.write(new File(dataFolder, "testFiles.json"), new JsonGenerator().generate(testSourceFile), UTF_8);
+-            FileUtils.write(new File(dataFolder, "generatedFiles.json"), new JsonGenerator().generate(generatedSourceFiles), UTF_8);
+-            FileUtils.write(new File(dataFolder, "buildAndDeploymentFiles.json"), new JsonGenerator().generate(buildAndDeploymentSourceFiles), UTF_8);
+-            FileUtils.write(new File(dataFolder, "otherFiles.json"), new JsonGenerator().generate(otherSourceFiles), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.TEST_FILES_JSON), new JsonGenerator().generate(testSourceFile), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.GENERATED_FILES_JSON), new JsonGenerator().generate(generatedSourceFiles), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.BUILD_AND_DEPLOYMENT_FILES_JSON), new JsonGenerator().generate(buildAndDeploymentSourceFiles), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.OTHER_FILES_JSON), new JsonGenerator().generate(otherSourceFiles), UTF_8);
+ 
+-            FileUtils.write(new File(dataFolder, "units.json"), new JsonGenerator().generate(new UnitListExporter(analysisResults.getUnitsAnalysisResults().getAllUnits()).getAllUnitsData()), UTF_8);
+-            FileUtils.write(new File(dataFolder, "files.json"), new FileListExporter(analysisResults.getFilesAnalysisResults().getAllFiles()).getJson(), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.UNITS_JSON), new JsonGenerator().generate(new UnitListExporter(analysisResults.getUnitsAnalysisResults().getAllUnits()).getAllUnitsData()), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.FILES_JSON), new FileListExporter(analysisResults.getFilesAnalysisResults().getAllFiles()).getJson(), UTF_8);
+             List<DuplicationInstance> allDuplicates = analysisResults.getDuplicationAnalysisResults().getAllDuplicates();
+             Collections.sort(allDuplicates, (a, b) -> b.getBlockSize() - a.getBlockSize());
+             allDuplicates = allDuplicates.stream().limit(10000).collect(Collectors.toList());
+-            FileUtils.write(new File(dataFolder, "duplicates.json"), new JsonGenerator().generate(new DuplicationExporter(
++            FileUtils.write(new File(dataFolder, ReportDataFiles.DUPLICATES_JSON), new JsonGenerator().generate(new DuplicationExporter(
+                     allDuplicates).getDuplicationExportInfo()), UTF_8);
+-            FileUtils.write(new File(dataFolder, "logical_decompositions.json"), new JsonGenerator().generate(
++            FileUtils.write(new File(dataFolder, ReportDataFiles.LOGICAL_DECOMPOSITIONS_JSON), new JsonGenerator().generate(
+                     analysisResults.getLogicalDecompositionsAnalysisResults()), UTF_8);
+-            FileUtils.write(new File(dataFolder, "dependencies.json"), new JsonGenerator().generate(
++            FileUtils.write(new File(dataFolder, ReportDataFiles.DEPENDENCIES_JSON), new JsonGenerator().generate(
+                     new DependenciesExporter(analysisResults.getAllDependencies()).getDependenciesExportInfo()), UTF_8);
+-            FileUtils.write(new File(dataFolder, "contributors.json"), new JsonGenerator().generate(analysisResults.getContributorsAnalysisResults().getContributors()), UTF_8);
+-            FileUtils.write(new File(dataFolder, "concerns.json"), new JsonGenerator().generate(analysisResults.getConcernsAnalysisResults()), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.CONTRIBUTORS_JSON), new JsonGenerator().generate(analysisResults.getContributorsAnalysisResults().getContributors()), UTF_8);
++            FileUtils.write(new File(dataFolder, ReportDataFiles.CONCERNS_JSON), new JsonGenerator().generate(analysisResults.getConcernsAnalysisResults()), UTF_8);
+ 
+-            File zipFolder = new File(dataFolder, "zips");
++            File zipFolder = new File(dataFolder, ReportDataFiles.ZIPS_FOLDER);
+             zipFolder.mkdirs();
+ 
+-            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
++            ZipUtils.stringToZipFile(new File(zipFolder, ReportDataFiles.ALL_FILES_ZIP), new String[][]{
+                     {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+                     {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+                     {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+                     {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+                     {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
+             });
+-            File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
++            File gitHistoryFile = new File(reportsFolder, "../../" + GitHistoryUtils.GIT_HISTORY_FILE_NAME);
+             if (gitHistoryFile.exists()) {
+                 String gitHistoryContent = FileUtils.readFileToString(gitHistoryFile, UTF_8);
+-                ZipUtils.stringToZipFile(new File(zipFolder, "git-history.zip"), "git-history.txt", gitHistoryContent);
++                ZipUtils.stringToZipFile(new File(zipFolder, ReportDataFiles.GIT_HISTORY_ZIP), GitHistoryUtils.GIT_HISTORY_FILE_NAME, gitHistoryContent);
+             }
+         } catch (Throwable t) {
+             t.printStackTrace();
+@@ -667,13 +667,13 @@ public class DataExporter {
+     }
+ 
+     public File getTextDataFolder() {
+-        File textDataFolder = new File(dataFolder, "text");
++        File textDataFolder = new File(dataFolder, ReportDataFiles.TEXT_FOLDER);
+         textDataFolder.mkdirs();
+         return textDataFolder;
+     }
+ 
+     public File getExtraAnalysisDataFolder() {
+-        File extraAnalysisDataFolder = new File(dataFolder, "extra_analysis");
++        File extraAnalysisDataFolder = new File(dataFolder, ReportDataFiles.EXTRA_ANALYSIS_FOLDER);
+         extraAnalysisDataFolder.mkdirs();
+         return extraAnalysisDataFolder;
+     }
+@@ -682,7 +682,7 @@ public class DataExporter {
+         try {
+             String jsonContent = FileUtils.readFileToString(sokratesConfigFile, UTF_8);
+ 
+-            FileUtils.write(new File(extraAnalysisDataFolder, "config_original.json"), new JsonGenerator().generate(codeConfiguration), UTF_8);
++            FileUtils.write(new File(extraAnalysisDataFolder, ReportDataFiles.CONFIG_ORIGINAL_JSON), new JsonGenerator().generate(codeConfiguration), UTF_8);
+ 
+             saveConfigByFileChangeFrequency(jsonContent);
+             saveConfigByFileAge(jsonContent);
+@@ -698,7 +698,7 @@ public class DataExporter {
+ 
+         codeConfiguration.getFileHistoryAnalysis().setImportPath("");
+ 
+-        FileUtils.write(new File(extraAnalysisDataFolder, "config_by_file_change_frequency.json"), new JsonGenerator().generate(codeConfiguration), UTF_8);
++        FileUtils.write(new File(extraAnalysisDataFolder, ReportDataFiles.CONFIG_BY_FILE_CHANGE_FREQUENCY_JSON), new JsonGenerator().generate(codeConfiguration), UTF_8);
+     }
+ 
+     private void saveConfigByFileAge(String jsonContent) throws IOException {
+@@ -707,7 +707,7 @@ public class DataExporter {
+ 
+         codeConfiguration.getFileHistoryAnalysis().setImportPath("");
+ 
+-        FileUtils.write(new File(extraAnalysisDataFolder, "config_by_file_age.json"), new JsonGenerator().generate(codeConfiguration), UTF_8);
++        FileUtils.write(new File(extraAnalysisDataFolder, ReportDataFiles.CONFIG_BY_FILE_AGE_JSON), new JsonGenerator().generate(codeConfiguration), UTF_8);
+     }
+ 
+     private void saveConfigByFileFreshness(String jsonContent) throws IOException {
+@@ -716,7 +716,7 @@ public class DataExporter {
+ 
+         codeConfiguration.getFileHistoryAnalysis().setImportPath("");
+ 
+-        FileUtils.write(new File(extraAnalysisDataFolder, "config_by_file_freshness.json"), new JsonGenerator().generate(codeConfiguration), UTF_8);
++        FileUtils.write(new File(extraAnalysisDataFolder, ReportDataFiles.CONFIG_BY_FILE_FRESHNESS_JSON), new JsonGenerator().generate(codeConfiguration), UTF_8);
+     }
+ 
+     private String getFilesAsTxt(List<SourceFile> sourceFiles) {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/ReportDataFiles.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/ReportDataFiles.java
+new file mode 100644
+index 0000000..96fafd5
+--- /dev/null
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/ReportDataFiles.java
+@@ -0,0 +1,214 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.reports.dataexporters;
++
++/**
++ * The names of the data-export files and of the visual (explorer) files of a repository report, in one place.
++ * <p>
++ * Each name is used on two sides: the producer that writes the file ({@link DataExporter} for the data files,
++ * {@code CommandLineInterface} for the visuals) and the report pages that link to it ({@code ReportFileExporter}
++ * and the page generators). Use these constants and builders on both sides, so that a search for the file name
++ * finds the producer and all consumers, and a rename cannot leave a dead link.
++ * <p>
++ * Folder layout under the reports folder: {@code data/} (JSON), {@code data/text/} (text dumps),
++ * {@code data/zips/}, {@code data/extra_analysis/}, {@code history/} and {@code html/visuals/}. The report pages
++ * live in {@code html/}, so they link to data files with {@code ../data/...} and to visuals with {@code visuals/...}.
++ * <p>
++ * Also named elsewhere, without these constants: {@code templates/Structure.html} (static HTML) and
++ * {@code LandscapeAnalyzer} in codeanalyzer (reads {@code excluded_files_ignored_*.txt}; that module cannot see
++ * this class).
++ */
++public final class ReportDataFiles {
++    // folders
++    /** The data folder under the reports folder (same value as {@link DataExporter#DATA_FOLDER_NAME}). */
++    public static final String DATA_FOLDER = "data";
++    /** {@code data/text}: text dumps. */
++    public static final String TEXT_FOLDER = "text";
++    /** {@code data/zips}: zipped exports. */
++    public static final String ZIPS_FOLDER = "zips";
++    /** {@code data/extra_analysis}: derived configuration files. */
++    public static final String EXTRA_ANALYSIS_FOLDER = "extra_analysis";
++    /** {@code html/visuals}: interactive visuals (zoomable circles, 3D views, graphs). */
++    public static final String VISUALS_FOLDER = "visuals";
++
++    // data/text
++    /** Metric id and value per line. */
++    public static final String METRICS_TXT = "metrics.txt";
++    /** Control (goal) statuses. */
++    public static final String CONTROLS_TXT = "controls.txt";
++    /** Contributors with commit counts (all time, 30/90/180/365 days). */
++    public static final String CONTRIBUTORS_TXT = "contributors.txt";
++    /** All duplicated blocks. */
++    public static final String DUPLICATES_TXT = "duplicates.txt";
++    /** Duplicated units. */
++    public static final String UNIT_DUPLICATES_TXT = "unit_duplicates.txt";
++    /** All units (size, McCabe index, parameters). */
++    public static final String UNITS_TXT = "units.txt";
++    /** Main files with lines of code. */
++    public static final String MAIN_FILES_TXT = "mainFiles.txt";
++    /** Main files with their git history (age, change frequency, contributors). */
++    public static final String MAIN_FILES_WITH_HISTORY_TXT = "mainFilesWithHistory.txt";
++    /** Main files that have no git history. */
++    public static final String MAIN_FILES_WITHOUT_HISTORY_TXT = "mainFilesWithoutHistory.txt";
++    /** Files excluded because of their extension. */
++    public static final String EXCLUDED_FILES_IGNORED_EXTENSIONS_TXT = "excluded_files_ignored_extensions.txt";
++    /** Files excluded by the ignore rules. */
++    public static final String EXCLUDED_FILES_IGNORED_RULES_TXT = "excluded_files_ignored_rules.txt";
++    /** Temporal dependencies (files changed together), all time. */
++    public static final String TEMPORAL_DEPENDENCIES_TXT = "temporal_dependencies.txt";
++    /** Temporal dependencies between files in different folders, all time. */
++    public static final String TEMPORAL_DEPENDENCIES_DIFFERENT_FOLDERS_TXT = "temporal_dependencies_different_folders.txt";
++    /** Temporal dependencies, past 30 days. */
++    public static final String TEMPORAL_DEPENDENCIES_30_DAYS_TXT = "temporal_dependencies_30_days.txt";
++    /** Temporal dependencies between files in different folders, past 30 days. */
++    public static final String TEMPORAL_DEPENDENCIES_DIFFERENT_FOLDERS_30_DAYS_TXT = "temporal_dependencies_different_folders_30_days.txt";
++    /** Trend of all metrics. */
++    public static final String METRICS_TREND_TXT = "metrics_trend.txt";
++    /** Trend of lines of code per extension. */
++    public static final String METRICS_TREND_LOC_PER_EXTENSION_TXT = "metrics_trend_loc_per_extension.txt";
++    /** Trend of duplicated lines. */
++    public static final String METRICS_TREND_LOC_DUPLICATION_TXT = "metrics_trend_loc_duplication.txt";
++    /** Trend of lines of code per unit size category. */
++    public static final String METRICS_TREND_UNIT_SIZE_LOC_TXT = "metrics_trend_unit_size_loc.txt";
++    /** Trend of lines of code per conditional complexity category. */
++    public static final String METRICS_TREND_CONDITIONAL_COMPLEXITY_LOC_TXT = "metrics_trend_conditional_complexity_loc.txt";
++    /** Trend of lines of code per logical component. */
++    public static final String METRICS_TREND_LOC_LOGICAL_DECOMPOSITIONS_TXT = "metrics_trend_loc_logical_decompositions.txt";
++    /** Trend of lines of code per file size category. */
++    public static final String METRICS_TREND_LOC_FILE_SIZE_TXT = "metrics_trend_loc_file_size.txt";
++
++    // data
++    /** The full analysis results (also inside the history zip). */
++    public static final String ANALYSIS_RESULTS_JSON = "analysisResults.json";
++    /** A copy of the Sokrates configuration (also inside the history zip). */
++    public static final String CONFIG_JSON = "config.json";
++    public static final String MAIN_FILES_JSON = "mainFiles.json";
++    public static final String TEST_FILES_JSON = "testFiles.json";
++    public static final String GENERATED_FILES_JSON = "generatedFiles.json";
++    public static final String BUILD_AND_DEPLOYMENT_FILES_JSON = "buildAndDeploymentFiles.json";
++    public static final String OTHER_FILES_JSON = "otherFiles.json";
++    public static final String UNITS_JSON = "units.json";
++    /** All files (paths and sizes), used by the prompt sections. */
++    public static final String FILES_JSON = "files.json";
++    public static final String DUPLICATES_JSON = "duplicates.json";
++    public static final String LOGICAL_DECOMPOSITIONS_JSON = "logical_decompositions.json";
++    public static final String DEPENDENCIES_JSON = "dependencies.json";
++    public static final String CONTRIBUTORS_JSON = "contributors.json";
++    public static final String CONCERNS_JSON = "concerns.json";
++
++    // history
++    /** The analysis snapshot ({@link #CONFIG_JSON} and {@link #ANALYSIS_RESULTS_JSON}) in the history folders. */
++    public static final String ANALYSIS_RESULTS_ZIP = "analysisResults.zip";
++
++    // data/zips
++    /** The zipped {@code aspect_*.txt} file lists. */
++    public static final String ALL_FILES_ZIP = "all_files.zip";
++    /** The zipped {@code git-history.txt}. */
++    public static final String GIT_HISTORY_ZIP = "git-history.zip";
++
++    // data/extra_analysis
++    public static final String CONFIG_ORIGINAL_JSON = "config_original.json";
++    public static final String CONFIG_BY_FILE_CHANGE_FREQUENCY_JSON = "config_by_file_change_frequency.json";
++    public static final String CONFIG_BY_FILE_AGE_JSON = "config_by_file_age.json";
++    public static final String CONFIG_BY_FILE_FRESHNESS_JSON = "config_by_file_freshness.json";
++
++    // html/visuals
++    /** 3D view of all main files, colored by size. */
++    public static final String FILES_3D_HTML = "files_3d.html";
++    /** 3D view of all units, colored by size. */
++    public static final String UNITS_3D_SIZE_HTML = "units_3d_size.html";
++    /** 3D view of all units, colored by conditional complexity. */
++    public static final String UNITS_3D_COMPLEXITY_HTML = "units_3d_complexity.html";
++
++    // coloring types of the zoomable circles of main files, see zoomableCirclesMainColoring(...)
++    /** File size. */
++    public static final String COLORING_LOC = "loc";
++    /** File age (days since first update). */
++    public static final String COLORING_AGE = "age";
++    /** File freshness (days since last update). */
++    public static final String COLORING_FRESHNESS = "freshness";
++    /** File change frequency (churn). */
++    public static final String COLORING_UPDATE_FREQUENCY = "update_frequency";
++    /** Number of contributors per file. */
++    public static final String COLORING_CONTRIBUTORS_COUNT = "contributors_count";
++
++    private ReportDataFiles() {
++    }
++
++    /** Link from a report page in {@code html/} to a file in {@code data/}. */
++    public static String dataLink(String fileName) {
++        return "../" + DATA_FOLDER + "/" + fileName;
++    }
++
++    /** Link from a report page in {@code html/} to a file in {@code data/text/}. */
++    public static String textDataLink(String fileName) {
++        return dataLink(TEXT_FOLDER + "/" + fileName);
++    }
++
++    /** Link from a report page in {@code html/} to a file in {@code data/zips/}. */
++    public static String zipLink(String fileName) {
++        return dataLink(ZIPS_FOLDER + "/" + fileName);
++    }
++
++    /** Link from a report page in {@code html/} to a file in {@code html/visuals/}. */
++    public static String visualLink(String fileName) {
++        return VISUALS_FOLDER + "/" + fileName;
++    }
++
++    /** {@code zoomable_circles_<nameSuffix>.html}, e.g. per scope ({@code main}, {@code test}, ...). */
++    public static String zoomableCircles(String nameSuffix) {
++        return "zoomable_circles_" + nameSuffix + ".html";
++    }
++
++    /** {@code zoomable_sunburst_<nameSuffix>.html}, e.g. per scope ({@code main}, {@code test}, ...). */
++    public static String zoomableSunburst(String nameSuffix) {
++        return "zoomable_sunburst_" + nameSuffix + ".html";
++    }
++
++    /** {@code zoomable_circles_main_<type>_coloring.html}: main files grouped by folder, colored by {@code type}. */
++    public static String zoomableCirclesMainColoring(String type) {
++        return "zoomable_circles_main_" + type + "_coloring.html";
++    }
++
++    /** {@code zoomable_circles_main_<type>_coloring_categories.html}: main files grouped by the {@code type} category. */
++    public static String zoomableCirclesMainColoringCategories(String type) {
++        return "zoomable_circles_main_" + type + "_coloring_categories.html";
++    }
++
++    /**
++     * {@code zoomable_circles_commits_<daysAgo>_<nameSuffix>.html}, or {@code zoomable_circles_commits.html}
++     * when {@code daysAgo} is 0 (all time).
++     */
++    public static String zoomableCirclesCommits(int daysAgo, String nameSuffix) {
++        return zoomableCircles("commits" + commitsSuffix(daysAgo, nameSuffix));
++    }
++
++    /** The sunburst counterpart of {@link #zoomableCirclesCommits(int, String)}. */
++    public static String zoomableSunburstCommits(int daysAgo, String nameSuffix) {
++        return zoomableSunburst("commits" + commitsSuffix(daysAgo, nameSuffix));
++    }
++
++    /**
++     * {@code zoomable_circles_contributors_<daysAgo>_<nameSuffix>.html}, or
++     * {@code zoomable_circles_contributors_<nameSuffix>.html} when {@code daysAgo} is 0 (all time).
++     */
++    public static String zoomableCirclesContributors(int daysAgo, String nameSuffix) {
++        return zoomableCircles("contributors" + contributorsSuffix(daysAgo, nameSuffix));
++    }
++
++    /** The sunburst counterpart of {@link #zoomableCirclesContributors(int, String)}. */
++    public static String zoomableSunburstContributors(int daysAgo, String nameSuffix) {
++        return zoomableSunburst("contributors" + contributorsSuffix(daysAgo, nameSuffix));
++    }
++
++    // note: the all-time commits file has no name suffix, while the all-time contributors file keeps it
++    private static String commitsSuffix(int daysAgo, String nameSuffix) {
++        return daysAgo > 0 ? "_" + daysAgo + "_" + nameSuffix : "";
++    }
++
++    private static String contributorsSuffix(int daysAgo, String nameSuffix) {
++        return (daysAgo > 0 ? ("_" + daysAgo) : "") + ("_" + nameSuffix);
++    }
++}
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
+index 05fac54..51280f8 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
+@@ -6,6 +6,7 @@ package nl.obren.sokrates.reports.generators.statichtml;
+ 
+ import nl.obren.sokrates.reports.core.ReportConstants;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
+@@ -96,13 +97,13 @@ public class CommitsReportGenerator {
+     private void addZoomableCircleLinks(RichTextReport report) {
+         report.startDiv("");
+         report.addHtmlContent("Zoomable circles (commit counts per file): ");
+-        report.addNewTabLink("30 days", "visuals/zoomable_circles_commits_30_main.html");
++        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(30, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("90 days", "visuals/zoomable_circles_commits_90_main.html");
++        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(90, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("6 months", "visuals/zoomable_circles_commits_180_main.html");
++        report.addNewTabLink("6 months", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(180, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("past year", "visuals/zoomable_circles_commits_365_main.html");
++        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(365, "main")));
+ //        report.addHtmlContent(" | ");
+ //        report.addNewTabLink("all time", "visuals/zoomable_circles_commits_main.html");
+         report.addContentInDiv("Files with only one commit are shown as grey.", "color: grey; font-size: 80%");
+@@ -113,7 +114,7 @@ public class CommitsReportGenerator {
+         report.startTabContentSection("data", false);
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("Contributors' details...", "../data/text/contributors.txt");
++        report.addNewTabLink("Contributors' details...", ReportDataFiles.textDataLink(ReportDataFiles.CONTRIBUTORS_TXT));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTabContentSection();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConditionalComplexityReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConditionalComplexityReportGenerator.java
+index d1ddc42..49bd6f6 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConditionalComplexityReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ConditionalComplexityReportGenerator.java
+@@ -6,6 +6,7 @@ package nl.obren.sokrates.reports.generators.statichtml;
+ 
+ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.PieChartUtils;
+ import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+ import nl.obren.sokrates.reports.utils.UtilsReportUtils;
+@@ -60,7 +61,7 @@ public class ConditionalComplexityReportGenerator {
+         report.startSection("Conditional Complexity Overall", "");
+         report.startUnorderedList();
+         int linesOfCodeInUnits = unitsAnalysisResults.getLinesOfCodeInUnits();
+-        report.addListItem("There are <a href='../data/text/units.txt'>" + RichTextRenderingUtils.renderNumberStrong(unitsAnalysisResults.getTotalNumberOfUnits())
++        report.addListItem("There are <a href='" + ReportDataFiles.textDataLink(ReportDataFiles.UNITS_TXT) + "'>" + RichTextRenderingUtils.renderNumberStrong(unitsAnalysisResults.getTotalNumberOfUnits())
+                 + " units</a> with " + RichTextRenderingUtils.renderNumberStrong(linesOfCodeInUnits)
+                 + " lines of code in units (" + (RichTextRenderingUtils.renderNumber(100.0 * linesOfCodeInUnits / codeAnalysisResults.getMainAspectAnalysisResults().getLinesOfCode())) + "% of code)" +
+                 ".");
+@@ -87,7 +88,7 @@ public class ConditionalComplexityReportGenerator {
+ 
+         report.startSection("Alternative Visuals", "");
+         report.startUnorderedList();
+-        report.addListItem("<a target='_blank' href='visuals/units_3d_complexity.html'>3D view of all units</a>");
++        report.addListItem("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.UNITS_3D_COMPLEXITY_HTML) + "'>3D view of all units</a>");
+         report.endUnorderedList();
+         report.endSection();
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
+index b584dd4..ac71247 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
+@@ -11,6 +11,7 @@ import nl.obren.sokrates.common.renderingutils.force3d.Force3DNode;
+ import nl.obren.sokrates.common.renderingutils.force3d.Force3DObject;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+@@ -181,7 +182,7 @@ public class ContributorsReportGenerator {
+         report.startTabContentSection("data", false);
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("Contributors' details...", "../data/text/contributors.txt");
++        report.addNewTabLink("Contributors' details...", ReportDataFiles.textDataLink(ReportDataFiles.CONTRIBUTORS_TXT));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endTabContentSection();
+@@ -190,15 +191,15 @@ public class ContributorsReportGenerator {
+     private void addZoomableCircleLinks(RichTextReport report) {
+         report.startDiv("margin-top: 10px");
+         report.addHtmlContent("Zoomable circles (number of contributors per file): ");
+-        report.addNewTabLink("30 days", "visuals/zoomable_circles_contributors_30_main.html");
++        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(30, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("90 days", "visuals/zoomable_circles_contributors_90_main.html");
++        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(90, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("6 months", "visuals/zoomable_circles_contributors_180_main.html");
++        report.addNewTabLink("6 months", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(180, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("past year", "visuals/zoomable_circles_contributors_365_main.html");
++        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(365, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("all time", "visuals/zoomable_circles_contributors_main.html");
++        report.addNewTabLink("all time", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(0, "main")));
+         report.addContentInDiv("Files with only one contributor are shown as grey.", "color: grey; font-size: 80%");
+         report.endDiv();
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
+index de8890f..10f7146 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/DuplicationReportGenerator.java
+@@ -9,6 +9,7 @@ import nl.obren.sokrates.common.renderingutils.GraphvizUtil;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.landscape.utils.Force3DGraphExporter;
+ import nl.obren.sokrates.reports.utils.DataImageUtils;
+ import nl.obren.sokrates.reports.utils.DuplicationReportUtils;
+@@ -137,7 +138,7 @@ public class DuplicationReportGenerator {
+                 unitDuplicates = unitDuplicates.subList(0, maxTopListSize);
+             }
+             report.startSection("Duplicated Units", "The list of top " + unitDuplicates.size() + " duplicated units.");
+-            report.addContentInDiv("<a href='../data/text/unit_duplicates.txt'>See data for all <b>" + FormattingUtils.formatCount(originalSize) + "</b> unit " + (originalSize == 1 ? "duplicate" : "duplicates...") + "</b></a>", "margin-bottom: 16px");
++            report.addContentInDiv("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.UNIT_DUPLICATES_TXT) + "'>See data for all <b>" + FormattingUtils.formatCount(originalSize) + "</b> unit " + (originalSize == 1 ? "duplicate" : "duplicates...") + "</b></a>", "margin-bottom: 16px");
+             getDuplicatesTable(report, unitDuplicates, "unit_duplicates");
+             report.endSection();
+         }
+@@ -184,7 +185,7 @@ public class DuplicationReportGenerator {
+         report.addListItem("<b>" + FormattingUtils.formatCount(duplicationAnalysisResults.getOverallDuplication().getCleanedLinesOfCode()) + "</b> cleaned lines of cleaned code (without empty lines, comments, and frequently duplicated constructs such as imports)");
+         report.addListItem("<b>" + FormattingUtils.formatCount(duplicationAnalysisResults.getOverallDuplication().getDuplicatedLinesOfCode()) + "</b> duplicated lines");
+         report.endUnorderedList();
+-        report.addListItem("<a href='../data/text/duplicates.txt'><b>" + FormattingUtils.formatCount(duplicationAnalysisResults.getAllDuplicates().size()) + " duplicates</b></a>");
++        report.addListItem("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.DUPLICATES_TXT) + "'><b>" + FormattingUtils.formatCount(duplicationAnalysisResults.getAllDuplicates().size()) + " duplicates</b></a>");
+         report.endUnorderedList();
+         DuplicationReportUtils.addOverallDuplication(report, duplicationAnalysisResults.getOverallDuplication());
+         export3DFileDependencies();
+@@ -478,7 +479,7 @@ public class DuplicationReportGenerator {
+         List<DuplicationInstance> longestDuplicates = duplicationAnalysisResults.getLongestDuplicates();
+         report.startSection("Longest Duplicates", "The list of " + longestDuplicates.size() + " longest duplicates.");
+         int size = duplicationAnalysisResults.getAllDuplicates().size();
+-        report.addContentInDiv("<a href='../data/text/duplicates.txt'>See data for all <b>" + FormattingUtils.formatCount(size)
++        report.addContentInDiv("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.DUPLICATES_TXT) + "'>See data for all <b>" + FormattingUtils.formatCount(size)
+                 + "</b> " + (size == 1 ? "duplicate" : "duplicates...") + "</a>", "margin-bottom: 16px");
+         getDuplicatesTable(report, longestDuplicates, "longest_duplicates");
+         report.endSection();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
+index de01137..f094efc 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
+@@ -8,6 +8,7 @@ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.common.renderingutils.charts.Palette;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.FilesReportUtils;
+ import nl.obren.sokrates.reports.utils.PieChartUtils;
+ import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+@@ -100,12 +101,12 @@ public class FileAgeReportGenerator {
+             if (ignoredFiles > 0) {
+                 report.addListItem("Files without commit history (ignored): <b>" + FormattingUtils.formatCount(ignoredFiles) + " (" + FormattingUtils.formatCount(codeAnalysisResults.getFilesHistoryAnalysisResults().getFilesWithoutCommitHistoryLinesOfCode()) + " lines of code)</b>");
+                 report.startUnorderedList();
+-                report.addListItem("<a href='../data/text/mainFilesWithoutHistory.txt' target='_blank'>Files without history</a>");
++                report.addListItem("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITHOUT_HISTORY_TXT) + "' target='_blank'>Files without history</a>");
+                 report.endUnorderedList();
+             }
+             report.addListItem("Data:");
+             report.startUnorderedList();
+-            report.addListItem("<a href='../data/text/mainFilesWithHistory.txt' target='_blank'>Organized per file</a>");
++            report.addListItem("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>Organized per file</a>");
+             report.endUnorderedList();
+             report.endUnorderedList();
+             report.endSection();
+@@ -176,9 +177,9 @@ public class FileAgeReportGenerator {
+         report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, ageLabels, palette));
+         report.addLineBreak();
+         report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_age_coloring.html'>grouped by folders</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_AGE)) + "'>grouped by folders</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_age_coloring_categories.html'>grouped by age</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_AGE)) + "'>grouped by age</a>");
+         report.endSection();
+     }
+ 
+@@ -210,9 +211,9 @@ public class FileAgeReportGenerator {
+         report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, ageLabels, palette));
+         report.addLineBreak();
+         report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_freshness_coloring.html'>grouped by folders</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_FRESHNESS)) + "'>grouped by folders</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_freshness_coloring_categories.html'>grouped by freshness</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_FRESHNESS)) + "'>grouped by freshness</a>");
+         report.endSection();
+     }
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
+index 1420c14..dc771ca 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
+@@ -8,6 +8,7 @@ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.common.renderingutils.charts.Palette;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
+ import nl.obren.sokrates.reports.utils.FilesReportUtils;
+ import nl.obren.sokrates.reports.utils.PieChartUtils;
+@@ -92,22 +93,22 @@ public class FileChurnReportGenerator {
+         addGraphOverallChange(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getOverallFileChangeDistribution());
+         report.addLineBreak();
+         report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_update_frequency_coloring.html'>grouped by folders</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_UPDATE_FREQUENCY)) + "'>grouped by folders</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_update_frequency_coloring_categories.html'>grouped by update frequency</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_UPDATE_FREQUENCY)) + "'>grouped by update frequency</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='../data/text/mainFilesWithHistory.txt'>data</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "'>data</a>");
+         report.endSection();
+ 
+         report.startSubSection("Contributors Count Frequency Overall", "");
+         addGraphOverallContributorCount(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getOverallContributorsCountDistribution());
+         report.addLineBreak();
+         report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_contributors_count_coloring.html'>grouped by folders</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)) + "'>grouped by folders</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_contributors_count_coloring_categories.html'>grouped by contributors count</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)) + "'>grouped by contributors count</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='../data/text/mainFilesWithHistory.txt'>data</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "'>data</a>");
+         report.endSection();
+         report.endSection();
+     }
+@@ -226,7 +227,7 @@ public class FileChurnReportGenerator {
+         List<SourceFile> youngestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getMostChangedFiles();
+         report.startSection("Most Frequently Changed Files (Top " + youngestFiles.size() + ")", "");
+         boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='../data/text/mainFilesWithHistory.txt' target='_blank'>See data for all files...</a>");
++        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+         report.addHtmlContent(FilesReportUtils.getFilesTable(youngestFiles, cacheSourceFiles, true, false, 500).toString());
+         report.endSection();
+     }
+@@ -235,7 +236,7 @@ public class FileChurnReportGenerator {
+         List<SourceFile> files = codeAnalysisResults.getFilesHistoryAnalysisResults().getFilesWithMostContributors();
+         report.startSection("Files With Most Contributors (Top " + files.size() + ")", "Based on the number of unique email addresses found in commits.");
+         boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='../data/text/mainFilesWithHistory.txt' target='_blank'>See data for all files...</a>");
++        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+         report.addHtmlContent(FilesReportUtils.getFilesTable(files, cacheSourceFiles, true, false, 500).toString());
+         report.endSection();
+     }
+@@ -244,7 +245,7 @@ public class FileChurnReportGenerator {
+         List<SourceFile> files = codeAnalysisResults.getFilesHistoryAnalysisResults().getFilesWithLeastContributors();
+         report.startSection("Files With Least Contributors (Top " + files.size() + ")", "Based on the number of unique email addresses found in commits.");
+         boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='../data/text/mainFilesWithHistory.txt' target='_blank'>See data for all files...</a>");
++        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+         report.addHtmlContent(FilesReportUtils.getFilesTable(files, cacheSourceFiles, true, false, 500).toString());
+         report.endSection();
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+index b533350..a7922c5 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+@@ -7,6 +7,7 @@ package nl.obren.sokrates.reports.generators.statichtml;
+ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
+ import nl.obren.sokrates.reports.utils.FilesReportUtils;
+ import nl.obren.sokrates.reports.utils.PieChartUtils;
+@@ -147,7 +148,7 @@ public class FileSizeReportGenerator {
+         report.startSection("File Size Overall", "");
+         report.startUnorderedList();
+         report.addListItem("There are "
+-                + "<a href='../data/text/mainFiles.txt' target='_blank'>"
++                + "<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_TXT) + "' target='_blank'>"
+                 + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+                 + " files</a> with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+                 + " lines of code" +
+@@ -174,12 +175,12 @@ public class FileSizeReportGenerator {
+         report.addLineBreak();
+         report.addLineBreak();
+         report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_loc_coloring.html'>grouped by folders</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_LOC)) + "'>grouped by folders</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_circles_main_loc_coloring_categories.html'>grouped by size</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_LOC)) + "'>grouped by size</a>");
+         report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/zoomable_sunburst_main.html'>sunburst</a> | ");
+-        report.addHtmlContent("<a target='_blank' href='visuals/files_3d.html'>3D view</a>");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableSunburst("main")) + "'>sunburst</a> | ");
++        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.FILES_3D_HTML) + "'>3D view</a>");
+         report.endSection();
+     }
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
+index c3b97d7..435c6bc 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
+@@ -7,6 +7,7 @@ package nl.obren.sokrates.reports.generators.statichtml;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
+@@ -97,7 +98,7 @@ public class FileTemporalDependenciesReportGenerator {
+         }
+         report.addLineBreak();
+         report.startSubSection("Files Most Frequently Changed Together (Top " + filePairs.size() + ")", "");
+-        report.addParagraph("<a href='../data/text/temporal_dependencies.txt' target='_blank'>data...</a>");
++        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.TEMPORAL_DEPENDENCIES_TXT) + "' target='_blank'>data...</a>");
+         addTable(report, filePairs);
+         report.endSection();
+     }
+@@ -108,7 +109,7 @@ public class FileTemporalDependenciesReportGenerator {
+             filePairs = filePairs.subList(0, 20);
+         }
+         report.startSection("Files from Different Folders Most Frequently Changed Together (Top " + filePairs.size() + ")", "");
+-        report.addParagraph("<a href='../data/text/temporal_dependencies_different_folders.txt' target='_blank'>data...</a>");
++        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.TEMPORAL_DEPENDENCIES_DIFFERENT_FOLDERS_TXT) + "' target='_blank'>data...</a>");
+         addTable(report, filePairs);
+         report.endSection();
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
+index 665c62e..3832911 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
+@@ -8,6 +8,7 @@ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.reports.charts.SimpleOneBarChart;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.dataexporters.DataExportUtils;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.DataImageUtils;
+ import nl.obren.sokrates.reports.utils.ScopesRenderer;
+ import nl.obren.sokrates.sourcecode.IgnoredFilesGroup;
+@@ -212,8 +213,8 @@ public class OverviewReportGenerator {
+         report.addListItem(RichTextRenderingUtils.renderNumberStrong(numberOfExcludedFiles) + " files are excluded from analyses:");
+         report.startUnorderedList();
+         int filesExcludedByExtensionCount = codeAnalysisResults.getFilesExcludedByExtension().size();
+-        report.addListItem("<a target='_blank' href='../data/text/excluded_files_ignored_extensions.txt'>" + RichTextRenderingUtils.renderNumberStrong(filesExcludedByExtensionCount) + " based on extension</a>.");
+-        report.addListItem("<a target='_blank' href='../data/text/excluded_files_ignored_rules.txt'>" +RichTextRenderingUtils.renderNumberStrong(numberOfExcludedFiles - filesExcludedByExtensionCount) + " based on ignore rules</a>.");
++        report.addListItem("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.EXCLUDED_FILES_IGNORED_EXTENSIONS_TXT) + "'>" + RichTextRenderingUtils.renderNumberStrong(filesExcludedByExtensionCount) + " based on extension</a>.");
++        report.addListItem("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.EXCLUDED_FILES_IGNORED_RULES_TXT) + "'>" +RichTextRenderingUtils.renderNumberStrong(numberOfExcludedFiles - filesExcludedByExtensionCount) + " based on ignore rules</a>.");
+         report.endUnorderedList();
+         report.endUnorderedList();
+         report.endUnorderedList();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/TrendReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/TrendReportGenerator.java
+index 7239db9..a6f4f70 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/TrendReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/TrendReportGenerator.java
+@@ -8,6 +8,7 @@ import nl.obren.sokrates.common.renderingutils.charts.Palette;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.reports.charts.SimpleOneBarChart;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.core.SummaryUtils;
+ import nl.obren.sokrates.reports.dataexporters.trends.ReferenceResultsLoader;
+ import nl.obren.sokrates.reports.utils.ReportUtils;
+@@ -112,25 +113,25 @@ public class TrendReportGenerator {
+         report.addParagraph("See the details (TXT):");
+         report.startUnorderedList();
+         report.startListItem();
+-        report.addNewTabLink("all metrics", "../data/text/metrics_trend.txt");
++        report.addNewTabLink("all metrics", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("lines of code per extension", "../data/text/metrics_trend_loc_per_extension.txt");
++        report.addNewTabLink("lines of code per extension", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_LOC_PER_EXTENSION_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("lines of code per logical component", "../data/text/metrics_trend_loc_logical_decompositions.txt");
++        report.addNewTabLink("lines of code per logical component", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_LOC_LOGICAL_DECOMPOSITIONS_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("duplicated lines", "../data/text/metrics_trend_loc_duplication.txt");
++        report.addNewTabLink("duplicated lines", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_LOC_DUPLICATION_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("lines of code per file size category", "../data/text/metrics_trend_loc_file_size.txt");
++        report.addNewTabLink("lines of code per file size category", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_LOC_FILE_SIZE_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("lines of code per unit size category", "../data/text/metrics_trend_unit_size_loc.txt");
++        report.addNewTabLink("lines of code per unit size category", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_UNIT_SIZE_LOC_TXT));
+         report.endListItem();
+         report.startListItem();
+-        report.addNewTabLink("lines of code per conditional complexity catagory", "../data/text/metrics_trend_conditional_complexity_loc.txt");
++        report.addNewTabLink("lines of code per conditional complexity catagory", ReportDataFiles.textDataLink(ReportDataFiles.METRICS_TREND_CONDITIONAL_COMPLEXITY_LOC_TXT));
+         report.endListItem();
+         report.endUnorderedList();
+         report.endDiv();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java
+index 7626b8f..c90de6b 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/UnitsSizeReportGenerator.java
+@@ -6,6 +6,7 @@ package nl.obren.sokrates.reports.generators.statichtml;
+ 
+ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
+ import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.PieChartUtils;
+ import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+ import nl.obren.sokrates.reports.utils.UtilsReportUtils;
+@@ -68,7 +69,7 @@ public class UnitsSizeReportGenerator {
+         report.startSection("Unit Size Overall", "");
+         report.startUnorderedList();
+         int linesOfCodeInUnits = unitsAnalysisResults.getLinesOfCodeInUnits();
+-        report.addListItem("There are <a href='../data/text/units.txt'>" + RichTextRenderingUtils.renderNumberStrong(unitsAnalysisResults.getTotalNumberOfUnits())
++        report.addListItem("There are <a href='" + ReportDataFiles.textDataLink(ReportDataFiles.UNITS_TXT) + "'>" + RichTextRenderingUtils.renderNumberStrong(unitsAnalysisResults.getTotalNumberOfUnits())
+                 + " units</a> with " + RichTextRenderingUtils.renderNumberStrong(linesOfCodeInUnits)
+                 + " lines of code in units (" + (RichTextRenderingUtils.renderNumber(100.0 * linesOfCodeInUnits / codeAnalysisResults.getMainAspectAnalysisResults().getLinesOfCode())) + "% of code)" +
+                 ".");
+@@ -113,7 +114,7 @@ public class UnitsSizeReportGenerator {
+ 
+         report.startSection("Alternative Visuals", "");
+         report.startUnorderedList();
+-        report.addListItem("<a target='_blank' href='visuals/units_3d_size.html'>3D view of all units</a>");
++        report.addListItem("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.UNITS_3D_SIZE_HTML) + "'>3D view of all units</a>");
+         report.endUnorderedList();
+         report.endSection();
+ 
+-- 
+2.50.1 (Apple Git-155)
+

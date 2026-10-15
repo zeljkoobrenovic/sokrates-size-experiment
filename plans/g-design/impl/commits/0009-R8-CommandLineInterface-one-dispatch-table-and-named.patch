@@ -1,0 +1,319 @@
+From 610da436d28583c87f44e65cd7d7dca1f4ccd249 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 20:56:33 +0200
+Subject: [PATCH 09/10] R8: CommandLineInterface: one dispatch table and named
+ default paths
+
+---
+ .../sokrates/cli/CommandLineInterface.java    | 141 ++++++++----------
+ .../java/nl/obren/sokrates/cli/Commands.java  |  16 +-
+ 2 files changed, 73 insertions(+), 84 deletions(-)
+
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index a462cdf..6abbdb8 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -54,8 +54,11 @@ import java.io.IOException;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
++import java.util.Map;
++import java.util.TreeMap;
+ import java.util.concurrent.Executors;
+ import java.util.concurrent.atomic.AtomicInteger;
++import java.util.function.Supplier;
+ import java.util.stream.Collectors;
+ 
+ import static java.nio.charset.StandardCharsets.UTF_8;
+@@ -65,7 +68,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
+  * <p>
+  * Synonyms not used in the code: CLI, main, sub-command, verb, argument parsing.
+  * <p>
+- * Command &rarr; handler (dispatched in {@link #run}): {@code init} &rarr; {@code init};
++ * Command &rarr; handler (the table in {@code createCommandHandlers()}, used by {@link #run}): {@code init} &rarr; {@code init};
+  * {@code updateConfig} &rarr; {@code updateConfig}; {@code exportStandardConventions} &rarr; {@code exportConventions};
+  * {@code updateLandscape} &rarr; {@code updateLandscape}; {@code createConventionsFile} &rarr; {@code createNewConventionsFile};
+  * {@code extractGitSubHistory} &rarr; {@code extractGitSubHistory}; {@code extractFiles} &rarr; {@code extractFiles};
+@@ -86,6 +89,27 @@ public class CommandLineInterface {
+ 
+     private static boolean helpMode = false;
+ 
++    private interface CommandHandler {
++        void handle(String[] args) throws ParseException, IOException;
++    }
++
++    // command name (matched case-insensitively) -> handler; an unknown command prints the usage
++    private final Map<String, CommandHandler> commandHandlers = createCommandHandlers();
++
++    private Map<String, CommandHandler> createCommandHandlers() {
++        Map<String, CommandHandler> handlers = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
++        handlers.put(Commands.INIT, this::init);
++        handlers.put(Commands.UPDATE_CONFIG, this::updateConfig);
++        handlers.put(Commands.EXPORT_STANDARD_CONVENTIONS, this::exportConventions);
++        handlers.put(Commands.UPDATE_LANDSCAPE, this::updateLandscape);
++        handlers.put(Commands.INIT_CONVENTIONS, this::createNewConventionsFile);
++        handlers.put(Commands.EXTRACT_GIT_SUB_HISTORY, this::extractGitSubHistory);
++        handlers.put(Commands.EXTRACT_FILES, this::extractFiles);
++        handlers.put(Commands.EXTRACT_GIT_HISTORY, this::extractGitHistory);
++        handlers.put(Commands.GENERATE_REPORTS, this::generateReports);
++        return handlers;
++    }
++
+     public static void main(String[] args) throws IOException {
+         ProcessingStopwatch.startAsReference("everything");
+         CommandLineInterface commandLineInterface = new CommandLineInterface();
+@@ -112,37 +136,14 @@ public class CommandLineInterface {
+         }
+ 
+         try {
+-            if (args[0].equalsIgnoreCase(Commands.INIT)) {
+-                init(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_CONFIG)) {
+-                updateConfig(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.EXPORT_STANDARD_CONVENTIONS)) {
+-                exportConventions(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)) {
+-                updateLandscape(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.INIT_CONVENTIONS)) {
+-                createNewConventionsFile(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_GIT_SUB_HISTORY)) {
+-                extractGitSubHistory(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_FILES)) {
+-                extractFiles(args);
+-                return;
+-            } else if (args[0].equalsIgnoreCase(Commands.EXTRACT_GIT_HISTORY)) {
+-                extractGitHistory(args);
+-                return;
+-            } else if (!args[0].equalsIgnoreCase(Commands.GENERATE_REPORTS)) {
++            CommandHandler handler = commandHandlers.get(args[0]);
++            if (handler == null) {
+                 helpMode = true;
+                 commands.usage();
+                 return;
+             }
+ 
+-            generateReports(args);
++            handler.handle(args);
+         } catch (ParseException e) {
+             LOG.info("ERROR: " + e.getMessage() + "\n");
+             e.printStackTrace();
+@@ -152,13 +153,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void extractGitHistory(String[] args) throws ParseException {
+-        Options options = commands.getExtractGitHistoryOption();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.EXTRACT_GIT_HISTORY, commands.getExtractGitHistoryOption(), Commands.EXTRACT_GIT_HISTORY_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getExtractGitHistoryOption, Commands.EXTRACT_GIT_HISTORY, Commands.EXTRACT_GIT_HISTORY_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -177,13 +173,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void extractGitSubHistory(String[] args) throws ParseException, IOException {
+-        Options options = commands.getExtractGitSubHistoryOption();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.EXTRACT_GIT_SUB_HISTORY, commands.getExtractGitSubHistoryOption(), Commands.EXTRACT_GIT_SUB_HISTORY_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getExtractGitSubHistoryOption, Commands.EXTRACT_GIT_SUB_HISTORY, Commands.EXTRACT_GIT_SUB_HISTORY_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -204,13 +195,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void extractFiles(String[] args) throws ParseException, IOException {
+-        Options options = commands.getExtractFilesOption();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.EXTRACT_FILES, commands.getExtractFilesOption(), Commands.EXTRACT_FILES_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getExtractFilesOption, Commands.EXTRACT_FILES, Commands.EXTRACT_FILES_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -234,6 +220,22 @@ public class CommandLineInterface {
+         SokratesFileUtils.extractFiles(root, new File(root, dest), new File(root, destParentValue), patternValue);
+     }
+ 
++    /**
++     * Parses the command arguments. If the help option is given, prints the command usage and returns null.
++     */
++    private CommandLine parseArgsOrShowHelp(String[] args, Supplier<Options> options, String command, String description) throws ParseException {
++        CommandLineParser parser = new DefaultParser();
++        CommandLine cmd = parser.parse(options.get(), args);
++
++        if (cmd.hasOption(commands.getHelp().getOpt())) {
++            helpMode = true;
++            commands.usage(command, options.get(), description);
++            return null;
++        }
++
++        return cmd;
++    }
++
+     private void updateDateParam(CommandLine cmd) {
+         String dateString = cmd.getOptionValue(commands.getDate().getOpt());
+         if (dateString != null) {
+@@ -243,13 +245,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void updateLandscape(String[] args) throws ParseException {
+-        Options options = commands.getUpdateLandscapeOptions();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.UPDATE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getUpdateLandscapeOptions, Commands.UPDATE_LANDSCAPE, Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -300,13 +297,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void generateReports(String[] args) throws ParseException, IOException {
+-        Options options = commands.getReportingOptions();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.GENERATE_REPORTS, commands.getReportingOptions(), Commands.GENERATE_REPORTS_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getReportingOptions, Commands.GENERATE_REPORTS, Commands.GENERATE_REPORTS_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -316,13 +308,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void init(String[] args) throws ParseException, IOException {
+-        Options options = commands.getInitOptions();
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.INIT, commands.getInitOptions(), Commands.INIT_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getInitOptions, Commands.INIT, Commands.INIT_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -396,14 +383,8 @@ public class CommandLineInterface {
+     }
+ 
+     private void updateConfig(String[] args) throws ParseException, IOException {
+-        Options options = commands.getUpdateConfigOptions();
+-
+-        CommandLineParser parser = new DefaultParser();
+-        CommandLine cmd = parser.parse(options, args);
+-
+-        if (cmd.hasOption(commands.getHelp().getOpt())) {
+-            helpMode = true;
+-            commands.usage(Commands.UPDATE_CONFIG, commands.getUpdateConfigOptions(), Commands.UPDATE_CONFIG_DESCRIPTION);
++        CommandLine cmd = parseArgsOrShowHelp(args, commands::getUpdateConfigOptions, Commands.UPDATE_CONFIG, Commands.UPDATE_CONFIG_DESCRIPTION);
++        if (cmd == null) {
+             return;
+         }
+ 
+@@ -521,7 +502,7 @@ public class CommandLineInterface {
+ 
+         File sokratesConfigFile;
+         if (!cmd.hasOption(commands.getConfFile().getOpt())) {
+-            String confFilePath = "./_sokrates/config.json";
++            String confFilePath = Commands.DEFAULT_CONFIG_FILE_PATH;
+             sokratesConfigFile = new File(confFilePath);
+         } else {
+             sokratesConfigFile = new File(cmd.getOptionValue(commands.getConfFile().getOpt()));
+@@ -540,7 +521,7 @@ public class CommandLineInterface {
+         File reportsFolder;
+ 
+         if (!cmd.hasOption(commands.getOutputFolder().getOpt())) {
+-            reportsFolder = prepareReportsFolder("./_sokrates/reports");
++            reportsFolder = prepareReportsFolder(Commands.DEFAULT_REPORTS_FOLDER_PATH);
+         } else {
+             reportsFolder = prepareReportsFolder(cmd.getOptionValue(commands.getOutputFolder().getOpt()));
+         }
+@@ -867,6 +848,8 @@ public class CommandLineInterface {
+         new X3DomExporter(new File(visualsFolder, ReportDataFiles.FILES_3D_HTML), "A 3D View of All Files", "Each block is one file. The height of the block represents the file relative size in lines of code. The color of the file represents its size category.").export(files3D, false, 50);
+     }
+ 
++    // Same five buckets as PathStringsToTreeStructure.getColor, but that method returns a palette color string,
++    // while this one returns the fixed risk colors (BasicColorInfo) used by the 3D view, so it does not delegate.
+     public BasicColorInfo getFileSizeColor(SourceFileSizeDistribution distribution, int linesOfCode) {
+         if (linesOfCode <= distribution.getLowRiskThreshold()) {
+             return Thresholds.RISK_GREEN;
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+index 7563058..1548040 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
+  * Synonyms not used in the code: CLI arguments, flags, parameters, sub-commands, help text.
+  * <p>
+  * Each command is a {@code NAME} / {@code NAME_DESCRIPTION} constant pair plus a {@code get...Options()} method;
+- * its handler is dispatched in {@code CommandLineInterface.run} (see the command &rarr; handler table there).
++ * its handler is registered in the command &rarr; handler table {@code CommandLineInterface.createCommandHandlers()}.
+  * A new command must also be added to {@code usageInfo()}, which lists the commands in the general usage;
+  * {@code extractFiles} is currently missing from it.
+  */
+@@ -84,16 +84,22 @@ public class Commands {
+     public static final String ARG_SET_DESCRIPTION = "setDescription";
+     public static final String ARG_ADD_LINK = "addLink";
+ 
++    // default paths, relative to the current folder
++    public static final String DEFAULT_CONFIG_FILE_RELATIVE_PATH = "_sokrates/config.json";
++    public static final String DEFAULT_REPORTS_FOLDER_RELATIVE_PATH = "_sokrates/reports";
++    public static final String DEFAULT_CONFIG_FILE_PATH = "./" + DEFAULT_CONFIG_FILE_RELATIVE_PATH;
++    public static final String DEFAULT_REPORTS_FOLDER_PATH = "./" + DEFAULT_REPORTS_FOLDER_RELATIVE_PATH;
++
+     // options
+-    private Option srcRoot = new Option(ARG_SRC_ROOT, true, "[OPTIONAL] the folder where reports will be stored (default is \"<currentFolder>/_sokrates/reports/)");
++    private Option srcRoot = new Option(ARG_SRC_ROOT, true, "[OPTIONAL] the folder where reports will be stored (default is \"<currentFolder>/" + DEFAULT_REPORTS_FOLDER_RELATIVE_PATH + "/)");
+     private Option conventionsFile = new Option(ARG_CONVENTIONS_FILE, true, "[OPTIONAL] the custom conventions JSON file path");
+     private Option name = new Option(ARG_NAME, true, "[OPTIONAL] the repository name");
+     private Option description = new Option(ARG_DESCRIPTION, true, "[OPTIONAL] the repository description");
+     private Option logoLink = new Option(ARG_LOGO_LINK, true, "[OPTIONAL] the repository logo link");
+-    private Option confFile = new Option(ARG_CONF_FILE, true, "[OPTIONAL] the path to configuration file (default is \"<currentFolder>/_sokrates/config.json\")");
++    private Option confFile = new Option(ARG_CONF_FILE, true, "[OPTIONAL] the path to configuration file (default is \"<currentFolder>/" + DEFAULT_CONFIG_FILE_RELATIVE_PATH + "\")");
+     private Option date = new Option(ARG_DATE, true, "[OPTIONAL] last date of source code update (default today), used for reports on active contributors. " +
+             "You can also specify this date via the system variable \"" + DateUtils.ENV_SOKRATES_ANALYSIS_DATE + "\".");
+-    private Option analysisRoot = new Option(ARG_ANALYSIS_ROOT, true, "[OPTIONAL] the path to configuration file (default is \"<currentFolder>/_sokrates/config.json\")");
++    private Option analysisRoot = new Option(ARG_ANALYSIS_ROOT, true, "[OPTIONAL] the path to configuration file (default is \"<currentFolder>/" + DEFAULT_CONFIG_FILE_RELATIVE_PATH + "\")");
+     private Option timeout = new Option(ARG_TIMEOUT, true, "[OPTIONAL] timeout in seconds");
+     private Option prefix = new Option(ARG_PREFIX, true, "the path prefix");
+     private Option pattern = new Option(ARG_PATTERN, true, "the file path regex pattern");
+@@ -101,7 +107,7 @@ public class Commands {
+     private Option destParent = new Option(ARG_DEST_PARENT, true, "[OPTIONAL] the destination parent folder");
+     private Option internalGraphviz = new Option(ARG_USE_INTERNAL_GRAPHVIZ, false, "[OPTIONAL] use internal Graphviz library (by default external dot program is used, you may specify the external dot path via the system variable GRAPHVIZ_DOT)");
+ 
+-    private Option outputFolder = new Option(ARG_OUTPUT_FOLDER, true, "[OPTIONAL] the folder where reports will be stored (default value is <currentFolder/_sokrates/reports>)");
++    private Option outputFolder = new Option(ARG_OUTPUT_FOLDER, true, "[OPTIONAL] the folder where reports will be stored (default value is <currentFolder/" + DEFAULT_REPORTS_FOLDER_RELATIVE_PATH + ">)");
+ 
+     private Option skipComplexAnalyses = new Option(ARG_SKIP_COMPLEX_ANALYSES, false, "[OPTIONAL] skips complex analyses (duplication, dependencies, file caching)");
+     private Option recursive = new Option(RECURSIVE, false, "[OPTIONAL] performs the operation recursively in all sub-folders");
+-- 
+2.50.1 (Apple Git-155)
+

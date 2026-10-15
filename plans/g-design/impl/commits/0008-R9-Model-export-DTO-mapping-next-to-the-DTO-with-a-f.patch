@@ -1,0 +1,495 @@
+From f2325069065f7ef8576b406048b2921937aebe61 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 20:51:58 +0200
+Subject: [PATCH 08/10] =?UTF-8?q?R9:=20Model=20=E2=86=92=20export-DTO=20ma?=
+ =?UTF-8?q?pping=20next=20to=20the=20DTO,=20with=20a=20field-parity=20test?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ .../DependencyAnchorExportInfo.java           |  8 ++
+ .../DuplicateFileBlockExportInfo.java         | 18 +++++
+ .../duplication/DuplicationExporter.java      | 12 +--
+ .../dataexporters/units/UnitInfoExport.java   | 29 +++++++
+ .../dataexporters/units/UnitListExporter.java | 20 +----
+ .../landscape/data/ContributorExport.java     |  2 +-
+ .../data/ContributorRepositoryInfoExport.java |  9 +++
+ .../reports/dataexporters/ExportParity.java   | 75 +++++++++++++++++++
+ .../DependencyAnchorExportInfoTest.java       | 38 ++++++++++
+ .../DuplicateFileBlockExportInfoTest.java     | 40 ++++++++++
+ .../units/UnitInfoExportTest.java             | 45 +++++++++++
+ .../ContributorRepositoryInfoExportTest.java  | 39 ++++++++++
+ 12 files changed, 304 insertions(+), 31 deletions(-)
+ create mode 100644 reports/src/test/java/nl/obren/sokrates/reports/dataexporters/ExportParity.java
+ create mode 100644 reports/src/test/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfoTest.java
+ create mode 100644 reports/src/test/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfoTest.java
+ create mode 100644 reports/src/test/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExportTest.java
+ create mode 100644 reports/src/test/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExportTest.java
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfo.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfo.java
+index 6ba635a..507c536 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfo.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfo.java
+@@ -17,6 +17,14 @@ public class DependencyAnchorExportInfo {
+     private List<FileExportInfo> files = new ArrayList<>();
+ 
+     public static DependencyAnchorExportInfo getInstance(DependencyAnchor dependencyAnchor) {
++        return from(dependencyAnchor);
++    }
++
++    /**
++     * The whole model → export copy. A field added to {@link DependencyAnchor} should be copied here
++     * (or listed as an exclusion in {@code DependencyAnchorExportInfoTest}).
++     */
++    public static DependencyAnchorExportInfo from(DependencyAnchor dependencyAnchor) {
+         DependencyAnchorExportInfo exportInfo = new DependencyAnchorExportInfo();
+ 
+         exportInfo.setAnchor(dependencyAnchor.getAnchor());
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfo.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfo.java
+index 00518e4..7666591 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfo.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfo.java
+@@ -5,6 +5,7 @@
+ package nl.obren.sokrates.reports.dataexporters.duplication;
+ 
+ import nl.obren.sokrates.reports.dataexporters.files.FileExportInfo;
++import nl.obren.sokrates.sourcecode.duplication.DuplicatedFileBlock;
+ 
+ public class DuplicateFileBlockExportInfo {
+     private FileExportInfo file = new FileExportInfo();
+@@ -14,6 +15,23 @@ public class DuplicateFileBlockExportInfo {
+     private int cleanedStartLine;
+     private int cleanedEndLine;
+ 
++    /**
++     * The whole model → export copy. A field added to {@link DuplicatedFileBlock} should be copied here
++     * (or listed as an exclusion in {@code DuplicateFileBlockExportInfoTest}).
++     */
++    public static DuplicateFileBlockExportInfo from(DuplicatedFileBlock fileBlock) {
++        DuplicateFileBlockExportInfo fileBlockExportInfo = new DuplicateFileBlockExportInfo();
++
++        fileBlockExportInfo.setFile(FileExportInfo.getInstance(fileBlock.getSourceFile()));
++        fileBlockExportInfo.setSourceFileCleanedLinesOfCode(fileBlock.getSourceFileCleanedLinesOfCode());
++        fileBlockExportInfo.setStartLine(fileBlock.getStartLine());
++        fileBlockExportInfo.setEndLine(fileBlock.getEndLine());
++        fileBlockExportInfo.setCleanedStartLine(fileBlock.getCleanedStartLine());
++        fileBlockExportInfo.setCleanedEndLine(fileBlock.getCleanedEndLine());
++
++        return fileBlockExportInfo;
++    }
++
+     public FileExportInfo getFile() {
+         return file;
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExporter.java
+index ec56013..085c753 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicationExporter.java
+@@ -4,7 +4,6 @@
+ 
+ package nl.obren.sokrates.reports.dataexporters.duplication;
+ 
+-import nl.obren.sokrates.reports.dataexporters.files.FileExportInfo;
+ import nl.obren.sokrates.sourcecode.duplication.DuplicationInstance;
+ 
+ import java.util.ArrayList;
+@@ -35,16 +34,7 @@ public class DuplicationExporter {
+             exportInfo.setBlockSize(duplicationInstance.getBlockSize());
+ 
+             duplicationInstance.getDuplicatedFileBlocks().forEach(fileBlock -> {
+-                DuplicateFileBlockExportInfo fileBlockExportInfo = new DuplicateFileBlockExportInfo();
+-
+-                fileBlockExportInfo.setFile(FileExportInfo.getInstance(fileBlock.getSourceFile()));
+-                fileBlockExportInfo.setSourceFileCleanedLinesOfCode(fileBlock.getSourceFileCleanedLinesOfCode());
+-                fileBlockExportInfo.setStartLine(fileBlock.getStartLine());
+-                fileBlockExportInfo.setEndLine(fileBlock.getEndLine());
+-                fileBlockExportInfo.setCleanedStartLine(fileBlock.getCleanedStartLine());
+-                fileBlockExportInfo.setCleanedEndLine(fileBlock.getCleanedEndLine());
+-
+-                exportInfo.getDuplicatedFileBlocks().add(fileBlockExportInfo);
++                exportInfo.getDuplicatedFileBlocks().add(DuplicateFileBlockExportInfo.from(fileBlock));
+             });
+ 
+             export.add(exportInfo);
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExport.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExport.java
+index f95387f..a96e6d1 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExport.java
+@@ -4,6 +4,9 @@
+ 
+ package nl.obren.sokrates.reports.dataexporters.units;
+ 
++import nl.obren.sokrates.sourcecode.units.UnitInfo;
++
++import java.util.ArrayList;
+ import java.util.List;
+ 
+ public class UnitInfoExport {
+@@ -21,6 +24,32 @@ public class UnitInfoExport {
+     private int numberOfStatements = 0;
+     private int numberOfExpressions = 0;
+ 
++    /**
++     * The whole model → export copy. A field added to {@link UnitInfo} should be copied here
++     * (or listed as an exclusion in {@code UnitInfoExportTest}).
++     */
++    public static UnitInfoExport from(UnitInfo unit) {
++        UnitInfoExport unitInfoExport = new UnitInfoExport();
++        unitInfoExport.setShortName(unit.getShortName());
++        unitInfoExport.setLongName(unit.getLongName());
++        unitInfoExport.setLinesOfCode(unit.getLinesOfCode());
++        unitInfoExport.setMcCabeIndex(unit.getMcCabeIndex());
++        unitInfoExport.setNumberOfExpressions(unit.getNumberOfExpressions());
++        unitInfoExport.setNumberOfLiterals(unit.getNumberOfLiterals());
++        unitInfoExport.setNumberOfParameters(unit.getNumberOfParameters());
++        unitInfoExport.setNumberOfStatements(unit.getNumberOfStatements());
++        unitInfoExport.setRelativeFileName(unit.getSourceFile().getRelativePath());
++        unitInfoExport.setFileLinesCount(unit.getSourceFile().getLines().size());
++        unitInfoExport.setStartLine(unit.getStartLine());
++        unitInfoExport.setEndLine(unit.getEndLine());
++        ArrayList<String> components = new ArrayList<>();
++        unit.getSourceFile().getLogicalComponents().forEach(component -> {
++            components.add(component.getFiltering() + "::" + component.getName());
++        });
++        unitInfoExport.setComponents(components);
++        return unitInfoExport;
++    }
++
+     public String getShortName() {
+         return shortName;
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitListExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitListExporter.java
+index da7e8b1..c7fd074 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitListExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/units/UnitListExporter.java
+@@ -20,25 +20,7 @@ public class UnitListExporter {
+         List<UnitInfoExport> unitInfoExports = new ArrayList<>();
+ 
+         units.forEach(unit -> {
+-            UnitInfoExport unitInfoExport = new UnitInfoExport();
+-            unitInfoExport.setShortName(unit.getShortName());
+-            unitInfoExport.setLongName(unit.getLongName());
+-            unitInfoExport.setLinesOfCode(unit.getLinesOfCode());
+-            unitInfoExport.setMcCabeIndex(unit.getMcCabeIndex());
+-            unitInfoExport.setNumberOfExpressions(unit.getNumberOfExpressions());
+-            unitInfoExport.setNumberOfLiterals(unit.getNumberOfLiterals());
+-            unitInfoExport.setNumberOfParameters(unit.getNumberOfParameters());
+-            unitInfoExport.setNumberOfStatements(unit.getNumberOfStatements());
+-            unitInfoExport.setRelativeFileName(unit.getSourceFile().getRelativePath());
+-            unitInfoExport.setFileLinesCount(unit.getSourceFile().getLines().size());
+-            unitInfoExport.setStartLine(unit.getStartLine());
+-            unitInfoExport.setEndLine(unit.getEndLine());
+-            ArrayList<String> components = new ArrayList<>();
+-            unit.getSourceFile().getLogicalComponents().forEach(component -> {
+-                components.add(component.getFiltering() + "::" + component.getName());
+-            });
+-            unitInfoExport.setComponents(components);
+-            unitInfoExports.add(unitInfoExport);
++            unitInfoExports.add(UnitInfoExport.from(unit));
+         });
+ 
+         return unitInfoExports;
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorExport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorExport.java
+index 6e09352..4114d57 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorExport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorExport.java
+@@ -18,7 +18,7 @@ public class ContributorExport {
+ 
+     public ContributorExport(ContributorRepositories contributor) {
+         this.contributor = contributor.getContributor();
+-        this.repositories = contributor.getRepositories().stream().map(r -> new ContributorRepositoryInfoExport(r)).collect(Collectors.toList());
++        this.repositories = contributor.getRepositories().stream().map(ContributorRepositoryInfoExport::from).collect(Collectors.toList());
+         this.members = contributor.getMembers().stream().map(m -> m.getContributor().getEmail()).collect(Collectors.toList());
+     }
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExport.java
+index 1a5d52a..a84d27f 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExport.java
+@@ -18,6 +18,15 @@ public class ContributorRepositoryInfoExport {
+     private int commits365Days;
+     private List<String> commitDates = new ArrayList<>();
+ 
++    /**
++     * The whole model → export copy lives in the constructor below. A field added to
++     * {@link ContributorRepositoryInfo} should be copied there (or listed as an exclusion in
++     * {@code ContributorRepositoryInfoExportTest}).
++     */
++    public static ContributorRepositoryInfoExport from(ContributorRepositoryInfo contributorRepositoryInfo) {
++        return new ContributorRepositoryInfoExport(contributorRepositoryInfo);
++    }
++
+     public ContributorRepositoryInfoExport(ContributorRepositoryInfo contributorRepositoryInfo) {
+         Metadata metadata = contributorRepositoryInfo.getRepositoryAnalysisResults().getAnalysisResults().getMetadata();
+         this.name = metadata.getName();
+diff --git a/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/ExportParity.java b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/ExportParity.java
+new file mode 100644
+index 0000000..28ca9c3
+--- /dev/null
++++ b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/ExportParity.java
+@@ -0,0 +1,75 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.reports.dataexporters;
++
++import java.beans.IntrospectionException;
++import java.beans.Introspector;
++import java.beans.PropertyDescriptor;
++import java.util.Arrays;
++import java.util.Set;
++import java.util.TreeSet;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++/**
++ * Compares the bean properties of a model class with those of its export DTO, so that a field added to the model
++ * (and not to the DTO's {@code from(model)}) fails a test that names the DTO.
++ */
++public class ExportParity {
++    public static Set<String> properties(Class<?> type) {
++        try {
++            Set<String> names = new TreeSet<>();
++            Arrays.stream(Introspector.getBeanInfo(type, Object.class).getPropertyDescriptors())
++                    .filter(property -> property.getReadMethod() != null)
++                    .map(PropertyDescriptor::getName)
++                    .forEach(names::add);
++            return names;
++        } catch (IntrospectionException e) {
++            throw new IllegalStateException(e);
++        }
++    }
++
++    /**
++     * @param modelOnly properties of the model that are not exported under the same name (mapped or left out)
++     * @param exportOnly properties of the DTO that are derived from other model properties
++     * @return the properties shared by both, which {@code from(model)} must copy one to one
++     */
++    public static Set<String> assertParity(Class<?> model, Class<?> export, Set<String> modelOnly, Set<String> exportOnly) {
++        Set<String> modelProperties = properties(model);
++        Set<String> exportProperties = properties(export);
++
++        assertTrue(modelProperties.containsAll(modelOnly), "stale model exclusions for " + export.getSimpleName() + ": " + modelOnly);
++        assertTrue(exportProperties.containsAll(exportOnly), "stale export exclusions for " + export.getSimpleName() + ": " + exportOnly);
++
++        Set<String> expected = new TreeSet<>(modelProperties);
++        expected.removeAll(modelOnly);
++        Set<String> actual = new TreeSet<>(exportProperties);
++        actual.removeAll(exportOnly);
++
++        assertEquals(expected, actual, "model " + model.getSimpleName() + " and export " + export.getSimpleName()
++                + " differ; copy the new field in " + export.getSimpleName() + ".from(...) or list it as an exclusion");
++
++        return expected;
++    }
++
++    /** Asserts that every shared property has the same value in the model and in the DTO made from it. */
++    public static void assertValuesCopied(Object model, Object export, Set<String> properties) {
++        properties.forEach(property -> assertEquals(read(model, property), read(export, property),
++                export.getClass().getSimpleName() + "." + property));
++    }
++
++    private static Object read(Object bean, String property) {
++        try {
++            PropertyDescriptor descriptor = Arrays.stream(Introspector.getBeanInfo(bean.getClass(), Object.class).getPropertyDescriptors())
++                    .filter(candidate -> candidate.getName().equals(property))
++                    .findFirst()
++                    .orElseThrow(() -> new IllegalArgumentException(property));
++            return descriptor.getReadMethod().invoke(bean);
++        } catch (Exception e) {
++            throw new IllegalStateException(e);
++        }
++    }
++}
+diff --git a/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfoTest.java b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfoTest.java
+new file mode 100644
+index 0000000..2f86ea4
+--- /dev/null
++++ b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/dependencies/DependencyAnchorExportInfoTest.java
+@@ -0,0 +1,38 @@
++package nl.obren.sokrates.reports.dataexporters.dependencies;
++
++import nl.obren.sokrates.reports.dataexporters.ExportParity;
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.dependencies.DependencyAnchor;
++import org.junit.jupiter.api.Test;
++
++import java.io.File;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.HashSet;
++import java.util.Set;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++class DependencyAnchorExportInfoTest {
++    // sourceFiles are exported as files (FileExportInfo); filters are not exported
++    private static final Set<String> MODEL_ONLY = new HashSet<>(Arrays.asList("sourceFiles", "filters"));
++    private static final Set<String> EXPORT_ONLY = Collections.singleton("files");
++
++    @Test
++    void from() {
++        Set<String> shared = ExportParity.assertParity(DependencyAnchor.class, DependencyAnchorExportInfo.class, MODEL_ONLY, EXPORT_ONLY);
++
++        SourceFile sourceFile = new SourceFile(new File("src/A.java"), "a");
++        sourceFile.setRelativePath("src/A.java");
++        DependencyAnchor anchor = new DependencyAnchor("a.b");
++        anchor.setCodeFragment("import a.b");
++        anchor.setDependencyPatterns(Arrays.asList("import a.b.*"));
++        anchor.setSourceFiles(Arrays.asList(sourceFile));
++
++        DependencyAnchorExportInfo export = DependencyAnchorExportInfo.from(anchor);
++
++        ExportParity.assertValuesCopied(anchor, export, shared);
++        assertEquals(1, export.getFiles().size());
++        assertEquals("src/A.java", export.getFiles().get(0).getRelativePath());
++    }
++}
+diff --git a/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfoTest.java b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfoTest.java
+new file mode 100644
+index 0000000..f2896f3
+--- /dev/null
++++ b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/duplication/DuplicateFileBlockExportInfoTest.java
+@@ -0,0 +1,40 @@
++package nl.obren.sokrates.reports.dataexporters.duplication;
++
++import nl.obren.sokrates.reports.dataexporters.ExportParity;
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.duplication.DuplicatedFileBlock;
++import org.junit.jupiter.api.Test;
++
++import java.io.File;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.HashSet;
++import java.util.Set;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++class DuplicateFileBlockExportInfoTest {
++    // sourceFile is exported as file (FileExportInfo); blockSize and percentage are derived and not exported
++    private static final Set<String> MODEL_ONLY = new HashSet<>(Arrays.asList("sourceFile", "blockSize", "percentage"));
++    private static final Set<String> EXPORT_ONLY = Collections.singleton("file");
++
++    @Test
++    void from() {
++        Set<String> shared = ExportParity.assertParity(DuplicatedFileBlock.class, DuplicateFileBlockExportInfo.class, MODEL_ONLY, EXPORT_ONLY);
++
++        SourceFile sourceFile = new SourceFile(new File("src/A.java"), "a\nb\nc");
++        sourceFile.setRelativePath("src/A.java");
++        DuplicatedFileBlock fileBlock = new DuplicatedFileBlock();
++        fileBlock.setSourceFile(sourceFile);
++        fileBlock.setSourceFileCleanedLinesOfCode(10);
++        fileBlock.setStartLine(2);
++        fileBlock.setEndLine(8);
++        fileBlock.setCleanedStartLine(1);
++        fileBlock.setCleanedEndLine(6);
++
++        DuplicateFileBlockExportInfo export = DuplicateFileBlockExportInfo.from(fileBlock);
++
++        ExportParity.assertValuesCopied(fileBlock, export, shared);
++        assertEquals("src/A.java", export.getFile().getRelativePath());
++    }
++}
+diff --git a/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExportTest.java b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExportTest.java
+new file mode 100644
+index 0000000..59c03da
+--- /dev/null
++++ b/reports/src/test/java/nl/obren/sokrates/reports/dataexporters/units/UnitInfoExportTest.java
+@@ -0,0 +1,45 @@
++package nl.obren.sokrates.reports.dataexporters.units;
++
++import nl.obren.sokrates.reports.dataexporters.ExportParity;
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.units.UnitInfo;
++import org.junit.jupiter.api.Test;
++
++import java.io.File;
++import java.util.Arrays;
++import java.util.HashSet;
++import java.util.Set;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++class UnitInfoExportTest {
++    // sourceFile is exported as relativeFileName, fileLinesCount and components; bodies and children are not exported
++    private static final Set<String> MODEL_ONLY = new HashSet<>(Arrays.asList("sourceFile", "body", "cleanedBody", "children"));
++    private static final Set<String> EXPORT_ONLY = new HashSet<>(Arrays.asList("relativeFileName", "fileLinesCount", "components"));
++
++    @Test
++    void from() {
++        Set<String> shared = ExportParity.assertParity(UnitInfo.class, UnitInfoExport.class, MODEL_ONLY, EXPORT_ONLY);
++
++        SourceFile sourceFile = new SourceFile(new File("src/A.java"), "a\nb\nc");
++        sourceFile.setRelativePath("src/A.java");
++        UnitInfo unit = new UnitInfo();
++        unit.setSourceFile(sourceFile);
++        unit.setShortName("a()");
++        unit.setLongName("A.a()");
++        unit.setStartLine(2);
++        unit.setEndLine(3);
++        unit.setLinesOfCode(4);
++        unit.setMcCabeIndex(5);
++        unit.setNumberOfParameters(6);
++        unit.setNumberOfLiterals(7);
++        unit.setNumberOfStatements(8);
++        unit.setNumberOfExpressions(9);
++
++        UnitInfoExport export = UnitInfoExport.from(unit);
++
++        ExportParity.assertValuesCopied(unit, export, shared);
++        assertEquals("src/A.java", export.getRelativeFileName());
++        assertEquals(3, export.getFileLinesCount());
++    }
++}
+diff --git a/reports/src/test/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExportTest.java b/reports/src/test/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExportTest.java
+new file mode 100644
+index 0000000..461ff5d
+--- /dev/null
++++ b/reports/src/test/java/nl/obren/sokrates/reports/landscape/data/ContributorRepositoryInfoExportTest.java
+@@ -0,0 +1,39 @@
++package nl.obren.sokrates.reports.landscape.data;
++
++import nl.obren.sokrates.reports.dataexporters.ExportParity;
++import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
++import nl.obren.sokrates.sourcecode.landscape.analysis.ContributorRepositoryInfo;
++import nl.obren.sokrates.sourcecode.landscape.analysis.RepositoryAnalysisResults;
++import org.junit.jupiter.api.Test;
++
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.HashSet;
++import java.util.Set;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++class ContributorRepositoryInfoExportTest {
++    // repositoryAnalysisResults is exported as the repository's name and description (from its metadata)
++    private static final Set<String> MODEL_ONLY = Collections.singleton("repositoryAnalysisResults");
++    private static final Set<String> EXPORT_ONLY = new HashSet<>(Arrays.asList("name", "description"));
++
++    @Test
++    void from() {
++        Set<String> shared = ExportParity.assertParity(ContributorRepositoryInfo.class, ContributorRepositoryInfoExport.class, MODEL_ONLY, EXPORT_ONLY);
++
++        CodeAnalysisResults analysisResults = new CodeAnalysisResults();
++        analysisResults.getMetadata().setName("repo");
++        analysisResults.getMetadata().setDescription("a repository");
++        RepositoryAnalysisResults repository = new RepositoryAnalysisResults();
++        repository.setAnalysisResults(analysisResults);
++        ContributorRepositoryInfo info = new ContributorRepositoryInfo(repository, "2020-01-01", "2021-01-01",
++                10, 1, 2, 3, 4, Arrays.asList("2020-01-01", "2021-01-01"));
++
++        ContributorRepositoryInfoExport export = ContributorRepositoryInfoExport.from(info);
++
++        ExportParity.assertValuesCopied(info, export, shared);
++        assertEquals("repo", export.getName());
++        assertEquals("a repository", export.getDescription());
++    }
++}
+-- 
+2.50.1 (Apple Git-155)
+

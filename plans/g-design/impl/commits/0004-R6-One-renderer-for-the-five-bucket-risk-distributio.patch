@@ -1,0 +1,832 @@
+From 7da30f35e5aca3b365f1479976c5bfc2b1b80ef3 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 19:29:00 +0200
+Subject: [PATCH 04/10] R6: One renderer for the five-bucket "risk
+ distribution" sections of the file reports
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../statichtml/FileAgeReportGenerator.java    | 148 ++++--------
+ .../statichtml/FileChurnReportGenerator.java  | 156 +++++--------
+ .../FileRiskDistributionSection.java          | 213 ++++++++++++++++++
+ .../statichtml/FileSizeReportGenerator.java   | 105 ++++-----
+ 4 files changed, 362 insertions(+), 260 deletions(-)
+ create mode 100644 reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileRiskDistributionSection.java
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
+index f094efc..b0bc5e1 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileAgeReportGenerator.java
+@@ -9,11 +9,9 @@ import nl.obren.sokrates.common.renderingutils.charts.Palette;
+ import nl.obren.sokrates.common.utils.FormattingUtils;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+-import nl.obren.sokrates.reports.utils.FilesReportUtils;
+-import nl.obren.sokrates.reports.utils.PieChartUtils;
+-import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
++import nl.obren.sokrates.sourcecode.analysis.results.FileAgeDistributionPerLogicalDecomposition;
+ import nl.obren.sokrates.sourcecode.analysis.results.FilesHistoryAnalysisResults;
+ import nl.obren.sokrates.sourcecode.filehistory.FileHistoryComponentsHelper;
+ import nl.obren.sokrates.sourcecode.filehistory.FileHistoryUtils;
+@@ -144,83 +142,45 @@ public class FileAgeReportGenerator {
+                 " and the file freshness (days since the latest commit).", "margin-top: 12px; color: grey");
+     }
+ 
+-    private void addAgeGraphOverall(RichTextReport report, SourceFileAgeDistribution distribution, String title, String subtitle, Palette palette) {
+-        report.startSubSection(title, subtitle);
+-        report.startUnorderedList();
+-        report.addListItem("There are " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
++    private FileRiskDistributionSection section(RichTextReport report, Palette palette) {
++        return new FileRiskDistributionSection(report, ageLabels, palette);
++    }
++
++    private static String totalLine(SourceFileAgeDistribution distribution) {
++        return "There are " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+                 + " files with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+                 + " lines of code in files" +
+-                ".");
+-        report.startUnorderedList();
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskCount())
+-                + " files that are " + thresholds.getVeryHighRiskLabel() + " days old ("
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskCount())
+-                + " files that are " + thresholds.getHighRiskLabel() + " days old ("
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskCount())
+-                + " files that are " + thresholds.getMediumRiskLabel() + " days old ("
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskCount())
+-                + " files that are " + thresholds.getLowRiskLabel() + " days old ("
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskCount())
+-                + " files that are " + thresholds.getNegligibleRiskLabel() + " days old ("
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskValue())
+-                + " lines of code)");
+-        report.endUnorderedList();
+-        report.endUnorderedList();
+-        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, ageLabels, palette));
++                ".";
++    }
++
++    private void addAgeGraphOverall(RichTextReport report, SourceFileAgeDistribution distribution, String title, String subtitle, Palette palette) {
++        report.startSubSection(title, subtitle);
++        FileRiskDistributionSection section = section(report, palette);
++        section.addBucketList(totalLine(distribution), distribution,
++                (bucket, count) -> " files that are " + bucket.label(thresholds) + " days old");
+         report.addLineBreak();
+-        report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_AGE)) + "'>grouped by folders</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_AGE)) + "'>grouped by age</a>");
++        section.addExploreLinks(
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_AGE)), "grouped by folders"),
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_AGE)), "grouped by age"));
+         report.endSection();
+     }
+ 
+     private void addFreshnessGraphOverall(RichTextReport report, SourceFileAgeDistribution distribution, String title, String subtitle, Palette palette) {
+         report.startSubSection(title, subtitle);
+-        report.startUnorderedList();
+-        report.addListItem("There are " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+-                + " files with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+-                + " lines of code in files" +
+-                ".");
+-        report.startUnorderedList();
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskCount())
+-                + " files have been last changed " + thresholds.getVeryHighRiskLabel() + " days ago (" + RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskCount())
+-                + "  files have been last changed " + thresholds.getHighRiskLabel() + " days ago (" + RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskCount())
+-                + " files have been last changed " + thresholds.getMediumRiskLabel() + " days ago (" + RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskCount())
+-                + " files have been last changed " + thresholds.getLowRiskLabel() + " days ago (" + RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskCount())
+-                + " files have been last changed " + thresholds.getNegligibleRiskLabel() + " days ago (" + RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskValue())
+-                + " lines of code)");
+-        report.endUnorderedList();
+-        report.endUnorderedList();
+-        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, ageLabels, palette));
++        FileRiskDistributionSection section = section(report, palette);
++        // the "high" line has always started with two spaces; kept as is
++        section.addBucketList(totalLine(distribution), distribution,
++                (bucket, count) -> (bucket == FileRiskDistributionSection.Bucket.HIGH ? "  " : " ")
++                        + "files have been last changed " + bucket.label(thresholds) + " days ago");
+         report.addLineBreak();
+-        report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_FRESHNESS)) + "'>grouped by folders</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_FRESHNESS)) + "'>grouped by freshness</a>");
++        section.addExploreLinks(
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_FRESHNESS)), "grouped by folders"),
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_FRESHNESS)), "grouped by freshness"));
+         report.endSection();
+     }
+ 
+     private void addGraphPerExtension(RichTextReport report, List<RiskDistributionStats> sourceFileAgeDistribution, String title, String subtitle, Palette palette) {
+-        report.startSubSection(title, subtitle);
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(sourceFileAgeDistribution, ageLabels, palette));
+-        report.endSection();
++        section(report, palette).addChartPerKeySubSection(title, subtitle, sourceFileAgeDistribution);
+     }
+ 
+     private void addGraphsPerLogicalComponents(RichTextReport report) {
+@@ -234,67 +194,47 @@ public class FileAgeReportGenerator {
+     }
+ 
+     private void addChangesPerLogicalDecomposition(RichTextReport report) {
+-        int logicalDecompositionCounter[] = {0};
+         codeAnalysisResults.getCodeConfiguration().getLogicalDecompositions().forEach(logicalDecomposition -> {
+-            logicalDecompositionCounter[0]++;
+-
+             String name = logicalDecomposition.getName();
+-            codeAnalysisResults.getFilesHistoryAnalysisResults().getFirstModifiedDistributionPerLogicalDecomposition().stream()
+-                    .filter(d -> d.getName().equalsIgnoreCase(name)).forEach(distribution -> {
++            FileRiskDistributionSection.matchingDecomposition(codeAnalysisResults.getFilesHistoryAnalysisResults().getFirstModifiedDistributionPerLogicalDecomposition(),
++                    FileAgeDistributionPerLogicalDecomposition::getName, name).forEach(distribution -> {
+                 addFirstModifiedDetailsForLogicalDecomposition(report, name, distribution.getDistributionPerComponent());
+             });
+-            codeAnalysisResults.getFilesHistoryAnalysisResults().getLastModifiedDistributionPerLogicalDecomposition().stream()
+-                    .filter(d -> d.getName().equalsIgnoreCase(name)).forEach(distribution -> {
++            FileRiskDistributionSection.matchingDecomposition(codeAnalysisResults.getFilesHistoryAnalysisResults().getLastModifiedDistributionPerLogicalDecomposition(),
++                    FileAgeDistributionPerLogicalDecomposition::getName, name).forEach(distribution -> {
+                 addLastModifiedPerLogicalComponent(report, name, distribution.getDistributionPerComponent());
+             });
+         });
+     }
+ 
+     private void addFirstModifiedDetailsForLogicalDecomposition(RichTextReport report, String name, List<RiskDistributionStats> distributionsPerComponent) {
+-        report.startSubSection("" + name + " (" + FILE_AGE_DISTRIBUTION.toLowerCase() + ")", FILE_AGE_DESCRIPTION);
+-        report.startDiv("max-height: 300px; overflow-x: none; overflow-y: auto");
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(distributionsPerComponent, ageLabels, Palette.getAgePalette()));
+-        report.endDiv();
+-        report.endSection();
++        section(report, Palette.getAgePalette()).addChartPerComponent("" + name + " (" + FILE_AGE_DISTRIBUTION.toLowerCase() + ")", FILE_AGE_DESCRIPTION,
++                distributionsPerComponent, FileRiskDistributionSection.COMPACT_DIV_STYLE);
+     }
+ 
+     private void addLastModifiedPerLogicalComponent(RichTextReport report, String name, List<RiskDistributionStats> distributionsPerComponent) {
+-        report.startSubSection("" + name + " (" + LATEST_CHANGE_DISTRIBUTION.toLowerCase() + ")", LATEST_CHANGE_DESCRIPTION);
+-        report.startDiv("max-height: 300px; overflow-x: none; overflow-y: auto");
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(distributionsPerComponent, ageLabels, Palette.getFreshnessPalette()));
+-        report.endDiv();
+-        report.endSection();
++        section(report, Palette.getFreshnessPalette()).addChartPerComponent("" + name + " (" + LATEST_CHANGE_DISTRIBUTION.toLowerCase() + ")", LATEST_CHANGE_DESCRIPTION,
++                distributionsPerComponent, FileRiskDistributionSection.COMPACT_DIV_STYLE);
+     }
+ 
+-    private void addOldestFilesList(RichTextReport report) {
+-        List<SourceFile> longestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getOldestFiles();
+-        report.startSection("Oldest Files (Top " + longestFiles.size() + ")", "");
++    private void addHistoryFilesTable(RichTextReport report, String title, List<SourceFile> files) {
+         boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(longestFiles, cacheSourceFiles, true, false).toString());
+-        report.endSection();
++        section(report, Palette.getAgePalette()).addFilesTable(title, "", null, files, cacheSourceFiles, true, false);
++    }
++
++    private void addOldestFilesList(RichTextReport report) {
++        addHistoryFilesTable(report, "Oldest Files", codeAnalysisResults.getFilesHistoryAnalysisResults().getOldestFiles());
+     }
+ 
+     private void addYoungestFilesList(RichTextReport report) {
+-        List<SourceFile> youngestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getYoungestFiles();
+-        report.startSection("Most Recently Created Files (Top " + youngestFiles.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(youngestFiles, cacheSourceFiles, true, false).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Most Recently Created Files", codeAnalysisResults.getFilesHistoryAnalysisResults().getYoungestFiles());
+     }
+ 
+     private void addMostRecentlyChangedFilesList(RichTextReport report) {
+-        List<SourceFile> youngestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getMostRecentlyChangedFiles();
+-        report.startSection("Most Recently Changed Files (Top " + youngestFiles.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(youngestFiles, cacheSourceFiles, true, false).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Most Recently Changed Files", codeAnalysisResults.getFilesHistoryAnalysisResults().getMostRecentlyChangedFiles());
+     }
+ 
+     private void addMostPreviouslyChangedFilesList(RichTextReport report) {
+-        List<SourceFile> youngestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getMostPreviouslyChangedFiles();
+-        report.startSection("Files Not Recently Changed (Top " + youngestFiles.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(youngestFiles, cacheSourceFiles, true, false).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Files Not Recently Changed", codeAnalysisResults.getFilesHistoryAnalysisResults().getMostPreviouslyChangedFiles());
+     }
+ }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
+index dc771ca..29793f6 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileChurnReportGenerator.java
+@@ -10,9 +10,6 @@ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
+-import nl.obren.sokrates.reports.utils.FilesReportUtils;
+-import nl.obren.sokrates.reports.utils.PieChartUtils;
+-import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.FileAgeDistributionPerLogicalDecomposition;
+@@ -92,92 +89,66 @@ public class FileChurnReportGenerator {
+         report.startSubSection("File Change Frequency Overall", "");
+         addGraphOverallChange(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getOverallFileChangeDistribution());
+         report.addLineBreak();
+-        report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_UPDATE_FREQUENCY)) + "'>grouped by folders</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_UPDATE_FREQUENCY)) + "'>grouped by update frequency</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "'>data</a>");
++        changeFrequencySection(report).addExploreLinks(
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_UPDATE_FREQUENCY)), "grouped by folders"),
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_UPDATE_FREQUENCY)), "grouped by update frequency"),
++                FileRiskDistributionSection.link(ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT), "data"));
+         report.endSection();
+ 
+         report.startSubSection("Contributors Count Frequency Overall", "");
+         addGraphOverallContributorCount(report, codeAnalysisResults.getFilesHistoryAnalysisResults().getOverallContributorsCountDistribution());
+         report.addLineBreak();
+-        report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)) + "'>grouped by folders</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)) + "'>grouped by contributors count</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "'>data</a>");
++        contributorsCountSection(report).addExploreLinks(
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)), "grouped by folders"),
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_CONTRIBUTORS_COUNT)), "grouped by contributors count"),
++                FileRiskDistributionSection.link(ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT), "data"));
+         report.endSection();
+         report.endSection();
+     }
+ 
+-    private void addGraphOverallChange(RichTextReport report, SourceFileChangeDistribution distribution) {
+-        report.startUnorderedList();
+-        report.addListItem("There are <b>"
++    private FileRiskDistributionSection changeFrequencySection(RichTextReport report) {
++        return new FileRiskDistributionSection(report, changeFrequencyLabels, Palette.getHeatPalette());
++    }
++
++    private FileRiskDistributionSection contributorsCountSection(RichTextReport report) {
++        return new FileRiskDistributionSection(report, contributorsCountFrequencyLabels, Palette.getHeatPalette());
++    }
++
++    private static String totalLine(SourceFileChangeDistribution distribution) {
++        return "There are <b>"
+                 + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+                 + "</b> files with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+                 + " lines of code" +
+-                ".");
+-        report.startUnorderedList();
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskCount())
+-                + " " + (distribution.getVeryHighRiskCount() == 1 ? "file" : "files") + " changed more than "
+-                + thresholds.getVeryHigh()
+-                + " times (" + RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskCount())
+-                + " " + (distribution.getHighRiskCount() == 1 ? "file" : "files") + " changed " + thresholds.getHighRiskLabel() + " times (" + RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskCount())
+-                + " " + (distribution.getMediumRiskCount() == 1 ? "file" : "files") + " changed " + thresholds.getMediumRiskLabel() + " times (" + RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskCount())
+-                + " " + (distribution.getLowRiskCount() == 1 ? "file" : "files") + " changed " + thresholds.getLowRiskLabel() + " times (" + RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskCount())
+-                + " " + (distribution.getNegligibleRiskCount() == 1 ? "file" : "files") + " changed " + thresholds.getNegligibleRiskLabel() + " times (" + RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskValue())
+-                + " lines of code)");
+-        report.endUnorderedList();
+-        report.endUnorderedList();
+-        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, changeFrequencyLabels, Palette.getHeatPalette()));
++                ".";
++    }
++
++    private static String files(int count) {
++        return count == 1 ? "file" : "files";
++    }
++
++    private void addGraphOverallChange(RichTextReport report, SourceFileChangeDistribution distribution) {
++        changeFrequencySection(report).addBucketList(totalLine(distribution), distribution, (bucket, count) ->
++                bucket == FileRiskDistributionSection.Bucket.VERY_HIGH
++                        ? " " + files(count) + " changed more than " + thresholds.getVeryHigh() + " times"
++                        : " " + files(count) + " changed " + bucket.label(thresholds) + " times");
+     }
+ 
+     private void addGraphOverallContributorCount(RichTextReport report, SourceFileChangeDistribution distribution) {
+-        report.startUnorderedList();
+-        report.addListItem("There are <b>"
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+-                + "</b> files with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+-                + " lines of code" +
+-                ".");
+-        report.startUnorderedList();
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskCount())
+-                + " " + (distribution.getVeryHighRiskCount() == 1 ? "file" : "files") + " changed by more than "
+-                + thresholdsContributors.getVeryHigh()
+-                + " contributors (" + RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskCount())
+-                + " " + (distribution.getHighRiskCount() == 1 ? "file" : "files") + " changed by " + thresholdsContributors.getHighRiskLabel() + " contributors (" + RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskCount())
+-                + " " + (distribution.getMediumRiskCount() == 1 ? "file" : "files") + " changed by " + thresholdsContributors.getMediumRiskLabel() + " contributors (" + RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskCount())
+-                + " " + (distribution.getLowRiskCount() == 1 ? "file" : "files") + " changed by " + thresholdsContributors.getLowRiskLabel() + " contributors (" + RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskCount())
+-                + " " + (distribution.getNegligibleRiskCount() == 1 ? "file" : "files") + " changed by " + thresholdsContributors.getNegligibleRiskLabel()
+-                + " " + (thresholdsContributors.getLow() == 1 ? "contributor" : "contributors") + " (" + RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskValue())
+-                + " lines of code)");
+-        report.endUnorderedList();
+-        report.endUnorderedList();
+-        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, contributorsCountFrequencyLabels, Palette.getHeatPalette()));
++        contributorsCountSection(report).addBucketList(totalLine(distribution), distribution, (bucket, count) -> {
++            switch (bucket) {
++                case VERY_HIGH:
++                    return " " + files(count) + " changed by more than " + thresholdsContributors.getVeryHigh() + " contributors";
++                case NEGLIGIBLE:
++                    return " " + files(count) + " changed by " + bucket.label(thresholdsContributors)
++                            + " " + (thresholdsContributors.getLow() == 1 ? "contributor" : "contributors");
++                default:
++                    return " " + files(count) + " changed by " + bucket.label(thresholdsContributors) + " contributors";
++            }
++        });
+     }
+ 
+     private void addChangesGraphPerExtension(RichTextReport report, List<RiskDistributionStats> sourceFileAgeDistribution, String title, String subtitle) {
+-        report.startSubSection(title, subtitle);
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(sourceFileAgeDistribution, changeFrequencyLabels, Palette.getHeatPalette()));
+-        report.endSection();
++        changeFrequencySection(report).addChartPerKeySubSection(title, subtitle, sourceFileAgeDistribution);
+     }
+ 
+     private void addGraphsPerLogicalComponents(RichTextReport report) {
+@@ -201,53 +172,40 @@ public class FileChurnReportGenerator {
+     }
+ 
+     private void addChangesPerLogicalDecomposition(RichTextReport report) {
+-        int logicalDecompositionCounter[] = {0};
+         codeAnalysisResults.getCodeConfiguration().getLogicalDecompositions().forEach(logicalDecomposition -> {
+-            logicalDecompositionCounter[0]++;
+-
+             String name = logicalDecomposition.getName();
+-            codeAnalysisResults.getFilesHistoryAnalysisResults().getChangeDistributionPerLogicalDecomposition().stream()
+-                    .filter(d -> d.getName().equalsIgnoreCase(name)).forEach(distribution -> {
+-                        addChangeDetailsForLogicalDecomposition(report, distribution);
+-                    });
++            FileRiskDistributionSection.matchingDecomposition(codeAnalysisResults.getFilesHistoryAnalysisResults().getChangeDistributionPerLogicalDecomposition(),
++                    FileAgeDistributionPerLogicalDecomposition::getName, name).forEach(distribution -> {
++                addChangeDetailsForLogicalDecomposition(report, distribution);
++            });
+         });
+     }
+ 
+     private void addChangeDetailsForLogicalDecomposition(RichTextReport report, FileAgeDistributionPerLogicalDecomposition logicalDecomposition) {
+-        report.startSubSection("" + logicalDecomposition.getName()
+-                + " (" + THE_NUMBER_OF_FILE_CHANGES.toLowerCase() + ")", THE_NUMBER_OF_FILE_CHANGES_DESCRIPTION);
+-        report.startScrollingDiv();
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(logicalDecomposition.getDistributionPerComponent(), changeFrequencyLabels, Palette.getHeatPalette()));
+-        report.endDiv();
+-        report.endSection();
++        changeFrequencySection(report).addChartPerComponent("" + logicalDecomposition.getName()
++                        + " (" + THE_NUMBER_OF_FILE_CHANGES.toLowerCase() + ")", THE_NUMBER_OF_FILE_CHANGES_DESCRIPTION,
++                logicalDecomposition.getDistributionPerComponent(), FileRiskDistributionSection.SCROLLING_DIV_STYLE);
++    }
+ 
++    private void addHistoryFilesTable(RichTextReport report, String title, String subtitle, List<SourceFile> files) {
++        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
++        String dataLink = "<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>";
++        changeFrequencySection(report).addFilesTable(title, subtitle, dataLink, files, cacheSourceFiles, true, false, 500);
+     }
+ 
+     private void addMostChangedFilesList(RichTextReport report) {
+         List<SourceFile> youngestFiles = codeAnalysisResults.getFilesHistoryAnalysisResults().getMostChangedFiles();
+-        report.startSection("Most Frequently Changed Files (Top " + youngestFiles.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(youngestFiles, cacheSourceFiles, true, false, 500).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Most Frequently Changed Files", "", youngestFiles);
+     }
+ 
+     private void addFilesWithMostContributors(RichTextReport report) {
+         List<SourceFile> files = codeAnalysisResults.getFilesHistoryAnalysisResults().getFilesWithMostContributors();
+-        report.startSection("Files With Most Contributors (Top " + files.size() + ")", "Based on the number of unique email addresses found in commits.");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(files, cacheSourceFiles, true, false, 500).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Files With Most Contributors", "Based on the number of unique email addresses found in commits.", files);
+     }
+ 
+     private void addFilesWithLeastContributors(RichTextReport report) {
+         List<SourceFile> files = codeAnalysisResults.getFilesHistoryAnalysisResults().getFilesWithLeastContributors();
+-        report.startSection("Files With Least Contributors (Top " + files.size() + ")", "Based on the number of unique email addresses found in commits.");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addParagraph("<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_WITH_HISTORY_TXT) + "' target='_blank'>See data for all files...</a>");
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(files, cacheSourceFiles, true, false, 500).toString());
+-        report.endSection();
++        addHistoryFilesTable(report, "Files With Least Contributors", "Based on the number of unique email addresses found in commits.", files);
+     }
+ 
+     private void addCorrelations(RichTextReport report) {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileRiskDistributionSection.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileRiskDistributionSection.java
+new file mode 100644
+index 0000000..dd39f03
+--- /dev/null
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileRiskDistributionSection.java
+@@ -0,0 +1,213 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.reports.generators.statichtml;
++
++import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
++import nl.obren.sokrates.common.renderingutils.charts.Palette;
++import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.reports.utils.FilesReportUtils;
++import nl.obren.sokrates.reports.utils.PieChartUtils;
++import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.stats.RiskDistributionStats;
++import nl.obren.sokrates.sourcecode.threshold.Thresholds;
++
++import java.util.ArrayList;
++import java.util.List;
++import java.util.function.Function;
++import java.util.stream.Collectors;
++
++/**
++ * Renders the shared building blocks of the file-level "risk distribution" report pages
++ * ({@link FileSizeReportGenerator}, {@link FileChurnReportGenerator}, {@link FileAgeReportGenerator}):
++ * the five-bucket list (very high / high / medium / low / negligible) with its overall chart,
++ * the "explore:" link rows, the per-extension and per-component charts, and the top-N file tables.
++ * <p>
++ * Each generator passes its own labels, palette and wording; this class decides how a section is laid out.
++ */
++public class FileRiskDistributionSection {
++    public static final String SCROLLING_DIV_STYLE = "max-height: 600px; overflow-y: scroll; overflow-x: hidden;";
++    public static final String COMPACT_DIV_STYLE = "max-height: 300px; overflow-x: none; overflow-y: auto";
++    public static final String LINES_OF_CODE_SUFFIX = " lines of code)";
++    public static final String EXPLORE_SEPARATOR = " | ";
++
++    /**
++     * The five buckets of a {@link RiskDistributionStats}, in the order they are listed in the reports.
++     */
++    public enum Bucket {
++        VERY_HIGH, HIGH, MEDIUM, LOW, NEGLIGIBLE;
++
++        public int count(RiskDistributionStats distribution) {
++            switch (this) {
++                case VERY_HIGH:
++                    return distribution.getVeryHighRiskCount();
++                case HIGH:
++                    return distribution.getHighRiskCount();
++                case MEDIUM:
++                    return distribution.getMediumRiskCount();
++                case LOW:
++                    return distribution.getLowRiskCount();
++                default:
++                    return distribution.getNegligibleRiskCount();
++            }
++        }
++
++        public int value(RiskDistributionStats distribution) {
++            switch (this) {
++                case VERY_HIGH:
++                    return distribution.getVeryHighRiskValue();
++                case HIGH:
++                    return distribution.getHighRiskValue();
++                case MEDIUM:
++                    return distribution.getMediumRiskValue();
++                case LOW:
++                    return distribution.getLowRiskValue();
++                default:
++                    return distribution.getNegligibleRiskValue();
++            }
++        }
++
++        public String label(Thresholds thresholds) {
++            switch (this) {
++                case VERY_HIGH:
++                    return thresholds.getVeryHighRiskLabel();
++                case HIGH:
++                    return thresholds.getHighRiskLabel();
++                case MEDIUM:
++                    return thresholds.getMediumRiskLabel();
++                case LOW:
++                    return thresholds.getLowRiskLabel();
++                default:
++                    return thresholds.getNegligibleRiskLabel();
++            }
++        }
++    }
++
++    /**
++     * The wording of one bucket line, given the bucket and its file count.
++     */
++    @FunctionalInterface
++    public interface BucketText {
++        String text(Bucket bucket, int count);
++    }
++
++    private final RichTextReport report;
++    private final List<String> labels;
++    private final Palette palette;
++
++    public FileRiskDistributionSection(RichTextReport report, List<String> labels, Palette palette) {
++        this.report = report;
++        this.labels = labels;
++        this.palette = palette;
++    }
++
++    public static String link(String href, String text) {
++        return "<a target='_blank' href='" + href + "'>" + text + "</a>";
++    }
++
++    public static <T> List<T> matchingDecomposition(List<T> distributions, Function<T, String> nameOf, String name) {
++        return distributions.stream().filter(d -> nameOf.apply(d).equalsIgnoreCase(name)).collect(Collectors.toList());
++    }
++
++    /**
++     * Adds the total line, the five bucket lines ("count" + description + " (" + "value" + " lines of code)")
++     * and the overall distribution chart.
++     */
++    public void addBucketList(String totalLine, RiskDistributionStats distribution, BucketText description) {
++        addBucketList(totalLine, distribution, description, (bucket, count) -> LINES_OF_CODE_SUFFIX);
++    }
++
++    public void addBucketList(String totalLine, RiskDistributionStats distribution, BucketText description, BucketText valueSuffix) {
++        report.startUnorderedList();
++        report.addListItem(totalLine);
++        report.startUnorderedList();
++        for (Bucket bucket : Bucket.values()) {
++            int count = bucket.count(distribution);
++            report.addListItem(RichTextRenderingUtils.renderNumberStrong(count)
++                    + description.text(bucket, count)
++                    + " (" + RichTextRenderingUtils.renderNumberStrong(bucket.value(distribution))
++                    + valueSuffix.text(bucket, count));
++        }
++        report.endUnorderedList();
++        report.endUnorderedList();
++        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, labels, palette));
++    }
++
++    /**
++     * Adds "explore: " followed by the given links, separated by " | ".
++     */
++    public void addExploreLinks(String... links) {
++        List<String> fragments = new ArrayList<>();
++        for (int i = 0; i < links.length; i++) {
++            if (i > 0) {
++                fragments.add(EXPLORE_SEPARATOR);
++            }
++            fragments.add(links[i]);
++        }
++        addExploreFragments(fragments.toArray(new String[0]));
++    }
++
++    /**
++     * Adds "explore: " followed by the given HTML fragments as they are (each fragment is rendered on its own line,
++     * so callers that must keep a link and its separator together pass them as one fragment).
++     */
++    public void addExploreFragments(String... fragments) {
++        report.addHtmlContent("explore: ");
++        for (String fragment : fragments) {
++            report.addHtmlContent(fragment);
++        }
++    }
++
++    public void addChartPerKeySection(String title, String subtitle, List<RiskDistributionStats> distributions) {
++        report.startSection(title, subtitle);
++        report.addHtmlContent(getChartPerKey(distributions));
++        report.endSection();
++    }
++
++    public void addChartPerKeySubSection(String title, String subtitle, List<RiskDistributionStats> distributions) {
++        report.startSubSection(title, subtitle);
++        report.addHtmlContent(getChartPerKey(distributions));
++        report.endSection();
++    }
++
++    /**
++     * Adds a sub-section with the distribution per component of one logical decomposition, in a div with the given style.
++     */
++    public void addChartPerComponent(String title, String subtitle, List<RiskDistributionStats> distributions, String divStyle) {
++        report.startSubSection(title, subtitle);
++        report.startDiv(divStyle);
++        report.addHtmlContent(getChartPerKey(distributions));
++        report.endDiv();
++        report.endSection();
++    }
++
++    private String getChartPerKey(List<RiskDistributionStats> distributions) {
++        return RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(distributions, labels, palette);
++    }
++
++    /**
++     * Adds a "title (Top N)" section with a table of files, optionally preceded by a paragraph.
++     */
++    public void addFilesTable(String title, String subtitle, String paragraph, List<SourceFile> files,
++                              boolean linkToFiles, boolean showAge, boolean showLineLength) {
++        startFilesTable(title, subtitle, paragraph, files);
++        report.addHtmlContent(FilesReportUtils.getFilesTable(files, linkToFiles, showAge, showLineLength));
++        report.endSection();
++    }
++
++    public void addFilesTable(String title, String subtitle, String paragraph, List<SourceFile> files,
++                              boolean linkToFiles, boolean showAge, boolean showLineLength, int maxHeight) {
++        startFilesTable(title, subtitle, paragraph, files);
++        report.addHtmlContent(FilesReportUtils.getFilesTable(files, linkToFiles, showAge, showLineLength, maxHeight));
++        report.endSection();
++    }
++
++    private void startFilesTable(String title, String subtitle, String paragraph, List<SourceFile> files) {
++        report.startSection(title + " (Top " + files.size() + ")", subtitle);
++        if (paragraph != null) {
++            report.addParagraph(paragraph);
++        }
++    }
++}
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+index a7922c5..61059c4 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+@@ -5,13 +5,11 @@
+ package nl.obren.sokrates.reports.generators.statichtml;
+ 
+ import nl.obren.sokrates.common.renderingutils.RichTextRenderingUtils;
++import nl.obren.sokrates.common.renderingutils.charts.Palette;
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.reports.core.RichTextReport;
+ import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
+-import nl.obren.sokrates.reports.utils.FilesReportUtils;
+-import nl.obren.sokrates.reports.utils.PieChartUtils;
+-import nl.obren.sokrates.reports.utils.RiskDistributionStatsReportUtils;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.FileDistributionPerLogicalDecomposition;
+@@ -31,6 +29,16 @@ public class FileSizeReportGenerator {
+     private CodeAnalysisResults codeAnalysisResults;
+     private List<String> labels;
+ 
++    private static final Map<FileRiskDistributionSection.Bucket, String> SIZE_BUCKET_NAMES = new EnumMap<>(FileRiskDistributionSection.Bucket.class);
++
++    static {
++        SIZE_BUCKET_NAMES.put(FileRiskDistributionSection.Bucket.VERY_HIGH, "very long");
++        SIZE_BUCKET_NAMES.put(FileRiskDistributionSection.Bucket.HIGH, "long");
++        SIZE_BUCKET_NAMES.put(FileRiskDistributionSection.Bucket.MEDIUM, "medium size");
++        SIZE_BUCKET_NAMES.put(FileRiskDistributionSection.Bucket.LOW, "small");
++        SIZE_BUCKET_NAMES.put(FileRiskDistributionSection.Bucket.NEGLIGIBLE, "very small");
++    }
++
+     public FileSizeReportGenerator(CodeAnalysisResults codeAnalysisResults) {
+         this.codeAnalysisResults = codeAnalysisResults;
+         fileSizeThresholds = codeAnalysisResults.getCodeConfiguration().getAnalysis().getFileSizeThresholds();
+@@ -144,80 +152,66 @@ public class FileSizeReportGenerator {
+         return contributorIds.size();
+     }
+ 
++    private FileRiskDistributionSection section(RichTextReport report) {
++        return new FileRiskDistributionSection(report, labels, Palette.getRiskPalette());
++    }
++
+     private void addGraphOverall(RichTextReport report, SourceFileSizeDistribution distribution) {
+         report.startSection("File Size Overall", "");
+-        report.startUnorderedList();
+-        report.addListItem("There are "
+-                + "<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_TXT) + "' target='_blank'>"
+-                + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
+-                + " files</a> with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
+-                + " lines of code" +
+-                ".");
+-        report.startUnorderedList();
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskCount())
+-                + " very long files (" + RichTextRenderingUtils.renderNumberStrong(distribution.getVeryHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskCount())
+-                + " long files (" + RichTextRenderingUtils.renderNumberStrong(distribution.getHighRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskCount())
+-                + " medium size files (" + RichTextRenderingUtils.renderNumberStrong(distribution.getMediumRiskValue())
+-                + " lines of codeclsfd_ftr_w_mp_ins)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskCount())
+-                + " small files (" + RichTextRenderingUtils.renderNumberStrong(distribution.getLowRiskValue())
+-                + " lines of code)");
+-        report.addListItem(RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskCount())
+-                + " very small files (" + RichTextRenderingUtils.renderNumberStrong(distribution.getNegligibleRiskValue())
+-                + " lines of code)");
+-        report.endUnorderedList();
+-        report.endUnorderedList();
+-        report.addHtmlContent(PieChartUtils.getRiskDistributionChart(distribution, labels));
++        FileRiskDistributionSection section = section(report);
++        section.addBucketList("There are "
++                        + "<a href='" + ReportDataFiles.textDataLink(ReportDataFiles.MAIN_FILES_TXT) + "' target='_blank'>"
++                        + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalCount())
++                        + " files</a> with " + RichTextRenderingUtils.renderNumberStrong(distribution.getTotalValue())
++                        + " lines of code" +
++                        ".",
++                distribution,
++                (bucket, count) -> " " + SIZE_BUCKET_NAMES.get(bucket) + " files",
++                // the medium bucket keeps its corrupt suffix (a known defect, preserved to keep the report unchanged)
++                (bucket, count) -> bucket == FileRiskDistributionSection.Bucket.MEDIUM
++                        ? " lines of codeclsfd_ftr_w_mp_ins)"
++                        : FileRiskDistributionSection.LINES_OF_CODE_SUFFIX);
+         report.addLineBreak();
+         report.addLineBreak();
+-        report.addHtmlContent("explore: ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_LOC)) + "'>grouped by folders</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_LOC)) + "'>grouped by size</a>");
+-        report.addHtmlContent(" | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.zoomableSunburst("main")) + "'>sunburst</a> | ");
+-        report.addHtmlContent("<a target='_blank' href='" + ReportDataFiles.visualLink(ReportDataFiles.FILES_3D_HTML) + "'>3D view</a>");
++        // the sunburst link and the separator after it have always been one fragment (one line in the page)
++        section.addExploreFragments(
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoring(ReportDataFiles.COLORING_LOC)), "grouped by folders"),
++                FileRiskDistributionSection.EXPLORE_SEPARATOR,
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesMainColoringCategories(ReportDataFiles.COLORING_LOC)), "grouped by size"),
++                FileRiskDistributionSection.EXPLORE_SEPARATOR,
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.zoomableSunburst("main")), "sunburst") + FileRiskDistributionSection.EXPLORE_SEPARATOR,
++                FileRiskDistributionSection.link(ReportDataFiles.visualLink(ReportDataFiles.FILES_3D_HTML), "3D view"));
+         report.endSection();
+     }
+ 
+     private void addGraphPerExtension(RichTextReport report, List<RiskDistributionStats> sourceFileSizeDistribution) {
+-        report.startSection("File Size per Extension", "");
+-        report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(sourceFileSizeDistribution, labels));
+-        report.endSection();
++        section(report).addChartPerKeySection("File Size per Extension", "", sourceFileSizeDistribution);
+     }
+ 
+     private void addGraphsPerLogicalComponents(RichTextReport report, List<FileDistributionPerLogicalDecomposition> fileDistributionPerLogicalDecompositions) {
+         report.startSection("File Size per Logical Decomposition", "");
++        FileRiskDistributionSection section = section(report);
+         fileDistributionPerLogicalDecompositions.forEach(logicalDecomposition -> {
+-            report.startSubSection("" + logicalDecomposition.getName() + "", "");
+-            report.startScrollingDiv();
+-            report.addHtmlContent(RiskDistributionStatsReportUtils.getRiskDistributionPerKeySvgBarChart(logicalDecomposition.getFileSizeDistributionPerComponent(), labels));
+-            report.endDiv();
+-            report.endSection();
++            section.addChartPerComponent("" + logicalDecomposition.getName() + "", "",
++                    logicalDecomposition.getFileSizeDistributionPerComponent(), FileRiskDistributionSection.SCROLLING_DIV_STYLE);
+         });
+         report.endSection();
+     }
+ 
++    private boolean isCacheSourceFiles() {
++        return codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
++    }
++
+     private void addLongestFilesList(RichTextReport report) {
+         List<SourceFile> longestFiles = codeAnalysisResults.getFilesAnalysisResults().getLongestFiles();
+-        report.startSection("Longest Files (Top " + longestFiles.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(longestFiles, cacheSourceFiles, false, false).toString());
+-        report.endSection();
++        section(report).addFilesTable("Longest Files", "", null, longestFiles, isCacheSourceFiles(), false, false);
+     }
+ 
+     private void addFilesWithMostUnitsList(RichTextReport report) {
+         List<SourceFile> filesList = codeAnalysisResults.getFilesAnalysisResults().getFilesWithMostUnits();
+         filesList.sort((o1, o2) -> o2.getUnitsCount() - o1.getUnitsCount());
+         filesList = filesList.subList(0, Math.min(getMaxTopListSize(), filesList.size()));
+-        report.startSection("Files With Most Units (Top " + filesList.size() + ")", "");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(filesList, cacheSourceFiles, false, false).toString());
+-        report.endSection();
++        section(report).addFilesTable("Files With Most Units", "", null, filesList, isCacheSourceFiles(), false, false);
+     }
+ 
+     private int getMaxTopListSize() {
+@@ -232,10 +226,7 @@ public class FileSizeReportGenerator {
+         int sum = filesList.stream().map(s -> (int) s.getLongLinesCount(120)).collect(Collectors.summingInt(Integer::intValue));
+         filesList.sort((o1, o2) -> (int) (o2.getLongLinesCount(threshold) - o1.getLongLinesCount(threshold)));
+         filesList = filesList.subList(0, Math.min(getMaxTopListSize(), filesList.size()));
+-        report.startSection("Files With Long Lines (Top " + filesList.size() + ")", "");
+-        report.addParagraph("There " + (count == 1 ? "is only one file" : "are <b>" + count + "</b> files") + " with lines longer than 120 characters. In total, there " + (sum == 1 ? "is only one long line" : "are <b>" + sum + "</b> long lines") + ".");
+-        boolean cacheSourceFiles = codeAnalysisResults.getCodeConfiguration().getAnalysis().isSaveSourceFiles();
+-        report.addHtmlContent(FilesReportUtils.getFilesTable(filesList, cacheSourceFiles, false, true).toString());
+-        report.endSection();
++        String paragraph = "There " + (count == 1 ? "is only one file" : "are <b>" + count + "</b> files") + " with lines longer than 120 characters. In total, there " + (sum == 1 ? "is only one long line" : "are <b>" + sum + "</b> long lines") + ".";
++        section(report).addFilesTable("Files With Long Lines", "", paragraph, filesList, isCacheSourceFiles(), false, true);
+     }
+ }
+-- 
+2.50.1 (Apple Git-155)
+

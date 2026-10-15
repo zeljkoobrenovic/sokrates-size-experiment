@@ -1,0 +1,1149 @@
+From 96359879841de54a5dd8f220cce2f613c0490552 Mon Sep 17 00:00:00 2001
+From: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date: Thu, 15 Oct 2026 20:37:17 +0200
+Subject: [PATCH 06/10] R5: Name the activity windows (30/90/180/365 days) once
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ .../sokrates/cli/CommandLineInterface.java    | 17 ++--
+ .../analysis/files/ContributorsAnalyzer.java  | 17 ++--
+ .../analysis/files/FileHistoryAnalyzer.java   | 20 ++--
+ .../sourcecode/contributors/Contributor.java  | 30 +++---
+ .../contributors/GitContributorsUtil.java     | 10 +-
+ .../sourcecode/core/TrendAnalysisConfig.java  |  3 +-
+ .../filehistory/ActivityWindows.java          | 67 +++++++++++++
+ .../sourcecode/filehistory/DateUtils.java     | 23 ++++-
+ .../filehistory/FileHistoryUtils.java         |  2 +-
+ .../sourcecode/githistory/AuthorCommit.java   |  3 +-
+ .../analysis/ContributorRepositories.java     | 11 ++-
+ .../analysis/LandscapeAnalysisResults.java    | 24 +++--
+ .../landscape/analysis/LandscapeAnalyzer.java | 19 ++--
+ .../reports/core/ReportFileExporter.java      | 99 +++++++------------
+ .../statichtml/CommitsReportGenerator.java    | 11 ++-
+ .../ContributorsReportGenerator.java          | 23 ++---
+ .../statichtml/ContributorsReportUtils.java   |  9 +-
+ .../statichtml/FileSizeReportGenerator.java   |  9 +-
+ ...leTemporalDependenciesReportGenerator.java | 13 +--
+ .../LandscapeReportContributorsTab.java       | 11 ++-
+ .../statichtml/LandscapeReportGenerator.java  | 16 +--
+ .../LandscapeReportPeopleTopologyTab.java     | 11 ++-
+ .../LandscapeRepositoriesReport.java          |  9 +-
+ 23 files changed, 266 insertions(+), 191 deletions(-)
+ create mode 100644 codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/ActivityWindows.java
+
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index a18b4fe..a462cdf 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -33,6 +33,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.core.AnalysisConfig;
+ import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
+ import nl.obren.sokrates.sourcecode.core.CodeConfigurationUtils;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.ExtractGitHistoryFileHandler;
+ import nl.obren.sokrates.sourcecode.githistory.GitHistoryUtils;
+@@ -707,16 +708,16 @@ public class CommandLineInterface {
+             generateFileStructureExplorers("build", folder, analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect().getSourceFiles());
+             generateFileStructureExplorers("other", folder, analysisResults.getOtherAspectAnalysisResults().getAspect().getSourceFiles());
+ 
+-            addCommitZoomableCircles("main", folder, mainSourceFiles, 30);
+-            addCommitZoomableCircles("main", folder, mainSourceFiles, 90);
+-            addCommitZoomableCircles("main", folder, mainSourceFiles, 180);
+-            addCommitZoomableCircles("main", folder, mainSourceFiles, 365);
++            addCommitZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_30);
++            addCommitZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_90);
++            addCommitZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_180);
++            addCommitZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_365);
+             addCommitZoomableCircles("main", folder, mainSourceFiles, 0);
+ 
+-            addContributorsZoomableCircles("main", folder, mainSourceFiles, 30);
+-            addContributorsZoomableCircles("main", folder, mainSourceFiles, 90);
+-            addContributorsZoomableCircles("main", folder, mainSourceFiles, 180);
+-            addContributorsZoomableCircles("main", folder, mainSourceFiles, 365);
++            addContributorsZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_30);
++            addContributorsZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_90);
++            addContributorsZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_180);
++            addContributorsZoomableCircles("main", folder, mainSourceFiles, ActivityWindows.DAYS_365);
+             addContributorsZoomableCircles("main", folder, mainSourceFiles, 0);
+ 
+             addRiskColoredZoomableCircles(folder, mainSourceFiles, ReportDataFiles.COLORING_LOC, codeConfiguration.getAnalysis().getFileSizeThresholds(), Palette.getRiskPalette(), (sourceFile) -> sourceFile.getLinesOfCode(), (sourceFile) -> sourceFile.getLinesOfCode());
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ContributorsAnalyzer.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ContributorsAnalyzer.java
+index df86cd6..30d37c7 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ContributorsAnalyzer.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/ContributorsAnalyzer.java
+@@ -11,6 +11,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.contributors.ContributorsImport;
+ import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.metrics.MetricsList;
+ 
+ import java.io.File;
+@@ -52,17 +53,17 @@ public class ContributorsAnalyzer extends Analyzer {
+             ProcessingStopwatch.end("analysis/contributors/per extension");
+ 
+             ProcessingStopwatch.start("analysis/contributors/get people file dependencies");
+-            analysisResults.setPeopleFileDependencies30Days(getPeopleFileDependencies(codeAnalysisResults, 30));
+-            analysisResults.setPeopleFileDependencies90Days(getPeopleFileDependencies(codeAnalysisResults, 90));
+-            analysisResults.setPeopleFileDependencies180Days(getPeopleFileDependencies(codeAnalysisResults, 180));
+-            analysisResults.setPeopleFileDependencies365Days(getPeopleFileDependencies(codeAnalysisResults, 365));
++            analysisResults.setPeopleFileDependencies30Days(getPeopleFileDependencies(codeAnalysisResults, ActivityWindows.DAYS_30));
++            analysisResults.setPeopleFileDependencies90Days(getPeopleFileDependencies(codeAnalysisResults, ActivityWindows.DAYS_90));
++            analysisResults.setPeopleFileDependencies180Days(getPeopleFileDependencies(codeAnalysisResults, ActivityWindows.DAYS_180));
++            analysisResults.setPeopleFileDependencies365Days(getPeopleFileDependencies(codeAnalysisResults, ActivityWindows.DAYS_365));
+             ProcessingStopwatch.end("analysis/contributors/get people file dependencies");
+ 
+             ProcessingStopwatch.start("analysis/contributors/get people dependencies");
+-            analysisResults.setPeopleDependencies30Days(getPeopleDependencies(codeAnalysisResults, 30));
+-            analysisResults.setPeopleDependencies90Days(getPeopleDependencies(codeAnalysisResults, 90));
+-            analysisResults.setPeopleDependencies180Days(getPeopleDependencies(codeAnalysisResults, 180));
+-            analysisResults.setPeopleDependencies365Days(getPeopleDependencies(codeAnalysisResults, 365));
++            analysisResults.setPeopleDependencies30Days(getPeopleDependencies(codeAnalysisResults, ActivityWindows.DAYS_30));
++            analysisResults.setPeopleDependencies90Days(getPeopleDependencies(codeAnalysisResults, ActivityWindows.DAYS_90));
++            analysisResults.setPeopleDependencies180Days(getPeopleDependencies(codeAnalysisResults, ActivityWindows.DAYS_180));
++            analysisResults.setPeopleDependencies365Days(getPeopleDependencies(codeAnalysisResults, ActivityWindows.DAYS_365));
+             ProcessingStopwatch.end("analysis/contributors/get people dependencies");
+ 
+             addMetrics();
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java
+index 578347c..226cd0d 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/files/FileHistoryAnalyzer.java
+@@ -55,20 +55,20 @@ public class FileHistoryAnalyzer extends Analyzer {
+                 LOG.info("Analyzing file age...");
+                 analyzeFilesAge();
+                 int maxDays = codeConfiguration.getAnalysis().getMaxTemporalDependenciesDepthDays();
+-                if (maxDays > 180) {
++                if (maxDays > ActivityWindows.DAYS_180) {
+                     LOG.info("Analyzing files changed together (all time=" + maxDays + " days)...");
+                     analyzeFilesChangedTogether(history);
+                 }
+-                if (maxDays >= 30) {
+-                    LOG.info("Analyzing files changed together in past 30 days...");
++                if (maxDays >= ActivityWindows.DAYS_30) {
++                    LOG.info("Analyzing files changed together in " + ActivityWindows.PAST_30_DAYS + "...");
+                     analyzeFilesChangedTogether30Days(history);
+                 }
+-                if (maxDays >= 90) {
+-                    LOG.info("Analyzing files changed together in past 90 days...");
++                if (maxDays >= ActivityWindows.DAYS_90) {
++                    LOG.info("Analyzing files changed together in " + ActivityWindows.PAST_90_DAYS + "...");
+                     analyzeFilesChangedTogether90Days(history);
+                 }
+-                if (maxDays >= 180) {
+-                    LOG.info("Analyzing files changed together in past 180 days...");
++                if (maxDays >= ActivityWindows.DAYS_180) {
++                    LOG.info("Analyzing files changed together in " + ActivityWindows.PAST_180_DAYS + "...");
+                     analyzeFilesChangedTogether180Days(history);
+                 }
+             }
+@@ -128,19 +128,19 @@ public class FileHistoryAnalyzer extends Analyzer {
+     }
+ 
+     private void analyzeFilesChangedTogether30Days(List<FileModificationHistory> history) {
+-        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(30);
++        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(ActivityWindows.DAYS_30);
+         filePairsChangedTogether.populate(codeConfiguration.getMain(), history);
+         analysisResults.setFilePairsChangedTogether30Days(filePairsChangedTogether.getFilePairsList());
+     }
+ 
+     private void analyzeFilesChangedTogether90Days(List<FileModificationHistory> history) {
+-        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(90);
++        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(ActivityWindows.DAYS_90);
+         filePairsChangedTogether.populate(codeConfiguration.getMain(), history);
+         analysisResults.setFilePairsChangedTogether90Days(filePairsChangedTogether.getFilePairsList());
+     }
+ 
+     private void analyzeFilesChangedTogether180Days(List<FileModificationHistory> history) {
+-        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(180);
++        FilePairsChangedTogether filePairsChangedTogether = new FilePairsChangedTogether(ActivityWindows.DAYS_180);
+         filePairsChangedTogether.populate(codeConfiguration.getMain(), history);
+         analysisResults.setFilePairsChangedTogether180Days(filePairsChangedTogether.getFilePairsList());
+     }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java
+index daa4c84..48767b0 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java
+@@ -5,6 +5,7 @@
+ package nl.obren.sokrates.sourcecode.contributors;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import org.apache.commons.lang3.StringUtils;
+ 
+@@ -24,9 +25,12 @@ import java.util.List;
+  * {@code EmailTransformations} (landscape), {@code GitHistoryUtils} and {@code ContributorsReportGenerator}.
+  */
+ public class Contributor {
+-    public static final int RECENTLY_ACTIVITY_THRESHOLD_DAYS = 30;
+-    public static final int ACTIVITY_THRESHOLD_DAYS = 180;
+-    public static final int ROOKIE_THRESHOLD_DAYS = 365;
++    /** "Recently active": an alias of {@link ActivityWindows#DAYS_30}. */
++    public static final int RECENTLY_ACTIVITY_THRESHOLD_DAYS = ActivityWindows.DAYS_30;
++    /** "Active": an alias of {@link ActivityWindows#DAYS_180}. */
++    public static final int ACTIVITY_THRESHOLD_DAYS = ActivityWindows.DAYS_180;
++    /** "Rookie" (first commit within the window): an alias of {@link ActivityWindows#DAYS_365}. */
++    public static final int ROOKIE_THRESHOLD_DAYS = ActivityWindows.DAYS_365;
+     private String email = "";
+     private String userName = "";
+     private int commitsCount = 0;
+@@ -53,12 +57,8 @@ public class Contributor {
+         if (!commitDates.contains(date)) {
+             commitDates.add(date);
+         }
+-        if (StringUtils.isBlank(firstCommitDate) || date.compareTo(firstCommitDate) < 0) {
+-            firstCommitDate = date;
+-        }
+-        if (StringUtils.isBlank(latestCommitDate) || date.compareTo(latestCommitDate) > 0) {
+-            latestCommitDate = date;
+-        }
++        firstCommitDate = DateUtils.earlierDate(firstCommitDate, date);
++        latestCommitDate = DateUtils.laterDate(latestCommitDate, date);
+         if (date.length() > 4) {
+             String year = date.substring(0, 4);
+             if (!activeYears.contains(year)) {
+@@ -66,16 +66,16 @@ public class Contributor {
+             }
+             Collections.sort(activeYears);
+ 
+-            if (DateUtils.isCommittedLessThanDaysAgo(date, RECENTLY_ACTIVITY_THRESHOLD_DAYS)) {
++            if (DateUtils.isCommittedLessThanDaysAgo(date, ActivityWindows.DAYS_30)) {
+                 commitsCount30Days += 1;
+             }
+-            if (DateUtils.isCommittedLessThanDaysAgo(date, 90)) {
++            if (DateUtils.isCommittedLessThanDaysAgo(date, ActivityWindows.DAYS_90)) {
+                 commitsCount90Days += 1;
+             }
+-            if (DateUtils.isCommittedLessThanDaysAgo(date, 180)) {
++            if (DateUtils.isCommittedLessThanDaysAgo(date, ActivityWindows.DAYS_180)) {
+                 commitsCount180Days += 1;
+             }
+-            if (DateUtils.isCommittedLessThanDaysAgo(date, 365)) {
++            if (DateUtils.isCommittedLessThanDaysAgo(date, ActivityWindows.DAYS_365)) {
+                 commitsCount365Days += 1;
+             }
+         }
+@@ -102,7 +102,7 @@ public class Contributor {
+             Calendar cal = DateUtils.getCalendar(date);
+             cal.add(Calendar.YEAR, -1);
+ 
+-            String rookieStartDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
++            String rookieStartDate = new SimpleDateFormat(DateUtils.DATE_FORMAT).format(cal.getTime());
+             return firstCommitDate.compareTo(rookieStartDate) >= 0;
+         }
+         return false;
+@@ -117,7 +117,7 @@ public class Contributor {
+         Calendar cal = DateUtils.getCalendar();
+         cal.add(Calendar.DATE, -ROOKIE_THRESHOLD_DAYS);
+ 
+-        String thresholdDate = new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
++        String thresholdDate = new SimpleDateFormat(DateUtils.DATE_FORMAT).format(cal.getTime());
+ 
+         return firstCommitDate.compareTo(thresholdDate) > 0;
+     }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/GitContributorsUtil.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/GitContributorsUtil.java
+index f6c1e15..4dd717e 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/GitContributorsUtil.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/GitContributorsUtil.java
+@@ -6,11 +6,11 @@ package nl.obren.sokrates.sourcecode.contributors;
+ 
+ import nl.obren.sokrates.common.utils.ProcessingStopwatch;
+ import nl.obren.sokrates.sourcecode.analysis.FileHistoryAnalysisConfig;
++import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.AuthorCommit;
+ import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
+ import nl.obren.sokrates.sourcecode.githistory.GitHistoryPerExtensionUtils;
+ import nl.obren.sokrates.sourcecode.githistory.GitHistoryUtils;
+-import org.apache.commons.lang3.StringUtils;
+ import org.apache.commons.logging.Log;
+ import org.apache.commons.logging.LogFactory;
+ 
+@@ -36,12 +36,8 @@ public class GitContributorsUtil {
+         int index[] = {0};
+         authorCommits.forEach(commit -> {
+             String date = commit.getDate();
+-            if (StringUtils.isBlank(contributorsImport.getFirstCommitDate()) || date.compareTo(contributorsImport.getFirstCommitDate()) <= 0) {
+-                contributorsImport.setFirstCommitDate(date);
+-            }
+-            if (StringUtils.isBlank(contributorsImport.getLatestCommitDate()) || date.compareTo(contributorsImport.getLatestCommitDate()) >= 0) {
+-                contributorsImport.setLatestCommitDate(date);
+-            }
++            contributorsImport.setFirstCommitDate(DateUtils.earlierDate(contributorsImport.getFirstCommitDate(), date));
++            contributorsImport.setLatestCommitDate(DateUtils.laterDate(contributorsImport.getLatestCommitDate(), date));
+         });
+         contributorsImport.setContributors(getContributors(authorCommits));
+ 
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TrendAnalysisConfig.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TrendAnalysisConfig.java
+index 7d3294a..fbecef8 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TrendAnalysisConfig.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/core/TrendAnalysisConfig.java
+@@ -5,6 +5,7 @@
+ package nl.obren.sokrates.sourcecode.core;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
++import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ 
+ import java.io.File;
+ import java.text.SimpleDateFormat;
+@@ -81,7 +82,7 @@ public class TrendAnalysisConfig {
+         } else if (frequency.toLowerCase().startsWith("month")) {
+             return subFolder + new SimpleDateFormat("yyyy-MM").format(today);
+         } else {
+-            return subFolder + new SimpleDateFormat("yyyy-MM-dd").format(today);
++            return subFolder + new SimpleDateFormat(DateUtils.DATE_FORMAT).format(today);
+         }
+     }
+ 
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/ActivityWindows.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/ActivityWindows.java
+new file mode 100644
+index 0000000..da67fee
+--- /dev/null
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/ActivityWindows.java
+@@ -0,0 +1,67 @@
++/*
++ * Copyright (c) 2020 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.sourcecode.filehistory;
++
++/**
++ * The fixed reporting windows for activity (commits, contributors, files changed together, people
++ * dependencies): the past 30, 90, 180 and 365 days, counted back from the analysis date
++ * ({@link DateUtils#getCalendar()}).
++ * <p>
++ * Words used for the windows in tasks and in the reports, and the window they mean:
++ * <ul>
++ *     <li>"recent", "recently active", "active now", "last month", "past 30 days", "_30d" → {@link #DAYS_30}
++ *     (also {@code LandscapeAnalysisResults.RECENT_THRESHOLD_DAYS},
++ *     {@code LandscapeReportGenerator.RECENT_THRESHOLD_DAYS} and
++ *     {@code Contributor.RECENTLY_ACTIVITY_THRESHOLD_DAYS}, which alias it);</li>
++ *     <li>"last quarter", "3 months", "past 90 days" → {@link #DAYS_90};</li>
++ *     <li>"active", "half a year", "6 months", "past 180 days" → {@link #DAYS_180}
++ *     (also {@code Contributor.ACTIVITY_THRESHOLD_DAYS});</li>
++ *     <li>"last year", "12 months", "past 365 days", "rookie" (first commit in the past year) → {@link #DAYS_365}
++ *     (also {@code Contributor.ROOKIE_THRESHOLD_DAYS}).</li>
++ * </ul>
++ * The per-window variants of a metric are named after the window: {@code ...30Days}, {@code ...90Days},
++ * {@code ...180Days}, {@code ...365Days} (for example {@code LandscapeAnalysisResults.getCommitsCount30Days()},
++ * {@code Contributor.getCommitsCount90Days()}).
++ * <p>
++ * These windows are fixed. They are not the configurable risk thresholds (file size, unit size, file age,
++ * change frequency, ...), which live in {@link nl.obren.sokrates.sourcecode.threshold.Thresholds} and are set
++ * per project in the analysis configuration.
++ */
++public final class ActivityWindows {
++    /** The past 30 days: "recent", "recently active", "last month". */
++    public static final int DAYS_30 = 30;
++    /** The past 90 days: "last quarter", "3 months". */
++    public static final int DAYS_90 = 90;
++    /** The past 180 days: "active", "6 months". */
++    public static final int DAYS_180 = 180;
++    /** The past 365 days: "last year", "12 months"; the rookie window. */
++    public static final int DAYS_365 = 365;
++
++    /** Report label of the 30-day window. */
++    public static final String PAST_30_DAYS = "past 30 days";
++    /** Report label of the 90-day window. */
++    public static final String PAST_90_DAYS = "past 90 days";
++    /** Report label of the 180-day window. */
++    public static final String PAST_180_DAYS = "past 180 days";
++    /** Short report label of the 90-day window. */
++    public static final String LABEL_3_MONTHS = "3 months";
++    /** Short report label of the 180-day window. */
++    public static final String LABEL_6_MONTHS = "6 months";
++    /** Label of the animated (racing chart) history, which shows a sliding one-year window. */
++    public static final String LABEL_12_MONTHS_WINDOW = "12 months window";
++
++    /** File-name suffix of the visuals and data files of the 30-day window, e.g. {@code extension_dependencies_30d}. */
++    public static final String SUFFIX_30D = "_30d";
++
++    private ActivityWindows() {
++    }
++
++    /**
++     * @return the report label of a window, e.g. {@code "past 30 days"} for {@code 30}
++     */
++    public static String pastDays(int days) {
++        return "past " + days + " days";
++    }
++}
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/DateUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/DateUtils.java
+index c2ff357..65691df 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/DateUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/DateUtils.java
+@@ -216,7 +216,7 @@ public class DateUtils {
+             while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+                 calendar.add(Calendar.DATE, -1);
+             }
+-            String formatedDate = new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
++            String formatedDate = new SimpleDateFormat(DATE_FORMAT).format(calendar.getTime());
+             mondays.put(date, formatedDate);
+             return formatedDate;
+         }
+@@ -224,6 +224,27 @@ public class DateUtils {
+         return "";
+     }
+ 
++    /**
++     * The first-date half of a "first/latest commit date" update: dates in {@link #DATE_FORMAT} compare in
++     * date order as strings.
++     *
++     * @return {@code candidate} if {@code current} is blank (not set yet) or {@code candidate} is earlier,
++     * otherwise {@code current}
++     */
++    public static String earlierDate(String current, String candidate) {
++        return StringUtils.isBlank(current) || candidate.compareTo(current) < 0 ? candidate : current;
++    }
++
++    /**
++     * The latest-date half of a "first/latest commit date" update, see {@link #earlierDate(String, String)}.
++     *
++     * @return {@code candidate} if {@code current} is blank (not set yet) or {@code candidate} is later,
++     * otherwise {@code current}
++     */
++    public static String laterDate(String current, String candidate) {
++        return StringUtils.isBlank(current) || candidate.compareTo(current) > 0 ? candidate : current;
++    }
++
+     public static String getMonth(String date) {
+         return date.substring(0, 7);
+     }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryUtils.java
+index 550222a..8c63147 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/filehistory/FileHistoryUtils.java
+@@ -13,7 +13,7 @@ public class FileHistoryUtils {
+     public static Date getDateFromString(String dateString) {
+         if (dateString.length() >= 10) {
+             try {
+-                return new SimpleDateFormat("yyyy-MM-dd").parse(dateString.substring(0, 10));
++                return new SimpleDateFormat(DateUtils.DATE_FORMAT).parse(dateString.substring(0, 10));
+             } catch (ParseException e) {
+                 e.printStackTrace();
+             }
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommit.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommit.java
+index c6fbf03..0dcbe0d 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommit.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/githistory/AuthorCommit.java
+@@ -1,6 +1,7 @@
+ package nl.obren.sokrates.sourcecode.githistory;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
++import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import org.apache.commons.lang3.StringUtils;
+ import org.apache.commons.lang3.math.NumberUtils;
+ 
+@@ -85,7 +86,7 @@ public class AuthorCommit {
+             while (calendar.get(Calendar.DAY_OF_WEEK) != Calendar.MONDAY) {
+                 calendar.add(Calendar.DATE, -1);
+             }
+-            return new SimpleDateFormat("yyyy-MM-dd").format(calendar.getTime());
++            return new SimpleDateFormat(DateUtils.DATE_FORMAT).format(calendar.getTime());
+         }
+ 
+         return "";
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java
+index f538eff..580b113 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java
+@@ -2,6 +2,8 @@ package nl.obren.sokrates.sourcecode.landscape.analysis;
+ 
+ import com.fasterxml.jackson.annotation.JsonIgnore;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
++import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
++import org.apache.commons.lang3.StringUtils;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
+@@ -21,11 +23,12 @@ public class ContributorRepositories {
+         String path = repositoryAnalysisResults.getAnalysisResults().getMetadata().getName();
+         ContributorRepositoryInfo repositoryByPath = getRepositoryByPath(path);
+         if (repositoryByPath != null) {
+-            if (firstCommitDate.compareTo(repositoryByPath.getFirstCommitDate()) < 0) {
+-                repositoryByPath.setFirstCommitDate(firstCommitDate);
++            // unlike the other callers of DateUtils.earlierDate/laterDate, a blank date already stored here is kept
++            if (StringUtils.isNotBlank(repositoryByPath.getFirstCommitDate())) {
++                repositoryByPath.setFirstCommitDate(DateUtils.earlierDate(repositoryByPath.getFirstCommitDate(), firstCommitDate));
+             }
+-            if (latestCommitDate.compareTo(repositoryByPath.getLatestCommitDate()) > 0) {
+-                repositoryByPath.setLatestCommitDate(latestCommitDate);
++            if (StringUtils.isNotBlank(repositoryByPath.getLatestCommitDate())) {
++                repositoryByPath.setLatestCommitDate(DateUtils.laterDate(repositoryByPath.getLatestCommitDate(), latestCommitDate));
+             }
+             repositoryByPath.setCommits30Days(repositoryByPath.getCommits30Days() + commits30Days);
+             repositoryByPath.setCommits90Days(repositoryByPath.getCommits90Days() + commits90Days);
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index b4b4817..f02629c 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -13,6 +13,7 @@ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.contributors.ContributorIdentity;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
+ import nl.obren.sokrates.sourcecode.landscape.LandscapeConfiguration;
+@@ -42,7 +43,8 @@ import java.util.stream.Stream;
+  * {@code LandscapeIndividualContributorsReports}.
+  */
+ public class LandscapeAnalysisResults {
+-    public static final int RECENT_THRESHOLD_DAYS = 30;
++    /** "Recent": an alias of {@link ActivityWindows#DAYS_30}. */
++    public static final int RECENT_THRESHOLD_DAYS = ActivityWindows.DAYS_30;
+     private static final Log LOG = LogFactory.getLog(LandscapeAnalysisResults.class);
+ 
+     @JsonIgnore
+@@ -781,12 +783,8 @@ public class LandscapeAnalysisResults {
+         teamData.setCommitsCount90Days(teamData.getCommitsCount90Days() + repo.getCommits90Days());
+         teamData.setCommitsCount180Days(teamData.getCommitsCount180Days() + repo.getCommits180Days());
+         teamData.setCommitsCount365Days(teamData.getCommitsCount365Days() + repo.getCommits365Days());
+-        if (StringUtils.isBlank(teamData.getFirstCommitDate()) || repo.getFirstCommitDate().compareTo(teamData.getFirstCommitDate()) < 0) {
+-            teamData.setFirstCommitDate(repo.getFirstCommitDate());
+-        }
+-        if (StringUtils.isBlank(teamData.getLatestCommitDate()) || repo.getLatestCommitDate().compareTo(teamData.getLatestCommitDate()) > 0) {
+-            teamData.setLatestCommitDate(repo.getLatestCommitDate());
+-        }
++        teamData.setFirstCommitDate(DateUtils.earlierDate(teamData.getFirstCommitDate(), repo.getFirstCommitDate()));
++        teamData.setLatestCommitDate(DateUtils.laterDate(teamData.getLatestCommitDate(), repo.getLatestCommitDate()));
+         team.addRepository(repo.getRepositoryAnalysisResults(), repo.getFirstCommitDate(), repo.getLatestCommitDate(),
+                 repo.getCommitsCount(), repo.getCommits30Days(), repo.getCommits90Days(),
+                 repo.getCommits180Days(), repo.getCommits365Days(), repo.getCommitDates());
+@@ -1063,17 +1061,25 @@ public class LandscapeAnalysisResults {
+     }
+ 
+     public int getRecentContributorsCount6Months(List<ContributorRepositories> contributors) {
+-        return (int) contributors.stream().filter(c -> c.getContributor().isActive(180)).count();
++        return (int) contributors.stream().filter(c -> c.getContributor().isActive(ActivityWindows.DAYS_180)).count();
+     }
+ 
+     public int getRecentContributorsCount3Months(List<ContributorRepositories> contributors) {
+-        return (int) contributors.stream().filter(c -> c.getContributor().isActive(90)).count();
++        return (int) contributors.stream().filter(c -> c.getContributor().isActive(ActivityWindows.DAYS_90)).count();
+     }
+ 
+     public int getRookiesContributorsCount(List<ContributorRepositories> contributors) {
+         return (int) contributors.stream().filter(c -> c.getContributor().isRookie(RECENT_THRESHOLD_DAYS)).count();
+     }
+ 
++    /*
++     * Per-window variants of the people-connection metrics (people dependencies, connections via repositories,
++     * c/p index, mean and median, and their 30-day history). Each metric has one accessor pair per activity
++     * window; the ...30Days / ...90Days / ...180Days suffix names the window (see ActivityWindows). They are
++     * computed in LandscapeAnalyzer.updatePeopleDependencies and addHistory. The accessors are public API
++     * (reports module, JSON serialisation); to add a window, add a pair per metric next to the existing ones.
++     */
++
+     @JsonIgnore
+     public List<ComponentDependency> getPeopleDependencies30Days() {
+         return peopleDependencies30Days;
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java
+index aa606aa..04c5ef1 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalyzer.java
+@@ -11,6 +11,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.landscape.*;
+ import org.apache.commons.io.FileUtils;
+@@ -163,20 +164,20 @@ public class LandscapeAnalyzer {
+         LOG.info("Updating people dependencies....");
+         List<ContributorRepositories> contributors = landscapeAnalysisResults.getContributors();
+         LOG.info("Updating people dependencies in past 30d....");
+-        List<ComponentDependency> peopleDependencies30Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, 30);
++        List<ComponentDependency> peopleDependencies30Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, ActivityWindows.DAYS_30);
+         landscapeAnalysisResults.setPeopleDependencies30Days(peopleDependencies30Days);
+-        List<ComponentDependency> peopleRepositoryDependencies30Days = ContributorConnectionUtils.getPeopleRepositoryDependencies(contributors, 0, 30);
++        List<ComponentDependency> peopleRepositoryDependencies30Days = ContributorConnectionUtils.getPeopleRepositoryDependencies(contributors, 0, ActivityWindows.DAYS_30);
+         landscapeAnalysisResults.setPeopleRepositoryDependencies30Days(peopleRepositoryDependencies30Days);
+         LOG.info("Updating people dependencies in past 90d....");
+-        List<ComponentDependency> peopleDependencies90Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, 90);
++        List<ComponentDependency> peopleDependencies90Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, ActivityWindows.DAYS_90);
+         landscapeAnalysisResults.setPeopleDependencies90Days(peopleDependencies90Days);
+         LOG.info("Updating people dependencies in past 180d....");
+-        List<ComponentDependency> peopleDependencies180Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, 180);
++        List<ComponentDependency> peopleDependencies180Days = ContributorConnectionUtils.getPeopleDependencies(contributors, 0, ActivityWindows.DAYS_180);
+         landscapeAnalysisResults.setPeopleDependencies180Days(peopleDependencies180Days);
+ 
+-        List<ContributorConnections> connectionsViaRepositories30Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies30Days, 0, 30);
+-        List<ContributorConnections> connectionsViaRepositories90Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies90Days, 0, 90);
+-        List<ContributorConnections> connectionsViaRepositories180Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies180Days, 0, 180);
++        List<ContributorConnections> connectionsViaRepositories30Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies30Days, 0, ActivityWindows.DAYS_30);
++        List<ContributorConnections> connectionsViaRepositories90Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies90Days, 0, ActivityWindows.DAYS_90);
++        List<ContributorConnections> connectionsViaRepositories180Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies180Days, 0, ActivityWindows.DAYS_180);
+ 
+         landscapeAnalysisResults.setConnectionsViaRepositories30Days(connectionsViaRepositories30Days);
+         landscapeAnalysisResults.setConnectionsViaRepositories90Days(connectionsViaRepositories90Days);
+@@ -220,8 +221,8 @@ public class LandscapeAnalyzer {
+     private void addHistory(LandscapeAnalysisResults landscapeAnalysisResults) {
+         List<ContributorRepositories> contributors = landscapeAnalysisResults.getContributors();
+         for (int i = 0; i < 12; i++) {
+-            int daysAgo1 = i * 30;
+-            int daysAgo2 = (i + 1) * 30;
++            int daysAgo1 = i * ActivityWindows.DAYS_30;
++            int daysAgo2 = (i + 1) * ActivityWindows.DAYS_30;
+             List<ComponentDependency> peopleDependencies30Days = ContributorConnectionUtils.getPeopleDependencies(contributors, daysAgo1, daysAgo2);
+             List<ContributorConnections> connectionsViaRepositories30Days = ContributorConnectionUtils.getConnectionsViaRepositories(contributors, peopleDependencies30Days, daysAgo1, daysAgo2);
+             landscapeAnalysisResults.getcIndex30DaysHistory().add(ContributorConnectionUtils.getCIndex(connectionsViaRepositories30Days));
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+index 80a2cda..da769c6 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+@@ -21,6 +21,7 @@ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
+ import nl.obren.sokrates.sourcecode.core.CodeConfigurationUtils;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.metrics.NumericMetric;
+ import nl.obren.sokrates.sourcecode.stats.SourceFileAgeDistribution;
+@@ -517,70 +518,11 @@ public class ReportFileExporter {
+         report.endTableCell();
+         report.startTableCell("border: none");
+         report.startUnorderedList();
+-        report.startListItem();
+-        report.addHtmlContent("past 30 days: ");
+-        report.addNewTabLink("graphviz", "visuals/people_dependencies_30_1.svg");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph", "visuals/people_dependencies_30_1_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with files)", "visuals/people_dependencies_via_files_30_2_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with shared files only)", "visuals/people_dependencies_via_files_30_2_force_2d_only_shared_file.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph", "visuals/people_dependencies_30_1_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with files)", "visuals/people_dependencies_via_files_30_2_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with shared files only)", "visuals/people_dependencies_via_files_30_2_force_3d_only_shared_file.html");
+-        report.endListItem();
+-        report.startListItem();
+-        report.addHtmlContent("past 3 months: ");
+-        report.addNewTabLink("graphviz", "visuals/people_dependencies_90_3.svg");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph", "visuals/people_dependencies_90_3_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with files)", "visuals/people_dependencies_via_files_90_4_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with shared files only)", "visuals/people_dependencies_via_files_90_4_force_2d_only_shared_file.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph", "visuals/people_dependencies_90_3_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with files)", "visuals/people_dependencies_via_files_90_4_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with shared files only)", "visuals/people_dependencies_via_files_90_4_force_3d_only_shared_file.html");
+-        report.endListItem();
+-        report.startListItem();
+-        report.addHtmlContent("past 6 months: ");
+-        report.addNewTabLink("graphviz", "visuals/people_dependencies_180_5.svg");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph", "visuals/people_dependencies_180_5_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with files)", "visuals/people_dependencies_via_files_180_6_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with shared files only)", "visuals/people_dependencies_via_files_180_6_force_2d_only_shared_file.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph", "visuals/people_dependencies_180_5_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with files)", "visuals/people_dependencies_via_files_180_6_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with shared files only)", "visuals/people_dependencies_via_files_180_6_force_3d_only_shared_file.html");
+-        report.endListItem();
+-        report.startListItem();
+-        report.addHtmlContent("past year: ");
+-        report.addNewTabLink("graphviz", "visuals/people_dependencies_365_7.svg");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph", "visuals/people_dependencies_365_7_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with files)", "visuals/people_dependencies_via_files_365_8_force_2d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("2D graph (with shared files only)", "visuals/people_dependencies_via_files_365_8_force_2d_only_shared_file.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph", "visuals/people_dependencies_365_7_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with files)", "visuals/people_dependencies_via_files_365_8_force_3d.html");
+-        report.addHtmlContent(" | ");
+-        report.addNewTabLink("3D graph (with shared files only)", "visuals/people_dependencies_via_files_365_8_force_3d_only_shared_file.html");
+-        report.endListItem();
++        // the graph numbers follow the order in which ContributorsReportGenerator renders the windows
++        addPeopleDependencyLinks(report, ActivityWindows.PAST_30_DAYS, ActivityWindows.DAYS_30, 1);
++        addPeopleDependencyLinks(report, "past " + ActivityWindows.LABEL_3_MONTHS, ActivityWindows.DAYS_90, 3);
++        addPeopleDependencyLinks(report, "past " + ActivityWindows.LABEL_6_MONTHS, ActivityWindows.DAYS_180, 5);
++        addPeopleDependencyLinks(report, "past year", ActivityWindows.DAYS_365, 7);
+         report.endTableRow();
+         report.endTable();
+ 
+@@ -603,8 +545,8 @@ public class ReportFileExporter {
+         report.addHtmlContent("</tr>");
+         report.addHtmlContent("<tr>");
+         report.addHtmlContent("<td colspan='3' style='text-align: center'>30 days</td>");
+-        report.addHtmlContent("<td colspan='3' style='text-align: center'>3 months</td>");
+-        report.addHtmlContent("<td colspan='3' style='text-align: center'>6 months</td>");
++        report.addHtmlContent("<td colspan='3' style='text-align: center'>" + ActivityWindows.LABEL_3_MONTHS + "</td>");
++        report.addHtmlContent("<td colspan='3' style='text-align: center'>" + ActivityWindows.LABEL_6_MONTHS + "</td>");
+         report.addHtmlContent("</tr>");
+ 
+         int index[] = {0};
+@@ -792,6 +734,31 @@ public class ReportFileExporter {
+ 
+     }
+ 
++    /**
++     * One list item with the people dependency visuals of one activity window: graph {@code graphNumber}
++     * (contributors only) and graph {@code graphNumber + 1} (contributors via files).
++     */
++    private static void addPeopleDependencyLinks(RichTextReport report, String windowLabel, int days, int graphNumber) {
++        String people = "visuals/people_dependencies_" + days + "_" + graphNumber;
++        String peopleViaFiles = "visuals/people_dependencies_via_files_" + days + "_" + (graphNumber + 1);
++        report.startListItem();
++        report.addHtmlContent(windowLabel + ": ");
++        report.addNewTabLink("graphviz", people + ".svg");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("2D graph", people + "_force_2d.html");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("2D graph (with files)", peopleViaFiles + "_force_2d.html");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("2D graph (with shared files only)", peopleViaFiles + "_force_2d_only_shared_file.html");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("3D graph", people + "_force_3d.html");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("3D graph (with files)", peopleViaFiles + "_force_3d.html");
++        report.addHtmlContent(" | ");
++        report.addNewTabLink("3D graph (with shared files only)", peopleViaFiles + "_force_3d_only_shared_file.html");
++        report.endListItem();
++    }
++
+     private static void addData(RichTextReport report, CodeAnalysisResults analysisResults) {
+         AspectAnalysisResults main = analysisResults.getMainAspectAnalysisResults();
+         AspectAnalysisResults test = analysisResults.getTestAspectAnalysisResults();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
+index 51280f8..9ffb415 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/CommitsReportGenerator.java
+@@ -11,6 +11,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.ContributorPerExtensionStats;
+ import org.apache.commons.lang3.tuple.Pair;
+@@ -88,7 +89,7 @@ public class CommitsReportGenerator {
+         ContributorsReportUtils.addContributorsPerTimeSlot(report, contributorsPerWeek, pastWeeks, true, true, 1, false);
+         report.addLevel2Header("Per Day", "margin-bottom: 0;");
+         report.addParagraph("Latest commit date: " + analysis.getLatestCommitDate(), "color: grey; font-size: 80%; margin-top: 0;");
+-        int pastDays = 365;
++        int pastDays = ActivityWindows.DAYS_365;
+         List<ContributionTimeSlot> contributorsPerDay = getContributionDays(analysis, pastDays);
+         ContributorsReportUtils.addContributorsPerTimeSlot(report, contributorsPerDay, pastDays, true, true, 1, false);
+         report.endTabContentSection();
+@@ -97,13 +98,13 @@ public class CommitsReportGenerator {
+     private void addZoomableCircleLinks(RichTextReport report) {
+         report.startDiv("");
+         report.addHtmlContent("Zoomable circles (commit counts per file): ");
+-        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(30, "main")));
++        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(ActivityWindows.DAYS_30, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(90, "main")));
++        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(ActivityWindows.DAYS_90, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("6 months", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(180, "main")));
++        report.addNewTabLink(ActivityWindows.LABEL_6_MONTHS, ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(ActivityWindows.DAYS_180, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(365, "main")));
++        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesCommits(ActivityWindows.DAYS_365, "main")));
+ //        report.addHtmlContent(" | ");
+ //        report.addNewTabLink("all time", "visuals/zoomable_circles_commits_main.html");
+         report.addContentInDiv("Files with only one commit are shown as grey.", "color: grey; font-size: 80%");
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
+index ac71247..dd853a9 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportGenerator.java
+@@ -17,6 +17,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.ContributorPerExtensionStats;
+ import nl.obren.sokrates.sourcecode.landscape.ContributionCounter;
+@@ -134,9 +135,9 @@ public class ContributorsReportGenerator {
+             commits30Days.sort((a, b) -> b.getCommitsCount30Days() - a.getCommitsCount30Days());
+             addContributorsPanel(report, peopleCommits30Days, c -> c.getCommitsCount30Days(), true, e -> e.getFileUpdates30Days(), "Contributor");
+             addContributorsPanel(report, botCommits30Days, c -> c.getCommitsCount30Days(), true, e -> e.getFileUpdates30Days(), "Bot");
+-            renderPeopleDependencies(analysis.getPeopleDependencies30Days(), analysis.getPeopleFileDependencies30Days(), 30, c -> c.getCommitsCount30Days(), commits30Days);
++            renderPeopleDependencies(analysis.getPeopleDependencies30Days(), analysis.getPeopleFileDependencies30Days(), ActivityWindows.DAYS_30, c -> c.getCommitsCount30Days(), commits30Days);
+         } else {
+-            report.addParagraph("No commits in past 30 days.", "margin-top: 16px");
++            report.addParagraph("No commits in " + ActivityWindows.PAST_30_DAYS + ".", "margin-top: 16px");
+         }
+         report.endTabContentSection();
+ 
+@@ -148,9 +149,9 @@ public class ContributorsReportGenerator {
+             commits90Days.sort((a, b) -> b.getCommitsCount90Days() - a.getCommitsCount90Days());
+             addContributorsPanel(report, peopleCommits90Days, c -> c.getCommitsCount90Days(), true, e -> e.getFileUpdates90Days(), "Contributor");
+             addContributorsPanel(report, botCommits90Days, c -> c.getCommitsCount90Days(), true, e -> e.getFileUpdates90Days(), "Bot");
+-            renderPeopleDependencies(analysis.getPeopleDependencies90Days(), analysis.getPeopleFileDependencies90Days(), 90, c -> c.getCommitsCount90Days(), commits90Days);
++            renderPeopleDependencies(analysis.getPeopleDependencies90Days(), analysis.getPeopleFileDependencies90Days(), ActivityWindows.DAYS_90, c -> c.getCommitsCount90Days(), commits90Days);
+         } else {
+-            report.addParagraph("No commits in past 90 days.", "margin-top: 16px");
++            report.addParagraph("No commits in " + ActivityWindows.PAST_90_DAYS + ".", "margin-top: 16px");
+         }
+         report.endTabContentSection();
+ 
+@@ -162,9 +163,9 @@ public class ContributorsReportGenerator {
+             commits180Days.sort((a, b) -> b.getCommitsCount180Days() - a.getCommitsCount180Days());
+             addContributorsPanel(report, peopleCommits180Days, c -> c.getCommitsCount180Days(), true, null, "Contributor");
+             addContributorsPanel(report, botCommits180Days, c -> c.getCommitsCount180Days(), true, null, "Bot");
+-            renderPeopleDependencies(analysis.getPeopleDependencies180Days(), analysis.getPeopleFileDependencies180Days(), 180, c -> c.getCommitsCount180Days(), commits180Days);
++            renderPeopleDependencies(analysis.getPeopleDependencies180Days(), analysis.getPeopleFileDependencies180Days(), ActivityWindows.DAYS_180, c -> c.getCommitsCount180Days(), commits180Days);
+         } else {
+-            report.addParagraph("No commits in past 180 days.", "margin-top: 16px");
++            report.addParagraph("No commits in " + ActivityWindows.PAST_180_DAYS + ".", "margin-top: 16px");
+         }
+         report.endTabContentSection();
+ 
+@@ -176,7 +177,7 @@ public class ContributorsReportGenerator {
+         commits365Days.sort((a, b) -> b.getCommitsCount365Days() - a.getCommitsCount365Days());
+         addContributorsPanel(report, peopleCommits365Days, c -> c.getCommitsCount365Days(), true, null, "Contributor");
+         addContributorsPanel(report, botCommits365Days, c -> c.getCommitsCount365Days(), true, null, "Bot");
+-        renderPeopleDependencies(analysis.getPeopleDependencies365Days(), analysis.getPeopleFileDependencies365Days(), 365, c -> c.getCommitsCount365Days(), commits365Days);
++        renderPeopleDependencies(analysis.getPeopleDependencies365Days(), analysis.getPeopleFileDependencies365Days(), ActivityWindows.DAYS_365, c -> c.getCommitsCount365Days(), commits365Days);
+         report.endTabContentSection();
+ 
+         report.startTabContentSection("data", false);
+@@ -191,13 +192,13 @@ public class ContributorsReportGenerator {
+     private void addZoomableCircleLinks(RichTextReport report) {
+         report.startDiv("margin-top: 10px");
+         report.addHtmlContent("Zoomable circles (number of contributors per file): ");
+-        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(30, "main")));
++        report.addNewTabLink("30 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(ActivityWindows.DAYS_30, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(90, "main")));
++        report.addNewTabLink("90 days", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(ActivityWindows.DAYS_90, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("6 months", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(180, "main")));
++        report.addNewTabLink(ActivityWindows.LABEL_6_MONTHS, ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(ActivityWindows.DAYS_180, "main")));
+         report.addHtmlContent(" | ");
+-        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(365, "main")));
++        report.addNewTabLink("past year", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(ActivityWindows.DAYS_365, "main")));
+         report.addHtmlContent(" | ");
+         report.addNewTabLink("all time", ReportDataFiles.visualLink(ReportDataFiles.zoomableCirclesContributors(0, "main")));
+         report.addContentInDiv("Files with only one contributor are shown as grey.", "color: grey; font-size: 80%");
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java
+index da262b1..d1e00c8 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/ContributorsReportUtils.java
+@@ -12,6 +12,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults
+ import nl.obren.sokrates.sourcecode.cleaners.SourceCodeCleanerUtils;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import org.apache.commons.text.StringEscapeUtils;
+ 
+@@ -143,16 +144,16 @@ public class ContributorsReportUtils {
+         indexReport.startDiv("");
+         indexReport.addLevel2Header("Recent " + type + " (" + activeCount + ")");
+         indexReport.addParagraph("Committed in past 6 months (a rookie = the first commit in past year)", "color: grey");
+-        List<Contributor> contributor30Days = contributors.stream().filter(c -> c.isActive(30)).collect(Collectors.toList());
+-        List<Contributor> contributor90Days = contributors.stream().filter(c -> c.isActive(90) && !c.isActive(30)).collect(Collectors.toList());
+-        List<Contributor> contributor180Days = contributors.stream().filter(c -> c.isActive(180) && !c.isActive(90)).collect(Collectors.toList());
++        List<Contributor> contributor30Days = contributors.stream().filter(c -> c.isActive(ActivityWindows.DAYS_30)).collect(Collectors.toList());
++        List<Contributor> contributor90Days = contributors.stream().filter(c -> c.isActive(ActivityWindows.DAYS_90) && !c.isActive(ActivityWindows.DAYS_30)).collect(Collectors.toList());
++        List<Contributor> contributor180Days = contributors.stream().filter(c -> c.isActive(ActivityWindows.DAYS_180) && !c.isActive(ActivityWindows.DAYS_90)).collect(Collectors.toList());
+         if (contributor30Days.size() > 0) {
+             indexReport.addParagraph("Past 30 days (" + contributor30Days.size() + "):", "font-size: 80%");
+             contributor30Days.forEach(contributor -> {
+                 addContributor(indexReport, max, total, contributor);
+             });
+         } else {
+-            indexReport.addParagraph("No " + type.toLowerCase() + " in past 30 days.", "font-size: 80%");
++            indexReport.addParagraph("No " + type.toLowerCase() + " in " + ActivityWindows.PAST_30_DAYS + ".", "font-size: 80%");
+         }
+         indexReport.addHorizontalLine();
+         if (contributor90Days.size() > 0) {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+index 61059c4..2612fa6 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileSizeReportGenerator.java
+@@ -13,6 +13,7 @@ import nl.obren.sokrates.reports.landscape.utils.CorrelationDiagramGenerator;
+ import nl.obren.sokrates.sourcecode.SourceFile;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.FileDistributionPerLogicalDecomposition;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.CommitInfo;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.filehistory.FileModificationHistory;
+@@ -117,25 +118,25 @@ public class FileSizeReportGenerator {
+             report.addHorizontalLine();
+ 
+             correlationDiagramGenerator.addCorrelations("File Size vs. Commits (30 days)", "commits (30d)", "lines of code",
+-                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 30)).count(),
++                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), ActivityWindows.DAYS_30)).count(),
+                     p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                     p -> p.getPath());
+ 
+             correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (30 days)", "contributors (30d)", "lines of code",
+-                    p -> countContributors(p, 30),
++                    p -> countContributors(p, ActivityWindows.DAYS_30),
+                     p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                     p -> p.getPath());
+ 
+             report.addHorizontalLine();
+ 
+             correlationDiagramGenerator.addCorrelations("File Size vs. Commits (90 days)", "commits (90d)", "lines of code",
+-                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), 90)).count(),
++                    p -> p.getCommits().stream().filter(c -> DateUtils.isDateWithinRange(c.getDate(), ActivityWindows.DAYS_90)).count(),
+                     p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                     p -> p.getPath());
+ 
+ 
+             correlationDiagramGenerator.addCorrelations("File Size vs. Contributors (90 days)", "contributors (90d)", "lines of code",
+-                    p -> countContributors(p, 90),
++                    p -> countContributors(p, ActivityWindows.DAYS_90),
+                     p -> linesOfCodeMap.getOrDefault(p.getPath(), 0),
+                     p -> p.getPath());
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
+index 435c6bc..cf35047 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/FileTemporalDependenciesReportGenerator.java
+@@ -11,6 +11,7 @@ import nl.obren.sokrates.reports.dataexporters.ReportDataFiles;
+ import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.FilePairChangedTogether;
+ import nl.obren.sokrates.sourcecode.filehistory.TemporalDependenciesHelper;
+ import org.apache.commons.logging.Log;
+@@ -51,13 +52,13 @@ public class FileTemporalDependenciesReportGenerator {
+ 
+         report.startTabGroup();
+         report.addTab("30_days", "Past 30 Days", true);
+-        if (maxTemporalDependenciesDepthDays >= 90) {
++        if (maxTemporalDependenciesDepthDays >= ActivityWindows.DAYS_90) {
+             report.addTab("90_days", "Past 3 Months", false);
+         }
+-        if (maxTemporalDependenciesDepthDays >= 180) {
++        if (maxTemporalDependenciesDepthDays >= ActivityWindows.DAYS_180) {
+             report.addTab("180_days", "Past 6 Months", false);
+         }
+-        if (maxTemporalDependenciesDepthDays > 180) {
++        if (maxTemporalDependenciesDepthDays > ActivityWindows.DAYS_180) {
+             report.addTab("all_time", "Past " + maxTemporalDependenciesDepthDays + " Days", false);
+         }
+         report.endTabGroup();
+@@ -68,13 +69,13 @@ public class FileTemporalDependenciesReportGenerator {
+         List<FilePairChangedTogether> filePairsChangedTogether180Days = codeAnalysisResults.getFilesHistoryAnalysisResults().getFilePairsChangedTogether180Days();
+ 
+         addTabContentSection(report, "30_days", filePairsChangedTogether30Days, true);
+-        if (maxTemporalDependenciesDepthDays >= 90) {
++        if (maxTemporalDependenciesDepthDays >= ActivityWindows.DAYS_90) {
+             addTabContentSection(report, "90_days", filePairsChangedTogether90Days, false);
+         }
+-        if (maxTemporalDependenciesDepthDays >= 180) {
++        if (maxTemporalDependenciesDepthDays >= ActivityWindows.DAYS_180) {
+             addTabContentSection(report, "180_days", filePairsChangedTogether180Days, false);
+         }
+-        if (maxTemporalDependenciesDepthDays > 180) {
++        if (maxTemporalDependenciesDepthDays > ActivityWindows.DAYS_180) {
+             addTabContentSection(report, "all_time", filePairsChangedTogether, false);
+         }
+     }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+index 9443f12..5561261 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+@@ -15,6 +15,7 @@ import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
+ import nl.obren.sokrates.sourcecode.landscape.*;
+@@ -189,11 +190,11 @@ public class LandscapeReportContributorsTab {
+                 locNewPerRecentContributor = (int) Math.round((double) mainLocNew / recentContributorsCount);
+             }
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent " + type.plural(),
+-                    "(past 30 days)", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent " + type.singular());
++                    "(" + ActivityWindows.PAST_30_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent " + type.singular());
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount3Months(contributors)), "3m " + type.plural(),
+-                    "(past 90 days)", getExtraPeopleInfo(contributors, contributorsCount));
++                    "(" + ActivityWindows.PAST_90_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount));
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(landscapeAnalysisResults.getRecentContributorsCount6Months(contributors)), "6m " + type.plural(),
+-                    "(past 180 days)", getExtraPeopleInfo(contributors, contributorsCount));
++                    "(" + ActivityWindows.PAST_180_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount));
+             int rookiesContributorsCount = landscapeAnalysisResults.getRookiesContributorsCount(contributors);
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
+                     ("rookie " + type.plural()),
+@@ -653,8 +654,8 @@ public class LandscapeReportContributorsTab {
+         int recentContributorsCount6Months = landscapeAnalysisResults.getRecentContributorsCount6Months(contributors);
+         int recentContributorsCount3Months = landscapeAnalysisResults.getRecentContributorsCount3Months(contributors);
+         info += FormattingUtils.getPlainTextForNumber(landscapeAnalysisResults.getRecentContributorsCount(contributors)) + " contributors (30 days)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (3 months)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (6 months)\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (" + ActivityWindows.LABEL_3_MONTHS + ")\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (" + ActivityWindows.LABEL_6_MONTHS + ")\n";
+ 
+         LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+         int thresholdCommits = configuration.getContributorThresholdCommits();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+index 14ba7ac..97256ca 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -29,6 +29,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.githistory.CommitsPerExtension;
+ import nl.obren.sokrates.sourcecode.landscape.*;
+@@ -67,7 +68,8 @@ public class LandscapeReportGenerator {
+     public static final String DEPENDENCIES_ICON = "\n" +
+             "<svg height='100px' width='100px'  fill=\"#000000\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" version=\"1.1\" x=\"0px\" y=\"0px\" viewBox=\"0 0 48 48\" enable-background=\"new 0 0 48 48\" xml:space=\"preserve\"><path d=\"M12,19.666v6.254l1.357-1.357c0.391-0.391,1.023-0.391,1.414,0s0.391,1.023,0,1.414l-3.064,3.064  c-0.195,0.195-0.451,0.293-0.707,0.293s-0.512-0.098-0.707-0.293l-3.064-3.064c-0.391-0.391-0.391-1.023,0-1.414  s1.023-0.391,1.414,0L10,25.92v-6.254c0-0.552,0.448-1,1-1S12,19.114,12,19.666z M28.334,36H22.08l1.357-1.357  c0.391-0.391,0.391-1.023,0-1.414s-1.023-0.391-1.414,0l-3.064,3.064c-0.391,0.391-0.391,1.023,0,1.414l3.064,3.064  c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293c0.391-0.391,0.391-1.023,0-1.414L22.08,38h6.254c0.553,0,1-0.447,1-1  S28.887,36,28.334,36z M37,18.666c-0.553,0-1,0.448-1,1v6.254l-1.357-1.357c-0.391-0.391-1.023-0.391-1.414,0s-0.391,1.023,0,1.414  l3.064,3.064c0.195,0.195,0.451,0.293,0.707,0.293s0.512-0.098,0.707-0.293l3.064-3.064c0.391-0.391,0.391-1.023,0-1.414  s-1.023-0.391-1.414,0L38,25.92v-6.254C38,19.114,37.553,18.666,37,18.666z M31.58,16.421c-0.391-0.391-1.023-0.391-1.414,0  L18.127,28.458v-1.92c0-0.553-0.448-1-1-1s-1,0.447-1,1v4.334c0,0.13,0.027,0.26,0.077,0.382c0.101,0.245,0.296,0.439,0.541,0.541  c0.122,0.051,0.251,0.077,0.382,0.077h4.333c0.552,0,1-0.447,1-1s-0.448-1-1-1h-1.919L31.58,17.835  C31.971,17.444,31.971,16.812,31.58,16.421z M16.334,37c0,2.941-2.393,5.334-5.334,5.334S5.666,39.941,5.666,37  S8.059,31.666,11,31.666S16.334,34.059,16.334,37z M14.334,37c0-1.838-1.496-3.334-3.334-3.334S7.666,35.162,7.666,37  S9.162,40.334,11,40.334S14.334,38.838,14.334,37z M42.334,37c0,2.941-2.393,5.334-5.334,5.334S31.666,39.941,31.666,37  s2.393-5.334,5.334-5.334S42.334,34.059,42.334,37z M40.334,37c0-1.838-1.496-3.334-3.334-3.334S33.666,35.162,33.666,37  s1.496,3.334,3.334,3.334S40.334,38.838,40.334,37z M5.666,11c0-2.941,2.393-5.334,5.334-5.334S16.334,8.059,16.334,11  S13.941,16.334,11,16.334S5.666,13.941,5.666,11z M7.666,11c0,1.838,1.496,3.334,3.334,3.334s3.334-1.496,3.334-3.334  S12.838,7.666,11,7.666S7.666,9.162,7.666,11z M31.666,11c0-2.941,2.393-5.334,5.334-5.334S42.334,8.059,42.334,11  S39.941,16.334,37,16.334S31.666,13.941,31.666,11z M33.666,11c0,1.838,1.496,3.334,3.334,3.334s3.334-1.496,3.334-3.334  S38.838,7.666,37,7.666S33.666,9.162,33.666,11z\"></path></svg>";
+ 
+-    public static final int RECENT_THRESHOLD_DAYS = 30;
++    /** "Recent": an alias of {@link ActivityWindows#DAYS_30}. */
++    public static final int RECENT_THRESHOLD_DAYS = ActivityWindows.DAYS_30;
+     public static final String OVERVIEW_TAB_ID = "overview";
+     public static final String SUB_LANDSCAPES_TAB_ID = "sub-landscapes";
+     public static final String REPOSITORIES_TAB_ID = "repositories";
+@@ -79,8 +81,8 @@ public class LandscapeReportGenerator {
+     public static final String PROMPTS_TAB_ID = "prompts";
+     public static final String TEAMS_TAB_ID = "teams";
+     public static final String CUSTOM_TAB_ID_PREFIX = "custom_tab_";
+-    public static final String CONTRIBUTORS_30_D = "contributors_30d_";
+-    public static final String COMMITS_30_D = "commits_30d_";
++    public static final String CONTRIBUTORS_30_D = "contributors" + ActivityWindows.SUFFIX_30D + "_";
++    public static final String COMMITS_30_D = "commits" + ActivityWindows.SUFFIX_30D + "_";
+     public static final String MAIN_LOC = "main_loc_";
+     private static final Log LOG = LogFactory.getLog(LandscapeReportGenerator.class);
+     public static final String DEVELOPER_SVG_ICON = "<svg width=\"16pt\" height=\"16pt\" version=\"1.1\" viewBox=\"0 0 100 100\" xmlns=\"http://www.w3.org/2000/svg\">\n" +
+@@ -870,7 +872,7 @@ public class LandscapeReportGenerator {
+                 locPerRecentContributor = (int) Math.round((double) mainLoc1YearActive / recentContributorsCount);
+             }
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(recentContributorsCount), "recent contributors",
+-                    "(past 30 days)", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent contributor");
++                    "(" + ActivityWindows.PAST_30_DAYS + ")", getExtraPeopleInfo(contributors, contributorsCount) + "\n" + FormattingUtils.formatCount(locPerRecentContributor) + " active lines of code per recent contributor");
+             int rookiesContributorsCount = landscapeAnalysisResults.getRookiesContributorsCount(contributors);
+             addPeopleInfoBlock(FormattingUtils.getSmallTextForNumber(rookiesContributorsCount),
+                     rookiesContributorsCount == 1 ? "active rookie" : "active rookies",
+@@ -1035,7 +1037,7 @@ public class LandscapeReportGenerator {
+         landscapeReport.addHtmlContent("animated commit history: ");
+         landscapeReport.addNewTabLink("all time cumulative", "visuals/racing_charts_extensions_commits.html?tickDuration=600");
+         landscapeReport.addHtmlContent(" | ");
+-        landscapeReport.addNewTabLink("12 months window", "visuals/racing_charts_extensions_commits_window.html?tickDuration=600");
++        landscapeReport.addNewTabLink(ActivityWindows.LABEL_12_MONTHS_WINDOW, "visuals/racing_charts_extensions_commits_window.html?tickDuration=600");
+         landscapeReport.endDiv();
+         List<String> extensions = linesOfCodePerExtensionMain.stream().map(loc -> loc.getName().replaceAll(".*[.]", "").trim()).collect(Collectors.toList());
+         List<HistoryPerExtension> yearlyCommitHistoryPerExtension = landscapeAnalysisResults.getYearlyCommitHistoryPerExtension();
+@@ -1541,8 +1543,8 @@ public class LandscapeReportGenerator {
+         int recentContributorsCount6Months = landscapeAnalysisResults.getRecentContributorsCount6Months(contributors);
+         int recentContributorsCount3Months = landscapeAnalysisResults.getRecentContributorsCount3Months(contributors);
+         info += FormattingUtils.getPlainTextForNumber(landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors())) + " contributors (30 days)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (3 months)\n";
+-        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (6 months)\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount3Months) + " contributors (" + ActivityWindows.LABEL_3_MONTHS + ")\n";
++        info += FormattingUtils.getPlainTextForNumber(recentContributorsCount6Months) + " contributors (" + ActivityWindows.LABEL_6_MONTHS + ")\n";
+ 
+         LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+         int thresholdCommits = configuration.getContributorThresholdCommits();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
+index e2fe74c..e4bec4a 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportPeopleTopologyTab.java
+@@ -12,6 +12,7 @@ import nl.obren.sokrates.reports.landscape.utils.*;
+ import nl.obren.sokrates.reports.utils.GraphvizDependencyRenderer;
+ import nl.obren.sokrates.sourcecode.contributors.ContributorIdentity;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.landscape.*;
+ import nl.obren.sokrates.sourcecode.landscape.analysis.ContributorConnections;
+@@ -110,15 +111,15 @@ public class LandscapeReportPeopleTopologyTab {
+         List<ComponentDependency> peopleDependencies30Days = landscapeAnalysisResults.getPeopleDependencies30Days();
+         List<ComponentDependency> peopleRepositoryDependencies30Days = landscapeAnalysisResults.getPeopleRepositoryDependencies30Days();
+         List<ContributorConnections> connectionsViaRepositories30Days = landscapeAnalysisResults.getConnectionsViaRepositories30Days();
+-        this.renderPeopleDependencies(peopleDependencies30Days, peopleRepositoryDependencies30Days, connectionsViaRepositories30Days, 30);
++        this.renderPeopleDependencies(peopleDependencies30Days, peopleRepositoryDependencies30Days, connectionsViaRepositories30Days, ActivityWindows.DAYS_30);
+ 
+         List<ComponentDependency> peopleDependencies90Days = landscapeAnalysisResults.getPeopleDependencies90Days();
+         List<ContributorConnections> connectionsViaRepositories90Days = landscapeAnalysisResults.getConnectionsViaRepositories90Days();
+-        this.renderPeopleDependencies(peopleDependencies90Days, null, connectionsViaRepositories90Days, 90);
++        this.renderPeopleDependencies(peopleDependencies90Days, null, connectionsViaRepositories90Days, ActivityWindows.DAYS_90);
+ 
+         List<ComponentDependency> peopleDependencies180Days = landscapeAnalysisResults.getPeopleDependencies180Days();
+         List<ContributorConnections> connectionsViaRepositories180Days = landscapeAnalysisResults.getConnectionsViaRepositories180Days();
+-        this.renderPeopleDependencies(peopleDependencies180Days, null, connectionsViaRepositories180Days, 180);
++        this.renderPeopleDependencies(peopleDependencies180Days, null, connectionsViaRepositories180Days, ActivityWindows.DAYS_180);
+ 
+         landscapeReport.endSection();
+         if (!isContributorReport()) {
+@@ -299,7 +300,7 @@ public class LandscapeReportPeopleTopologyTab {
+ 
+         landscapeReport.addLevel2Header("Contributor Dependencies (past " + daysAgo + " days)", "margin-top: 40px");
+         List<Double> activeContributors30DaysHistory = landscapeAnalysisResults.getActiveContributors30DaysHistory();
+-        if (activeContributors30DaysHistory.size() > 0 && daysAgo == 30) {
++        if (activeContributors30DaysHistory.size() > 0 && daysAgo == ActivityWindows.DAYS_30) {
+             landscapeReport.addLineBreak();
+             landscapeReport.addLineBreak();
+             addDataSection("Active Contributors", activeContributors30DaysHistory.get(0), daysAgo, activeContributors30DaysHistory,
+@@ -373,7 +374,7 @@ public class LandscapeReportPeopleTopologyTab {
+             landscapeReport.addParagraph(type + ": <b>" + ((int) Math.round(value)) + "</b>");
+         }
+ 
+-        if (daysAgo == 30 && history.size() > 0) {
++        if (daysAgo == ActivityWindows.DAYS_30 && history.size() > 0) {
+             landscapeReport.startTable("border: none");
+             landscapeReport.startTableRow("font-size: 70%;");
+             double max = history.stream().max(Double::compare).get();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+index 5a2f887..9b42272 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+@@ -25,6 +25,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.FilesHistoryAnalysisResults
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
++import nl.obren.sokrates.sourcecode.filehistory.ActivityWindows;
+ import nl.obren.sokrates.sourcecode.filehistory.DateUtils;
+ import nl.obren.sokrates.sourcecode.landscape.RepositoryTag;
+ import nl.obren.sokrates.sourcecode.landscape.TagGroup;
+@@ -569,13 +570,13 @@ public class LandscapeRepositoriesReport {
+             if (commits90Days == 0 && commits180Days > 0 && !startedInactiveSection90Days[0]) {
+                 startedInactiveSection90Days[0] = true;
+                 report.startTableRow("white-space: nowrap");
+-                report.addMultiColumnTableCell("<h3 style='margin: 0; margin-top: 14px; margin-bottom: 6px;'>Repository not active in past 90 days</h3>", 11);
++                report.addMultiColumnTableCell("<h3 style='margin: 0; margin-top: 14px; margin-bottom: 6px;'>Repository not active in " + ActivityWindows.PAST_90_DAYS + "</h3>", 11);
+                 report.endTableRow();
+             }
+             if (commits180Days == 0 && !startedInactiveSection180Days[0]) {
+                 startedInactiveSection180Days[0] = true;
+                 report.startTableRow("white-space: nowrap");
+-                report.addMultiColumnTableCell("<h3 style='margin: 0; margin-top: 14px; margin-bottom: 6px;'>Repository not active in past 180 days</h3>", 11);
++                report.addMultiColumnTableCell("<h3 style='margin: 0; margin-top: 14px; margin-bottom: 6px;'>Repository not active in " + ActivityWindows.PAST_180_DAYS + "</h3>", 11);
+                 report.endTableRow();
+             }
+             report.startTableRow("white-space: nowrap" + (commits90Days > 0 ? "" : "; opacity: 0.7"));
+@@ -795,8 +796,8 @@ public class LandscapeRepositoriesReport {
+         Metadata metadata = analysisResults.getMetadata();
+ 
+         String latestCommitDate = repositoryAnalysis.getAnalysisResults().getContributorsAnalysisResults().getLatestCommitDate();
+-        report.startTableRow("white-space: nowrap;" + (DateUtils.isCommittedLessThanDaysAgo(latestCommitDate, 90) ? ""
+-                : (DateUtils.isCommittedLessThanDaysAgo(latestCommitDate, 180) ? "color:#b0b0b0" : "color:#c3c3c3")));
++        report.startTableRow("white-space: nowrap;" + (DateUtils.isCommittedLessThanDaysAgo(latestCommitDate, ActivityWindows.DAYS_90) ? ""
++                : (DateUtils.isCommittedLessThanDaysAgo(latestCommitDate, ActivityWindows.DAYS_180) ? "color:#b0b0b0" : "color:#c3c3c3")));
+         addLangTableCell(report, repositoryAnalysis.getAnalysisResults().getMainAspectAnalysisResults());
+         String name = getRepositoryDisplayHtml(metadata.getName());
+         report.addTableCell("<a href='" + this.getRepositoryReportUrl(repositoryAnalysis) + "' target='_blank'>"
+-- 
+2.50.1 (Apple Git-155)
+

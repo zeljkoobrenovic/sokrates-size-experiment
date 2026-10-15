@@ -1,0 +1,31 @@
+=== R7 start 18:59:46
+  agent: turns 40 cost 1.31 error False
+  driver check: PASSED; R7: Make feature words findable: a short "what lives here" Javadoc on the 15 entry-point classes   14 files changed, 157 insertions(+) 
+=== R1 start 19:04:29
+  agent: turns 71 cost 1.7 error False
+  driver check: PASSED; R1: One catalogue of report pages (ReportPages)   5 files changed, 206 insertions(+), 105 deletions(-) 
+=== R2 start 19:10:57
+  agent: turns 146 cost 4.0 error False
+  driver check: PASSED; R2: One catalogue of data-export and visual file names (ReportDataFiles)   16 files changed, 393 insertions(+), 167 deletions(-) 
+=== R6 start 19:22:56
+  agent: turns 46 cost 2.12 error False
+  driver check: PASSED; R6: One renderer for the five-bucket "risk distribution" sections of the file reports   4 files changed, 362 insertions(+), 260 deletions(-) 
+=== R4 start 19:29:49
+  agent: turns 79 cost 2.48 error False
+  driver check: PASSED; R4: One place that decides who a contributor is (ContributorIdentity)   10 files changed, 347 insertions(+), 132 deletions(-) 
+=== R5 start 20:26:37
+  agent: turns 140 cost 4.23 error False
+  driver check: PASSED; R5: Name the activity windows (30/90/180/365 days) once   23 files changed, 266 insertions(+), 191 deletions(-) 
+=== R3 start 20:38:23
+  agent: turns 53 cost 3.82 error False
+  driver check: PASSED; R3: Remove the copied contributor charts between LandscapeReportGenerator and LandscapeReportContributorsTab   4 files changed, 559 insertions(+), 888 deletions(-) 
+=== R9 start 20:48:50
+  agent: turns 40 cost 1.2 error False
+  driver check: PASSED; R9: Model → export-DTO mapping next to the DTO, with a field-parity test   12 files changed, 304 insertions(+), 31 deletions(-) 
+=== R8 start 20:53:00
+  agent: turns 41 cost 1.1 error False
+  driver check: PASSED; R8: CommandLineInterface: one dispatch table and named default paths   2 files changed, 73 insertions(+), 84 deletions(-) 
+=== R10 start 20:57:39
+  agent: turns 25 cost 0.88 error False
+  driver check: PASSED; R10: One base for the "keyword … end" heuristic unit extractors (Julia, Lua, ObjectPascal)   4 files changed, 236 insertions(+), 347 deletions(-) 
+=== done 21:02:36

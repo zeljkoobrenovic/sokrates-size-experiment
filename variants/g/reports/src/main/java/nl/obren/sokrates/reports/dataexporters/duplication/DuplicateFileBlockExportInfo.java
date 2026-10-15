@@ -1,0 +1,82 @@
+/*
+ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
+ */
+
+package nl.obren.sokrates.reports.dataexporters.duplication;
+
+import nl.obren.sokrates.reports.dataexporters.files.FileExportInfo;
+import nl.obren.sokrates.sourcecode.duplication.DuplicatedFileBlock;
+
+public class DuplicateFileBlockExportInfo {
+    private FileExportInfo file = new FileExportInfo();
+    private int sourceFileCleanedLinesOfCode;
+    private int startLine;
+    private int endLine;
+    private int cleanedStartLine;
+    private int cleanedEndLine;
+
+    /**
+     * The whole model → export copy. A field added to {@link DuplicatedFileBlock} should be copied here
+     * (or listed as an exclusion in {@code DuplicateFileBlockExportInfoTest}).
+     */
+    public static DuplicateFileBlockExportInfo from(DuplicatedFileBlock fileBlock) {
+        DuplicateFileBlockExportInfo fileBlockExportInfo = new DuplicateFileBlockExportInfo();
+
+        fileBlockExportInfo.setFile(FileExportInfo.getInstance(fileBlock.getSourceFile()));
+        fileBlockExportInfo.setSourceFileCleanedLinesOfCode(fileBlock.getSourceFileCleanedLinesOfCode());
+        fileBlockExportInfo.setStartLine(fileBlock.getStartLine());
+        fileBlockExportInfo.setEndLine(fileBlock.getEndLine());
+        fileBlockExportInfo.setCleanedStartLine(fileBlock.getCleanedStartLine());
+        fileBlockExportInfo.setCleanedEndLine(fileBlock.getCleanedEndLine());
+
+        return fileBlockExportInfo;
+    }
+
+    public FileExportInfo getFile() {
+        return file;
+    }
+
+    public void setFile(FileExportInfo file) {
+        this.file = file;
+    }
+
+    public int getSourceFileCleanedLinesOfCode() {
+        return sourceFileCleanedLinesOfCode;
+    }
+
+    public void setSourceFileCleanedLinesOfCode(int sourceFileCleanedLinesOfCode) {
+        this.sourceFileCleanedLinesOfCode = sourceFileCleanedLinesOfCode;
+    }
+
+    public int getStartLine() {
+        return startLine;
+    }
+
+    public void setStartLine(int startLine) {
+        this.startLine = startLine;
+    }
+
+    public int getEndLine() {
+        return endLine;
+    }
+
+    public void setEndLine(int endLine) {
+        this.endLine = endLine;
+    }
+
+    public int getCleanedStartLine() {
+        return cleanedStartLine;
+    }
+
+    public void setCleanedStartLine(int cleanedStartLine) {
+        this.cleanedStartLine = cleanedStartLine;
+    }
+
+    public int getCleanedEndLine() {
+        return cleanedEndLine;
+    }
+
+    public void setCleanedEndLine(int cleanedEndLine) {
+        this.cleanedEndLine = cleanedEndLine;
+    }
+}
