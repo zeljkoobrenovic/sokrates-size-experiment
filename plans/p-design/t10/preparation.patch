@@ -1,0 +1,102 @@
+commit f3babf1948049104a92af78a659cab5be0461c72
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:50:18 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+index 060f946..06d10da 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/LogicalComponentsReportGenerator.java
+@@ -352,6 +352,10 @@ public class LogicalComponentsReportGenerator {
+         return componentGroups;
+     }
+ 
++    /**
++     * Group Dependencies graph: merges the dependencies between the components of two component groups
++     * into one link per pair of groups, labelled with the summed file count.
++     */
+     private List<ComponentDependency> getGroupDependencies(List<ComponentDependency> dependencies, List<ComponentGroup> componentGroups) {
+         List<ComponentDependency> groupDependencies = new ArrayList<>();
+         Map<String, ComponentDependency> groupDependenciesMap = new HashMap<>();
+@@ -359,25 +363,34 @@ public class LogicalComponentsReportGenerator {
+         dependencies.forEach(dependency -> {
+             String from = getGroup(dependency.getFromComponent(), componentGroups);
+             String to = getGroup(dependency.getToComponent(), componentGroups);
+-
+-            String key1 = from + "::" + to;
+-            String key2 = to + "::" + from;
+-
+-            if (groupDependenciesMap.containsKey(key1)) {
+-                groupDependenciesMap.get(key1).setCount(groupDependenciesMap.get(key1).getCount() + dependency.getCount());
+-            } else if (groupDependenciesMap.containsKey(key2)) {
+-                groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key1).getCount() + dependency.getCount());
+-            } else {
+-                ComponentDependency newDependency = new ComponentDependency(from, to);
+-                newDependency.setCount(dependency.getCount());
+-                groupDependencies.add(newDependency);
+-                groupDependenciesMap.put(key1, newDependency);
+-            }
++            mergeIntoGroupLink(groupDependencies, groupDependenciesMap, from, to, dependency.getCount());
+         });
+ 
+         return groupDependencies;
+     }
+ 
++    /**
++     * Adds the file count of one dependency from group "from" to group "to" to the existing group link
++     * (same direction, or the reverse direction of one already seen), or creates a new group link.
++     */
++    private void mergeIntoGroupLink(List<ComponentDependency> groupDependencies, Map<String, ComponentDependency> groupDependenciesMap,
++                                    String from, String to, int count) {
++        String key1 = from + "::" + to;
++        String key2 = to + "::" + from;
++
++        if (groupDependenciesMap.containsKey(key1)) {
++            groupDependenciesMap.get(key1).setCount(groupDependenciesMap.get(key1).getCount() + count);
++        } else if (groupDependenciesMap.containsKey(key2)) {
++            // reverse direction
++            groupDependenciesMap.get(key2).setCount(groupDependenciesMap.get(key1).getCount() + count);
++        } else {
++            ComponentDependency newDependency = new ComponentDependency(from, to);
++            newDependency.setCount(count);
++            groupDependencies.add(newDependency);
++            groupDependenciesMap.put(key1, newDependency);
++        }
++    }
++
+     private String getGroup(String component, List<ComponentGroup> componentGroups) {
+         for (ComponentGroup componentGroup : componentGroups) {
+             if (componentGroup.getComponentNames().contains(component)) {
+@@ -643,6 +656,10 @@ public class LogicalComponentsReportGenerator {
+         report.endTableRow();
+     }
+ 
++    /**
++     * Small bar in the "Show more details about dependencies..." table: the share (percentage) of the referring
++     * component's lines of code that depend on the referred component, e.g. "3 files, 10 LOC (12%)".
++     */
+     private String getFromDependencyCoverageSvg(int locFromDuplications, NamedSourceCodeAspect fromComponentByName, int dependencyCount) {
+         SimpleOneBarChart chart = new SimpleOneBarChart();
+         chart.setWidth(320);
+@@ -651,7 +668,7 @@ public class LogicalComponentsReportGenerator {
+         chart.setBarStartXOffset(2);
+         chart.setSmallerFontSize();
+ 
+-        double percentage = 100.0 * locFromDuplications / fromComponentByName.getLinesOfCode();
++        double percentage = getShareOfComponentLinesOfCode(locFromDuplications, fromComponentByName.getLinesOfCode());
+         String percentageText = FormattingUtils.getFormattedPercentage(percentage) + "%";
+ 
+         String textRight = dependencyCount + " "
+@@ -661,6 +678,11 @@ public class LogicalComponentsReportGenerator {
+         return chart.getPercentageSvg(percentage, "", textRight);
+     }
+ 
++    /** Percentage of the component's lines of code (componentLinesOfCode) covered by the dependent lines of code. */
++    private double getShareOfComponentLinesOfCode(int dependentLinesOfCode, int componentLinesOfCode) {
++        return 100.0 * dependentLinesOfCode / componentLinesOfCode;
++    }
++
+     private String getDecompositionDescription(LogicalDecompositionAnalysisResults logicalDecomposition) {
+         int numberOfComponents = logicalDecomposition.getComponents().size();
+         StringBuilder description = new StringBuilder();

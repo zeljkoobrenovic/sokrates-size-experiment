@@ -1,0 +1,119 @@
+commit b72f112b893897bb382b6083c4d10f0573f8c54b
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:33:02 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+index 732345e..be5b834 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+@@ -71,7 +71,8 @@ public class AnalysisUtils {
+         }
+ 
+         SourceCodeAspectUtils.getAspectsPerExtensions(aspect).forEach(aspectPerExtension -> {
+-            String extensionMetricName = name + "_EXT_" + aspectPerExtension.getName().replace("*.", "");
++            String extension = SourceCodeAspectUtils.extensionName(aspectPerExtension.getName());
++            String extensionMetricName = name + "_EXT_" + extension;
+             metricsList.addMetric()
+                     .id(getMetricId("NUMBER_OF_FILES_" + extensionMetricName))
+                     .value(aspectPerExtension.getSourceFiles().size());
+@@ -80,7 +81,7 @@ public class AnalysisUtils {
+                     .id(getMetricId("LINES_OF_CODE_" + extensionMetricName))
+                     .value(aspectPerExtension.getLinesOfCode());
+ 
+-            detailedInfo(textSummary, progressFeedback, aspectPerExtension.getName() + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
++            detailedInfo(textSummary, progressFeedback, SourceCodeAspectUtils.decoratedExtensionLabel(extension) + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
+             aspectAnalysisResults.getFileCountPerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getSourceFiles().size()));
+             aspectAnalysisResults.getLinesOfCodePerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getLinesOfCode()));
+         });
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+index 603dcb0..f93fe6e 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+@@ -154,6 +154,31 @@ public class SourceCodeAspectUtils {
+         return commonPrefix;
+     }
+ 
++    // Naming of the per-extension entries (linesOfCodePerExtension, fileCountPerExtension in analysisResults.json,
++    // and the per-extension aspects below). Today an entry is named with a decorated label, "  *.java".
++    public static String perExtensionName(String extension) {
++        return decoratedExtensionLabel(extension);
++    }
++
++    // The decorated "  *.java" label (also used by the indented lines of the textual analysis summary).
++    public static String decoratedExtensionLabel(String extension) {
++        return "  *." + extension;
++    }
++
++    // The plain lower-cased extension of a per-extension entry name ("  *.java" -> "java"),
++    // used e.g. for the per-extension metric ids (LINES_OF_CODE_MAIN_EXT_JAVA, NUMBER_OF_FILES_MAIN_EXT_JAVA).
++    public static String extensionName(String perExtensionName) {
++        return perExtensionName == null ? "" : perExtensionName.replace("*.", "").trim().toLowerCase();
++    }
++
++    // The key under which a landscape merges/aggregates the per-extension lines-of-code entries of its repositories
++    // (main scope, and the merged "other" category: build and deployment, generated, other).
++    // Entries with the same key are merged into one entry.
++    public static String landscapeAggregationKey(String perExtensionName) {
++        return perExtensionName.toLowerCase();
++    }
++
++    // One aspect per (lower-cased) file extension, named by perExtensionName(extension), sorted by LOC desc.
+     @JsonIgnore
+     public static List<NamedSourceCodeAspect> getAspectsPerExtensions(NamedSourceCodeAspect aspect) {
+         Map<String, NamedSourceCodeAspect> map = new HashMap<>();
+@@ -162,7 +187,7 @@ public class SourceCodeAspectUtils {
+             String extension = ExtensionGroupExtractor.getExtension(sourceFile.getFile().getPath()).toLowerCase();
+             NamedSourceCodeAspect extensionAspect = map.get(extension);
+             if (extensionAspect == null) {
+-                extensionAspect = new NamedSourceCodeAspect("  *." + extension);
++                extensionAspect = new NamedSourceCodeAspect(perExtensionName(extension));
+                 map.put(extension, extensionAspect);
+             }
+             extensionAspect.getSourceFiles().add(sourceFile);
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index bcfe9d5..3f7ec9a 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -10,6 +10,7 @@ import nl.obren.sokrates.sourcecode.analysis.results.CodeAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.ContributorsAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.FilesHistoryAnalysisResults;
+ import nl.obren.sokrates.sourcecode.analysis.results.HistoryPerExtension;
++import nl.obren.sokrates.sourcecode.aspects.SourceCodeAspectUtils;
+ import nl.obren.sokrates.sourcecode.contributors.ContributionTimeSlot;
+ import nl.obren.sokrates.sourcecode.contributors.Contributor;
+ import nl.obren.sokrates.sourcecode.dependencies.ComponentDependency;
+@@ -498,6 +499,8 @@ public class LandscapeAnalysisResults {
+         return getLinesOfCodePerExtension(CodeCategory.OTHER);
+     }
+ 
++    // Per-extension entries of all repositories are merged under SourceCodeAspectUtils.landscapeAggregationKey(..)
++    // (here and in merge(..) for the "other" category).
+     @JsonIgnore
+     public List<NumericMetric> getLinesOfCodePerExtension(CodeCategory type) {
+         List<NumericMetric> linesOfCodePerExtension = new ArrayList<>();
+@@ -515,7 +518,7 @@ public class LandscapeAnalysisResults {
+                 repositoryLinesOfCodePerExtension = repositoryAnalysisResults.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCodePerExtension();
+             }
+             repositoryLinesOfCodePerExtension.forEach(metric -> {
+-                String id = metric.getName().toLowerCase();
++                String id = SourceCodeAspectUtils.landscapeAggregationKey(metric.getName());
+                 Optional<NumericMetric> existingMetric = linesOfCodePerExtension.stream().filter(c -> c.getName().equalsIgnoreCase(id)).findAny();
+                 if (existingMetric.isPresent()) {
+                     NumericMetric metricObject = existingMetric.get();
+@@ -539,10 +542,11 @@ public class LandscapeAnalysisResults {
+ 
+         metricLists.forEach(list -> {
+             list.forEach(metric -> {
+-                if (mergedMap.containsKey(metric.getName())) {
+-                    mergedMap.get(metric.getName()).setValue(mergedMap.get(metric.getName()).getValue().doubleValue() + metric.getValue().doubleValue());
++                String name = SourceCodeAspectUtils.landscapeAggregationKey(metric.getName());
++                if (mergedMap.containsKey(name)) {
++                    mergedMap.get(name).setValue(mergedMap.get(name).getValue().doubleValue() + metric.getValue().doubleValue());
+                 } else {
+-                    NumericMetric newMetric = new NumericMetric(metric.getName(), metric.getValue());
++                    NumericMetric newMetric = new NumericMetric(name, metric.getValue());
+                     merged.add(newMetric);
+                     mergedMap.put(newMetric.getName(), newMetric);
+                 }

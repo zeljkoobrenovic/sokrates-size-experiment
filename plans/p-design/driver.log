@@ -1,0 +1,31 @@
+=== t01 start 20:28:53
+  agent: turns 14 cost 0.34 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 11 insertions(+), 1 deletion(-)
+=== t02 start 20:30:35
+  agent: turns 17 cost 0.6 error False
+  driver: check PASSED, acceptance FAILING;  3 files changed, 37 insertions(+), 7 deletions(-)
+=== t03 start 20:34:00
+  agent: turns 16 cost 0.37 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 17 insertions(+), 6 deletions(-)
+=== t04 start 20:36:00
+  agent: turns 12 cost 0.31 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 15 insertions(+), 4 deletions(-)
+=== t05 start 20:37:59
+  agent: turns 14 cost 0.35 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 24 insertions(+), 9 deletions(-)
+=== t06 start 20:39:45
+  agent: turns 14 cost 0.36 error False
+  driver: check PASSED, acceptance FAILING;  3 files changed, 61 insertions(+), 11 deletions(-)
+=== t07 start 20:41:56
+  agent: turns 17 cost 0.48 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 21 insertions(+), 12 deletions(-)
+=== t08 start 20:44:19
+  agent: turns 15 cost 0.39 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 24 insertions(+), 7 deletions(-)
+=== t09 start 20:46:42
+  agent: turns 21 cost 0.5 error False
+  driver: check PASSED, acceptance FAILING;  2 files changed, 10 insertions(+), 3 deletions(-)
+=== t10 start 20:48:57
+  agent: turns 12 cost 0.44 error False
+  driver: check PASSED, acceptance FAILING;  1 file changed, 37 insertions(+), 15 deletions(-)
+=== done 20:51:14

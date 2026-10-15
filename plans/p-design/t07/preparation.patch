@@ -1,0 +1,62 @@
+commit 170a9c913b55639c1c5ca06c441af10be370ce90
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:43:34 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+index 478d334..2f2822c 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -874,13 +874,32 @@ public class LandscapeReportGenerator {
+     }
+ 
+     private void addBigRepositoriesSummary(LandscapeAnalysisResults landscapeAnalysisResults) {
+-        LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+         landscapeAnalysisResults.getRecentContributorsCount(landscapeAnalysisResults.getContributors());
++        String style = "border-top: 2px solid lightgrey; border-right: 2px solid lightgrey; display: inline-block; margin-right: 8px";
++        addActiveRepositoriesInfoBlocks(landscapeAnalysisResults, style);
++        landscapeReport.startDiv(style);
++        landscapeReport.addContentInDiv("size (LOC)", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
++        addLocInfoBlock(landscapeAnalysisResults);
++        landscapeReport.endDiv();
++        landscapeReport.startDiv(style);
++        landscapeReport.addContentInDiv("1y code activity", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
++        int totalValue = getSumOfValues(overallFileLastModifiedDistribution);
++        addActiveCodeBlock(landscapeAnalysisResults, totalValue);
++
++        landscapeReport.endDiv();
++    }
++
++    /**
++     * The "active repositories" row of info blocks on the Overview tab: all time, past 365d, past 180d, past 90d
++     * and past 30d. Each block shows the number of repositories updated (with commits) in that period, and
++     * underneath their main lines of code (LOC) and the share (%) of all main LOC.
++     */
++    private void addActiveRepositoriesInfoBlocks(LandscapeAnalysisResults landscapeAnalysisResults, String style) {
++        LandscapeConfiguration configuration = landscapeAnalysisResults.getConfiguration();
+         List<RepositoryAnalysisResults> repositories = getRepositories();
+         int recentSize = (int) repositories.stream().filter(p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days() > 0).count();
+         int recentLoc = repositories.stream().filter(p -> p.getAnalysisResults().getContributorsAnalysisResults().getCommitsCount30Days() > 0).map(p -> p.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCode()).reduce(0, (a, b) -> a + b);
+ 
+-        String style = "border-top: 2px solid lightgrey; border-right: 2px solid lightgrey; display: inline-block; margin-right: 8px";
+         landscapeReport.startDiv(style);
+         landscapeReport.addContentInDiv("active repositories", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
+ 
+@@ -909,16 +928,6 @@ public class LandscapeReportGenerator {
+                 FormattingUtils.getSmallTextForNumber(recentLoc) + " LOC (" + FormattingUtils.getFormattedPercentage(100.0 * recentLoc / Math.max(1, locAll)) + "%)",
+                 "all repositories updated in the past 30 days with at least " + contributorConstraint, REPOSITORIES_COLOR, "repository");
+         landscapeReport.endDiv();
+-        landscapeReport.startDiv(style);
+-        landscapeReport.addContentInDiv("size (LOC)", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
+-        addLocInfoBlock(landscapeAnalysisResults);
+-        landscapeReport.endDiv();
+-        landscapeReport.startDiv(style);
+-        landscapeReport.addContentInDiv("1y code activity", "text-align: center; margin-bottom: -7px; margin-top: 2px; margin-left: 4px; color: grey; font-size: 70%;");
+-        int totalValue = getSumOfValues(overallFileLastModifiedDistribution);
+-        addActiveCodeBlock(landscapeAnalysisResults, totalValue);
+-
+-        landscapeReport.endDiv();
+     }
+ 
+     private void addCorrelations() {

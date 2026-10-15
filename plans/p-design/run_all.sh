@@ -3,9 +3,11 @@
 # acceptance test must still fail) itself and reverts the preparation if either does not hold.
 set -u
 cd "$(dirname "$0")"; ROOT="$PWD"
-TOOLS="Read,Edit,Write,MultiEdit,Grep,Glob,Agent,Bash(./check.sh:*),Bash(./accept.sh:*),Bash(mvn:*),Bash(cd:*),Bash(git -C code:*),Bash(git add:*),Bash(git commit:*),Bash(git diff:*),Bash(git status:*),Bash(git log:*),Bash(git show:*),Bash(ls:*),Bash(grep:*),Bash(rg:*),Bash(find:*),Bash(cat:*),Bash(head:*),Bash(tail:*),Bash(sed -n:*),Bash(wc:*),Bash(diff:*),Bash(sort:*),Bash(uniq:*)"
+BASE="Read,Edit,Write,MultiEdit,Grep,Glob,Agent,Bash(./check.sh:*),Bash(./accept.sh:*),Bash(../check.sh:*),Bash(../accept.sh:*),Bash(bash ./check.sh:*),Bash(bash ./accept.sh:*),"
+REST="Bash(mvn:*),Bash(cd:*),Bash(git -C code:*),Bash(git add:*),Bash(git commit:*),Bash(git diff:*),Bash(git status:*),Bash(git log:*),Bash(git show:*),Bash(ls:*),Bash(grep:*),Bash(rg:*),Bash(find:*),Bash(cat:*),Bash(head:*),Bash(tail:*),Bash(sed -n:*),Bash(wc:*),Bash(diff:*),Bash(sort:*),Bash(uniq:*)"
 for T in t01 t02 t03 t04 t05 t06 t07 t08 t09 t10; do
   D=$(ls -d "$ROOT/$T"-*); cd "$D"; before=$(git -C code rev-parse HEAD)
+  TOOLS="${BASE}Bash($D/check.sh:*),Bash($D/accept.sh:*),Bash(bash $D/check.sh:*),Bash(bash $D/accept.sh:*),$REST"
   echo "=== $T start $(date +%H:%M:%S)"
   env -u CLAUDECODE claude -p "$(cat "$ROOT/PREPARE.md")" --model claude-opus-5-5 --output-format json --max-turns 200 \
     --permission-mode acceptEdits --setting-sources project --allowedTools "$TOOLS" > run.json 2> run.stderr

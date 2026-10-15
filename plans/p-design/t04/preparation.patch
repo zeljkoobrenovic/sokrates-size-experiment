@@ -1,0 +1,43 @@
+commit 639c1d06a6a291ed6b6eaeb0b20dc8db08f2baaf
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:37:18 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..b77c1ec 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -389,10 +389,7 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]resources/.*", "", "Test resources"));
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+-        testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
++        addMockResourcesConventions();
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+         testFilesConventions.add(new Convention(".*/jest[.][a-zA-Z0-9\\.]+", "", "Jest files"));
+@@ -400,6 +397,20 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/[Mm]ocks/.*", "", "Mocks"));
+     }
+ 
++    /**
++     * Test code conventions for mock resources: files under a mock-resources folder (a folder whose name
++     * starts with "mock" or "__mock", e.g. mocks/, __mocks__/, mock-data/, mockStore/) and files named *_mock.*.
++     * Patterns are matched against the whole path with "/" separators; Windows-style paths with backslashes
++     * are handled by SourceFileFilter.pathMatches, so the patterns here need only "/".
++     */
++    private void addMockResourcesConventions() {
++        testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
++        // mock-resources folders: the folder name starts with "__mock" or "mock"
++        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
++    }
++
+     private void addIgnoreConventions() {
+         ignoredFilesConventions.add(new Convention(".*/[.][a-zA-Z0-9_]+.*", "", "Hidden files and folders"));
+         ignoredFilesConventions.add(new Convention(".*[.]resx", "", "The resx resource files"));

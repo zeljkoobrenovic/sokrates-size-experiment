@@ -1,0 +1,43 @@
+commit 898ce793336b8fed0197c8e116cb2f76b54426ba
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:29:55 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index bcfe9d5..b918210 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -710,6 +710,7 @@ public class LandscapeAnalysisResults {
+         final List<ContributorRepositories> teams = new ArrayList<>();
+         final Map<String, ContributorRepositories> map = new HashMap<>();
+ 
++        // contributors matched by no configured team land in the "Undefined Team" (see belongsToUndefinedTeam)
+         ContributorRepositories remainder = new ContributorRepositories(new Contributor("Undefined Team"));
+ 
+         while (contributors.size() > 0) {
+@@ -744,7 +745,7 @@ public class LandscapeAnalysisResults {
+                 }
+             });
+ 
+-            if (!added[0] && !remainder.getMembers().contains(email)) {
++            if (!added[0] && belongsToUndefinedTeam(contributor, remainder)) {
+                 remainder.getMembers().add(contributor);
+                 contributor.getRepositories().forEach(repo -> {
+                     addRepoToTeam(repo, remainder);
+@@ -759,6 +760,15 @@ public class LandscapeAnalysisResults {
+         return teams;
+     }
+ 
++    /**
++     * Decides whether a contributor matched by no configured team (TeamsConfig email patterns) is added to
++     * the remainder "Undefined Team". Configured teams do not use this check; they keep all their members.
++     */
++    private boolean belongsToUndefinedTeam(ContributorRepositories contributor, ContributorRepositories undefinedTeam) {
++        String email = contributor.getContributor().getEmail();
++        return !undefinedTeam.getMembers().contains(email);
++    }
++
+     private void addRepoToTeam(ContributorRepositoryInfo repo, ContributorRepositories team) {
+         Contributor teamData = team.getContributor();
+         teamData.setCommitsCount(teamData.getCommitsCount() + repo.getCommitsCount());

@@ -1,0 +1,55 @@
+commit 6060a7e3867be170d2183bd8759a3f5ada0f56ff
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:45:49 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..5eae12d 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -638,13 +638,7 @@ public class DataExporter {
+             File zipFolder = new File(dataFolder, "zips");
+             zipFolder.mkdirs();
+ 
+-            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
+-                    {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+-                    {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+-                    {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+-                    {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+-                    {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
+-            });
++            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), aspectFileLists(codeConfiguration, textDataFolder));
+             File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
+             if (gitHistoryFile.exists()) {
+                 String gitHistoryContent = FileUtils.readFileToString(gitHistoryFile, UTF_8);
+@@ -655,6 +649,29 @@ public class DataExporter {
+         }
+     }
+ 
++    /**
++     * The entries of data/zips/all_files.zip: the five scope file lists (main, test, generated, build and
++     * deployment, other), each as {zip entry name, content read from the loose data/text file of that name}.
++     *
++     * <p>The file names are fixed literals here ("aspect_main.txt", ...), the names the default scope aspect
++     * names produce. The loose files themselves are written by {@link #saveSourceCodeAspect} under
++     * {@link DataExportUtils#getAspectFileListFileName(NamedSourceCodeAspect, String)} (with prefix ""), i.e.
++     * derived from the configured aspect names ({@code configuration.getMain()}, {@code getTest()},
++     * {@code getGenerated()}, {@code getBuildAndDeployment()}, {@code getOther()}).
++     */
++    static String[][] aspectFileLists(CodeConfiguration configuration, File textDataFolder) throws IOException {
++        List<String> fileNames = Arrays.asList(
++                "aspect_main.txt", "aspect_test.txt", "aspect_generated.txt",
++                "aspect_build_and_deployment.txt", "aspect_other.txt");
++
++        String[][] entries = new String[fileNames.size()][2];
++        for (int i = 0; i < fileNames.size(); i++) {
++            String fileName = fileNames.get(i);
++            entries[i] = new String[]{fileName, FileUtils.readFileToString(new File(textDataFolder, fileName), UTF_8)};
++        }
++        return entries;
++    }
++
+     public File getTextDataFolder() {
+         File textDataFolder = new File(dataFolder, "text");
+         textDataFolder.mkdirs();

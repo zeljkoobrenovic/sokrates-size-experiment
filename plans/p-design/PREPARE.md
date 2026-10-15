@@ -38,4 +38,5 @@ When `./check.sh` passes and `./accept.sh` reports FAILING, commit:
 what you changed and why it makes the later change cheaper, and `git -C code show --stat HEAD`.
 If no preparation would help, commit nothing and say why in `PREPARATION.md`.
 
-Use `git -C code …` and `mvn -f code/pom.xml …` (or `cd code && …`) for commands in the codebase.
+Use `git -C code …` and `mvn -f code/pom.xml …` (or `cd code && …`) for commands in the codebase. Run `./check.sh`
+and `./accept.sh` from this folder (not from inside `code/`).

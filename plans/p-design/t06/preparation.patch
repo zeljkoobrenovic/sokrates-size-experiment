@@ -1,0 +1,113 @@
+commit 91bec7fc24999a1c604884ea72d19f6f8d79c292
+Author: Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>
+Date:   Thu Oct 15 20:41:09 2026 +0200
+
+    Preparation for the change in task.md
+
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsListLimit.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsListLimit.java
+new file mode 100644
+index 0000000..4aa2d5a
+--- /dev/null
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsListLimit.java
+@@ -0,0 +1,51 @@
++package nl.obren.sokrates.reports.landscape.statichtml;
++
++import nl.obren.sokrates.reports.core.RichTextReport;
++import nl.obren.sokrates.sourcecode.landscape.analysis.LandscapeAnalysisResults;
++
++import java.util.List;
++import java.util.stream.Collectors;
++
++/**
++ * The single place where the landscape's contributor lists are truncated (cut off) at the
++ * contributorsListLimit setting of _sokrates_landscape/config.json (1000 by default).
++ * <p>
++ * Used by:
++ * <ul>
++ * <li>{@link LandscapeContributorsReport#saveContributorsTable} - the tables of contributors.html ("All Contributors"),
++ * contributors-recent.html ("Recently Active Contributors"), the bots page and the teams pages, and the
++ * "The list is limited to N items (out of M)." note under them;</li>
++ * <li>{@link LandscapeReportContributorsTab} - the bar chart of recent commits per contributor in the Contributors tab
++ * ("contributors sorted by recent commits").</li>
++ * </ul>
++ * The order of the lists is not changed here (most recent commits first, as sorted by the callers).
++ */
++public class LandscapeContributorsListLimit {
++    private LandscapeContributorsListLimit() {
++    }
++
++    /**
++     * The maximal number of contributors exported to the contributor tables and to the recent commits bar chart.
++     */
++    public static int getLimit(LandscapeAnalysisResults landscapeAnalysisResults) {
++        return landscapeAnalysisResults.getConfiguration().getContributorsListLimit();
++    }
++
++    /**
++     * Returns the contributors that are exported (truncated to the limit), keeping their order.
++     */
++    public static <T> List<T> limit(LandscapeAnalysisResults landscapeAnalysisResults, List<T> contributors) {
++        return contributors.stream().limit(getLimit(landscapeAnalysisResults)).collect(Collectors.toList());
++    }
++
++    /**
++     * Adds the note "The list is limited to N items (out of M)." when the list was truncated.
++     */
++    public static void addLimitNote(LandscapeAnalysisResults landscapeAnalysisResults, RichTextReport report, int contributorsCount) {
++        int limit = getLimit(landscapeAnalysisResults);
++        if (limit < contributorsCount) {
++            report.addParagraph("The list is limited to " + limit + " items (out of " + contributorsCount + ").",
++                    "color:grey; font-size: 90%; margin-top: 16px; margin-left: 11px");
++        }
++    }
++}
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java
+index e5b28a7..3023d61 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeContributorsReport.java
+@@ -97,23 +97,21 @@ public class LandscapeContributorsReport {
+         }
+         int counter[] = {0};
+ 
+-        int limit = landscapeAnalysisResults.getConfiguration().getContributorsListLimit();
+-        contributors.stream()
++        List<ContributorRepositories> sortedContributors = contributors.stream()
+                 .sorted((a, b) -> b.getContributor().getCommitsCount() - a.getContributor().getCommitsCount())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount365Days() - a.getContributor().getCommitsCount365Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount180Days() - a.getContributor().getCommitsCount180Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount90Days() - a.getContributor().getCommitsCount90Days())
+                 .sorted((a, b) -> b.getContributor().getCommitsCount30Days() - a.getContributor().getCommitsCount30Days())
+-                .limit(limit).forEach(contributor -> {
+-                    contributorsLinkedFromTables.add(contributor.getContributor().getEmail());
+-                    addContributor(totalCommits, counter, contributor);
+-                });
++                .collect(Collectors.toList());
++        // the contributors list limit (truncation) is applied in LandscapeContributorsListLimit
++        LandscapeContributorsListLimit.limit(landscapeAnalysisResults, sortedContributors).forEach(contributor -> {
++            contributorsLinkedFromTables.add(contributor.getContributor().getEmail());
++            addContributor(totalCommits, counter, contributor);
++        });
+         report.endTable();
+ 
+-        if (limit < contributors.size()) {
+-            report.addParagraph("The list is limited to " + limit + " items (out of " + contributors.size() + ").",
+-                    "color:grey; font-size: 90%; margin-top: 16px; margin-left: 11px");
+-        }
++        LandscapeContributorsListLimit.addLimitNote(landscapeAnalysisResults, report, contributors.size());
+     }
+ 
+     private void addContributor(int totalCommits, int[] counter, ContributorRepositories contributor) {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+index 9443f12..38a964f 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+@@ -501,7 +501,8 @@ public class LandscapeReportContributorsTab {
+         ProcessingStopwatch.end("reporting/contributors/preparing");
+ 
+         ProcessingStopwatch.start("reporting/contributors/table");
+-        recentContributors.stream().limit(landscapeAnalysisResults.getConfiguration().getContributorsListLimit()).forEach(c -> {
++        // bar chart of recent commits per contributor; the contributors list limit is applied in LandscapeContributorsListLimit
++        LandscapeContributorsListLimit.limit(landscapeAnalysisResults, recentContributors).forEach(c -> {
+             index[0] += 1;
+             Contributor contributor = c.getContributor();
+             int count = contributor.getCommitsCount30Days();
