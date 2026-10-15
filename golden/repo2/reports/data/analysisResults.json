@@ -2796,7 +2796,7 @@
  },
  "filesHistoryAnalysisResults": {
   "activeDays": 61,
-  "ageInDays": 2523,
+  "ageInDays": 2529,
   "changeDistributionPerExtension": [
    {
     "highRiskCount": 0,
@@ -7166,7 +7166,7 @@
    {
     "description": "The age of the repository in days",
     "id": "FILE_CHANGE_HISTORY_TOTAL_AGE_DAYS",
-    "value": 2523
+    "value": 2529
    },
    {
     "description": "The number of days with at least one file change",

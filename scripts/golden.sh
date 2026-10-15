@@ -2,7 +2,8 @@
 # Golden-output check for a variant: build the variant's CLI jar (package, no install — safe to run in parallel
 # worktrees), run it over golden-fixture/ (two small repositories with git history, then a landscape over them)
 # and diff the generated reports and data against the stored golden output (produced by variant A). Volatile
-# parts (dates, timings) are normalized before the diff.
+# parts (dates, timings) are normalized before the diff. The fixture runs with skipCorrelations: without it the
+# snapshot crashes in the correlations section and writes none of the HTML report pages (scripts/golden_fixture_config.py).
 #
 #   scripts/golden.sh a --store      # build variant A, generate and store golden/ (done once; committed)
 #   scripts/golden.sh b              # build variant B, generate and compare with golden/
@@ -26,6 +27,7 @@ cp -R "$ROOT/golden-fixture" "$OUT/root"
 for repo in repo1 repo2; do
   ( cd "$OUT/root/$repo" \
     && SOKRATES_OFFLINE=1 java -jar "$JAR" init -srcRoot . -confFile _sokrates/config.json -name "$repo" >"$OUT/$repo-init.log" 2>&1 \
+    && python3 -I "$ROOT/scripts/golden_fixture_config.py" _sokrates/config.json \
     && SOKRATES_OFFLINE=1 java -jar "$JAR" generateReports -confFile _sokrates/config.json -outputFolder _sokrates/reports -date $DATE -timeout 1200 >"$OUT/$repo-reports.log" 2>&1 )
 done
 ( cd "$OUT/root" && SOKRATES_OFFLINE=1 java -jar "$JAR" updateLandscape -analysisRoot . -date $DATE -timeout 1200 >"$OUT/landscape.log" 2>&1 )

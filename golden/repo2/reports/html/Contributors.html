@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>repo2 Contributors</title>
+  <style type="text/css" media="all">
+    body {
+      font-family: Roboto, Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+      margin-left:5%;
+      margin-right:5%;
+    }
+    table {
+      color: #333;
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+    td, th {
+      border: 1px solid #CCC;
+      height: 30px;
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    th {
+      background: #F3F3F3;
+      font-weight: bold;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    td {
+      background: #FFFFFF;
+      text-align: left;
+    }
+    h3 {
+      margin-top: 0
+    }
+    h1 {
+      margin-bottom: 6px;
+    }
+    p {
+      margin-top: 0;
+    }
+    a {
+      text-decoration: none;
+    }
+    .reportSubtitle {
+      color: grey;
+    }
+    .group {
+      margin-bottom: 10px;
+      border: solid lightgrey 1px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 2px;
+    }
+    .section {
+      margin-bottom: 30px;
+      border: solid lightgrey 1px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      border-radius: 2px;
+      padding: 0;
+    }
+    .sectionHeader {
+      margin-bottom: 30px;
+      padding: 20px;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      background-color: lightskyblue;
+    }
+    .sectionTitle {
+      font-size: 140%;
+    }
+    .sectionSubtitle {
+      font-size: 90%; color: grey;
+    }
+    .subSectionTitle {
+      font-size: 140%;
+    }
+    .subSectionSubtitle {
+      font-size: 90%; color: grey;
+    }
+    .subSection {
+      margin-bottom: 30px;
+      border: solid lightgrey 1px;
+      padding-top: 0;
+      padding-bottom: 0;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 1px 9px 0 rgba(0, 0, 0, 0.19);
+    }
+    .subSectionHeader {
+      border: solid lightgrey 1px;
+      padding: 6px;
+      background-color: lightgrey;
+      box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 2px 9px 0 rgba(0, 0, 0, 0.19);
+    }
+    .sectionBody {
+      margin: 20px;
+    }
+.tab {
+ overflow: hidden;
+ border: 1px solid #ccc;
+ background-color: #f1f1f1;
+}
+.tab button {
+ font-family: Roboto, Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
+ font-size: 100%;
+ background-color: inherit;
+ float: left;
+ border: none;
+ outline: none;
+ cursor: pointer;
+ padding: 14px 16px;
+ transition: 0.3s;
+}
+.tab button:hover {
+ background-color: #ddd;
+}
+.tab button.active {
+ background-color: #ccc;
+}
+.tabcontent {
+ display: none;
+ padding: 6px 12px;
+ border: 1px solid #ccc;
+ overflow-y: auto;
+ border-top: none;
+}
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+  <script type="text/javascript">
+    function showHide(id) {
+      var e = document.getElementById(id);
+      e.style.display = (e.style.display == 'block') ? 'none' : 'block';
+    }
+    function showHideDisappear(id) {
+      var e = document.getElementById(id);
+      e.style.display = '';      var eTrigger = document.getElementById(id + '_trigger');
+      eTrigger.style.display = 'none';
+    }
+    function openTab(evt, tabName) {
+     var i, tabcontent, tablinks;
+     tabcontent = document.getElementsByClassName("tabcontent");
+     for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+     }
+     tablinks = document.getElementsByClassName("tablinks");
+     for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+     }
+     document.getElementById(tabName).style.display = "block";
+     evt.currentTarget.className += " active";
+    }
+  </script>
+  
+</head>
+
+<body><div id="report">
+
+
+<div style='font-size: 36px; margin-top: 15px; padding-bottom: 15px; white-space: nowrap; overflow: hidden;'><a href='index.html' style="font-size: 100%;text-decoration:none">
+<img style='height: 64px' valign='middle' src='https://zeljkoobrenovic.github.io/sokrates-media/icons/repository.png'>
+<div style='margin-left: 4px; display: inline-block; vertical-align: middle; font-size: 120%'><div style='color: #bbbbbb; font-size: 60%;'>repo2</div><div style='height: 34px; font-size: 100%'>Contributors</div></div></div>
+</a>
+</div>
+
+<p style="margin-top: 12px; color: grey">An overview of contributor trends.</p>
+<div class="tab">
+  <button class='tablinks active' onclick='openTab(event, "matrix")'>Contributors Matrix</button>
+  <button class='tablinks' onclick='openTab(event, "30_days")'>Past 30 Days</button>
+  <button class='tablinks' onclick='openTab(event, "90_days")'>Past 3 Months</button>
+  <button class='tablinks' onclick='openTab(event, "180_days")'>Past 6 Months</button>
+  <button class='tablinks' onclick='openTab(event, "365_days")'>Past Year</button>
+  <button class='tablinks' onclick='openTab(event, "contributors")'>Overview</button>
+  <button class='tablinks' onclick='openTab(event, "data")'>Data</button>
+</div>
+<div id="contributors" class="tabcontent" style="display: none">
+<div style="margin-top: 10px">
+Zoomable circles (number of contributors per file): 
+<a style='text-decoration: none' target='_blank' href='visuals/zoomable_circles_contributors_30_main.html'>30 days</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/zoomable_circles_contributors_90_main.html'>90 days</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/zoomable_circles_contributors_180_main.html'>6 months</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/zoomable_circles_contributors_365_main.html'>past year</a>
+ | 
+<a style='text-decoration: none' target='_blank' href='visuals/zoomable_circles_contributors_main.html'>all time</a>
+<div style="color: grey; font-size: 80%">
+Files with only one contributor are shown as grey.
+</div>
+</div>
+<br/>
+<div class='subSection'><div class='subSectionHeader'>  <span class='subSectionTitle'>Contributors</span></div><div class='sectionBody'>
+<div style="">
+<h2>Recent Contributors (1)</h2>
+<p style="color: grey">Committed in past 6 months (a rookie = the first commit in past year)</p>
+<p style="font-size: 80%">No contributors in past 30 days.</p>
+<hr/>
+<p style="font-size: 80%">No contributors in past 31 to 90 days.</p>
+<hr/>
+<p style="font-size: 80%">Past 91 to 180 days (1):</p>
+<div style='margin: 4px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; text-align: center; display: inline-block;opacity:1.0' title='zeljkoobrenovic@yahoo.com 45 commits (60%), between DATE and DATE'>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width='64px' height='64px' viewBox="0 0 100 100"><rect width="100%" height="100%" fill="#FFFFFF"></rect><g transform="translate(50 50) scale(0.69 0.69) rotate(0) translate(-50 -50)" style="fill:#1A1A1A"><svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><circle cx="50.2" cy="23.8" r="22.8" fill="blue"></circle><path d="M87.1,99H13.3V75.4c0-13.1,10.5-23.6,23.6-23.6h26.7c13.1,0,23.6,10.5,23.6,23.6L87.1,99z" fill="blue"></path></g></g></svg></g></svg>
+
+<div style='padding: 4px; font-size: 10px; width: 64px; overflow: hidden; max-height: 22px; min-height: 22px;'>
+zeljkoobrenovic@yahoo.com
+</div>
+</div>
+<h2 style="margin-top: 40px">Historical Contributors (3)</h2>
+<p style="color: grey">Last contributors more than 6 months ago</p>
+<div style='margin: 4px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; text-align: center; display: inline-block;opacity:0.68' title='zeljko@incision.care 27 commits (36%), between DATE and DATE'>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width='64px' height='64px' viewBox="0 0 100 100"><rect width="100%" height="100%" fill="#FFFFFF"></rect><g transform="translate(50 50) scale(0.69 0.69) rotate(0) translate(-50 -50)" style="fill:#1A1A1A"><svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><circle cx="50.2" cy="23.8" r="22.8" fill="blue"></circle><path d="M87.1,99H13.3V75.4c0-13.1,10.5-23.6,23.6-23.6h26.7c13.1,0,23.6,10.5,23.6,23.6L87.1,99z" fill="blue"></path></g></g></svg></g></svg>
+
+<div style='padding: 4px; font-size: 10px; width: 64px; overflow: hidden; max-height: 22px; min-height: 22px;'>
+zeljko@incision.care
+</div>
+</div>
+<div style='margin: 4px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; text-align: center; display: inline-block;opacity:0.2177777777777778' title='emhol@7n.com 1 commits (1%), between DATE and DATE'>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width='64px' height='64px' viewBox="0 0 100 100"><rect width="100%" height="100%" fill="#FFFFFF"></rect><g transform="translate(50 50) scale(0.69 0.69) rotate(0) translate(-50 -50)" style="fill:#1A1A1A"><svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><circle cx="50.2" cy="23.8" r="22.8" fill="blue"></circle><path d="M87.1,99H13.3V75.4c0-13.1,10.5-23.6,23.6-23.6h26.7c13.1,0,23.6,10.5,23.6,23.6L87.1,99z" fill="blue"></path></g></g></svg></g></svg>
+
+<div style='padding: 4px; font-size: 10px; width: 64px; overflow: hidden; max-height: 22px; min-height: 22px;'>
+emhol@7n.com
+</div>
+</div>
+<div style='margin: 4px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; text-align: center; display: inline-block;opacity:0.2177777777777778' title='thefunkycowboy@gmail.com 1 commits (1%), between DATE and DATE'>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width='64px' height='64px' viewBox="0 0 100 100"><rect width="100%" height="100%" fill="#FFFFFF"></rect><g transform="translate(50 50) scale(0.69 0.69) rotate(0) translate(-50 -50)" style="fill:#1A1A1A"><svg fill="#1A1A1A" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve"><g><g><circle cx="50.2" cy="23.8" r="22.8" fill="blue"></circle><path d="M87.1,99H13.3V75.4c0-13.1,10.5-23.6,23.6-23.6h26.7c13.1,0,23.6,10.5,23.6,23.6L87.1,99z" fill="blue"></path></g></g></svg></g></svg>
+
+<div style='padding: 4px; font-size: 10px; width: 64px; overflow: hidden; max-height: 22px; min-height: 22px;'>
+thefunkycowboy@gmail.com
+</div>
+</div>
+</div>
+</div></div>
+<br/>
+<div class='subSection'><div class='subSectionHeader'>  <span class='subSectionTitle'>Bots</span></div><div class='sectionBody'>
+<div style="">
+<h2>Recent Bots (0)</h2>
+<p style="color: grey">Committed in past 6 months (a rookie = the first commit in past year)</p>
+<p style="font-size: 80%">No bots in past 30 days.</p>
+<hr/>
+<p style="font-size: 80%">No bots in past 31 to 90 days.</p>
+<hr/>
+<p style="font-size: 80%">No bots in past 91 to 180 days.</p>
+<h2 style="margin-top: 40px">Historical Bots (1)</h2>
+<p style="color: grey">Last bots more than 6 months ago</p>
+<div style='margin: 4px; box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px; text-align: center; display: inline-block;opacity:1.0' title='49699333+dependabot[bot]@users.noreply.github.com 1 commits (100%), between DATE and DATE'>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width='64px' height='64px' version="1.1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+ <path fill="blue" d="m40.609 53.117c-5.0352 0-9.5625 0.77734-13.121 3.3203-3.5586 2.543-5.6094 6.9336-5.6094 12.316v9.3672c0 5.1406 4.2266 9.3633 9.3672 9.3633h37.508c5.1406 0 9.3672-4.2227 9.3672-9.3633v-9.3672c0-5.3828-2.0508-9.7734-5.6094-12.316-3.5586-2.543-8.1133-3.3203-13.148-3.3203z"/>
+ <path fill="blue" d="m37.488 12.492c-5.1406 0-9.3633 4.2461-9.3633 9.3867v15.617c0 5.1406 4.2227 9.3633 9.3633 9.3633h25c5.1406 0 9.3867-4.2227 9.3867-9.3633v-15.617c0-5.1406-4.2461-9.3867-9.3867-9.3867zm6.2617 11.285c1.7266 0.007812 3.1211 1.4102 3.1133 3.1367v4.7656c0.007813 1.7266-1.3867 3.1328-3.1133 3.1367-1.7344 0.007813-3.1445-1.4023-3.1367-3.1367v-4.7656c-0.007812-1.7344 1.4023-3.1445 3.1367-3.1367zm12.504 0c1.7266 0.007812 3.1211 1.4102 3.1133 3.1367v4.7656c0.007812 1.7266-1.3867 3.1328-3.1133 3.1367-1.7344 0.007813-3.1445-1.4023-3.1367-3.1367v-4.7656c-0.007813-1.7344 1.4023-3.1445 3.1367-3.1367z"/>
+ <path d="m21.887 20.297c-0.83594-0.003906-1.6328 0.32422-2.2227 0.91406-0.58984 0.58984-0.91797 1.3906-0.91797 2.2227v12.504c0.003906 0.82812 0.33594 1.6211 0.92578 2.207 0.58594 0.58203 1.3828 0.91016 2.2148 0.90625 1.7148-0.007812 3.1055-1.3984 3.1133-3.1133v-12.504c0.003906-0.82812-0.32422-1.625-0.90625-2.2148-0.58594-0.58984-1.3789-0.92188-2.207-0.92188z"/>
+ <path d="m78.125 20.297c-0.83203-0.003906-1.6328 0.32422-2.2227 0.91406-0.58984 0.58984-0.91797 1.3906-0.91406 2.2227v12.504c0.003907 0.82812 0.33594 1.6211 0.92188 2.207 0.58984 0.58203 1.3867 0.91016 2.2148 0.90625 1.7188-0.007812 3.1094-1.3984 3.1133-3.1133v-12.504c0.003907-0.82812-0.32031-1.625-0.90625-2.2148-0.58203-0.58984-1.3789-0.92188-2.207-0.92188z"/>
+</svg>
+
+<div style='padding: 4px; font-size: 10px; width: 64px; overflow: hidden; max-height: 22px; min-height: 22px;'>
+49699333+dependabot[bot]@users.noreply.github.com
+</div>
+</div>
+</div>
+</div></div>
+</div>
+<div id="matrix" class="tabcontent" style="display: block">
+<div style="height: 20px">
+&nbsp;
+</div>
+<div class='subSection'><div class='subSectionHeader'>  <span class='subSectionTitle'>Contributors Matrix (Per Month)</span></div><div class='sectionBody'>
+<div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 600px">
+<table>
+<tr>
+<td style="min-width: 200px; border: none; border: none"></td>
+<td style="max-width: 100px; text-align: center; border: none">Commits<br>(3m)</td>
+<td style="max-width: 100px; text-align: center; border: none">Commit<br>Days</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-09: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-08: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-07: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-06: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-05: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-04: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-03: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-02: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-01: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-12: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-11: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-10: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-09: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-08: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-07: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-06: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-05: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-04: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-03: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-02: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-01: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-12: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-11: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-10: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-09: 0 contributors ">
+-
+</div>
+</td>
+</tr>
+<tr>
+<td style="border: none; opacity: 0.4">
+zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljkoobrenovic@yahoo.com&gt;</div>
+</td>
+<td style="text-align: center; border: none; opacity: 0.4">-</td>
+<td style="text-align: center; border: none; opacity: 0.4">40</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2025-05: 2 commit days">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2025-02: 1 commit day">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2024-12: 1 commit day">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2024-10: 2 commit days">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2024-09: 1 commit day">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+</tr>
+<tr>
+<td style="border: none; opacity: 0.4">
+Emil Holmegaard <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;emhol@7n.com&gt;</div>
+</td>
+<td style="text-align: center; border: none; opacity: 0.4">-</td>
+<td style="text-align: center; border: none; opacity: 0.4">1</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+</tr>
+<tr>
+<td style="border: none; opacity: 0.4">
+Sagerro01 <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;thefunkycowboy@gmail.com&gt;</div>
+</td>
+<td style="text-align: center; border: none; opacity: 0.4">-</td>
+<td style="text-align: center; border: none; opacity: 0.4">1</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+</tr>
+<tr>
+<td style="border: none; opacity: 0.4">
+zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljko@incision.care&gt;</div>
+</td>
+<td style="text-align: center; border: none; opacity: 0.4">-</td>
+<td style="text-align: center; border: none; opacity: 0.4">23</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div></div>
+<div style="height: 20px">
+&nbsp;
+</div>
+<div class='subSection'><div class='subSectionHeader'>  <span class='subSectionTitle'>Bots Matrix (Per Month)</span></div><div class='sectionBody'>
+<div style="width: 100%; overflow-x: scroll; overflow-y: scroll; max-height: 600px">
+<table>
+<tr>
+<td style="min-width: 200px; border: none; border: none"></td>
+<td style="max-width: 100px; text-align: center; border: none">Commits<br>(3m)</td>
+<td style="max-width: 100px; text-align: center; border: none">Commit<br>Days</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-09: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-08: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-07: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-06: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-05: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-04: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-03: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-02: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2025-01: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-12: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-11: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-10: 1 contributor">
+1
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-09: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-08: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-07: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-06: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-05: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-04: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-03: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-02: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2024-01: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-12: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-11: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-10: 0 contributors ">
+-
+</div>
+</td>
+<td style="font-size: 70%; border: none; color: lightgrey; text-align: center">
+<div style="cursor: help;text-align: center" title="Month 2023-09: 0 contributors ">
+-
+</div>
+</td>
+</tr>
+<tr>
+<td style="border: none; opacity: 0.4">
+dependabot[bot] <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</div>
+</td>
+<td style="text-align: center; border: none; opacity: 0.4">-</td>
+<td style="text-align: center; border: none; opacity: 0.4">1</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="cursor: help;padding: 0; margin: 0; display: inline-block; background-color: #483D8B; opacity: 0.2; border-radius: 50%; width: 10px; height: 10px;" title="Month 2024-10: 1 commit day">
+
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+<td style="text-align: center; padding: 0; border: none; vertical-align: middle;">
+<div style="color: lightgrey; font-size: 80%">
+-
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div></div>
+</div>
+<div id="30_days" class="tabcontent" style="display: none">
+<p style="margin-top: 16px">No commits in past 30 days.</p>
+</div>
+<div id="90_days" class="tabcontent" style="display: none">
+<p style="margin-top: 16px">No commits in past 90 days.</p>
+</div>
+<div id="180_days" class="tabcontent" style="display: none">
+<br/>
+<p><b>1</b> contributor (<b>2</b> commit):</p>
+<div style='background-color: #75ADD2; display: inline-block; height: 20px; width: 600px' title='zeljkoobrenovic@yahoo.com
+2 commits (100%)'>&nbsp;</div>
+<br/>
+<br/>
+<div style="max-height: 600px; overflow-y: scroll; overflow-x: hidden;">
+<table>
+<th>#</th>
+<th>Contributor<br></th>
+<th>First<br>Commit</th>
+<th>Latest<br>Commit</th>
+<th>Commits<br>Count</th>
+<tr style='color: lightgrey'>
+<td>1.</td>
+<td>zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljkoobrenovic@yahoo.com&gt;</div></td>
+<td>DATE</td>
+<td>DATE</td>
+<td>2 (100%)</td>
+</tr>
+</table>
+</div>
+</div>
+<div id="365_days" class="tabcontent" style="display: none">
+<br/>
+<p><b>1</b> contributor (<b>6</b> commit):</p>
+<div style='background-color: #75ADD2; display: inline-block; height: 20px; width: 600px' title='zeljkoobrenovic@yahoo.com
+6 commits (100%)'>&nbsp;</div>
+<br/>
+<br/>
+<div style="max-height: 600px; overflow-y: scroll; overflow-x: hidden;">
+<table>
+<th>#</th>
+<th>Contributor<br></th>
+<th>First<br>Commit</th>
+<th>Latest<br>Commit</th>
+<th>Commits<br>Count</th>
+<tr style='color: lightgrey'>
+<td>1.</td>
+<td>zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljkoobrenovic@yahoo.com&gt;</div></td>
+<td>DATE</td>
+<td>DATE</td>
+<td>6 (100%)</td>
+</tr>
+</table>
+</div>
+<br/>
+<p><b>1</b> bot (<b>1</b> commit):</p>
+<div style='background-color: #75ADD2; display: inline-block; height: 20px; width: 600px' title='49699333+dependabot[bot]@users.noreply.github.com
+1 commits (100%)'>&nbsp;</div>
+<br/>
+<br/>
+<div style="max-height: 600px; overflow-y: scroll; overflow-x: hidden;">
+<table>
+<th>#</th>
+<th>Bot<br></th>
+<th>First<br>Commit</th>
+<th>Latest<br>Commit</th>
+<th>Commits<br>Count</th>
+<tr style='color: lightgrey'>
+<td>1.</td>
+<td>dependabot[bot] <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</div></td>
+<td>DATE</td>
+<td>DATE</td>
+<td>1 (100%)</td>
+</tr>
+</table>
+</div>
+<h2 style="margin-top: 40px; margin-bottom: 0;">Contributor Dependencies</h2>
+<p style="color: grey; font-size: 80%; margin-bottom: 12px;">A contributor dependency is detected if two contributors have changed the same files in the past 365 days.</p>
+<h3 style="margin-top: 20px">Contributor Dependencies via Shared Files</h2>
+ <a href="javascript:showHide('showMoreBlock_7');")> - show contributor dependencies 2D graph</a><span id="showMoreBlock_7" style="display: none;">
+<p style="color: grey">The number on lines shows the number of same files that both persons changed in past <b>365</b> days.</p>
+<div style="width: 100%; overflow: auto; font-weight: normal;">
+<svg width="363pt" height="130pt"
+ viewBox="0.00 0.00 363.00 130.25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 126.25)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-126.25 359,-126.25 359,4 -4,4"/>
+<!-- zeljkoobrenovic@yahoo.com -->
+<g id="node1" class="node">
+<title>zeljkoobrenovic@yahoo.com</title>
+<polygon fill="grey" stroke="white" points="272.5,-122.25 82.5,-122.25 82.5,-86.25 272.5,-86.25 272.5,-122.25"/>
+<text text-anchor="middle" x="177.5" y="-99.58" font-family="Tahoma" font-size="14.00">zeljkoobrenovic@yahoo.com</text>
+</g>
+<!-- 49699333+dependabot[bot]@users.noreply.github.com -->
+<g id="node2" class="node">
+<title>49699333+dependabot[bot]@users.noreply.github.com</title>
+<polygon fill="grey" stroke="white" points="355,-36 0,-36 0,0 355,0 355,-36"/>
+<text text-anchor="middle" x="177.5" y="-13.32" font-family="Tahoma" font-size="14.00">49699333+dependabot[bot]@users.noreply.github.com</text>
+</g>
+<!-- zeljkoobrenovic@yahoo.com&#45;&#45;49699333+dependabot[bot]@users.noreply.github.com -->
+<g id="edge1" class="edge">
+<title>zeljkoobrenovic@yahoo.com&#45;&#45;49699333+dependabot[bot]@users.noreply.github.com</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M177.5,-85.79C177.5,-71.33 177.5,-50.89 177.5,-36.43"/>
+<text text-anchor="middle" x="183.88" y="-56.85" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+</g>
+</svg>
+
+
+</div>
+<br/>
+<br/>
+<div style="">
+Download: 
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_365_1.svg'>SVG</a>
+ 
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_365_1.dot.txt'>DOT</a>
+ 
+<a style='text-decoration: none' target='_blank' href='https://obren.io/tools/graphviz/'>(open online Graphviz editor)</a>
+</div>
+</span>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_365_1_force_2d.html'>- open 2D force graph</a>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_365_1_force_3d.html'>- open 3D force graph</a>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_via_files_365_2_force_2d.html'>- open 2D force graph (including all files)</a>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_via_files_365_2_force_2d_only_shared_file.html'>- open 2D force graph (including only shared files)</a>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_via_files_365_2_force_3d.html'>- open 3D force graph (including all files)</a>
+<br/>
+<a style='text-decoration: none' target='_blank' href='visuals/people_dependencies_via_files_365_2_force_3d_only_shared_file.html'>- open 3D force graph (including only shared files)</a>
+<br/>
+<br/>
+<br/>
+<div style="max-height: 600px; overflow-y: scroll; overflow-x: hidden;">
+<table>
+<th></th>
+<th>Contributor 1</th>
+<th>Contributor 2</th>
+<th># shared files</th>
+<tr>
+<td>1.</td>
+<td>zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljkoobrenovic@yahoo.com&gt;</div></td>
+<td>dependabot[bot] <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</div></td>
+<td>
+ <a href="javascript:showHide('showMoreBlock_8');")>1 shared file</a><span id="showMoreBlock_8" style="display: none;">
+<br>pom.xml
+</span>
+</td>
+</tr>
+</table>
+</div>
+<h3 style="margin-top: 20px">Most Connected Contributors</h2>
+<div style="max-height: 600px; overflow-y: scroll; overflow-x: hidden;">
+<table>
+<th></th>
+<th>Contributor</th>
+<th># connections</th>
+<th># commits</th>
+<tr>
+<td>1.</td>
+<td>zeljkoobrenovic <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;zeljkoobrenovic@yahoo.com&gt;</div></td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr>
+<td>2.</td>
+<td>dependabot[bot] <div style='color: grey; font-size: 80%; margin-bottom: 6px;'>&lt;49699333+dependabot[bot]@users.noreply.github.com&gt;</div></td>
+<td>1</td>
+<td>1</td>
+</tr>
+</table>
+</div>
+<p style="margin-bottom: 0; margin-top: 10px;">C-median: 1.0</p>
+<p style="color: grey; font-size: 80%; margin-bottom: 20px">A half of the contributors has more than 1.0 connections, and a half has less than this number.</p>
+<p style="margin-bottom: 0;">C-mean: 1.0</p>
+<p style="color: grey; font-size: 80%; margin-bottom: 20px">An average number of connections a contributor has with other contributors.</p>
+<p style="margin-bottom: 0;">C-index: 1.0</p>
+<p style="color: grey; font-size: 80%; margin-bottom: 40px">There are 1.0 contributors with 1.0 or more connections.</p>
+</div>
+<div id="data" class="tabcontent" style="display: none">
+<ul>
+<li>
+<a style='text-decoration: none' target='_blank' href='../data/text/contributors.txt'>Contributors' details...</a>
+</li>
+</ul>
+</div>
+</div>
+</body>
+</html>

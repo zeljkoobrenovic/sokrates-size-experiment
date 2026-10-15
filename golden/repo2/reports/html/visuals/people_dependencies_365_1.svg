@@ -1,0 +1,25 @@
+<svg width="363pt" height="130pt"
+ viewBox="0.00 0.00 363.00 130.25" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 126.25)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-126.25 359,-126.25 359,4 -4,4"/>
+<!-- zeljkoobrenovic@yahoo.com -->
+<g id="node1" class="node">
+<title>zeljkoobrenovic@yahoo.com</title>
+<polygon fill="grey" stroke="white" points="272.5,-122.25 82.5,-122.25 82.5,-86.25 272.5,-86.25 272.5,-122.25"/>
+<text text-anchor="middle" x="177.5" y="-99.58" font-family="Tahoma" font-size="14.00">zeljkoobrenovic@yahoo.com</text>
+</g>
+<!-- 49699333+dependabot[bot]@users.noreply.github.com -->
+<g id="node2" class="node">
+<title>49699333+dependabot[bot]@users.noreply.github.com</title>
+<polygon fill="grey" stroke="white" points="355,-36 0,-36 0,0 355,0 355,-36"/>
+<text text-anchor="middle" x="177.5" y="-13.32" font-family="Tahoma" font-size="14.00">49699333+dependabot[bot]@users.noreply.github.com</text>
+</g>
+<!-- zeljkoobrenovic@yahoo.com&#45;&#45;49699333+dependabot[bot]@users.noreply.github.com -->
+<g id="edge1" class="edge">
+<title>zeljkoobrenovic@yahoo.com&#45;&#45;49699333+dependabot[bot]@users.noreply.github.com</title>
+<path fill="none" stroke="#00688b" stroke-opacity="0.368627" d="M177.5,-85.79C177.5,-71.33 177.5,-50.89 177.5,-36.43"/>
+<text text-anchor="middle" x="183.88" y="-56.85" font-family="Arial" font-size="12.00"> 1 </text>
+</g>
+</g>
+</svg>

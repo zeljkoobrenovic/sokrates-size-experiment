@@ -48,7 +48,7 @@
   "minDuplicationBlockLoc": 6,
   "saveCodeFragments": true,
   "saveSourceFiles": true,
-  "skipCorrelations": false,
+  "skipCorrelations": true,
   "skipDependencies": false,
   "skipDuplication": false,
   "unitSizeThresholds": {

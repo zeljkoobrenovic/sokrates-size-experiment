@@ -1,0 +1,31 @@
+graph G {
+    compound="true"
+    rankdir="TB"
+    bgcolor="white"
+    fontname="Tahoma"
+
+    node [
+        fixedsize="false"
+        fontname="Tahoma"
+        color="white"
+        fillcolor="grey"
+        fontcolor="black"
+        shape="box"
+        style="filled"
+        penwidth="1.0"
+    ]
+    edge [
+        fontname="Arial"
+        color="#00688b"
+        fontcolor="black"
+        fontsize="12"
+        arrowsize="0.5"
+        penwidth="1.0"
+    ]
+
+
+
+
+    "zeljkoobrenovic@yahoo.com" -- "49699333+dependabot[bot]@users.noreply.github.com" [label=" 1 ", penwidth="1", color="#00688b5E"];
+
+}
