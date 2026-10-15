@@ -1,0 +1,179 @@
+golden/repo1/reports/html/visuals/racing_charts_component_commits_1.html
+  s_3bdacd10641e87::t_35d4174680065d 1-364
+golden/repo2/reports/html/Contributors.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1390
+golden/repo2/reports/html/FileChangeFrequency.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1598
+golden/repo2/reports/html/ComponentsAndDependencies.html
+  s_3bdacd10641e87::t_35d4174680065d 1-308
+golden/repo2/reports/html/visuals/people_dependencies_via_files_365_2_force_2d.html
+  s_3bdacd10641e87::t_35d4174680065d 1-100
+golden/repo2/reports/data/extra_analysis/config_by_file_age.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/visuals/people_dependencies_365_1_force_3d.html
+  s_3bdacd10641e87::t_35d4174680065d 1-50
+scripts/golden.sh
+  s_3bdacd10641e87::t_9c9c4daf1f14ee 5-6,30
+golden/repo1/reports/html/SourceCodeOverview.html
+  s_3bdacd10641e87::t_35d4174680065d 1-359
+golden/repo1/config.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/UnitSize.html
+  s_3bdacd10641e87::t_35d4174680065d 1-535
+golden/repo1/reports/html/Contributors.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1083
+golden/repo2/reports/html/Trend.html
+  s_3bdacd10641e87::t_35d4174680065d 1-177
+golden/repo2/reports/html/FileTemporalDependencies.html
+  s_3bdacd10641e87::t_35d4174680065d 1-211
+golden/landscape/visuals/tree_map_repositories_age.html
+  s_3bdacd10641e87::t_35d4174680065d 48,58
+golden/repo2/reports/html/visuals/people_dependencies_365_1_force_2d_only_shared_file.html
+  s_3bdacd10641e87::t_35d4174680065d 1-42
+golden/repo1/reports/data/extra_analysis/config_by_file_freshness.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo1/reports/html/visuals/racing_charts_component_commits_12_months_window_1.html
+  s_3bdacd10641e87::t_35d4174680065d 1-364
+golden/repo2/config.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/visuals/racing_charts_component_commits_1.html
+  s_3bdacd10641e87::t_35d4174680065d 1-364
+golden/repo1/reports/data/text/metrics.txt
+  s_3bdacd10641e87::t_35d4174680065d 179
+golden/repo2/reports/data/analysisResults.json
+  s_3bdacd10641e87::t_35d4174680065d 2799,7169
+golden/repo1/reports/html/FileAge.html
+  s_3bdacd10641e87::t_35d4174680065d 1-2075
+golden/repo2/reports/explorers/files-explorer.html
+  s_3bdacd10641e87::t_35d4174680065d 1-285
+golden/repo2/reports/html/Components.html
+  s_3bdacd10641e87::t_35d4174680065d 1-280
+golden/repo2/reports/html/visuals/dependencies_1.svg
+  s_3bdacd10641e87::t_35d4174680065d 1-26
+golden/repo1/reports/data/analysisResults.json
+  s_3bdacd10641e87::t_35d4174680065d 3202,7834
+golden/repo2/reports/data/extra_analysis/config_original.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/Metrics.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1772
+golden/repo2/reports/html/index.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1958
+golden/repo2/reports/html/Controls.html
+  s_3bdacd10641e87::t_35d4174680065d 1-228
+golden/landscape/repositories-short.html
+  s_3bdacd10641e87::t_35d4174680065d 985,988
+golden/repo1/reports/html/Components.html
+  s_3bdacd10641e87::t_35d4174680065d 1-280
+golden/repo2/reports/html/visuals/dependencies_1.dot.txt
+  s_3bdacd10641e87::t_35d4174680065d 1-33
+golden/repo1/reports/html/index.html
+  s_3bdacd10641e87::t_35d4174680065d 1-2036
+golden/repo2/reports/html/visuals/people_dependencies_via_files_365_2_force_3d_only_shared_file.html
+  s_3bdacd10641e87::t_35d4174680065d 1-50
+golden/landscape/visuals/tree_map_repositories_commits.html
+  s_3bdacd10641e87::t_35d4174680065d 48,58
+golden/repo1/reports/html/Duplication.html
+  s_3bdacd10641e87::t_35d4174680065d 1-421
+golden/repo2/reports/data/text/metrics.txt
+  s_3bdacd10641e87::t_35d4174680065d 169
+golden/repo2/reports/html/FeaturesOfInterest.html
+  s_3bdacd10641e87::t_35d4174680065d 1-215
+golden/repo2/reports/data/config.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo1/reports/data/extra_analysis/config_by_file_change_frequency.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo1/reports/html/ComponentsAndDependencies.html
+  s_3bdacd10641e87::t_35d4174680065d 1-308
+golden/repo2/reports/html/visuals/people_dependencies_365_1.svg
+  s_3bdacd10641e87::t_35d4174680065d 1-25
+golden/repo2/reports/html/visuals/people_dependencies_365_1_force_2d.html
+  s_3bdacd10641e87::t_35d4174680065d 1-56
+golden/repo2/reports/data/extra_analysis/config_by_file_change_frequency.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo1/reports/html/FeaturesOfInterest.html
+  s_3bdacd10641e87::t_35d4174680065d 1-215
+golden/repo1/reports/html/FileTemporalDependencies.html
+  s_3bdacd10641e87::t_35d4174680065d 1-211
+golden/repo1/reports/html/Notes.html
+  s_3bdacd10641e87::t_35d4174680065d 1-172
+golden/repo1/reports/explorers/files-explorer.html
+  s_3bdacd10641e87::t_35d4174680065d 1-285
+golden/repo1/reports/html/visuals/dependencies_1.dot.txt
+  s_3bdacd10641e87::t_35d4174680065d 1-33
+golden/repo1/reports/html/visuals/dependencies_1.svg
+  s_3bdacd10641e87::t_35d4174680065d 1-26
+golden/repo1/reports/data/extra_analysis/config_by_file_age.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/Duplication.html
+  s_3bdacd10641e87::t_35d4174680065d 1-348
+golden/repo1/reports/html/Controls.html
+  s_3bdacd10641e87::t_35d4174680065d 1-228
+golden/repo1/reports/html/ConditionalComplexity.html
+  s_3bdacd10641e87::t_35d4174680065d 1-522
+golden/repo1/reports/html/FileChangeFrequency.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1598
+golden/repo1/reports/data/extra_analysis/config_original.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo1/reports/html/Trend.html
+  s_3bdacd10641e87::t_35d4174680065d 1-177
+golden/repo2/reports/data/text/metrics_trend.txt
+  s_3bdacd10641e87::t_35d4174680065d 170
+golden/repo2/reports/html/ConditionalComplexity.html
+  s_3bdacd10641e87::t_35d4174680065d 1-522
+golden/repo2/reports/html/visuals/people_dependencies_via_files_365_2_force_2d_only_shared_file.html
+  s_3bdacd10641e87::t_35d4174680065d 1-56
+golden/repo2/reports/html/visuals/people_dependencies_via_files_365_2_force_3d.html
+  s_3bdacd10641e87::t_35d4174680065d 1-94
+golden/repo1/reports/html/FileSize.html
+  s_3bdacd10641e87::t_35d4174680065d 1-785
+golden/repo2/reports/html/FileAge.html
+  s_3bdacd10641e87::t_35d4174680065d 1-2075
+golden/repo1/reports/html/Commits.html
+  s_3bdacd10641e87::t_35d4174680065d 1-5416
+golden/repo1/reports/html/UnitSize.html
+  s_3bdacd10641e87::t_35d4174680065d 1-535
+golden/repo2/reports/html/FileSize.html
+  s_3bdacd10641e87::t_35d4174680065d 1-825
+golden/repo2/reports/html/Notes.html
+  s_3bdacd10641e87::t_35d4174680065d 1-172
+golden/repo1/reports/data/text/metrics_trend.txt
+  s_3bdacd10641e87::t_35d4174680065d 180
+golden/repo2/reports/html/SourceCodeOverview.html
+  s_3bdacd10641e87::t_35d4174680065d 1-299
+golden/repo2/reports/data/extra_analysis/config_by_file_freshness.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/landscape/visuals/bubble_chart_repositories_age.html
+  s_3bdacd10641e87::t_35d4174680065d 31,41
+golden/repo2/reports/html/Commits.html
+  s_3bdacd10641e87::t_35d4174680065d 1-5323
+golden/repo1/reports/html/Metrics.html
+  s_3bdacd10641e87::t_35d4174680065d 1-1876
+golden/repo1/reports/data/config.json
+  s_3bdacd10641e87::t_35d4174680065d 51
+golden/repo2/reports/html/visuals/racing_charts_component_commits_12_months_window_1.html
+  s_3bdacd10641e87::t_35d4174680065d 1-364
+golden/repo2/reports/html/visuals/people_dependencies_365_1.dot.txt
+  s_3bdacd10641e87::t_35d4174680065d 1-31
+golden/repo2/reports/html/visuals/people_dependencies_365_1_force_3d_only_shared_file.html
+  s_3bdacd10641e87::t_35d4174680065d 1-36
+golden/landscape/visuals/bubble_chart_repositories_commits.html
+  s_3bdacd10641e87::t_35d4174680065d 31,41
+scripts/golden_fixture_config.py
+  s_3bdacd10641e87::t_57820dd132d3c0 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8e145de20c66854a8bb376f08d91b827853b8758",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
