@@ -1,0 +1,12 @@
+diff -ruN -x target -x _sokrates a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java	2025-09-20 00:12:25
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java	2026-10-15 18:03:17
+@@ -744,7 +744,7 @@
+                 }
+             });
+ 
+-            if (!added[0] && !remainder.getMembers().contains(email)) {
++            if (!added[0] && contributor.getContributor().isActive() && !remainder.getMembers().contains(contributor)) {
+                 remainder.getMembers().add(contributor);
+                 contributor.getRepositories().forEach(repo -> {
+                     addRepoToTeam(repo, remainder);

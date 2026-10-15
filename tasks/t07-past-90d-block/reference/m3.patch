@@ -1,0 +1,12 @@
+diff -ruN -x target -x _sokrates a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java	2026-10-15 17:58:28
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java	2026-10-15 18:03:20
+@@ -906,7 +906,7 @@
+                 FormattingUtils.getSmallTextForNumber(loc180Days) + " LOC (" + FormattingUtils.getFormattedPercentage(100.0 * loc180Days / Math.max(1, locAll)) + "%)",
+                 "all repositories updated in the past 180 days with at least " + contributorConstraint, REPOSITORIES_COLOR, "repository");
+         addInfoBlock(FormattingUtils.getSmallTextForNumber(size90Days), "past 90d",
+-                FormattingUtils.getSmallTextForNumber(loc180Days) + " LOC (" + FormattingUtils.getFormattedPercentage(100.0 * loc90Days / Math.max(1, locAll)) + "%)",
++                FormattingUtils.getSmallTextForNumber(loc90Days) + " LOC (" + FormattingUtils.getFormattedPercentage(100.0 * loc90Days / Math.max(1, locAll)) + "%)",
+                 "all repositories updated in the past 90 days with at least " + contributorConstraint, REPOSITORIES_COLOR, "repository");
+         addFreshInfoBlock(FormattingUtils.getSmallTextForNumber(recentSize), "past 30d",
+                 FormattingUtils.getSmallTextForNumber(recentLoc) + " LOC (" + FormattingUtils.getFormattedPercentage(100.0 * recentLoc / Math.max(1, locAll)) + "%)",
