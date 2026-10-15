@@ -47,6 +47,29 @@ measure predicts slightly *less* reading (fewer touched files per change, each c
 Estimator only uses LOC and predicts no difference. If the m3 tasks cost the same as on A, the read-budget
 sub-score's weight is wrong too; if they cost more, its size says by how much it should count.
 
+**Smoke run findings (2026-10-15, before the series).**
+
+- *The read window is 25,000 tokens, not 2,000 lines.* A Read of m3's `LogicalComponentsReportGenerator.java`
+  (2,847 lines, 63,289 tokens, about 22 tokens per line) returned lines 1–955 with "PARTIAL view … cap 25000".
+  For this Java the window is therefore about 1,000 lines, so variant A already had four files beyond it
+  (`LandscapeReportGenerator` 1,836, `LandscapeAnalysisResults` 1,405, `LandscapeReportContributorsTab` 1,284,
+  `ReportFileExporter` 1,204). The A/B series compared files above the real window with files below it, and found
+  no difference. Sokrates' "files beyond read budget" (> 2,000 lines) should count tokens (≈ 25k) rather than lines.
+- *Agents avoid the cap rather than run into it.* In the 480 A/B runs, no Read without a limit was ever made on a
+  file over 1,000 lines, and no transcript contains a truncation notice. Haiku read whole files 88 times on B and
+  34 times on A: it reads small files whole and takes windows of big ones.
+- *The smoke run (t06 on m3, Sonnet, Claude Code 2.1.300)* did the same: three greps, a 40-line window of
+  `LandscapeContributorsReport`, an 8-line window at offset 2,308 of the 3,093-line host file, four edits, one
+  compile. It passed in 13 turns, 209k input tokens and $0.11, against a t06/A median of 11.5 turns and 194k. That
+  is inside the A range; one run says nothing about the ratio.
+- *Consequence for H1.* A step at the read window is unlikely: the window has already been crossed with no effect,
+  and the agent's habit does not touch it. A cost of size, if there is one, will come from elsewhere: more grep
+  hits to sift in a big file, windows that miss the context they need, or tasks that need a whole class
+  understood. m3/m4 still test this, and the per-call logging (grep hits inside the merged file, windows per file,
+  turns to first edit) matters more than the read-truncation counter.
+- The Claude Code version is now 2.1.300 (the A/B series ran on 2.1.295): re-running A in the same series is
+  required, as planned.
+
 ### Variants: the inverse of B
 
 Each variant is A with classes of one package merged into one file and nothing else changed. Doses (physical
