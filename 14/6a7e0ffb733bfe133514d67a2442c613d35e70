@@ -1,0 +1,1009 @@
+results/pilot-ambiguity-analysis.txt
+  s_3bdacd10641e87::t_1f9c687d484cea 1-92
+results/runs/a08-tickets-per-country-a-r01-20261016-080845.json
+  s_3bdacd10641e87::t_c269d57cdc58f5 1-44
+results/pilot-ambiguity-worker-d.log
+  s_3bdacd10641e87::t_59a70a8f402457 1-30
+  s_3bdacd10641e87::t_e64258cdde1bd7 31-33
+  s_3bdacd10641e87::t_a90b45fd9c25bb 34-92
+results/runs/a14-promotion-code-spaces-d-r01-20261016-091220.json
+  s_3bdacd10641e87::t_59a70a8f402457 1-44
+results/pilot-ambiguity-rerun.log
+  s_3bdacd10641e87::t_f095e3b7267911 1
+  s_3bdacd10641e87::t_6c942baa964211 2-3
+results/runs/a14-promotion-code-spaces-d-r01-20261016-091220.tools.jsonl
+  s_3bdacd10641e87::t_59a70a8f402457 1-4
+results/pilot-ambiguity-rerun2.log
+  s_3bdacd10641e87::t_a740690bd983d0 1
+  s_3bdacd10641e87::t_7bdb8fbb234dfe 2-4
+  s_129663262a544b::t_1be54a6bb948fe 5-6
+results/pilot-ambiguity-worker-a.log
+  s_3bdacd10641e87::t_c269d57cdc58f5 1-17
+  s_3bdacd10641e87::t_e5c5089ab18eaa 18-20
+  s_3bdacd10641e87::t_b4e898de900f30 21-92
+ambiguity/tools/analyze_pilot.py
+  s_3bdacd10641e87::t_42c11442fc6f95 1-77
+results/pilot-ambiguity.csv
+  s_3bdacd10641e87::t_59a70a8f402457 56
+  s_3bdacd10641e87::t_c269d57cdc58f5 17
+  s_3bdacd10641e87::t_d5378f1843264a 14-16
+  s_3bdacd10641e87::t_3d17a31a20eaf6 18-20,53-55
+  s_3bdacd10641e87::t_ce0eaad2351ff0 57-59
+  s_3bdacd10641e87::t_46948b19d13b3a 1-13,21-52,60-139
+results/pilot-ambiguity-excluded.tsv
+  s_3bdacd10641e87::t_a740690bd983d0 1-3
+results/runs/a08-tickets-per-country-a-r01-20261016-080845.tools.jsonl
+  s_3bdacd10641e87::t_c269d57cdc58f5 1-10
+results/runs/a01-po-count-per-rep-cancelled-s-r02-20261016-083411.json
+  s_3bdacd10641e87::t_7a753094a0f41b 1-44
+results/runs/a01-po-count-per-rep-cancelled-s-r02-20261016-083411.tools.jsonl
+  s_3bdacd10641e87::t_738a456170e2db 1-5
+results/runs/a02-region-tickets-priority-order-a-r02-20261016-083441.json
+  s_3bdacd10641e87::t_0ebbd9817c14cc 1-44
+results/runs/a02-region-tickets-priority-order-a-r02-20261016-083441.tools.jsonl
+  s_3bdacd10641e87::t_4a2e72f213f848 1-7
+results/runs/a07-payments-per-quarter-s-r01-20261016-080705.json
+  s_3bdacd10641e87::t_9704e7253fbbd0 1-44
+results/runs/a07-payments-per-quarter-s-r01-20261016-080705.tools.jsonl
+  s_3bdacd10641e87::t_0214a83915025a 1-14
+results/pilot-ambiguity-worker-s.log
+  s_18baee8c938871::t_19622453704426 1-92
+results/runs/a01-po-count-per-rep-cancelled-a-r01-20261016-074932.json
+  s_09b7b72fc2531c::t_476564611f6614 1-44
+results/runs/a01-po-count-per-rep-cancelled-a-r01-20261016-074932.tools.jsonl
+  s_09b7b72fc2531c::t_7856d5d225ef0a 1-6
+results/runs/a01-po-count-per-rep-cancelled-d-r01-20261016-080744.json
+  s_4b2fc1c83277fe::t_1d9933b347f476 1-44
+results/runs/a01-po-count-per-rep-cancelled-d-r01-20261016-080744.tools.jsonl
+  s_4b2fc1c83277fe::t_d3b9ed3e133934 1-10
+results/runs/a01-po-count-per-rep-cancelled-s-r01-20261016-074932.json
+  s_3bdacd10641e87::t_e7860107aa880f 1-44
+results/runs/a01-po-count-per-rep-cancelled-s-r01-20261016-074932.tools.jsonl
+  s_3bdacd10641e87::t_ba645a871ac497 1-7
+results/runs/a01-po-count-per-rep-cancelled-s-r03-20261016-092751.json
+  s_ebdb9443325f77::t_2a0ca89bab4a87 1-44
+results/runs/a01-po-count-per-rep-cancelled-s-r03-20261016-092751.tools.jsonl
+  s_ebdb9443325f77::t_52574a7d52dc83 1-8
+results/runs/a02-region-tickets-priority-order-a-r03-20261016-092600.json
+  s_1e747d1b7f1238::t_955f86288bcb30 1-44
+results/runs/a02-region-tickets-priority-order-a-r03-20261016-092600.tools.jsonl
+  s_1e747d1b7f1238::t_c878cf475e416a 1-6
+results/runs/a02-region-tickets-priority-order-d-r01-20261016-081027.json
+  s_4b2fc1c83277fe::t_5933669a6ac191 1-44
+results/runs/a02-region-tickets-priority-order-d-r01-20261016-081027.tools.jsonl
+  s_4b2fc1c83277fe::t_ee1a10c4d08aad 1-7
+results/runs/a02-region-tickets-priority-order-d-r02-20261016-091918.json
+  s_8869a0ee65222e::t_ebcf4a4fd9fae0 1-44
+results/runs/a02-region-tickets-priority-order-d-r02-20261016-091918.tools.jsonl
+  s_8869a0ee65222e::t_64c8323e2a0ecc 1-6
+results/runs/a03-warehouse-stock-empty-lines-d-r01-20261016-081219.json
+  s_4b2fc1c83277fe::t_26c03bbe316473 1-44
+results/runs/a03-warehouse-stock-empty-lines-d-r01-20261016-081219.tools.jsonl
+  s_4b2fc1c83277fe::t_e4309dd2e5bca5 1-8
+results/runs/a03-warehouse-stock-empty-lines-d-r02-20261016-091953.json
+  s_40832f7b8bc286::t_7bb305485dd90b 1-44
+results/runs/a03-warehouse-stock-empty-lines-d-r02-20261016-091953.tools.jsonl
+  s_40832f7b8bc286::t_e2378f42143c95 1-6
+results/runs/a03-warehouse-stock-empty-lines-d-r03-20261016-093228.json
+  s_be2d1007e729f0::t_d97fa098c77272 1-44
+results/runs/a03-warehouse-stock-empty-lines-d-r03-20261016-093228.tools.jsonl
+  s_be2d1007e729f0::t_5f84ea3a4983c9 1-9
+results/runs/a03-warehouse-stock-empty-lines-s-r01-20261016-075559.json
+  s_7376d6b181468d::t_0b0f6485354c77 1-44
+results/runs/a03-warehouse-stock-empty-lines-s-r01-20261016-075559.tools.jsonl
+  s_7376d6b181468d::t_15d7b67122ade8 1-7
+results/runs/a03-warehouse-stock-empty-lines-s-r02-20261016-083843.json
+  s_50c443f1992585::t_6b8c453066d2b3 1-44
+results/runs/a03-warehouse-stock-empty-lines-s-r02-20261016-083843.tools.jsonl
+  s_50c443f1992585::t_6aa1b9ce319ee4 1-7
+results/runs/a03-warehouse-stock-empty-lines-s-r03-20261016-092909.json
+  s_303d5247974c00::t_7cc342cead03a8 1-44
+results/runs/a03-warehouse-stock-empty-lines-s-r03-20261016-092909.tools.jsonl
+  s_303d5247974c00::t_2c5589dfbdedfd 1-8
+results/runs/a04-latest-orders-archived-a-r03-20261016-092708.json
+  s_ebdb9443325f77::t_e6921addd35499 1-44
+results/runs/a04-latest-orders-archived-a-r03-20261016-092708.tools.jsonl
+  s_ebdb9443325f77::t_64ebcca4ea1fc1 1-8
+results/runs/a04-latest-orders-archived-d-r01-20261016-081435.json
+  s_4b2fc1c83277fe::t_d666029ea1124a 1-44
+results/runs/a04-latest-orders-archived-d-r01-20261016-081435.tools.jsonl
+  s_4b2fc1c83277fe::t_c5a668cbefaee5 1-11
+results/runs/a04-latest-orders-archived-d-r02-20261016-092033.json
+  s_6de07e7d3354ff::t_61f73df6d8a051 1-44
+results/runs/a04-latest-orders-archived-d-r02-20261016-092033.tools.jsonl
+  s_6de07e7d3354ff::t_84e6da19ea00a9 1-10
+results/runs/a04-latest-orders-archived-d-r03-20261016-093307.json
+  s_6d6018d4584f4c::t_1f349361c18992 1-44
+results/runs/a04-latest-orders-archived-d-r03-20261016-093307.tools.jsonl
+  s_6d6018d4584f4c::t_40f01a93a857bc 1-7
+results/runs/a04-latest-orders-archived-s-r01-20261016-075853.json
+  s_3bdacd10641e87::t_252874e2f5ec50 1-44
+results/runs/a04-latest-orders-archived-s-r01-20261016-075853.tools.jsonl
+  s_3bdacd10641e87::t_cf8de4b6945589 1-9
+results/runs/a04-latest-orders-archived-s-r03-20261016-092947.json
+  s_5b4efd3854240d::t_740bad8e89f8ce 1-44
+results/runs/a04-latest-orders-archived-s-r03-20261016-092947.tools.jsonl
+  s_5b4efd3854240d::t_15da203f658150 1-14
+results/runs/a05-payments-cancelled-invoices-a-r02-20261016-084146.json
+  s_c15adf8a437bb2::t_2de595b4e87acd 1-44
+results/runs/a05-payments-cancelled-invoices-a-r02-20261016-084146.tools.jsonl
+  s_c15adf8a437bb2::t_e7a9113b732a12 1-11
+results/runs/a05-payments-cancelled-invoices-a-r03-20261016-092748.json
+  s_79864301bfa175::t_882492b4a3a1ef 1-44
+results/runs/a05-payments-cancelled-invoices-a-r03-20261016-092748.tools.jsonl
+  s_79864301bfa175::t_8f5d1451166231 1-9
+results/runs/a05-payments-cancelled-invoices-d-r01-20261016-081622.json
+  s_0f5fdf61ea0eb1::t_be81a62b3046d7 1-44
+results/runs/a05-payments-cancelled-invoices-d-r01-20261016-081622.tools.jsonl
+  s_0f5fdf61ea0eb1::t_7c8a2606643646 1-14
+results/runs/a05-payments-cancelled-invoices-d-r03-20261016-093423.json
+  s_657513b00be229::t_08f77c52944f9f 1-44
+results/runs/a05-payments-cancelled-invoices-d-r03-20261016-093423.tools.jsonl
+  s_657513b00be229::t_9533509ff54e61 1-11
+results/runs/a05-payments-cancelled-invoices-s-r01-20261016-080132.json
+  s_3bdacd10641e87::t_27ab450dd85b1c 1-44
+results/runs/a05-payments-cancelled-invoices-s-r01-20261016-080132.tools.jsonl
+  s_3bdacd10641e87::t_7db30b654d1711 1-11
+results/runs/a05-payments-cancelled-invoices-s-r02-20261016-092005.json
+  s_129663262a544b::t_ccc4a111a8dade 1-44
+results/runs/a05-payments-cancelled-invoices-s-r02-20261016-092005.tools.jsonl
+  s_129663262a544b::t_67be3d72579072 1-10
+results/runs/a06-closed-customer-contacts-a-r02-20261016-091825.json
+  s_fc17764c6f897f::t_93670707b0d0b7 1-44
+results/runs/a06-closed-customer-contacts-a-r02-20261016-091825.tools.jsonl
+  s_fc17764c6f897f::t_07279cbf6ffa0e 1-7
+results/runs/a06-closed-customer-contacts-a-r03-20261016-092841.json
+  s_00fb212b46f0fe::t_d03cd858280750 1-44
+results/runs/a06-closed-customer-contacts-a-r03-20261016-092841.tools.jsonl
+  s_00fb212b46f0fe::t_b5ce531bf9143c 1-7
+results/runs/a06-closed-customer-contacts-d-r03-20261016-093513.json
+  s_c7d67b0913cbd9::t_a84e483101478c 1-44
+results/runs/a06-closed-customer-contacts-d-r03-20261016-093513.tools.jsonl
+  s_c7d67b0913cbd9::t_f44f53c8d57430 1-12
+results/runs/a06-closed-customer-contacts-s-r01-20261016-080432.json
+  s_3bdacd10641e87::t_55d0003a422216 1-44
+results/runs/a06-closed-customer-contacts-s-r01-20261016-080432.tools.jsonl
+  s_3bdacd10641e87::t_42f895bf1c1f02 1-10
+results/runs/a06-closed-customer-contacts-s-r02-20261016-091339.json
+  s_3bdacd10641e87::t_ed431b5505ff0a 1-44
+results/runs/a06-closed-customer-contacts-s-r02-20261016-091339.tools.jsonl
+  s_3bdacd10641e87::t_67f2097f4ab275 1-8
+results/runs/a06-closed-customer-contacts-s-r03-20261016-093147.json
+  s_2b827fbd0f5b71::t_a158d04da98a41 1-44
+results/runs/a06-closed-customer-contacts-s-r03-20261016-093147.tools.jsonl
+  s_2b827fbd0f5b71::t_c7102eb402c0f9 1-7
+results/runs/a07-payments-per-quarter-a-r02-20261016-091329.json
+  s_3bdacd10641e87::t_a49bd20d8f0adf 1-44
+results/runs/a07-payments-per-quarter-a-r02-20261016-091329.tools.jsonl
+  s_3bdacd10641e87::t_82ce726938b8ab 1-11
+results/runs/a07-payments-per-quarter-a-r03-20261016-092920.json
+  s_c7dc60065818d4::t_82b12ee5bcd987 1-44
+results/runs/a07-payments-per-quarter-a-r03-20261016-092920.tools.jsonl
+  s_c7dc60065818d4::t_bd700d10b00f6d 1-9
+results/runs/a07-payments-per-quarter-d-r02-20261016-092258.json
+  s_adb304500e8ed8::t_a97280ec9091ee 1-44
+results/runs/a07-payments-per-quarter-d-r02-20261016-092258.tools.jsonl
+  s_adb304500e8ed8::t_655319c070ad9d 1-10
+results/runs/a07-payments-per-quarter-d-r03-20261016-093601.json
+  s_34e95466245db0::t_1f6a57179e217d 1-44
+results/runs/a07-payments-per-quarter-d-r03-20261016-093601.tools.jsonl
+  s_34e95466245db0::t_6000f5fda67ada 1-13
+results/runs/a07-payments-per-quarter-s-r02-20261016-091820.json
+  s_9b48a2d034c360::t_9cccf1d2a11c2d 1-44
+results/runs/a07-payments-per-quarter-s-r02-20261016-091820.tools.jsonl
+  s_9b48a2d034c360::t_c9705695a3a5e6 1-12
+results/runs/a07-payments-per-quarter-s-r03-20261016-093226.json
+  s_be2d1007e729f0::t_0b66fce1fece2d 1-44
+results/runs/a07-payments-per-quarter-s-r03-20261016-093226.tools.jsonl
+  s_be2d1007e729f0::t_33c2699cfa4d54 1-14
+results/runs/a08-tickets-per-country-a-r02-20261016-091822.json
+  s_9b48a2d034c360::t_ca9cd7d8d12b63 1-44
+results/runs/a08-tickets-per-country-a-r02-20261016-091822.tools.jsonl
+  s_9b48a2d034c360::t_00ec1333fa2a34 1-10
+results/runs/a08-tickets-per-country-d-r02-20261016-092350.json
+  s_0a76c46b693af9::t_e75b7873d7b890 1-44
+results/runs/a08-tickets-per-country-d-r02-20261016-092350.tools.jsonl
+  s_0a76c46b693af9::t_8b7eeafe7514af 1-16
+results/runs/a08-tickets-per-country-d-r03-20261016-093706.json
+  s_578242492c511d::t_1a838db6f0a907 1-44
+results/runs/a08-tickets-per-country-d-r03-20261016-093706.tools.jsonl
+  s_578242492c511d::t_8e8b616771a436 1-15
+results/runs/a08-tickets-per-country-s-r01-20261016-080944.json
+  s_a4c65ae272e7af::t_1760a227001805 1-44
+results/runs/a08-tickets-per-country-s-r01-20261016-080944.tools.jsonl
+  s_a4c65ae272e7af::t_bc20ceb842a067 1-13
+results/runs/a08-tickets-per-country-s-r02-20261016-091933.json
+  s_edb8086fb279fc::t_c0156be8ce0fb1 1-44
+results/runs/a08-tickets-per-country-s-r02-20261016-091933.tools.jsonl
+  s_edb8086fb279fc::t_0990261427adb4 1-12
+results/runs/a08-tickets-per-country-s-r03-20261016-093339.json
+  s_6d6018d4584f4c::t_d2625f33a20480 1-44
+results/runs/a08-tickets-per-country-s-r03-20261016-093339.tools.jsonl
+  s_6d6018d4584f4c::t_7639b3af590eac 1-15
+results/runs/a09-supplier-overdue-purchase-orders-a-r01-20261016-081051.json
+  s_0fcf8626e90292::t_34e643a5fcdf75 1-44
+results/runs/a09-supplier-overdue-purchase-orders-a-r01-20261016-081051.tools.jsonl
+  s_0fcf8626e90292::t_faed8dd43f1080 1-9
+results/runs/a09-supplier-overdue-purchase-orders-a-r02-20261016-091927.json
+  s_c299d015be6862::t_cd5ff4a0c609d2 1-44
+results/runs/a09-supplier-overdue-purchase-orders-a-r02-20261016-091927.tools.jsonl
+  s_c299d015be6862::t_456b95d0e8569f 1-5
+results/runs/a09-supplier-overdue-purchase-orders-a-r03-20261016-093127.json
+  s_b0fe98dc9986b9::t_3fd43ce5051b3a 1-44
+results/runs/a09-supplier-overdue-purchase-orders-a-r03-20261016-093127.tools.jsonl
+  s_b0fe98dc9986b9::t_83f73230a9635b 1-8
+results/runs/a09-supplier-overdue-purchase-orders-d-r02-20261016-092452.json
+  s_6c63ad302564e9::t_2ed086ab3bb38c 1-44
+results/runs/a09-supplier-overdue-purchase-orders-d-r02-20261016-092452.tools.jsonl
+  s_6c63ad302564e9::t_6fa422cbd365a8 1-10
+results/runs/a09-supplier-overdue-purchase-orders-s-r01-20261016-081147.json
+  s_4b2fc1c83277fe::t_839af8e43942a4 1-44
+results/runs/a09-supplier-overdue-purchase-orders-s-r01-20261016-081147.tools.jsonl
+  s_4b2fc1c83277fe::t_42cce3101fbf95 1-7
+results/runs/a09-supplier-overdue-purchase-orders-s-r02-20261016-092028.json
+  s_6de07e7d3354ff::t_6a3513527ab674 1-44
+results/runs/a09-supplier-overdue-purchase-orders-s-r02-20261016-092028.tools.jsonl
+  s_6de07e7d3354ff::t_2511abb0096518 1-7
+results/runs/a09-supplier-overdue-purchase-orders-s-r03-20261016-093501.json
+  s_657513b00be229::t_594e674009f2f1 1-44
+results/runs/a09-supplier-overdue-purchase-orders-s-r03-20261016-093501.tools.jsonl
+  s_657513b00be229::t_997aef0b1a51ef 1-8
+results/runs/a10-sales-target-unknown-rep-a-r01-20261016-081233.json
+  s_968c741ca72969::t_5db052fad59976 1-44
+results/runs/a10-sales-target-unknown-rep-a-r01-20261016-081233.tools.jsonl
+  s_968c741ca72969::t_7db53f8dadc80e 1-6
+results/runs/a10-sales-target-unknown-rep-a-r02-20261016-091958.json
+  s_40832f7b8bc286::t_34547ce9d72047 1-44
+results/runs/a10-sales-target-unknown-rep-a-r02-20261016-091958.tools.jsonl
+  s_40832f7b8bc286::t_ea180708db4304 1-7
+results/runs/a10-sales-target-unknown-rep-a-r03-20261016-093209.json
+  s_6d4c29bfa77de2::t_a036df54c2627b 1-44
+results/runs/a10-sales-target-unknown-rep-a-r03-20261016-093209.tools.jsonl
+  s_6d4c29bfa77de2::t_27278bdbd11138 1-6
+results/runs/a10-sales-target-unknown-rep-d-r02-20261016-092535.json
+  s_59e90f029b8b37::t_f99ba71304dec5 1-44
+results/runs/a10-sales-target-unknown-rep-d-r02-20261016-092535.tools.jsonl
+  s_59e90f029b8b37::t_c7ec2875ad3cad 1-6
+results/runs/a10-sales-target-unknown-rep-d-r03-20261016-095235.json
+  s_6b76ca33722aed::t_58d0e812457b29 1-44
+results/runs/a10-sales-target-unknown-rep-d-r03-20261016-095235.tools.jsonl
+  s_6b76ca33722aed::t_6d9409e0291c7d 1-4
+results/runs/a10-sales-target-unknown-rep-s-r01-20261016-081324.json
+  s_4b2fc1c83277fe::t_7a14fd8852198a 1-44
+results/runs/a10-sales-target-unknown-rep-s-r01-20261016-081324.tools.jsonl
+  s_4b2fc1c83277fe::t_9c897964247127 1-6
+results/runs/a11-supplier-payment-terms-a-r02-20261016-092036.json
+  s_6d32601b062115::t_56afb733f9cb19 1-44
+results/runs/a11-supplier-payment-terms-a-r02-20261016-092036.tools.jsonl
+  s_6d32601b062115::t_fd05be94250947 1-15
+results/runs/a11-supplier-payment-terms-a-r03-20261016-093244.json
+  s_6d6018d4584f4c::t_2180e315312bb7 1-44
+results/runs/a11-supplier-payment-terms-a-r03-20261016-093244.tools.jsonl
+  s_6d6018d4584f4c::t_4d0452fa5c8055 1-22
+results/runs/a11-supplier-payment-terms-d-r02-20261016-092606.json
+  s_274625c9f25ad4::t_8716acc74b4e74 1-44
+results/runs/a11-supplier-payment-terms-d-r02-20261016-092606.tools.jsonl
+  s_274625c9f25ad4::t_3e3be02200e187 1-22
+results/runs/a11-supplier-payment-terms-d-r03-20261016-100906.json
+  s_32bb32ec91674d::t_dff1ad2de9d773 1-44
+results/runs/a11-supplier-payment-terms-d-r03-20261016-100906.tools.jsonl
+  s_32bb32ec91674d::t_98155309361f14 1-17
+results/runs/a11-supplier-payment-terms-s-r02-20261016-092154.json
+  s_24ed9a5f5e1ad8::t_f24d9dc882bd27 1-44
+results/runs/a11-supplier-payment-terms-s-r02-20261016-092154.tools.jsonl
+  s_24ed9a5f5e1ad8::t_e32a3e889426f9 1-34
+results/runs/a11-supplier-payment-terms-s-r03-20261016-093626.json
+  s_578242492c511d::t_41d8332e1bda60 1-44
+results/runs/a11-supplier-payment-terms-s-r03-20261016-093626.tools.jsonl
+  s_578242492c511d::t_a458286ffd0fbd 1-32
+results/runs/a12-ticket-assigned-agent-a-r02-20261016-092146.json
+  s_adb304500e8ed8::t_04aa09a198bd4c 1-44
+results/runs/a12-ticket-assigned-agent-a-r02-20261016-092146.tools.jsonl
+  s_adb304500e8ed8::t_dd15308da8eb82 1-18
+results/runs/a12-ticket-assigned-agent-d-r02-20261016-092725.json
+  s_79864301bfa175::t_ce0ca9e33f3e95 1-44
+results/runs/a12-ticket-assigned-agent-d-r02-20261016-092725.tools.jsonl
+  s_79864301bfa175::t_25a50428058b74 1-17
+results/runs/a12-ticket-assigned-agent-d-r03-20261016-101013.json
+  s_6e17e884ad819f::t_0f861588cd875d 1-44
+results/runs/a12-ticket-assigned-agent-d-r03-20261016-101013.tools.jsonl
+  s_6e17e884ad819f::t_5a77d65ac38042 1-19
+results/runs/a12-ticket-assigned-agent-s-r02-20261016-092402.json
+  s_731d0e72bce53e::t_86bb68098b86b2 1-44
+results/runs/a12-ticket-assigned-agent-s-r02-20261016-092402.tools.jsonl
+  s_731d0e72bce53e::t_976a5541668e8b 1-18
+results/runs/a13-promotion-description-a-r02-20261016-092305.json
+  s_0a76c46b693af9::t_176541f221fcea 1-44
+results/runs/a13-promotion-description-a-r02-20261016-092305.tools.jsonl
+  s_0a76c46b693af9::t_6b66148fc846a1 1-24
+results/runs/a13-promotion-description-a-r03-20261016-093554.json
+  s_e15f27051cbcfe::t_d84a899925943e 1-44
+results/runs/a13-promotion-description-a-r03-20261016-093554.tools.jsonl
+  s_e15f27051cbcfe::t_253642ecfd3235 1-17
+results/runs/a13-promotion-description-d-r01-20261016-091845.json
+  s_9bcfd38dac72e4::t_a311c238ea8a04 1-44
+results/runs/a13-promotion-description-d-r01-20261016-091845.tools.jsonl
+  s_9bcfd38dac72e4::t_5e3424f961779a 1-21
+results/runs/a13-promotion-description-d-r02-20261016-092835.json
+  s_303d5247974c00::t_ae8c8838bc8d03 1-44
+results/runs/a13-promotion-description-d-r02-20261016-092835.tools.jsonl
+  s_303d5247974c00::t_106896845fa9f3 1-15
+results/runs/a13-promotion-description-s-r02-20261016-092522.json
+  s_a6b734ca35ef77::t_b35f431b124f77 1-44
+results/runs/a13-promotion-description-s-r02-20261016-092522.tools.jsonl
+  s_a6b734ca35ef77::t_7f43c31751e69b 1-23
+results/runs/a13-promotion-description-s-r03-20261016-100944.json
+  s_ce5584485b9dfa::t_418187e24b08ab 1-44
+results/runs/a13-promotion-description-s-r03-20261016-100944.tools.jsonl
+  s_ce5584485b9dfa::t_998753a1aeec34 1-18
+results/runs/a14-promotion-code-spaces-a-r02-20261016-092431.json
+  s_0a76c46b693af9::t_aee469506b75f8 1-44
+results/runs/a14-promotion-code-spaces-a-r02-20261016-092431.tools.jsonl
+  s_0a76c46b693af9::t_6852df7c3167e8 1-5
+results/runs/a14-promotion-code-spaces-a-r03-20261016-093719.json
+  s_f37d34298d9753::t_1de5a95b2719da 1-44
+results/runs/a14-promotion-code-spaces-a-r03-20261016-093719.tools.jsonl
+  s_f37d34298d9753::t_d378fbe56db8b0 1-5
+results/runs/a14-promotion-code-spaces-d-r02-20261016-092957.json
+  s_303d5247974c00::t_152f805d813d69 1-44
+results/runs/a14-promotion-code-spaces-d-r02-20261016-092957.tools.jsonl
+  s_303d5247974c00::t_80c47941937789 1-5
+results/runs/a14-promotion-code-spaces-d-r03-20261016-101216.json
+  s_3bdacd10641e87::t_aa2151ee434757 1-44
+results/runs/a14-promotion-code-spaces-d-r03-20261016-101216.tools.jsonl
+  s_3bdacd10641e87::t_c882d81e5d5e7a 1-4
+results/runs/a14-promotion-code-spaces-s-r02-20261016-092644.json
+  s_274625c9f25ad4::t_c2b5ec2e6a0467 1-44
+results/runs/a14-promotion-code-spaces-s-r02-20261016-092644.tools.jsonl
+  s_274625c9f25ad4::t_5ee650cfa3835f 1-5
+results/runs/a14-promotion-code-spaces-s-r03-20261016-101043.json
+  s_ce5584485b9dfa::t_8d53ef26c8126e 1-44
+results/runs/a14-promotion-code-spaces-s-r03-20261016-101043.tools.jsonl
+  s_ce5584485b9dfa::t_08a24dd96d6023 1-7
+results/runs/a15-average-order-value-change-d-r01-20261016-091756.json
+  s_3bdacd10641e87::t_46989dc6b57764 1-44
+results/runs/a15-average-order-value-change-d-r01-20261016-091756.tools.jsonl
+  s_3bdacd10641e87::t_fa35f1a9500ade 1-5
+results/runs/a15-average-order-value-change-d-r02-20261016-093022.json
+  s_5b4efd3854240d::t_a2a98b559f038c 1-44
+results/runs/a15-average-order-value-change-d-r02-20261016-093022.tools.jsonl
+  s_5b4efd3854240d::t_98be9e4e1b5c31 1-5
+results/runs/a15-average-order-value-change-s-r01-20261016-083143.json
+  s_f17b0d153b7fb3::t_55761b92e9e959 1-44
+results/runs/a15-average-order-value-change-s-r01-20261016-083143.tools.jsonl
+  s_f17b0d153b7fb3::t_8f1dced68af5c8 1-5
+results/runs/a15-average-order-value-change-s-r02-20261016-092720.json
+  s_ebdb9443325f77::t_e28b282088bf08 1-44
+results/runs/a15-average-order-value-change-s-r02-20261016-092720.tools.jsonl
+  s_ebdb9443325f77::t_11dc2d0091abcf 1-4
+results/runs/a15-average-order-value-change-s-r03-20261016-101111.json
+  s_18baee8c938871::t_617c5656fa5900 1-44
+results/runs/a15-average-order-value-change-s-r03-20261016-101111.tools.jsonl
+  s_18baee8c938871::t_5cc98de94382dc 1-5
+scripts/pilots/pilot_ambiguity.sh
+  s_3bdacd10641e87::t_e60a6a77b5446f 1-12
+results/runs/a01-po-count-per-rep-cancelled-a-r02-20261016-083230.json
+  s_3bdacd10641e87::t_5cfa330382982f 1-44
+results/runs/a01-po-count-per-rep-cancelled-a-r02-20261016-083230.tools.jsonl
+  s_3bdacd10641e87::t_972540de93d40c 1-7
+results/runs/a01-po-count-per-rep-cancelled-a-r03-20261016-092529.json
+  s_3bdacd10641e87::t_643e7c6afd3546 1-44
+results/runs/a01-po-count-per-rep-cancelled-a-r03-20261016-092529.tools.jsonl
+  s_3bdacd10641e87::t_1b8aa68760afc5 1-6
+results/runs/a01-po-count-per-rep-cancelled-d-r02-20261016-091838.json
+  s_3bdacd10641e87::t_116931f97303af 1-44
+results/runs/a01-po-count-per-rep-cancelled-d-r02-20261016-091838.tools.jsonl
+  s_3bdacd10641e87::t_7dfff32316d358 1-8
+results/runs/a01-po-count-per-rep-cancelled-d-r03-20261016-093058.json
+  s_3bdacd10641e87::t_8e46348465b301 1-44
+results/runs/a01-po-count-per-rep-cancelled-d-r03-20261016-093058.tools.jsonl
+  s_3bdacd10641e87::t_b339d47c79efdd 1-11
+results/runs/a02-region-tickets-priority-order-a-r01-20261016-075252.json
+  s_3bdacd10641e87::t_70b67815e60a8f 1-44
+results/runs/a02-region-tickets-priority-order-a-r01-20261016-075252.tools.jsonl
+  s_3bdacd10641e87::t_5ed9ef34ff5958 1-7
+results/runs/a02-region-tickets-priority-order-d-r03-20261016-093148.json
+  s_3bdacd10641e87::t_1e47ea30d47d31 1-44
+results/runs/a02-region-tickets-priority-order-d-r03-20261016-093148.tools.jsonl
+  s_3bdacd10641e87::t_02d8c6f8aa8198 1-7
+results/runs/a02-region-tickets-priority-order-s-r01-20261016-075330.json
+  s_3bdacd10641e87::t_2ad71484cb05dd 1-44
+results/runs/a02-region-tickets-priority-order-s-r01-20261016-075330.tools.jsonl
+  s_3bdacd10641e87::t_1ebc6691d4ebb0 1-7
+results/runs/a02-region-tickets-priority-order-s-r02-20261016-083626.json
+  s_3bdacd10641e87::t_87b527ac8e3ed4 1-44
+results/runs/a02-region-tickets-priority-order-s-r02-20261016-083626.tools.jsonl
+  s_3bdacd10641e87::t_a22997c16b460e 1-11
+results/runs/a02-region-tickets-priority-order-s-r03-20261016-092829.json
+  s_3bdacd10641e87::t_7460440b87eff3 1-44
+results/runs/a02-region-tickets-priority-order-s-r03-20261016-092829.tools.jsonl
+  s_3bdacd10641e87::t_5648419065d9b8 1-7
+results/runs/a03-warehouse-stock-empty-lines-a-r01-20261016-075517.json
+  s_3bdacd10641e87::t_28e7c42ed6a21c 1-44
+results/runs/a03-warehouse-stock-empty-lines-a-r01-20261016-075517.tools.jsonl
+  s_3bdacd10641e87::t_f802778a91e93b 1-6
+results/runs/a03-warehouse-stock-empty-lines-a-r02-20261016-083634.json
+  s_3bdacd10641e87::t_86c2c1cd324325 1-44
+results/runs/a03-warehouse-stock-empty-lines-a-r02-20261016-083634.tools.jsonl
+  s_3bdacd10641e87::t_7ae908e590455a 1-7
+results/runs/a03-warehouse-stock-empty-lines-a-r03-20261016-092637.json
+  s_3bdacd10641e87::t_710e6f9c6f6ff3 1-44
+results/runs/a03-warehouse-stock-empty-lines-a-r03-20261016-092637.tools.jsonl
+  s_3bdacd10641e87::t_9e1c04bdb859fb 1-6
+results/runs/a04-latest-orders-archived-a-r01-20261016-075728.json
+  s_3bdacd10641e87::t_fe39771c24426e 1-44
+results/runs/a04-latest-orders-archived-a-r01-20261016-075728.tools.jsonl
+  s_3bdacd10641e87::t_2f32eeb898d88e 1-9
+results/runs/a04-latest-orders-archived-a-r02-20261016-083859.json
+  s_3bdacd10641e87::t_034efc5f93dda3 1-44
+results/runs/a04-latest-orders-archived-a-r02-20261016-083859.tools.jsonl
+  s_3bdacd10641e87::t_1059f776c8a642 1-10
+results/runs/a04-latest-orders-archived-s-r02-20261016-084109.json
+  s_3bdacd10641e87::t_7a957e64193b10 1-44
+results/runs/a04-latest-orders-archived-s-r02-20261016-084109.tools.jsonl
+  s_3bdacd10641e87::t_46e80aae4b6766 1-9
+results/runs/a05-payments-cancelled-invoices-a-r01-20261016-080039.json
+  s_3bdacd10641e87::t_a64b65cfa1f68e 1-44
+results/runs/a05-payments-cancelled-invoices-a-r01-20261016-080039.tools.jsonl
+  s_3bdacd10641e87::t_cd1a47bd84cb81 1-9
+results/runs/a05-payments-cancelled-invoices-d-r02-20261016-092122.json
+  s_3bdacd10641e87::t_397d62314254a5 1-44
+results/runs/a05-payments-cancelled-invoices-d-r02-20261016-092122.tools.jsonl
+  s_3bdacd10641e87::t_d43ff6c7467ea6 1-9
+results/runs/a05-payments-cancelled-invoices-s-r02-20261016-084334.json
+  s_3bdacd10641e87::t_e413a955ade356 1-44
+results/runs/a05-payments-cancelled-invoices-s-r02-20261016-084334.tools.jsonl
+  s_3bdacd10641e87::t_80f9cfd1b82318 1-9
+results/runs/a05-payments-cancelled-invoices-s-r03-20261016-093046.json
+  s_3bdacd10641e87::t_1e63d3798a0398 1-44
+results/runs/a05-payments-cancelled-invoices-s-r03-20261016-093046.tools.jsonl
+  s_3bdacd10641e87::t_a2baa28890bae1 1-11
+results/runs/a06-closed-customer-contacts-a-r01-20261016-080344.json
+  s_3bdacd10641e87::t_aa0e7052c4fe5a 1-44
+results/runs/a06-closed-customer-contacts-a-r01-20261016-080344.tools.jsonl
+  s_3bdacd10641e87::t_dfbcf9b3a21610 1-7
+results/runs/a06-closed-customer-contacts-a-r02-20261016-084425.json
+  s_3bdacd10641e87::t_1a826d622a9155 1-44
+results/runs/a06-closed-customer-contacts-a-r02-20261016-084425.tools.jsonl
+  s_3bdacd10641e87::t_394dd39b02f30b 1-3
+results/runs/a06-closed-customer-contacts-d-r01-20261016-082202.json
+  s_3bdacd10641e87::t_38e7bb5efb41df 1-44
+results/runs/a06-closed-customer-contacts-d-r01-20261016-082202.tools.jsonl
+  s_3bdacd10641e87::t_977dada5f602d5 1-8
+results/runs/a06-closed-customer-contacts-d-r02-20261016-092206.json
+  s_3bdacd10641e87::t_492d2cff0200f6 1-44
+results/runs/a06-closed-customer-contacts-d-r02-20261016-092206.tools.jsonl
+  s_3bdacd10641e87::t_95c5340412c679 1-9
+results/runs/a07-payments-per-quarter-a-r01-20261016-080602.json
+  s_3bdacd10641e87::t_d267adfd7f3f86 1-44
+results/runs/a07-payments-per-quarter-a-r01-20261016-080602.tools.jsonl
+  s_3bdacd10641e87::t_b59072c26451c4 1-13
+results/runs/a07-payments-per-quarter-d-r01-20261016-082619.json
+  s_3bdacd10641e87::t_547b65f89e0e2b 1-44
+results/runs/a07-payments-per-quarter-d-r01-20261016-082619.tools.jsonl
+  s_3bdacd10641e87::t_c62c775b64c166 1-11
+results/runs/a08-tickets-per-country-a-r03-20261016-093037.json
+  s_3bdacd10641e87::t_bbd7d56354e7d4 1-44
+results/runs/a08-tickets-per-country-a-r03-20261016-093037.tools.jsonl
+  s_3bdacd10641e87::t_33805ea73c10f2 1-13
+results/runs/a08-tickets-per-country-d-r01-20261016-082831.json
+  s_3bdacd10641e87::t_39d5f23da5d7c0 1-44
+results/runs/a08-tickets-per-country-d-r01-20261016-082831.tools.jsonl
+  s_3bdacd10641e87::t_339aba8036d80b 1-16
+results/runs/a09-supplier-overdue-purchase-orders-d-r01-20261016-083121.json
+  s_3bdacd10641e87::t_e2f6fdf28975e1 1-44
+results/runs/a09-supplier-overdue-purchase-orders-d-r01-20261016-083121.tools.jsonl
+  s_3bdacd10641e87::t_b3c7b9c24a7ecd 1-5
+results/runs/a09-supplier-overdue-purchase-orders-d-r03-20261016-095203.json
+  s_3bdacd10641e87::t_a334a575442198 1-44
+results/runs/a09-supplier-overdue-purchase-orders-d-r03-20261016-095203.tools.jsonl
+  s_3bdacd10641e87::t_c53b5acfb5d182 1-7
+results/runs/a10-sales-target-unknown-rep-d-r01-20261016-083320.json
+  s_3bdacd10641e87::t_970bc708660002 1-44
+results/runs/a10-sales-target-unknown-rep-d-r01-20261016-083320.tools.jsonl
+  s_3bdacd10641e87::t_3b3d5adeba29f8 1-6
+results/runs/a10-sales-target-unknown-rep-s-r02-20261016-092116.json
+  s_3bdacd10641e87::t_60e17ee98d2f90 1-44
+results/runs/a10-sales-target-unknown-rep-s-r02-20261016-092116.tools.jsonl
+  s_3bdacd10641e87::t_282f4246225dbb 1-5
+results/runs/a10-sales-target-unknown-rep-s-r03-20261016-093549.json
+  s_3bdacd10641e87::t_9e673b1263634b 1-44
+results/runs/a10-sales-target-unknown-rep-s-r03-20261016-093549.tools.jsonl
+  s_3bdacd10641e87::t_00d92ade8a93eb 1-7
+results/runs/a11-supplier-payment-terms-a-r01-20261016-081417.json
+  s_3bdacd10641e87::t_3f4bba35c78b14 1-44
+results/runs/a11-supplier-payment-terms-a-r01-20261016-081417.tools.jsonl
+  s_3bdacd10641e87::t_eae7f476925e74 1-33
+results/runs/a11-supplier-payment-terms-d-r01-20261016-083521.json
+  s_3bdacd10641e87::t_55fc172bde2170 1-44
+results/runs/a11-supplier-payment-terms-d-r01-20261016-083521.tools.jsonl
+  s_3bdacd10641e87::t_b2659f973dcc91 1-16
+results/runs/a11-supplier-payment-terms-s-r01-20261016-081514.json
+  s_3bdacd10641e87::t_e3aac4c12fa183 1-44
+results/runs/a11-supplier-payment-terms-s-r01-20261016-081514.tools.jsonl
+  s_3bdacd10641e87::t_750f2d05bdb6fe 1-21
+results/runs/a12-ticket-assigned-agent-a-r01-20261016-082012.json
+  s_3bdacd10641e87::t_6ea6546130b6f5 1-44
+results/runs/a12-ticket-assigned-agent-a-r01-20261016-082012.tools.jsonl
+  s_3bdacd10641e87::t_50d536d9815d08 1-19
+results/runs/a12-ticket-assigned-agent-a-r03-20261016-093426.json
+  s_3bdacd10641e87::t_3a24f8474e9806 1-44
+results/runs/a12-ticket-assigned-agent-a-r03-20261016-093426.tools.jsonl
+  s_3bdacd10641e87::t_ff420cdd0900ca 1-20
+results/runs/a12-ticket-assigned-agent-d-r01-20261016-083909.json
+  s_3bdacd10641e87::t_c6a545e8e416a4 1-44
+results/runs/a12-ticket-assigned-agent-d-r01-20261016-083909.tools.jsonl
+  s_3bdacd10641e87::t_321880ec09d491 1-16
+results/runs/a12-ticket-assigned-agent-s-r01-20261016-082053.json
+  s_3bdacd10641e87::t_52e85090956b14 1-44
+results/runs/a12-ticket-assigned-agent-s-r01-20261016-082053.tools.jsonl
+  s_3bdacd10641e87::t_5f391b7791265a 1-19
+results/runs/a12-ticket-assigned-agent-s-r03-20261016-095159.json
+  s_3bdacd10641e87::t_0e3cb50cd3b46e 1-44
+results/runs/a12-ticket-assigned-agent-s-r03-20261016-095159.tools.jsonl
+  s_3bdacd10641e87::t_7f008b238e9bb2 1-18
+results/runs/a13-promotion-description-a-r01-20261016-082501.json
+  s_3bdacd10641e87::t_7b2b54a7f6bb6f 1-44
+results/runs/a13-promotion-description-a-r01-20261016-082501.tools.jsonl
+  s_3bdacd10641e87::t_220840b08c3a32 1-16
+results/runs/a13-promotion-description-d-r01-20261016-084222.json
+  s_3bdacd10641e87::t_c6d176a9c2885e 1-44
+results/runs/a13-promotion-description-d-r01-20261016-084222.tools.jsonl
+  s_3bdacd10641e87::t_1c2899b082cc4d 1-20
+results/runs/a13-promotion-description-d-r03-20261016-101118.json
+  s_3bdacd10641e87::t_76675d2ab4c0dc 1-44
+results/runs/a13-promotion-description-d-r03-20261016-101118.tools.jsonl
+  s_3bdacd10641e87::t_616c373e419920 1-15
+results/runs/a13-promotion-description-s-r01-20261016-082620.json
+  s_3bdacd10641e87::t_4d02eee1df640f 1-44
+results/runs/a13-promotion-description-s-r01-20261016-082620.tools.jsonl
+  s_3bdacd10641e87::t_74446a26d7ffb5 1-21
+results/runs/a14-promotion-code-spaces-a-r01-20261016-082804.json
+  s_3bdacd10641e87::t_688b21d329fb7d 1-44
+results/runs/a14-promotion-code-spaces-a-r01-20261016-082804.tools.jsonl
+  s_3bdacd10641e87::t_9dcd9ed4eeee26 1-4
+results/runs/a14-promotion-code-spaces-s-r01-20261016-082931.json
+  s_3bdacd10641e87::t_6131a70a5bac2e 1-44
+results/runs/a14-promotion-code-spaces-s-r01-20261016-082931.tools.jsonl
+  s_3bdacd10641e87::t_0b99b1ce1bb1cc 1-7
+results/runs/a15-average-order-value-change-a-r01-20261016-083011.json
+  s_3bdacd10641e87::t_10b9e469d637e6 1-44
+results/runs/a15-average-order-value-change-a-r01-20261016-083011.tools.jsonl
+  s_3bdacd10641e87::t_947fefd149e200 1-5
+results/runs/a15-average-order-value-change-a-r02-20261016-092458.json
+  s_3bdacd10641e87::t_50479cb81a2f10 1-44
+results/runs/a15-average-order-value-change-a-r02-20261016-092458.tools.jsonl
+  s_3bdacd10641e87::t_502252757c66d8 1-6
+results/runs/a15-average-order-value-change-a-r03-20261016-093744.json
+  s_3bdacd10641e87::t_7ed1e3ec1f37fa 1-44
+results/runs/a15-average-order-value-change-a-r03-20261016-093744.tools.jsonl
+  s_3bdacd10641e87::t_471736c711227b 1-6
+results/runs/a15-average-order-value-change-d-r03-20261016-101244.json
+  s_3bdacd10641e87::t_82f903fb9d6af0 1-44
+results/runs/a15-average-order-value-change-d-r03-20261016-101244.tools.jsonl
+  s_3bdacd10641e87::t_c66af9531fb5cc 1-5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "146a7e0ffb733bfe133514d67a2442c613d35e70",
+  "prompts": {},
+  "sessions": {
+    "s_00fb212b46f0fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "084f29fe-c0db-4328-bb2b-f5e0a08214f0",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_09b7b72fc2531c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e50776be-a121-4984-8cea-43e185ff3453",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_0a76c46b693af9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "854914ad-f2cc-429f-8050-57165244ab95",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_0f5fdf61ea0eb1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "03b7401b-2360-452e-b37e-ed36a2b73c9b",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_0fcf8626e90292": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a9f057b0-68b3-46a3-b46f-a9bb32461478",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_129663262a544b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "015baa2e-0f88-4c9a-93ff-87f8f8dfc5e4",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_18baee8c938871": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3c1010e6-34c1-4b72-a3e3-8e350f6bfa41",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_1e747d1b7f1238": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "eb1647c4-eef3-4f42-8364-f4274eb4b527",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_24ed9a5f5e1ad8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "70c4cd8c-bc60-4ff6-9d09-0032126418a4",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_274625c9f25ad4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a912cd67-e007-482e-888f-31435d457200",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_2b827fbd0f5b71": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0f3f40f7-277a-4302-9679-9476577818ca",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_303d5247974c00": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef32f278-8e25-47b3-a41b-5209d81491e7",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_32bb32ec91674d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "46774778-b8f4-48ef-9a6d-4ca26446daeb",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_34e95466245db0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06e40c43-ae96-4f4d-a225-a5307f4d3695",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_40832f7b8bc286": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ef78c6d0-020c-4c51-89e8-00dff13b1a38",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_4b2fc1c83277fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ab2d4a4960670d944",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_50c443f1992585": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9cf1ccb2-e0fe-4c0e-b0e9-a6a8c38f054a",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_578242492c511d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae153ab8-ef3b-4384-a4ec-e9ecadc378e6",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_59e90f029b8b37": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ebd0c3d2-0a59-4f6a-bdc4-504f59ecebf4",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_5b4efd3854240d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "edd386ba-c525-4acf-a9ab-a86d31c2e915",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_657513b00be229": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "06fbc4df-06e6-412f-80d8-3cfa7971daba",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6b76ca33722aed": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6aa4cda3-bf7f-4f06-9fcb-c1738094caf2",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6c63ad302564e9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "139739b5-11f6-4f1f-a2a8-b218214d3735",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6d32601b062115": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "fe6e96fd-609b-48d5-befa-c8241e2285e6",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6d4c29bfa77de2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a3c95b88-1234-41e4-bcef-3cba1ea87291",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6d6018d4584f4c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1409462d-66fe-4176-a185-c1656cb9dfdd",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6de07e7d3354ff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ce14e758-c373-43c8-85cd-e4c41e010680",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_6e17e884ad819f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e08e2a81-e43e-4c36-aafd-f51f5708b259",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_731d0e72bce53e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9de3e3eb-46a8-43c7-80c3-68933b4af6e1",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_7376d6b181468d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "63dafd35-fe10-46f0-8873-558eeb775feb",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_79864301bfa175": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "071e07cd-ef2c-4346-bea9-09ad8c399428",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_8869a0ee65222e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd46213d-efd3-4b7c-a6fc-51227d9473f2",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_968c741ca72969": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83703f08-6c05-429e-96a1-1df4c116bde9",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_9b48a2d034c360": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "345876fa-e13b-408d-a99c-85a2c5123a90",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_9bcfd38dac72e4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2205d143-7e5f-4b1b-9d1d-30c1ca5033d3",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a4c65ae272e7af": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e53590d6-5e94-4b1d-9795-cb8de406d20d",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_a6b734ca35ef77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d01e4b39-eefa-41d5-9972-8273636524db",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_adb304500e8ed8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "91630354-36b0-4628-a499-486eb59e23a7",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_b0fe98dc9986b9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8078f75e-463c-4a21-8754-8f34c90fe271",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_be2d1007e729f0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "61bbef0d-b26d-468f-be51-3cc0a9ad4f6b",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_c15adf8a437bb2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6e7eb311-0d20-4e59-acdc-29b9d72208d0",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_c299d015be6862": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "455b81aa-7659-4d81-ba98-95eefbb44c8b",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_c7d67b0913cbd9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "37318de8-e058-4802-9ba0-3a70ee325ad4",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_c7dc60065818d4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "39120b0c-d348-4f10-a55f-89e6338d34f5",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_ce5584485b9dfa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "60b085d0-ec95-46a9-8cf1-9b68ed3c2d96",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_e15f27051cbcfe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3f0d0886-d5c2-45f1-bbef-ba6e23f2c1ba",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_ebdb9443325f77": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4ce4add6-5300-4de6-8f82-0197d3da49c7",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_edb8086fb279fc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "82ef05b2-772c-4806-a3ad-5291cc731171",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_f17b0d153b7fb3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7930ec24-59f0-433d-a9c2-0952d9182513",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_f37d34298d9753": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "16948a06-70d7-4859-8339-2520123ea3be",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_fc17764c6f897f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c26ee2e5-f006-4391-948b-b489a9f736d1",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
