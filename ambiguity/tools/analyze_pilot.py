@@ -15,7 +15,9 @@ def main():
     ap.add_argument("--csv", default=os.path.join(EXP, "results", "pilot-ambiguity.csv"))
     args = ap.parse_args()
     excluded = set()
-    ex = os.path.join(EXP, "results", "pilot-ambiguity-excluded.tsv")
+    ex = os.path.join(EXP, "results", os.path.basename(args.csv).replace(".csv", "-excluded.tsv"))
+    if not os.path.exists(ex):
+        ex = os.path.join(EXP, "results", "pilot-ambiguity-excluded.tsv") if "pilot" in args.csv else ex
     if os.path.exists(ex):
         excluded = {l.split("\t")[0] for l in open(ex) if l.strip()}
     rows = [r for r in csv.DictReader(open(args.csv)) if r["run_id"] not in excluded]
@@ -25,7 +27,8 @@ def main():
         kinds[t] = str(m.get("task_kind", m.get("kind")))
     for r in rows:
         r["reading_tokens"] = float(r["tool_response_chars"] or 0) / 4
-    measures = [("total_input_tokens", "billed input tokens"), ("cost_usd", "cost"), ("turns", "turns"),
+        r["all_tokens"] = float(r["total_input_tokens"] or 0) + float(r["output_tokens"] or 0)
+    measures = [("all_tokens", "all tokens (input + output)"), ("total_input_tokens", "billed input tokens"), ("cost_usd", "cost"), ("turns", "turns"),
                 ("output_tokens", "output tokens"), ("reading_tokens", "reading-only tokens (chars/4)")]
     variants = [v for v in ("s", "d", "dnames", "r") if any(r["variant"] == v for r in rows)]
     fails = [(r["task"], r["variant"]) for r in rows if r["success"] != "True"]

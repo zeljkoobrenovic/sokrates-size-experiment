@@ -1,0 +1,149 @@
+diff --git a/src/main/java/com/acme/backoffice/Rows.java b/src/main/java/com/acme/backoffice/Rows.java
+index 96175b9..49e3a41 100644
+--- a/src/main/java/com/acme/backoffice/Rows.java
++++ b/src/main/java/com/acme/backoffice/Rows.java
+@@ -107,12 +107,12 @@ final class Rows {
+                 rs.getObject("credit_date", LocalDate.class), rs.getBigDecimal("amount"));
+     }
+ 
+-    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date. */
++    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, agent. */
+     static SupportTicket supportTicket(ResultSet rs) throws SQLException {
+         return new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                 rs.getObject("order_id", Long.class), rs.getString("subject"), TicketPriority.valueOf(rs.getString("priority")),
+                 TicketStatus.valueOf(rs.getString("status")), rs.getObject("opened_date", LocalDate.class),
+-                rs.getObject("closed_date", LocalDate.class));
++                rs.getObject("closed_date", LocalDate.class), rs.getString("agent"));
+     }
+ 
+     /** Columns: id, customer_id, product_id, unit_price, start_date, end_date. */
+diff --git a/src/main/java/com/acme/backoffice/SupportTicketStore.java b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+index a519aaf..927ccad 100644
+--- a/src/main/java/com/acme/backoffice/SupportTicketStore.java
++++ b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+@@ -24,7 +24,7 @@ import java.util.Optional;
+ public final class SupportTicketStore {
+     /** Every ticket list selects from {@code support_ticket t}. */
+     private static final String SELECT_TICKET = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, "
+-            + "t.status, t.opened_date, t.closed_date FROM support_ticket t ";
++            + "t.status, t.opened_date, t.closed_date, t.agent FROM support_ticket t ";
+     private static final String JOIN_CUSTOMER = "JOIN customer c ON c.id = t.customer_id ";
+     /** A ticket is open when its status is not CLOSED. */
+     private static final String OPEN = "t.status <> 'CLOSED'";
+@@ -44,12 +44,12 @@ public final class SupportTicketStore {
+ 
+     public SupportTicket create(SupportTicket ticket) {
+         long id = jdbc.insert("Cannot create support ticket",
+-                "INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date) "
+-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
++                "INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date, agent) "
++                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                 ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(), ticket.priority().name(),
+-                ticket.status().name(), ticket.openedDate(), ticket.closedDate());
++                ticket.status().name(), ticket.openedDate(), ticket.closedDate(), ticket.agent());
+         return new SupportTicket(id, ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate());
++                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate(), ticket.agent());
+     }
+ 
+     public Optional<SupportTicket> findByNumber(String number) {
+diff --git a/src/main/java/com/acme/backoffice/model/SupportTicket.java b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+index 93a0017..b024240 100644
+--- a/src/main/java/com/acme/backoffice/model/SupportTicket.java
++++ b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+@@ -2,7 +2,13 @@ package com.acme.backoffice.model;
+ 
+ import java.time.LocalDate;
+ 
+-/** A support ticket of a customer. The id is 0 until created. The order id and the closed date may be null. */
++/** A support ticket of a customer. The id is 0 until created. The order id, the closed date and the agent may be null. */
+ public record SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
+-        TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        TicketStatus status, LocalDate openedDate, LocalDate closedDate, String agent) {
++
++    /** A ticket without an agent. */
++    public SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
++            TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        this(id, number, customerId, orderId, subject, priority, status, openedDate, closedDate, null);
++    }
+ }
+diff --git a/src/main/java/com/acme/backoffice/service/SupportTicketService.java b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+index 7a74358..703a1c3 100644
+--- a/src/main/java/com/acme/backoffice/service/SupportTicketService.java
++++ b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+@@ -25,9 +25,15 @@ public class SupportTicketService {
+         this.store = store;
+     }
+ 
+-    /** Creates an open ticket. The order number is optional but, when given, must be an order of the customer. */
++    /** Creates an open ticket with no agent. The order number is optional but, when given, must be an order of the customer. */
+     public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
+             LocalDate date) {
++        return create(number, customerId, orderNumber, subject, priority, date, null);
++    }
++
++    /** Creates an open ticket assigned to the support agent (blank or null for none). The order number is optional but, when given, must be an order of the customer. */
++    public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
++            LocalDate date, String agent) {
+         if (number == null || number.isBlank() || subject == null || subject.isBlank() || priority == null || date == null) {
+             throw new IllegalArgumentException("Number, subject, priority and date are required");
+         }
+@@ -46,8 +52,9 @@ public class SupportTicketService {
+             }
+             orderId = order.id();
+         }
++        String assignedAgent = agent == null || agent.isBlank() ? null : agent.trim();
+         return store.supportTickets().create(new SupportTicket(0, number.trim(), customerId, orderId, subject.trim(), priority,
+-                TicketStatus.OPEN, date, null));
++                TicketStatus.OPEN, date, null, assignedAgent));
+     }
+ 
+     /** Sets the status. Closing records the date; reopening a closed ticket clears it. */
+@@ -63,7 +70,7 @@ public class SupportTicketService {
+         LocalDate closedDate = status == TicketStatus.CLOSED ? date : null;
+         store.supportTickets().updateStatus(ticket.id(), status, closedDate);
+         return new SupportTicket(ticket.id(), ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), status, ticket.openedDate(), closedDate);
++                ticket.priority(), status, ticket.openedDate(), closedDate, ticket.agent());
+     }
+ 
+     /** Tickets of the customer that are open or in progress, oldest first. */
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..b8af5cd 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -350,7 +350,8 @@ CREATE TABLE support_ticket (
+     status VARCHAR(20) NOT NULL,
+     opened_date DATE NOT NULL,
+     closed_date DATE,
+-    product_id BIGINT REFERENCES product (id)
++    product_id BIGINT REFERENCES product (id),
++    agent VARCHAR(100)
+ );
+ 
+ CREATE TABLE bundle_component (
+diff --git a/src/test/java/com/acme/backoffice/SupportTicketTest.java b/src/test/java/com/acme/backoffice/SupportTicketTest.java
+index 927323b..7431cff 100644
+--- a/src/test/java/com/acme/backoffice/SupportTicketTest.java
++++ b/src/test/java/com/acme/backoffice/SupportTicketTest.java
+@@ -74,6 +74,20 @@ class SupportTicketTest {
+         assertTrue(service.listOpenByPriority(TicketPriority.LOW).isEmpty());
+     }
+ 
++    @Test
++    void agentIsShownAndKeptOnStatusChanges() {
++        SupportTicket assigned = service.create("T-1", alpha.id(), null, "A", TicketPriority.HIGH, LocalDate.of(2024, 2, 1), " Sam ");
++        SupportTicket unassigned = service.create("T-2", alpha.id(), null, "B", TicketPriority.HIGH, LocalDate.of(2024, 2, 2), " ");
++        assertEquals("Sam", assigned.agent());
++        assertNull(unassigned.agent());
++        assertEquals("Sam", store.supportTickets().findByNumber("T-1").orElseThrow().agent());
++        assertEquals("Sam", service.changeStatus("T-1", TicketStatus.IN_PROGRESS, LocalDate.of(2024, 2, 3)).agent());
++        assertEquals("Sam", service.listOpenByPriority(TicketPriority.HIGH).get(0).agent());
++        assertEquals("Sam", service.changeStatus("T-1", TicketStatus.CLOSED, LocalDate.of(2024, 2, 4)).agent());
++        assertEquals("Sam", store.supportTickets().findByNumber("T-1").orElseThrow().agent());
++        assertNull(store.supportTickets().findByNumber("T-2").orElseThrow().agent());
++    }
++
+     @Test
+     void rejectsInvalidInput() {
+         service.create("T-1", alpha.id(), null, "A", TicketPriority.HIGH, LocalDate.of(2024, 2, 3));

@@ -1,0 +1,47 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStorePart02.java b/src/main/java/com/acme/backoffice/DataStorePart02.java
+index 8649215..7ec01b6 100644
+--- a/src/main/java/com/acme/backoffice/DataStorePart02.java
++++ b/src/main/java/com/acme/backoffice/DataStorePart02.java
+@@ -455,7 +455,8 @@ class DataStorePart02 {
+ 
+     public List<StockLevel> listStockByWarehouse(long warehouseId) {
+         String sql = "SELECT p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, s.quantity "
+-                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id";
++                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 "
++                + "ORDER BY p.name, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, warehouseId);
+             try (ResultSet rs = statement.executeQuery()) {
+diff --git a/src/test/java/com/acme/backoffice/StockTest.java b/src/test/java/com/acme/backoffice/StockTest.java
+index 8dde779..d12bac8 100644
+--- a/src/test/java/com/acme/backoffice/StockTest.java
++++ b/src/test/java/com/acme/backoffice/StockTest.java
+@@ -7,6 +7,7 @@ import com.acme.backoffice.service.StockService;
+ import org.junit.jupiter.api.Test;
+ 
+ import java.math.BigDecimal;
++import java.util.List;
+ 
+ import static org.junit.jupiter.api.Assertions.assertEquals;
+ import static org.junit.jupiter.api.Assertions.assertThrows;
+@@ -55,6 +56,20 @@ class StockTest {
+         assertThrows(IllegalStateException.class, () -> stock.takeQuantity(second.id(), product.id(), 1));
+     }
+ 
++    @Test
++    void warehouseStockLeavesOutProductsWithNothingLeft() {
++        Product bolt = store.createProduct(new Product(0, "P-2", "Bolt", "Cat", new BigDecimal("1.00"), "piece", true));
++        Product nut = store.createProduct(new Product(0, "P-3", "Nut", "Cat", new BigDecimal("1.00"), "piece", true));
++        Product screw = store.createProduct(new Product(0, "P-4", "Screw", "Cat", new BigDecimal("1.00"), "piece", true));
++        stock.setQuantity(first.id(), bolt.id(), 10);
++        stock.setQuantity(first.id(), nut.id(), 4);
++        stock.setQuantity(first.id(), screw.id(), 3);
++        stock.takeQuantity(first.id(), nut.id(), 4);
++        stock.setQuantity(first.id(), screw.id(), 0);
++        assertEquals(List.of("Bolt"), stock.getWarehouseStock(first.id()).stream().map(l -> l.product().name()).toList());
++        assertEquals(0, stock.getQuantity(first.id(), nut.id()));
++    }
++
+     @Test
+     void negativeValuesAreRejected() {
+         assertThrows(IllegalArgumentException.class, () -> stock.setQuantity(first.id(), product.id(), -1));

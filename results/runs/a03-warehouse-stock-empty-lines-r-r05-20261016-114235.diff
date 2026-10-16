@@ -1,0 +1,18 @@
+diff --git a/src/main/java/com/acme/backoffice/StockStore.java b/src/main/java/com/acme/backoffice/StockStore.java
+index e18423f..ca5c536 100644
+--- a/src/main/java/com/acme/backoffice/StockStore.java
++++ b/src/main/java/com/acme/backoffice/StockStore.java
+@@ -94,11 +94,11 @@ public final class StockStore {
+                 "SELECT COALESCE(SUM(quantity), 0) AS total FROM stock WHERE product_id = ?", productId);
+     }
+ 
+-    /** The stock rows of the warehouse with their product, by product name (then id). */
++    /** The stock rows of the warehouse with their product (leaving out products with no stock), by product name (then id). */
+     public List<StockLevel> listInWarehouse(long warehouseId) {
+         return jdbc.list("Cannot list stock by warehouse",
+                 "SELECT " + Rows.PRODUCT_COLUMNS + ", s.quantity "
+-                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id",
++                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 ORDER BY p.name, p.id",
+                 rs -> new StockLevel(Rows.product(rs), rs.getInt("quantity")), warehouseId);
+     }
+ 

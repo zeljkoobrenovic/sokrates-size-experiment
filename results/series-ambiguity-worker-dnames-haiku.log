@@ -1,0 +1,122 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-series-dnames-haiku from ~/.m2/repository
+=== a01-po-count-per-rep-cancelled-dnames-r01-20261016-104053
+  success=True turns=16 input=393079 output=4868 cost=0.01210951 lines_read=198
+=== a02-region-tickets-priority-order-dnames-r01-20261016-104241
+  success=True turns=9 input=199736 output=2757 cost=0.006931060000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r01-20261016-104413
+  success=True turns=16 input=456749 output=4235 cost=0.01146923 lines_read=53
+=== a11-supplier-payment-terms-dnames-r01-20261016-104542
+  success=True turns=29 input=965341 output=16736 cost=0.027066139999999995 lines_read=0
+=== a12-ticket-assigned-agent-dnames-r01-20261016-104903
+  success=False turns=30 input=1225532 output=15508 cost=0.03246169 lines_read=210
+=== a13-promotion-description-dnames-r01-20261016-105201
+  success=True turns=27 input=689038 output=14219 cost=0.02281362 lines_read=66
+=== a01-po-count-per-rep-cancelled-dnames-r02-20261016-105443
+  success=True turns=16 input=382330 output=5017 cost=0.011541470000000003 lines_read=0
+=== a02-region-tickets-priority-order-dnames-r02-20261016-105624
+  success=True turns=7 input=142557 output=2055 cost=0.00572538 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r02-20261016-105738
+  success=True turns=10 input=239092 output=2424 cost=0.00741347 lines_read=0
+=== a11-supplier-payment-terms-dnames-r02-20261016-105849
+  success=True turns=44 input=1327784 output=22096 cost=0.038171109999999994 lines_read=42
+=== a12-ticket-assigned-agent-dnames-r02-20261016-110237
+  success=True turns=29 input=1195628 output=16616 cost=0.03216737000000001 lines_read=220
+=== a13-promotion-description-dnames-r02-20261016-110512
+  success=True turns=28 input=925846 output=14370 cost=0.026092030000000002 lines_read=144
+=== a01-po-count-per-rep-cancelled-dnames-r03-20261016-110747
+  success=True turns=18 input=410024 output=5946 cost=0.01309174 lines_read=232
+=== a02-region-tickets-priority-order-dnames-r03-20261016-110921
+  success=True turns=11 input=240790 output=3347 cost=0.00825732 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r03-20261016-111111
+  success=True turns=18 input=507509 output=5186 cost=0.01336547 lines_read=0
+=== a11-supplier-payment-terms-dnames-r03-20261016-111317
+  success=True turns=24 input=816594 output=13088 cost=0.025564680000000006 lines_read=0
+=== a12-ticket-assigned-agent-dnames-r03-20261016-111612
+  success=True turns=40 input=1260033 output=30928 cost=0.04204774 lines_read=75
+=== a13-promotion-description-dnames-r03-20261016-112007
+  success=True turns=32 input=1091383 output=18297 cost=0.030720349999999993 lines_read=66
+=== a01-po-count-per-rep-cancelled-dnames-r04-20261016-112250
+  success=True turns=16 input=383413 output=5138 cost=0.01214481 lines_read=203
+=== a02-region-tickets-priority-order-dnames-r04-20261016-112425
+  success=True turns=10 input=240866 output=2840 cost=0.007447120000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r04-20261016-112530
+  success=True turns=13 input=305091 output=3680 cost=0.00934155 lines_read=53
+=== a11-supplier-payment-terms-dnames-r04-20261016-112709
+  success=True turns=50 input=1376346 output=28636 cost=0.04248457 lines_read=231
+=== a12-ticket-assigned-agent-dnames-r04-20261016-112952
+  success=True turns=29 input=1289604 output=14776 cost=0.0327995 lines_read=469
+=== a13-promotion-description-dnames-r04-20261016-113220
+  success=True turns=34 input=1202552 output=16742 cost=0.03167222 lines_read=244
+=== a01-po-count-per-rep-cancelled-dnames-r05-20261016-113504
+  success=True turns=15 input=351700 output=4984 cost=0.011880270000000002 lines_read=97
+=== a02-region-tickets-priority-order-dnames-r05-20261016-113634
+  success=True turns=8 input=176638 output=2281 cost=0.006603070000000002 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r05-20261016-113739
+  success=True turns=14 input=316939 output=3921 cost=0.00892977 lines_read=0
+=== a11-supplier-payment-terms-dnames-r05-20261016-113909
+  success=True turns=41 input=1238677 output=22260 cost=0.03627429 lines_read=48
+=== a12-ticket-assigned-agent-dnames-r05-20261016-114210
+  success=True turns=36 input=1727612 output=19531 cost=0.042477919999999995 lines_read=42
+=== a13-promotion-description-dnames-r05-20261016-114531
+  success=True turns=33 input=1280925 output=13870 cost=0.028905580000000004 lines_read=80
+=== a01-po-count-per-rep-cancelled-dnames-r06-20261016-115720
+  success=True turns=24 input=549874 output=6838 cost=0.0140487 lines_read=185
+=== a02-region-tickets-priority-order-dnames-r06-20261016-115919
+  success=True turns=10 input=252480 output=2896 cost=0.00817494 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r06-20261016-120025
+  success=True turns=9 input=207563 output=2418 cost=0.006951930000000001 lines_read=0
+=== a11-supplier-payment-terms-dnames-r06-20261016-120119
+  success=True turns=24 input=726678 output=14311 cost=0.0236489 lines_read=0
+=== a12-ticket-assigned-agent-dnames-r06-20261016-120341
+  success=True turns=31 input=1588489 output=16217 cost=0.03873049 lines_read=141
+=== a13-promotion-description-dnames-r06-20261016-120633
+  success=True turns=27 input=880846 output=12993 cost=0.02468906 lines_read=0
+=== a01-po-count-per-rep-cancelled-dnames-r07-20261016-120903
+  success=True turns=14 input=438249 output=4332 cost=0.01160045 lines_read=50
+=== a02-region-tickets-priority-order-dnames-r07-20261016-121023
+  success=True turns=8 input=170262 output=2658 cost=0.0064601 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r07-20261016-121134
+  success=True turns=13 input=302840 output=3506 cost=0.009077000000000002 lines_read=0
+=== a11-supplier-payment-terms-dnames-r07-20261016-121250
+  success=True turns=22 input=712131 output=13163 cost=0.023513880000000008 lines_read=13
+=== a12-ticket-assigned-agent-dnames-r07-20261016-121456
+  success=True turns=35 input=1658649 output=17831 cost=0.04063296 lines_read=125
+=== a13-promotion-description-dnames-r07-20261016-121832
+  success=True turns=28 input=802581 output=15164 cost=0.025403460000000003 lines_read=196
+=== a01-po-count-per-rep-cancelled-dnames-r08-20261016-122056
+  success=True turns=14 input=320414 output=4706 cost=0.01165718 lines_read=197
+=== a02-region-tickets-priority-order-dnames-r08-20261016-122231
+  success=True turns=10 input=232058 output=3054 cost=0.007466799999999999 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r08-20261016-122339
+  success=True turns=15 input=433434 output=4194 cost=0.01088821 lines_read=53
+=== a11-supplier-payment-terms-dnames-r08-20261016-122444
+  success=True turns=24 input=777356 output=13116 cost=0.02338925 lines_read=62
+=== a12-ticket-assigned-agent-dnames-r08-20261016-122647
+  success=True turns=28 input=1162671 output=17411 cost=0.03380282 lines_read=370
+=== a13-promotion-description-dnames-r08-20261016-122926
+  success=True turns=34 input=779437 output=17487 cost=0.027243450000000002 lines_read=669
+=== a01-po-count-per-rep-cancelled-dnames-r09-20261016-123258
+  success=True turns=16 input=376622 output=5063 cost=0.01188436 lines_read=172
+=== a02-region-tickets-priority-order-dnames-r09-20261016-123452
+  success=True turns=14 input=339304 output=4728 cost=0.010174420000000002 lines_read=50
+=== a03-warehouse-stock-empty-lines-dnames-r09-20261016-123635
+  success=True turns=14 input=335290 output=3633 cost=0.00936163 lines_read=0
+=== a11-supplier-payment-terms-dnames-r09-20261016-123741
+  success=False turns=1 input=0 output=0 cost=0 lines_read=0
+=== a12-ticket-assigned-agent-dnames-r09-20261016-124827
+  success=True turns=27 input=1363301 output=18362 cost=0.03616889999999999 lines_read=0
+=== a13-promotion-description-dnames-r09-20261016-125524
+  success=True turns=33 input=1022985 output=16613 cost=0.02990366 lines_read=615
+=== a01-po-count-per-rep-cancelled-dnames-r10-20261016-125737
+  success=True turns=15 input=416948 output=4921 cost=0.01293995 lines_read=198
+=== a02-region-tickets-priority-order-dnames-r10-20261016-125830
+  success=True turns=13 input=343569 output=4147 cost=0.01077607 lines_read=0
+=== a03-warehouse-stock-empty-lines-dnames-r10-20261016-125923
+  success=True turns=11 input=256077 output=2509 cost=0.007233460000000001 lines_read=0
+=== a11-supplier-payment-terms-dnames-r10-20261016-130004
+  success=True turns=35 input=1074058 output=21067 cost=0.032934160000000004 lines_read=0
+=== a12-ticket-assigned-agent-dnames-r10-20261016-130239
+  success=True turns=41 input=1826476 output=19692 cost=0.04323845999999999 lines_read=683
+=== a13-promotion-description-dnames-r10-20261016-130504
+  success=True turns=29 input=956879 output=12648 cost=0.02542184 lines_read=120
+worker dnames haiku done

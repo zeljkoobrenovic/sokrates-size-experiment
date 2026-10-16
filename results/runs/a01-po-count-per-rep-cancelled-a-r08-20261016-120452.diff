@@ -1,0 +1,26 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..b30a5da 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -6514,7 +6514,7 @@ public class DataStore {
+     public List<SalesRepPurchaseOrderCount> findPurchaseOrderCountPerSalesRep(LocalDate from, LocalDate to) {
+         String sql = "SELECT r.id AS id, r.name AS name, "
+                 + "(SELECT COUNT(*) FROM purchase_order po JOIN warehouse w ON w.id = po.warehouse_id "
+-                + "WHERE po.order_date >= ? AND po.order_date <= ? "
++                + "WHERE po.status <> 'CANCELLED' AND po.order_date >= ? AND po.order_date <= ? "
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)) AS purchase_order_count "
+                 + "FROM sales_rep r ORDER BY purchase_order_count DESC, r.name, r.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+diff --git a/src/main/java/com/acme/backoffice/service/SalesRepPurchaseOrderCountService.java b/src/main/java/com/acme/backoffice/service/SalesRepPurchaseOrderCountService.java
+index 3e5f4ed..7b6b8f7 100644
+--- a/src/main/java/com/acme/backoffice/service/SalesRepPurchaseOrderCountService.java
++++ b/src/main/java/com/acme/backoffice/service/SalesRepPurchaseOrderCountService.java
+@@ -6,7 +6,7 @@ import com.acme.backoffice.model.SalesRepPurchaseOrderCount;
+ import java.time.LocalDate;
+ import java.util.List;
+ 
+-/** The number of purchase orders between two dates for the customers of each sales rep, highest first. */
++/** The number of non-cancelled purchase orders between two dates for the customers of each sales rep, highest first. */
+ public class SalesRepPurchaseOrderCountService {
+     private final DataStore store;
+ 

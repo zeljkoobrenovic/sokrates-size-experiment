@@ -1,0 +1,16 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index 8419bc8..6241358 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -5273,9 +5273,9 @@ public class DataStore {
+         return querySupportTickets(SupportTicketQuery.open().withPriority(priority));
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> findOpenSupportTicketsOfCustomersInRegion(Region region) {
+-        return querySupportTickets(SupportTicketQuery.open().ofCustomersInRegion(region));
++        return querySupportTickets(SupportTicketQuery.open().ofCustomersInRegion(region).highestPriorityFirst());
+     }
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */

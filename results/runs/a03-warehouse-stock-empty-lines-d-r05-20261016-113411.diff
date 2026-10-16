@@ -1,0 +1,18 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index 8419bc8..263e504 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -2103,10 +2103,11 @@ public class DataStore {
+                 rs -> rs.getInt("total"), productId);
+     }
+ 
+-    /** The stock rows of the warehouse (including zero quantities) with their products, sorted by product name. */
++    /** The stock rows of the warehouse with a positive quantity, with their products, sorted by product name. */
+     public List<StockLevel> findStockLevelsByWarehouse(long warehouseId) {
+         return queryList("SELECT p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, s.quantity "
+-                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id",
++                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 "
++                        + "ORDER BY p.name, p.id",
+                 rs -> new StockLevel(productRow(rs), rs.getInt("quantity")), warehouseId);
+     }
+ 

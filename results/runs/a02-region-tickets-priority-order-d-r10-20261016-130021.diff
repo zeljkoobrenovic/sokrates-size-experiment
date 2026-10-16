@@ -1,0 +1,44 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index 8419bc8..6241358 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -5273,9 +5273,9 @@ public class DataStore {
+         return querySupportTickets(SupportTicketQuery.open().withPriority(priority));
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> findOpenSupportTicketsOfCustomersInRegion(Region region) {
+-        return querySupportTickets(SupportTicketQuery.open().ofCustomersInRegion(region));
++        return querySupportTickets(SupportTicketQuery.open().ofCustomersInRegion(region).highestPriorityFirst());
+     }
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */
+diff --git a/src/test/java/com/acme/backoffice/RegionManagerTest.java b/src/test/java/com/acme/backoffice/RegionManagerTest.java
+index efb92b5..b064f18 100644
+--- a/src/test/java/com/acme/backoffice/RegionManagerTest.java
++++ b/src/test/java/com/acme/backoffice/RegionManagerTest.java
+@@ -71,6 +71,23 @@ class RegionManagerTest {
+         assertEquals(List.of("T-1"), overview.get(0).openTickets().stream().map(SupportTicket::number).toList());
+     }
+ 
++    @Test
++    void openTicketsOfTheRegionAreListedHighestPriorityFirstThenOldestFirst() {
++        tickets.create("T-1", north.id(), null, "Low", TicketPriority.LOW, LocalDate.of(2024, 6, 1));
++        tickets.create("T-2", north.id(), null, "Normal", TicketPriority.NORMAL, LocalDate.of(2024, 6, 2));
++        tickets.create("T-3", north.id(), null, "High", TicketPriority.HIGH, LocalDate.of(2024, 6, 3));
++        tickets.create("T-4", north.id(), null, "Normal later", TicketPriority.NORMAL, LocalDate.of(2024, 6, 4));
++        tickets.create("T-5", north.id(), null, "High later", TicketPriority.HIGH, LocalDate.of(2024, 6, 5));
++        tickets.create("T-6", north.id(), null, "Closed", TicketPriority.HIGH, day);
++        tickets.changeStatus("T-6", TicketStatus.CLOSED, day.plusDays(1));
++        tickets.create("T-7", west.id(), null, "Other region", TicketPriority.HIGH, day);
++        managers.assign(Region.NORTH, anna.id());
++
++        List<String> listed = managers.overviewFor(anna.id(), day).get(0).openTickets().stream()
++                .map(SupportTicket::number).toList();
++        assertEquals(List.of("T-3", "T-5", "T-2", "T-4", "T-1"), listed);
++    }
++
+     @Test
+     void invoicesNotYetDueAreNotListed() {
+         invoice("SO-1", north);

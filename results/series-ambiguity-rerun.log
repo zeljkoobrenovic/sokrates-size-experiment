@@ -1,0 +1,16 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-rerun-a-sonnet from ~/.m2/repository
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-rerun-s-sonnet from ~/.m2/repository
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-rerun-dnames-sonnet from ~/.m2/repository
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-rerun-d-haiku from ~/.m2/repository
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-rerun-r-haiku from ~/.m2/repository
+=== a01-po-count-per-rep-cancelled-a-r01-20261016-125334
+=== a01-po-count-per-rep-cancelled-s-r01-20261016-125334
+=== a01-po-count-per-rep-cancelled-dnames-r01-20261016-125338
+=== a01-po-count-per-rep-cancelled-d-r01-20261016-125340
+=== a01-po-count-per-rep-cancelled-r-r01-20261016-125343
+  success=True turns=11 input=253862 output=4057 cost=0.009497150000000001 lines_read=287
+  success=True turns=11 input=252554 output=1592 cost=0.09929599999999998 lines_read=0
+  success=True turns=9 input=154620 output=1749 cost=0.0868181 lines_read=9
+  success=True turns=14 input=471632 output=5410 cost=0.013268430000000001 lines_read=0
+  success=True turns=12 input=250368 output=1796 cost=0.10294650000000001 lines_read=0
+collision reruns done

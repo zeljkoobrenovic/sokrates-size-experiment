@@ -1,0 +1,99 @@
+diff --git a/src/main/java/com/acme/backoffice/PromotionStore.java b/src/main/java/com/acme/backoffice/PromotionStore.java
+index a05ef50..a7cfc3e 100644
+--- a/src/main/java/com/acme/backoffice/PromotionStore.java
++++ b/src/main/java/com/acme/backoffice/PromotionStore.java
+@@ -17,7 +17,7 @@ import java.util.Optional;
+ public final class PromotionStore {
+     /** Every promotion query selects from {@code promotion p}. */
+     private static final String SELECT_PROMOTION =
+-            "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category FROM promotion p ";
++            "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category, p.description FROM promotion p ";
+     /** The promotion is active on the date; binds the date twice. */
+     private static final String ACTIVE_ON = "p.start_date <= ? AND p.end_date >= ?";
+ 
+@@ -45,11 +45,11 @@ public final class PromotionStore {
+ 
+     public Promotion create(Promotion promotion) {
+         long id = jdbc.insert("Cannot create promotion",
+-                "INSERT INTO promotion (code, discount_percent, start_date, end_date, category) VALUES (?, ?, ?, ?, ?)",
++                "INSERT INTO promotion (code, discount_percent, start_date, end_date, category, description) VALUES (?, ?, ?, ?, ?, ?)",
+                 promotion.code(), promotion.discountPercent(), promotion.startDate(), promotion.endDate(),
+-                promotion.category());
++                promotion.category(), promotion.description());
+         return new Promotion(id, promotion.code(), promotion.discountPercent(), promotion.startDate(),
+-                promotion.endDate(), promotion.category());
++                promotion.endDate(), promotion.category(), promotion.description());
+     }
+ 
+     public Optional<Promotion> findByCode(String code) {
+diff --git a/src/main/java/com/acme/backoffice/Rows.java b/src/main/java/com/acme/backoffice/Rows.java
+index 96175b9..5db50f7 100644
+--- a/src/main/java/com/acme/backoffice/Rows.java
++++ b/src/main/java/com/acme/backoffice/Rows.java
+@@ -126,7 +126,7 @@ final class Rows {
+     static Promotion promotion(ResultSet rs) throws SQLException {
+         return new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                 rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                rs.getString("category"));
++                rs.getString("category"), rs.getString("description"));
+     }
+ 
+     /** Columns: id, number, customer_id, order_date, status; the lines are loaded per order. */
+diff --git a/src/main/java/com/acme/backoffice/model/Promotion.java b/src/main/java/com/acme/backoffice/model/Promotion.java
+index 78f4873..4c70c27 100644
+--- a/src/main/java/com/acme/backoffice/model/Promotion.java
++++ b/src/main/java/com/acme/backoffice/model/Promotion.java
+@@ -5,7 +5,9 @@ import java.time.LocalDate;
+ 
+ /**
+  * A percentage discount valid from start to end date, both inclusive. The category is null when the promotion applies to
+- * all products. The id is 0 until the promotion has been created in the database.
++ * all products. The description is optional (null when none). The id is 0 until the promotion has been created in the
++ * database.
+  */
+-public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category,
++                        String description) {
+ }
+diff --git a/src/main/java/com/acme/backoffice/service/PromotionService.java b/src/main/java/com/acme/backoffice/service/PromotionService.java
+index 2ad0904..0e42ef5 100644
+--- a/src/main/java/com/acme/backoffice/service/PromotionService.java
++++ b/src/main/java/com/acme/backoffice/service/PromotionService.java
+@@ -19,8 +19,14 @@ public class PromotionService {
+         this.store = store;
+     }
+ 
+-    /** Creates a promotion. A null or blank category means all products. */
++    /** Creates a promotion without a description. */
+     public Promotion createPromotion(String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++        return createPromotion(code, discountPercent, startDate, endDate, category, null);
++    }
++
++    /** Creates a promotion. A null or blank category means all products; a null or blank description means none. */
++    public Promotion createPromotion(String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category,
++                                     String description) {
+         if (code == null || code.isBlank()) {
+             throw new IllegalArgumentException("Promotion code is required");
+         }
+@@ -34,7 +40,8 @@ public class PromotionService {
+             throw new IllegalArgumentException("Duplicate promotion code: " + code);
+         }
+         String appliesTo = category == null || category.isBlank() ? null : category;
+-        return store.promotions().create(new Promotion(0, code, discountPercent, startDate, endDate, appliesTo));
++        String text = description == null || description.isBlank() ? null : description;
++        return store.promotions().create(new Promotion(0, code, discountPercent, startDate, endDate, appliesTo, text));
+     }
+ 
+     /** The promotions whose period includes the date. */
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..030199a 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -179,6 +179,7 @@ CREATE TABLE promotion (
+     start_date DATE NOT NULL,
+     end_date DATE NOT NULL,
+     category VARCHAR(100),
++    description VARCHAR(255),
+     CHECK (end_date >= start_date)
+ );
+ 

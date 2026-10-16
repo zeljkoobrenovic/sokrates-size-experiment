@@ -1,0 +1,43 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..76c3801 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -6514,7 +6514,7 @@ public class DataStore {
+     public List<SalesRepPurchaseOrderCount> findPurchaseOrderCountPerSalesRep(LocalDate from, LocalDate to) {
+         String sql = "SELECT r.id AS id, r.name AS name, "
+                 + "(SELECT COUNT(*) FROM purchase_order po JOIN warehouse w ON w.id = po.warehouse_id "
+-                + "WHERE po.order_date >= ? AND po.order_date <= ? "
++                + "WHERE po.order_date >= ? AND po.order_date <= ? AND po.status <> 'CANCELLED' "
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)) AS purchase_order_count "
+                 + "FROM sales_rep r ORDER BY purchase_order_count DESC, r.name, r.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+diff --git a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+index 9265fe3..9c080a1 100644
+--- a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
++++ b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+@@ -71,6 +71,25 @@ class SalesRepPurchaseOrderCountTest {
+                 service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream().map(this::describe).toList());
+     }
+ 
++    @Test
++    void leavesCancelledPurchaseOrdersOut() {
++        SalesRep anna = rep("Anna");
++        SalesRep bob = rep("Bob");
++        customer(anna, Region.NORTH);
++        customer(bob, Region.SOUTH);
++        purchaseOrder(north, LocalDate.of(2024, 1, 1));
++        purchaseOrder(north, LocalDate.of(2024, 1, 2));
++        purchaseOrder(south, LocalDate.of(2024, 1, 3));
++        for (int i = 0; i < 2; i++) {
++            counter++;
++            store.createPurchaseOrder(new PurchaseOrder(0, "PO-" + counter, supplier.id(), LocalDate.of(2024, 1, 6), LocalDate.of(2024, 1, 20),
++                    PurchaseOrderStatus.CANCELLED, List.of(new PurchaseOrderLine(widget.id(), 1, new BigDecimal("1.00"))), south.id()));
++        }
++
++        assertEquals(List.of("Anna:2", "Bob:1"),
++                service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream().map(this::describe).toList());
++    }
++
+     @Test
+     void noRepsGivesEmptyReport() {
+         assertEquals(List.of(), service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)));

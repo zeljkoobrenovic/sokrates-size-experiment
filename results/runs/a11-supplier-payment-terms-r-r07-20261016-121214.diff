@@ -1,0 +1,171 @@
+diff --git a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+index 8834187..60a3c52 100644
+--- a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
++++ b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+@@ -241,11 +241,11 @@ public final class PurchaseOrderStore {
+      */
+     public List<SupplierPurchasedQuantity> purchasedQuantityPerSupplier(long productId, LocalDate from, LocalDate to) {
+         // all statuses, cancelled included
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, SUM(l.quantity) AS purchased "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, SUM(l.quantity) AS purchased "
+                 + "FROM supplier s JOIN purchase_order po ON po.supplier_id = s.id "
+                 + "JOIN purchase_order_line l ON l.order_id = po.id "
+                 + "WHERE l.product_id = ? AND po.order_date >= ? AND po.order_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY purchased DESC, s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY purchased DESC, s.name, s.id";
+         return jdbc.list("Cannot find purchased quantity per supplier", sql,
+                 rs -> new SupplierPurchasedQuantity(Rows.supplier(rs), rs.getLong("purchased")), productId, from, to);
+     }
+diff --git a/src/main/java/com/acme/backoffice/Rows.java b/src/main/java/com/acme/backoffice/Rows.java
+index 96175b9..8fcacdc 100644
+--- a/src/main/java/com/acme/backoffice/Rows.java
++++ b/src/main/java/com/acme/backoffice/Rows.java
+@@ -60,10 +60,10 @@ final class Rows {
+                 rs.getBigDecimal("unit_price"), rs.getString("unit_of_measure"), rs.getBoolean("active"));
+     }
+ 
+-    /** Columns: id, name, contact_email, country, rating. */
++    /** Columns: id, name, contact_email, country, rating, payment_terms_days. */
+     static Supplier supplier(ResultSet rs) throws SQLException {
+         return new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"), rs.getString("country"),
+-                rs.getInt("rating"));
++                rs.getInt("rating"), rs.getInt("payment_terms_days"));
+     }
+ 
+     /** Columns: id, code, name, city, region. */
+diff --git a/src/main/java/com/acme/backoffice/StockStore.java b/src/main/java/com/acme/backoffice/StockStore.java
+index e18423f..c1bbfa7 100644
+--- a/src/main/java/com/acme/backoffice/StockStore.java
++++ b/src/main/java/com/acme/backoffice/StockStore.java
+@@ -249,7 +249,7 @@ public final class StockStore {
+     public List<PurchaseSuggestion> listPurchaseSuggestionsForWarehouse(long warehouseId) {
+         return jdbc.list("Cannot list purchase suggestions by warehouse",
+                 SELECT_REORDER_LEVEL + ", su.id AS supplier_id, su.name AS supplier_name, su.contact_email, su.country, "
+-                        + "su.rating, sp.last_unit_cost" + FROM_REORDER_LEVEL
++                        + "su.rating, su.payment_terms_days, sp.last_unit_cost" + FROM_REORDER_LEVEL
+                         + "LEFT JOIN supplier_product sp ON sp.id = (SELECT sp2.id FROM supplier_product sp2 "
+                         + "WHERE sp2.product_id = p.id ORDER BY sp2.last_unit_cost, sp2.lead_time_days, sp2.supplier_id LIMIT 1) "
+                         + "LEFT JOIN supplier su ON su.id = sp.supplier_id "
+@@ -259,7 +259,8 @@ public final class StockStore {
+                     Supplier supplier = null;
+                     if (rs.getObject("supplier_id") != null) {
+                         supplier = new Supplier(rs.getLong("supplier_id"), rs.getString("supplier_name"),
+-                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"));
++                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"),
++                                rs.getInt("payment_terms_days"));
+                     }
+                     int quantity = rs.getInt("quantity");
+                     int level = rs.getInt("level");
+diff --git a/src/main/java/com/acme/backoffice/SupplierStore.java b/src/main/java/com/acme/backoffice/SupplierStore.java
+index ab82eb1..1591bed 100644
+--- a/src/main/java/com/acme/backoffice/SupplierStore.java
++++ b/src/main/java/com/acme/backoffice/SupplierStore.java
+@@ -23,7 +23,7 @@ import java.util.Optional;
+  * spending per supplier and per supplier country).
+  */
+ public final class SupplierStore {
+-    private static final String SELECT_SUPPLIERS = "SELECT id, name, contact_email, country, rating FROM supplier";
++    private static final String SELECT_SUPPLIERS = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier";
+ 
+     private static final String SELECT_SUPPLIER_PRODUCTS =
+             "SELECT sp.id, sp.supplier_id, sp.product_id, sp.lead_time_days, sp.last_unit_cost FROM supplier_product sp";
+@@ -43,7 +43,7 @@ public final class SupplierStore {
+     private static final String SPENDING_TOTALS = "COUNT(DISTINCT o.id) AS order_count, "
+             + "COALESCE(SUM(l.quantity * l.unit_cost), 0) AS total ";
+ 
+-    private static final String SUPPLIER_GROUP = "s.id, s.name, s.contact_email, s.country, s.rating";
++    private static final String SUPPLIER_GROUP = "s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days";
+ 
+     private final Jdbc jdbc;
+ 
+@@ -54,14 +54,16 @@ public final class SupplierStore {
+     // --- suppliers ---
+ 
+     public Supplier create(Supplier supplier) {
+-        long id = jdbc.insert("Cannot create supplier", "INSERT INTO supplier (name, contact_email, country, rating) VALUES (?, ?, ?, ?)",
+-                supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating());
+-        return new Supplier(id, supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating());
++        long id = jdbc.insert("Cannot create supplier", "INSERT INTO supplier (name, contact_email, country, rating, payment_terms_days) VALUES (?, ?, ?, ?, ?)",
++                supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating(), supplier.paymentTermsDays());
++        return new Supplier(id, supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating(),
++                supplier.paymentTermsDays());
+     }
+ 
+     public void update(Supplier supplier) {
+-        jdbc.update("Cannot update supplier", "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ? WHERE id = ?",
+-                supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating(), supplier.id());
++        jdbc.update("Cannot update supplier", "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ?, payment_terms_days = ? WHERE id = ?",
++                supplier.name(), supplier.contactEmail(), supplier.country(), supplier.rating(), supplier.paymentTermsDays(),
++                supplier.id());
+     }
+ 
+     public Optional<Supplier> findById(long id) {
+@@ -142,7 +144,7 @@ public final class SupplierStore {
+     public List<CategorySupplier> listCategoriesWithSingleSupplier(String category) {
+         return jdbc.list("Cannot find categories with a single supplier",
+                 CatalogSql.CATEGORY_TREE
+-                        + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating "
++                        + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days "
+                         + "FROM supplier_product sp JOIN product p ON p.id = sp.product_id "
+                         + "JOIN supplier s ON s.id = sp.supplier_id "
+                         + "WHERE " + CatalogSql.IN_CATEGORY_TREE + " "
+diff --git a/src/main/java/com/acme/backoffice/model/Supplier.java b/src/main/java/com/acme/backoffice/model/Supplier.java
+index 3eac40c..d036f7c 100644
+--- a/src/main/java/com/acme/backoffice/model/Supplier.java
++++ b/src/main/java/com/acme/backoffice/model/Supplier.java
+@@ -1,5 +1,15 @@
+ package com.acme.backoffice.model;
+ 
+-/** A supplier with a rating from 1 to 5. The id is 0 until the supplier has been created in the database. */
+-public record Supplier(long id, String name, String contactEmail, String country, int rating) {
++/**
++ * A supplier with a rating from 1 to 5 and payment terms (the days after the invoice date within which we have to pay).
++ * The id is 0 until the supplier has been created in the database.
++ */
++public record Supplier(long id, String name, String contactEmail, String country, int rating, int paymentTermsDays) {
++    /** The payment terms of a supplier for whom nothing was agreed. */
++    public static final int STANDARD_PAYMENT_TERMS_DAYS = 30;
++
++    /** A supplier with the standard payment terms. */
++    public Supplier(long id, String name, String contactEmail, String country, int rating) {
++        this(id, name, contactEmail, country, rating, STANDARD_PAYMENT_TERMS_DAYS);
++    }
+ }
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..0b9176f 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -35,7 +35,8 @@ CREATE TABLE supplier (
+     name VARCHAR(200) NOT NULL,
+     contact_email VARCHAR(200) NOT NULL,
+     country VARCHAR(100) NOT NULL,
+-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5)
++    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
++    payment_terms_days INT DEFAULT 30 NOT NULL CHECK (payment_terms_days >= 0)
+ );
+ 
+ CREATE TABLE warehouse (
+diff --git a/src/test/java/com/acme/backoffice/SupplierTest.java b/src/test/java/com/acme/backoffice/SupplierTest.java
+index 8e8d1dd..33264ea 100644
+--- a/src/test/java/com/acme/backoffice/SupplierTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierTest.java
+@@ -32,6 +32,19 @@ class SupplierTest {
+         assertEquals(List.of(changed), store.suppliers().list());
+     }
+ 
++    @Test
++    void paymentTermsDefaultToThirtyDaysAndCanBeRenegotiated() {
++        Supplier standard = store.suppliers().create(new Supplier(0, "Std", "s@example.com", "Sweden", 3));
++        assertEquals(30, store.suppliers().findById(standard.id()).orElseThrow().paymentTermsDays());
++        Supplier negotiated = store.suppliers().create(new Supplier(0, "Neg", "n@example.com", "Sweden", 4, 45));
++        assertEquals(45, store.suppliers().findById(negotiated.id()).orElseThrow().paymentTermsDays());
++        store.suppliers().update(new Supplier(negotiated.id(), "Neg", "n@example.com", "Sweden", 4, 14));
++        assertEquals(14, store.suppliers().list().get(0).paymentTermsDays());
++        assertEquals(14, store.suppliers().listInCountry("Sweden").get(0).paymentTermsDays());
++        assertEquals(14, store.suppliers().listWithMinimumRating(4).get(0).paymentTermsDays());
++        assertEquals(14, store.suppliers().findById(negotiated.id()).orElseThrow().paymentTermsDays());
++    }
++
+     @Test
+     void ratingMustBeBetweenOneAndFive() {
+         assertThrows(IllegalStateException.class, () -> store.suppliers().create(new Supplier(0, "A", "a@example.com", "UK", 0)));

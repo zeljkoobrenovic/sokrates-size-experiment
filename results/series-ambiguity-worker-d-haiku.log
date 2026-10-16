@@ -1,0 +1,133 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-series-d-haiku from ~/.m2/repository
+=== a01-po-count-per-rep-cancelled-d-r01-20261016-104053
+Traceback (most recent call last):
+  File "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/harness/run.py", line 363, in <module>
+    main()
+    ~~~~^^
+  File "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/harness/run.py", line 359, in main
+    one_run(task, variant, repeat, args.model, args.keep, args.dry_run)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/harness/run.py", line 277, in one_run
+    os.makedirs(work)
+    ~~~~~~~~~~~^^^^^^
+  File "<frozen os>", line 227, in makedirs
+FileExistsError: [Errno 17] File exists: '/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/a01-po-count-per-rep-cancelled-d-r01-20261016-104053'
+=== a02-region-tickets-priority-order-d-r01-20261016-104053
+  success=True turns=12 input=373798 output=4201 cost=0.01088685 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r01-20261016-104259
+  success=True turns=13 input=355190 output=4280 cost=0.00958715 lines_read=0
+=== a11-supplier-payment-terms-d-r01-20261016-104505
+  success=True turns=36 input=1021220 output=17873 cost=0.028886929999999998 lines_read=18
+=== a12-ticket-assigned-agent-d-r01-20261016-104752
+  success=False turns=22 input=883626 output=14473 cost=0.02788889 lines_read=0
+=== a13-promotion-description-d-r01-20261016-105022
+  success=True turns=31 input=838976 output=13321 cost=0.02291738 lines_read=0
+=== a01-po-count-per-rep-cancelled-d-r02-20261016-105258
+  success=True turns=23 input=673906 output=8743 cost=0.01852494 lines_read=343
+=== a02-region-tickets-priority-order-d-r02-20261016-105521
+  success=True turns=10 input=282861 output=2908 cost=0.00861755 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r02-20261016-105630
+  success=True turns=14 input=348671 output=4353 cost=0.01046496 lines_read=0
+=== a11-supplier-payment-terms-d-r02-20261016-105822
+  success=True turns=25 input=843544 output=12315 cost=0.023962040000000004 lines_read=0
+=== a12-ticket-assigned-agent-d-r02-20261016-110027
+  success=True turns=21 input=614659 output=10979 cost=0.02039019 lines_read=0
+=== a13-promotion-description-d-r02-20261016-110310
+  success=True turns=30 input=786358 output=13316 cost=0.02327204 lines_read=78
+=== a01-po-count-per-rep-cancelled-d-r03-20261016-110609
+  success=True turns=18 input=489105 output=7359 cost=0.014348110000000002 lines_read=167
+=== a02-region-tickets-priority-order-d-r03-20261016-110748
+  success=True turns=7 input=169640 output=2244 cost=0.00597841 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r03-20261016-110846
+  success=True turns=13 input=359764 output=4052 cost=0.009692550000000001 lines_read=0
+=== a11-supplier-payment-terms-d-r03-20261016-111013
+  success=True turns=43 input=1595877 output=21722 cost=0.040886160000000005 lines_read=0
+=== a12-ticket-assigned-agent-d-r03-20261016-111433
+  success=True turns=31 input=1118007 output=20139 cost=0.0340244 lines_read=0
+=== a13-promotion-description-d-r03-20261016-111725
+  success=True turns=22 input=569479 output=8529 cost=0.01681206 lines_read=109
+=== a01-po-count-per-rep-cancelled-d-r04-20261016-111919
+  success=True turns=17 input=462448 output=6872 cost=0.01325417 lines_read=0
+=== a02-region-tickets-priority-order-d-r04-20261016-112052
+  success=True turns=12 input=329855 output=3246 cost=0.008890150000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r04-20261016-112202
+  success=True turns=14 input=402842 output=4486 cost=0.01085769 lines_read=0
+=== a11-supplier-payment-terms-d-r04-20261016-112354
+  success=True turns=27 input=1054710 output=13924 cost=0.02729521 lines_read=0
+=== a12-ticket-assigned-agent-d-r04-20261016-112646
+  success=True turns=24 input=948112 output=14949 cost=0.02885952 lines_read=0
+=== a13-promotion-description-d-r04-20261016-112909
+  success=True turns=33 input=999899 output=12840 cost=0.02525907 lines_read=68
+=== a01-po-count-per-rep-cancelled-d-r05-20261016-113125
+  success=True turns=16 input=409119 output=6269 cost=0.01265519 lines_read=277
+=== a02-region-tickets-priority-order-d-r05-20261016-113249
+  success=True turns=14 input=400399 output=3854 cost=0.010303509999999998 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r05-20261016-113411
+  success=True turns=11 input=260222 output=3038 cost=0.0080298 lines_read=0
+=== a11-supplier-payment-terms-d-r05-20261016-113523
+  success=True turns=33 input=804560 output=17624 cost=0.02676041 lines_read=62
+=== a12-ticket-assigned-agent-d-r05-20261016-113827
+  success=True turns=33 input=1317025 output=17233 cost=0.03331001 lines_read=0
+=== a13-promotion-description-d-r05-20261016-114102
+  success=True turns=25 input=804612 output=9551 cost=0.02052972 lines_read=12
+=== a01-po-count-per-rep-cancelled-d-r06-20261016-114342
+  success=True turns=19 input=631926 output=8030 cost=0.01640496 lines_read=0
+=== a02-region-tickets-priority-order-d-r06-20261016-114551
+  success=True turns=14 input=356282 output=4508 cost=0.009978270000000003 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r06-20261016-115552
+  success=True turns=15 input=354916 output=4194 cost=0.009970429999999999 lines_read=0
+=== a11-supplier-payment-terms-d-r06-20261016-115830
+  success=True turns=32 input=1279451 output=15644 cost=0.03240711 lines_read=36
+=== a12-ticket-assigned-agent-d-r06-20261016-120115
+  success=True turns=23 input=813714 output=14518 cost=0.026476210000000003 lines_read=0
+=== a13-promotion-description-d-r06-20261016-120403
+  success=True turns=25 input=754097 output=11500 cost=0.021482830000000005 lines_read=127
+=== a01-po-count-per-rep-cancelled-d-r07-20261016-120608
+  success=True turns=18 input=455647 output=6905 cost=0.01461514 lines_read=301
+=== a02-region-tickets-priority-order-d-r07-20261016-120745
+  success=True turns=16 input=444623 output=4786 cost=0.01207093 lines_read=0
+=== a03-warehouse-stock-empty-lines-d-r07-20261016-120909
+  success=True turns=14 input=363882 output=3842 cost=0.00974311 lines_read=53
+=== a11-supplier-payment-terms-d-r07-20261016-121052
+  success=True turns=26 input=745845 output=14404 cost=0.02429822 lines_read=0
+=== a12-ticket-assigned-agent-d-r07-20261016-121311
+  success=True turns=21 input=771615 output=11690 cost=0.023319020000000006 lines_read=0
+=== a13-promotion-description-d-r07-20261016-121525
+  success=True turns=30 input=1040716 output=12961 cost=0.025458509999999993 lines_read=0
+=== a01-po-count-per-rep-cancelled-d-r08-20261016-121826
+  success=True turns=21 input=583923 output=7641 cost=0.016456059999999998 lines_read=205
+=== a02-region-tickets-priority-order-d-r08-20261016-122014
+  success=True turns=17 input=566940 output=5254 cost=0.014318850000000001 lines_read=30
+=== a03-warehouse-stock-empty-lines-d-r08-20261016-122158
+  success=True turns=15 input=423115 output=3917 cost=0.010525110000000002 lines_read=0
+=== a11-supplier-payment-terms-d-r08-20261016-122352
+  success=True turns=29 input=769292 output=12800 cost=0.023369110000000002 lines_read=43
+=== a12-ticket-assigned-agent-d-r08-20261016-122629
+  success=True turns=25 input=943669 output=12966 cost=0.02693495 lines_read=0
+=== a13-promotion-description-d-r08-20261016-122844
+  success=True turns=29 input=996296 output=11517 cost=0.02377305 lines_read=126
+=== a01-po-count-per-rep-cancelled-d-r09-20261016-123137
+  success=True turns=14 input=350142 output=5636 cost=0.012186700000000002 lines_read=0
+=== a02-region-tickets-priority-order-d-r09-20261016-123337
+  success=True turns=15 input=448225 output=4503 cost=0.011576130000000002 lines_read=50
+=== a03-warehouse-stock-empty-lines-d-r09-20261016-123510
+  success=True turns=13 input=331848 output=3768 cost=0.00927919 lines_read=145
+=== a11-supplier-payment-terms-d-r09-20261016-123637
+  success=True turns=27 input=882089 output=14485 cost=0.02565725 lines_read=0
+=== a12-ticket-assigned-agent-d-r09-20261016-125500
+  success=True turns=30 input=1240810 output=17331 cost=0.03264057000000001 lines_read=0
+=== a13-promotion-description-d-r09-20261016-125726
+  success=True turns=27 input=600051 output=13772 cost=0.02061232 lines_read=0
+=== a01-po-count-per-rep-cancelled-d-r10-20261016-125911
+  success=True turns=18 input=412139 output=5989 cost=0.012561540000000001 lines_read=84
+=== a02-region-tickets-priority-order-d-r10-20261016-130021
+  success=True turns=13 input=306350 output=4139 cost=0.009666860000000001 lines_read=50
+=== a03-warehouse-stock-empty-lines-d-r10-20261016-130121
+  success=True turns=14 input=344924 output=4021 cost=0.010054200000000001 lines_read=0
+=== a11-supplier-payment-terms-d-r10-20261016-130217
+  success=True turns=29 input=960349 output=14553 cost=0.028356950000000006 lines_read=0
+=== a12-ticket-assigned-agent-d-r10-20261016-130403
+  success=True turns=32 input=1094223 output=14408 cost=0.0289762 lines_read=384
+=== a13-promotion-description-d-r10-20261016-130548
+  success=True turns=25 input=511608 output=10019 cost=0.01894277 lines_read=0
+worker d haiku done

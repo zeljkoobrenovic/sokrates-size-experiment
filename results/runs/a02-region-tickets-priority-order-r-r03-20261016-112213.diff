@@ -1,0 +1,34 @@
+diff --git a/src/main/java/com/acme/backoffice/SupportTicketStore.java b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+index a519aaf..292aa2b 100644
+--- a/src/main/java/com/acme/backoffice/SupportTicketStore.java
++++ b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+@@ -29,6 +29,8 @@ public final class SupportTicketStore {
+     /** A ticket is open when its status is not CLOSED. */
+     private static final String OPEN = "t.status <> 'CLOSED'";
+     private static final String OLDEST_FIRST = "t.opened_date, t.id";
++    private static final String HIGHEST_PRIORITY_FIRST = "CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, "
++            + OLDEST_FIRST;
+     /** The ticket was not closed by the end of the date; binds the date. */
+     private static final String NOT_CLOSED_BY = "(t.closed_date IS NULL OR t.closed_date > ?)";
+     /** The ticket was open on the date: opened on or before it and not closed by then; binds the date twice. */
+@@ -77,16 +79,16 @@ public final class SupportTicketStore {
+         return listOpen("Cannot list open support tickets by priority", "", "t.priority = ?", OLDEST_FIRST, priority.name());
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenInRegion(Region region) {
+-        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?", OLDEST_FIRST,
+-                region.name());
++        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?",
++                HIGHEST_PRIORITY_FIRST, region.name());
+     }
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenOfSalesRep(long salesRepId) {
+         return listOpen("Cannot list open support tickets by sales rep", JOIN_CUSTOMER, "c.sales_rep_id = ?",
+-                "CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, " + OLDEST_FIRST, salesRepId);
++                HIGHEST_PRIORITY_FIRST, salesRepId);
+     }
+ 
+     /** Tickets about the product that are not closed, oldest first. */

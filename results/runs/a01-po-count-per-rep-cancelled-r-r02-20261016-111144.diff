@@ -1,0 +1,20 @@
+diff --git a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+index 8834187..d457ad2 100644
+--- a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
++++ b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+@@ -290,13 +290,13 @@ public final class PurchaseOrderStore {
+             "w.region");
+ 
+     /**
+-     * The number of purchase orders dated between the two dates, inclusive, for the warehouses in the regions of the
++     * The number of purchase orders dated between the two dates, inclusive, not cancelled, for the warehouses in the regions of the
+      * customers of each sales rep (purchase orders have no customer of their own), highest first, then by name and id;
+      * reps without purchase orders are included with zero. A purchase order counts once per rep.
+      */
+     public List<SalesRepPurchaseOrderCount> countPerSalesRep(LocalDate from, LocalDate to) {
+         String count = "SELECT COUNT(*) " + FOR_WAREHOUSE_REGION_IN_PERIOD
+-                + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)";
++                + "AND " + NOT_CANCELLED + " AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)";
+         return Breakdowns.perSalesRep(jdbc, "Cannot find purchase order count per sales rep", count, from, to,
+                 SalesRepPurchaseOrderCount::new);
+     }

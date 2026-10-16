@@ -1,0 +1,27 @@
+diff --git a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+index 8834187..2aaaeeb 100644
+--- a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
++++ b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+@@ -188,7 +188,7 @@ public final class PurchaseOrderStore {
+      * once, however many customers the country has in the region.
+      */
+     public List<PurchaseOrder> listForCountry(String country, LocalDate from, LocalDate to) {
+-        // all statuses, cancelled included, as for the counts per sales rep and per country
++        // all statuses, cancelled included, as for the count per country
+         String sql = "SELECT " + Rows.PURCHASE_ORDER_COLUMNS + " " + FOR_WAREHOUSE_REGION_IN_PERIOD
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.country = ? AND c.region = w.region)" + OLDEST_FIRST;
+         return jdbc.list("Cannot find purchase orders by country", sql, Rows.purchaseOrder(jdbc), from, to, country);
+@@ -291,11 +291,11 @@ public final class PurchaseOrderStore {
+ 
+     /**
+      * The number of purchase orders dated between the two dates, inclusive, for the warehouses in the regions of the
+-     * customers of each sales rep (purchase orders have no customer of their own), highest first, then by name and id;
++     * customers of each sales rep (purchase orders have no customer of their own; cancelled ones are not counted), highest first, then by name and id;
+      * reps without purchase orders are included with zero. A purchase order counts once per rep.
+      */
+     public List<SalesRepPurchaseOrderCount> countPerSalesRep(LocalDate from, LocalDate to) {
+-        String count = "SELECT COUNT(*) " + FOR_WAREHOUSE_REGION_IN_PERIOD
++        String count = "SELECT COUNT(*) " + FOR_WAREHOUSE_REGION_IN_PERIOD + "AND " + NOT_CANCELLED + " "
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)";
+         return Breakdowns.perSalesRep(jdbc, "Cannot find purchase order count per sales rep", count, from, to,
+                 SalesRepPurchaseOrderCount::new);

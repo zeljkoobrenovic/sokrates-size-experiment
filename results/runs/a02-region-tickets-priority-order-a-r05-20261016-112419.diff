@@ -1,0 +1,18 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..4f05d77 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -10017,10 +10017,11 @@ public class DataStore {
+         }
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first. */
+     public List<SupportTicket> listOpenSupportTicketsByRegion(Region region) {
+         String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date FROM support_ticket t "
+-                + "JOIN customer c ON c.id = t.customer_id WHERE c.region = ? AND t.status <> 'CLOSED' ORDER BY t.opened_date, t.id";
++                + "JOIN customer c ON c.id = t.customer_id WHERE c.region = ? AND t.status <> 'CLOSED' "
++                + "ORDER BY CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, t.opened_date, t.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, region.name());
+             try (ResultSet rs = statement.executeQuery()) {

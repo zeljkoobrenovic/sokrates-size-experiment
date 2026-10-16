@@ -1,0 +1,122 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index 8419bc8..3e7367b 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -5140,25 +5140,26 @@ public class DataStore {
+     // ===== Support tickets =====
+ 
+     public SupportTicket createSupportTicket(SupportTicket ticket) {
+-        long id = insert("INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date) "
+-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
++        long id = insert("INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent) "
++                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                 ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(), ticket.priority().name(),
+-                ticket.status().name(), ticket.openedDate(), ticket.closedDate());
++                ticket.status().name(), ticket.openedDate(), ticket.closedDate(), ticket.assignedAgent());
+         return new SupportTicket(id, ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate());
++                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate(), ticket.assignedAgent());
+     }
+ 
+     public Optional<SupportTicket> findSupportTicketByNumber(String number) {
+-        return queryOptional("SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date "
+-                + "FROM support_ticket WHERE number = ?", DataStore::supportTicketRow, number);
++        return queryOptional("SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, "
++                + "assigned_agent FROM support_ticket WHERE number = ?", DataStore::supportTicketRow, number);
+     }
+ 
+-    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date. */
++    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent. */
+     private static SupportTicket supportTicketRow(ResultSet rs) throws SQLException {
+         return new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                 rs.getObject("order_id", Long.class), rs.getString("subject"),
+                 TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class));
++                rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                rs.getString("assigned_agent"));
+     }
+ 
+     public void updateSupportTicketStatus(long ticketId, TicketStatus status, LocalDate closedDate) {
+@@ -5254,7 +5255,7 @@ public class DataStore {
+     /** The support tickets selected by the query, in the query's order (oldest first, then by id, by default). */
+     private List<SupportTicket> querySupportTickets(SupportTicketQuery query) {
+         return queryList("SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, "
+-                        + "t.closed_date FROM support_ticket t"
++                        + "t.closed_date, t.assigned_agent FROM support_ticket t"
+                         + (query.joinCustomer ? " JOIN customer c ON c.id = t.customer_id" : "")
+                         + (query.conditions.isEmpty() ? "" : " WHERE " + String.join(" AND ", query.conditions))
+                         + " ORDER BY "
+diff --git a/src/main/java/com/acme/backoffice/model/SupportTicket.java b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+index 93a0017..2b6958e 100644
+--- a/src/main/java/com/acme/backoffice/model/SupportTicket.java
++++ b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+@@ -2,7 +2,13 @@ package com.acme.backoffice.model;
+ 
+ import java.time.LocalDate;
+ 
+-/** A support ticket of a customer. The id is 0 until created. The order id and the closed date may be null. */
++/** A support ticket of a customer. The id is 0 until created. The order id, the closed date and the assigned agent may be null. */
+ public record SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
+-        TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        TicketStatus status, LocalDate openedDate, LocalDate closedDate, String assignedAgent) {
++
++    /** A ticket that is not assigned to a support agent. */
++    public SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
++            TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        this(id, number, customerId, orderId, subject, priority, status, openedDate, closedDate, null);
++    }
+ }
+diff --git a/src/main/java/com/acme/backoffice/service/SupportTicketService.java b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+index 5dd9cbc..d99bd15 100644
+--- a/src/main/java/com/acme/backoffice/service/SupportTicketService.java
++++ b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+@@ -25,9 +25,15 @@ public class SupportTicketService {
+         this.store = store;
+     }
+ 
+-    /** Creates an open ticket. The order number is optional but, when given, must be an order of the customer. */
++    /** Creates an unassigned open ticket. */
+     public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
+             LocalDate date) {
++        return create(number, customerId, orderNumber, subject, priority, date, null);
++    }
++
++    /** Creates an open ticket. The assigned agent is optional (null or blank: unassigned). The order number is optional but, when given, must be an order of the customer. */
++    public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
++            LocalDate date, String assignedAgent) {
+         if (number == null || number.isBlank() || subject == null || subject.isBlank() || priority == null || date == null) {
+             throw new IllegalArgumentException("Number, subject, priority and date are required");
+         }
+@@ -47,7 +53,8 @@ public class SupportTicketService {
+             orderId = order.id();
+         }
+         return store.createSupportTicket(new SupportTicket(0, number.trim(), customerId, orderId, subject.trim(), priority,
+-                TicketStatus.OPEN, date, null));
++                TicketStatus.OPEN, date, null,
++                assignedAgent == null || assignedAgent.isBlank() ? null : assignedAgent.trim()));
+     }
+ 
+     /** Sets the status. Closing records the date; reopening a closed ticket clears it. */
+@@ -63,7 +70,7 @@ public class SupportTicketService {
+         LocalDate closedDate = status == TicketStatus.CLOSED ? date : null;
+         store.updateSupportTicketStatus(ticket.id(), status, closedDate);
+         return new SupportTicket(ticket.id(), ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), status, ticket.openedDate(), closedDate);
++                ticket.priority(), status, ticket.openedDate(), closedDate, ticket.assignedAgent());
+     }
+ 
+     /** Tickets of the customer that are open or in progress, oldest first. */
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..42237a6 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -350,7 +350,8 @@ CREATE TABLE support_ticket (
+     status VARCHAR(20) NOT NULL,
+     opened_date DATE NOT NULL,
+     closed_date DATE,
+-    product_id BIGINT REFERENCES product (id)
++    product_id BIGINT REFERENCES product (id),
++    assigned_agent VARCHAR(100)
+ );
+ 
+ CREATE TABLE bundle_component (

@@ -1,0 +1,29 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index 8419bc8..a8cf899 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -5830,10 +5830,13 @@ public class DataStore {
+         /**
+          * Purchase orders by order date, attributed to every customer in the region of the warehouse they are to be
+          * delivered to (purchase orders have no customer of their own; orders without a warehouse are not counted).
+-         * Cancelled purchase orders are counted too.
++         * Cancelled purchase orders are counted too (the per-rep report uses ACTIVE_PURCHASE_ORDERS instead).
+          */
+         PURCHASE_ORDERS("purchase_order po JOIN warehouse w ON w.id = po.warehouse_id JOIN customer c ON c.region = w.region",
+-                "po.id", "po.order_date", "");
++                "po.id", "po.order_date", ""),
++        /** The same purchase orders, without the cancelled ones. */
++        ACTIVE_PURCHASE_ORDERS("purchase_order po JOIN warehouse w ON w.id = po.warehouse_id JOIN customer c ON c.region = w.region",
++                "po.id", "po.order_date", " AND po.status <> 'CANCELLED'");
+ 
+         private final String from;
+         private final String idColumn;
+@@ -5914,7 +5917,7 @@ public class DataStore {
+      * reps without purchase orders are included with zero. A purchase order counts once per rep.
+      */
+     public List<SalesRepPurchaseOrderCount> findPurchaseOrderCountPerSalesRep(LocalDate from, LocalDate to) {
+-        return findCountPerSalesRep(CustomerAttributedRecords.PURCHASE_ORDERS, from, to, SalesRepPurchaseOrderCount::new);
++        return findCountPerSalesRep(CustomerAttributedRecords.ACTIVE_PURCHASE_ORDERS, from, to, SalesRepPurchaseOrderCount::new);
+     }
+ 
+     /** Creates a per-country count row (e.g. a CountryInvoiceCount constructor). */

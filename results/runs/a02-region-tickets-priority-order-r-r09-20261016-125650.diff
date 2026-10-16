@@ -1,0 +1,61 @@
+diff --git a/src/main/java/com/acme/backoffice/SupportTicketStore.java b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+index a519aaf..fc954ef 100644
+--- a/src/main/java/com/acme/backoffice/SupportTicketStore.java
++++ b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+@@ -29,6 +29,9 @@ public final class SupportTicketStore {
+     /** A ticket is open when its status is not CLOSED. */
+     private static final String OPEN = "t.status <> 'CLOSED'";
+     private static final String OLDEST_FIRST = "t.opened_date, t.id";
++    /** Highest priority first, oldest first within a priority. */
++    private static final String HIGHEST_PRIORITY_THEN_OLDEST_FIRST = "CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, "
++            + OLDEST_FIRST;
+     /** The ticket was not closed by the end of the date; binds the date. */
+     private static final String NOT_CLOSED_BY = "(t.closed_date IS NULL OR t.closed_date > ?)";
+     /** The ticket was open on the date: opened on or before it and not closed by then; binds the date twice. */
+@@ -77,16 +80,16 @@ public final class SupportTicketStore {
+         return listOpen("Cannot list open support tickets by priority", "", "t.priority = ?", OLDEST_FIRST, priority.name());
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenInRegion(Region region) {
+-        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?", OLDEST_FIRST,
+-                region.name());
++        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?",
++                HIGHEST_PRIORITY_THEN_OLDEST_FIRST, region.name());
+     }
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenOfSalesRep(long salesRepId) {
+         return listOpen("Cannot list open support tickets by sales rep", JOIN_CUSTOMER, "c.sales_rep_id = ?",
+-                "CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, " + OLDEST_FIRST, salesRepId);
++                HIGHEST_PRIORITY_THEN_OLDEST_FIRST, salesRepId);
+     }
+ 
+     /** Tickets about the product that are not closed, oldest first. */
+diff --git a/src/test/java/com/acme/backoffice/RegionManagerTest.java b/src/test/java/com/acme/backoffice/RegionManagerTest.java
+index 7bd2f5b..45114e4 100644
+--- a/src/test/java/com/acme/backoffice/RegionManagerTest.java
++++ b/src/test/java/com/acme/backoffice/RegionManagerTest.java
+@@ -71,6 +71,21 @@ class RegionManagerTest {
+         assertEquals(List.of("T-1"), overview.get(0).openTickets().stream().map(SupportTicket::number).toList());
+     }
+ 
++    @Test
++    void openTicketsOfTheRegionAreListedHighestPriorityFirstThenOldestFirst() {
++        tickets.create("T-1", north.id(), null, "Low", TicketPriority.LOW, LocalDate.of(2024, 6, 1));
++        tickets.create("T-2", north.id(), null, "Normal", TicketPriority.NORMAL, LocalDate.of(2024, 6, 2));
++        tickets.create("T-3", north.id(), null, "High", TicketPriority.HIGH, LocalDate.of(2024, 6, 3));
++        tickets.create("T-4", north.id(), null, "Normal later", TicketPriority.NORMAL, LocalDate.of(2024, 6, 4));
++        tickets.create("T-5", north.id(), null, "High later", TicketPriority.HIGH, LocalDate.of(2024, 6, 5));
++        tickets.create("T-6", north.id(), null, "Closed high", TicketPriority.HIGH, LocalDate.of(2024, 6, 1));
++        tickets.changeStatus("T-6", TicketStatus.CLOSED, LocalDate.of(2024, 6, 2));
++        tickets.create("T-7", west.id(), null, "Other region", TicketPriority.HIGH, LocalDate.of(2024, 6, 1));
++        managers.assign(Region.NORTH, anna.id());
++        assertEquals(List.of("T-3", "T-5", "T-2", "T-4", "T-1"),
++                managers.overviewFor(anna.id(), day).get(0).openTickets().stream().map(SupportTicket::number).toList());
++    }
++
+     @Test
+     void invoicesNotYetDueAreNotListed() {
+         invoice("SO-1", north);

@@ -1,0 +1,34 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..ddb5b30 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -1488,7 +1488,8 @@ public class DataStore {
+ 
+     public List<StockLevel> listStockByWarehouse(long warehouseId) {
+         String sql = "SELECT p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, s.quantity "
+-                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id";
++                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 "
++                + "ORDER BY p.name, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, warehouseId);
+             try (ResultSet rs = statement.executeQuery()) {
+diff --git a/src/test/java/com/acme/backoffice/StockOverviewTest.java b/src/test/java/com/acme/backoffice/StockOverviewTest.java
+index e362708..d413c9b 100644
+--- a/src/test/java/com/acme/backoffice/StockOverviewTest.java
++++ b/src/test/java/com/acme/backoffice/StockOverviewTest.java
+@@ -42,6 +42,15 @@ class StockOverviewTest {
+         assertEquals(List.of(new StockLevel(bolt, 15)), stock.getWarehouseStock(second.id()));
+     }
+ 
++    @Test
++    void warehouseStockLeavesOutProductsWithNoStock() {
++        fill();
++        stock.takeQuantity(first.id(), nut.id(), 3);
++        stock.setQuantity(first.id(), screw.id(), 0);
++        assertEquals(List.of(new StockLevel(bolt, 10)), stock.getWarehouseStock(first.id()));
++        assertEquals(0, stock.getQuantity(first.id(), nut.id()));
++    }
++
+     @Test
+     void productsBelowThresholdIncludeUnstockedOnes() {
+         fill();

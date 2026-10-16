@@ -1,0 +1,64 @@
+diff --git a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+index 8834187..11ca627 100644
+--- a/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
++++ b/src/main/java/com/acme/backoffice/PurchaseOrderStore.java
+@@ -290,13 +290,13 @@ public final class PurchaseOrderStore {
+             "w.region");
+ 
+     /**
+-     * The number of purchase orders dated between the two dates, inclusive, for the warehouses in the regions of the
+-     * customers of each sales rep (purchase orders have no customer of their own), highest first, then by name and id;
+-     * reps without purchase orders are included with zero. A purchase order counts once per rep.
++     * The number of non-cancelled purchase orders dated between the two dates, inclusive, for the warehouses in the regions
++     * of the customers of each sales rep (purchase orders have no customer of their own), highest first, then by name and
++     * id; reps without purchase orders are included with zero. A purchase order counts once per rep.
+      */
+     public List<SalesRepPurchaseOrderCount> countPerSalesRep(LocalDate from, LocalDate to) {
+-        String count = "SELECT COUNT(*) " + FOR_WAREHOUSE_REGION_IN_PERIOD
+-                + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)";
++        String count = "SELECT COUNT(*) " + FOR_WAREHOUSE_REGION_IN_PERIOD + "AND " + NOT_CANCELLED
++                + " AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)";
+         return Breakdowns.perSalesRep(jdbc, "Cannot find purchase order count per sales rep", count, from, to,
+                 SalesRepPurchaseOrderCount::new);
+     }
+diff --git a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+index f8ce8f4..6878705 100644
+--- a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
++++ b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+@@ -41,8 +41,12 @@ class SalesRepPurchaseOrderCountTest {
+     }
+ 
+     private void purchaseOrder(Warehouse warehouse, LocalDate date) {
++        purchaseOrder(warehouse, date, PurchaseOrderStatus.SENT);
++    }
++
++    private void purchaseOrder(Warehouse warehouse, LocalDate date, PurchaseOrderStatus status) {
+         counter++;
+-        store.purchaseOrders().create(new PurchaseOrder(0, "PO-" + counter, supplier.id(), date, date.plusDays(14), PurchaseOrderStatus.SENT,
++        store.purchaseOrders().create(new PurchaseOrder(0, "PO-" + counter, supplier.id(), date, date.plusDays(14), status,
+                 List.of(new PurchaseOrderLine(widget.id(), 1, new BigDecimal("1.00"))), warehouse.id()));
+     }
+ 
+@@ -71,6 +75,22 @@ class SalesRepPurchaseOrderCountTest {
+                 service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream().map(this::describe).toList());
+     }
+ 
++    @Test
++    void cancelledPurchaseOrdersAreNotCounted() {
++        SalesRep anna = rep("Anna");
++        SalesRep bob = rep("Bob");
++        customer(anna, Region.NORTH);
++        customer(bob, Region.SOUTH);
++        purchaseOrder(north, LocalDate.of(2024, 1, 5), PurchaseOrderStatus.SENT);
++        purchaseOrder(north, LocalDate.of(2024, 1, 6), PurchaseOrderStatus.RECEIVED);
++        purchaseOrder(south, LocalDate.of(2024, 1, 7), PurchaseOrderStatus.SENT);
++        purchaseOrder(south, LocalDate.of(2024, 1, 8), PurchaseOrderStatus.CANCELLED);
++        purchaseOrder(south, LocalDate.of(2024, 1, 9), PurchaseOrderStatus.CANCELLED);
++
++        assertEquals(List.of("Anna:2", "Bob:1"),
++                service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream().map(this::describe).toList());
++    }
++
+     @Test
+     void noRepsGivesEmptyReport() {
+         assertEquals(List.of(), service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)));
