@@ -1,0 +1,23 @@
+ambiguity/grow/v1/ambiguity.json
+  s_3bdacd10641e87::t_07986b9a9d0c5d 1-58
+ambiguity/grow/v1/grow-log.tsv
+  s_3bdacd10641e87::t_07986b9a9d0c5d 1-73
+ambiguity/grow/v1/README.md
+  s_3bdacd10641e87::t_aaa88d19b1ce68 1-12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "206e0d4a6e4c789c6256cb02e1d326d5c3f17f4d",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
