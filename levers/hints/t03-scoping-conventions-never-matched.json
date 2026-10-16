@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java`.",
+ "symbol": "Where to look: in `codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java`, the methods `addBuildAndDeploymentConventions` and `addGeneratedConventions`."
+}

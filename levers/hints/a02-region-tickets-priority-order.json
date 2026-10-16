@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `src/main/java/com/acme/backoffice/DataStore.java`.",
+ "symbol": "Where to look: in `src/main/java/com/acme/backoffice/DataStore.java`, the method `listOpenSupportTicketsByRegion`."
+}

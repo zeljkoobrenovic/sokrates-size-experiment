@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java`.",
+ "symbol": "Where to look: in `reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java`, the method `exportJson`."
+}

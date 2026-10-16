@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `src/main/java/com/acme/backoffice/DataStore.java`, `src/main/java/com/acme/backoffice/model/Promotion.java` and `src/main/resources/schema.sql`.",
+ "symbol": "Where to look: in `src/main/java/com/acme/backoffice/DataStore.java`, the methods `createPromotion`, `findPromotionByCode`, `listPromotionsActiveOn`, `listPromotionsActiveOnInRegion`, `listPromotionsByCategory`, `findBestPromotion` and `listUnusedPromotions`; in `src/main/java/com/acme/backoffice/model/Promotion.java`, the class `Promotion`; in `src/main/resources/schema.sql`, at `CREATE TABLE promotion (`."
+}

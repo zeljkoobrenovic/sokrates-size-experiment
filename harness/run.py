@@ -17,6 +17,7 @@ For every (repeat, task, variant) the harness:
 
 Usage:
   harness/run.py --tasks t01 t02 --variants a b --repeats 10 [--model …] [--keep] [--dry-run]
+  levers experiment: [--hint file|symbol] [--claude-md levers/claude-md/<set>-<kind>.md] --condition <label>
 """
 import argparse
 import csv
@@ -59,8 +60,9 @@ CSV_FIELDS = [
     "success", "agent_error", "turns", "duration_s", "api_duration_s", "cost_usd",
     "input_tokens", "cache_read_tokens", "cache_write_tokens", "total_input_tokens", "output_tokens",
     "tool_calls", "reads", "lines_read", "files_read", "greps", "globs", "bashes", "bash_output_lines", "lines_seen", "mvn_runs", "edits",
-    "tool_response_chars", "files_changed", "lines_added", "lines_deleted", "prebuild_s", "acceptance_s",
+    "tool_response_chars", "files_changed", "lines_added", "lines_deleted", "prebuild_s", "acceptance_s", "condition",
 ]
+LEVERS = {"hint": None, "claude_md": None, "condition": ""}  # --hint, --claude-md, --condition (levers experiment)
 
 
 def sh(cmd, cwd, timeout=None, env=None, check=False):
@@ -74,6 +76,8 @@ def ignore_patterns():
 
 def prepare_repo(variant, repo):
     shutil.copytree(os.path.join(VARIANTS_DIR, variant), repo, ignore=ignore_patterns(), symlinks=True)
+    if LEVERS["claude_md"]:  # part of the repository, as a team's CLAUDE.md would be
+        shutil.copy(LEVERS["claude_md"], os.path.join(repo, "CLAUDE.md"))
     env = dict(ENV, GIT_AUTHOR_DATE=CONFIG["git_date"], GIT_COMMITTER_DATE=CONFIG["git_date"])
     name, email = CONFIG["git_author"].rsplit(" <", 1)
     email = email.rstrip(">")
@@ -268,6 +272,8 @@ def one_run(task, variant, repeat, model, keep, dry_run):
     if not os.path.exists(preamble) or os.path.dirname(TASKS_DIR) == ROOT:
         preamble = os.path.join(HERE, "prompt-preamble.md")
     prompt = open(preamble).read().strip() + "\n\n" + open(os.path.join(task_dir, "task.md")).read().strip()
+    if LEVERS["hint"]:  # levers/hints/<task>.json, written by levers/tools/make_hints.py
+        prompt += "\n\n" + json.load(open(os.path.join(ROOT, "levers", "hints", task + ".json")))[LEVERS["hint"]]
     started = dt.datetime.now()
     run_id = f"{task}-{variant}-r{repeat:02d}-{started.strftime('%Y%m%d-%H%M%S')}"
     work = os.path.join(ROOT, "work", run_id)
@@ -285,7 +291,7 @@ def one_run(task, variant, repeat, model, keep, dry_run):
     os.makedirs(work)
     row = {"run_id": run_id, "started": started.isoformat(timespec="seconds"), "task": task, "kind": meta.get("kind", ""),
            "variant": variant, "repeat": repeat, "agent": CONFIG["agent"], "model": model, "claude_version": claude_version(),
-           "tools_log": log_path}
+           "tools_log": log_path, "condition": LEVERS["condition"]}
     try:
         prepare_repo(variant, repo)
         write_settings(repo, log_path)
@@ -345,7 +351,11 @@ def main():
     ap.add_argument("--m2", help="own Maven local repository for this process (seeded from ~/.m2); lets one process per variant run in parallel")
     ap.add_argument("--results", default="runs.csv", help="CSV file under results/ to append to (one per series, e.g. runs-haiku.csv)")
     ap.add_argument("--set", help="task and variant set under the experiment root, e.g. ambiguity (default: tasks/ and variants/)")
+    ap.add_argument("--hint", choices=["file", "symbol"], help="append the task's hint of this level (levers/hints/<task>.json)")
+    ap.add_argument("--claude-md", help="copy this file into the repository as CLAUDE.md")
+    ap.add_argument("--condition", default="", help="label recorded in the condition column")
     args = ap.parse_args()
+    LEVERS.update(hint=args.hint, claude_md=os.path.abspath(args.claude_md) if args.claude_md else None, condition=args.condition)
     global TASKS_DIR, VARIANTS_DIR
     if args.set:
         TASKS_DIR, VARIANTS_DIR = os.path.join(ROOT, args.set, "tasks"), os.path.join(ROOT, args.set, "variants")

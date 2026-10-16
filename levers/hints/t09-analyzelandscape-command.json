@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java` and `cli/src/main/java/nl/obren/sokrates/cli/Commands.java`.",
+ "symbol": "Where to look: in `cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java`, the methods `run` and `updateLandscape`; in `cli/src/main/java/nl/obren/sokrates/cli/Commands.java`, the method `usageInfo`."
+}

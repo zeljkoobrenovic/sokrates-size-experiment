@@ -1,0 +1,4 @@
+{
+ "file": "Where to look: the change belongs in `src/main/java/com/acme/backoffice/DataStore.java`, `src/main/java/com/acme/backoffice/model/Supplier.java` and `src/main/resources/schema.sql`.",
+ "symbol": "Where to look: in `src/main/java/com/acme/backoffice/DataStore.java`, the methods `createSupplier`, `updateSupplier`, `listSuppliersByName`, `listSuppliersByCountry`, `listSuppliersByMinimumRating`, `listPurchaseSuggestionsByWarehouse`, `findPurchasedQuantityPerSupplier`, `listSupplierPerformance`, `findSpendingPerSupplier`, `findSupplierById` and `findCategoriesWithSingleSupplier`; in `src/main/java/com/acme/backoffice/model/Supplier.java`, the class `Supplier`; in `src/main/resources/schema.sql`, at `CREATE TABLE supplier (`."
+}
