@@ -171,3 +171,21 @@ diff, acceptance; the transcript (per-call usage) and the tool log. Added:
   (`ambiguity/grow/v2/README.md`): DataStore 10,387 lines, 190 of 401 methods with a near-twin, Sokrates
   duplication 32% of DataStore, 34 clusters, median 11 methods hit per entry term. Found on the way: Sokrates'
   default `maxLines` of 10,000 silently drops longer files from the whole analysis.
+- **2026-10-16 ~08:00, variants built.** S (script, `split_by_position.py`: 10 parts of ~1,000 lines, facade of
+  delegates). D-names (blind Opus, $3.34: 302 of 407 public methods renamed, bodies untouched). D (blind Opus, $42.96,
+  9 subagents in worktrees; an early commit had recorded those worktrees under `code/.claude/`, removed by the driver's
+  operator in a separate commit, then the check re-run: passed). R (blind Opus, $17.86: 30 stores, DataStore 220
+  lines). All pass `check.sh` (1,214 tests, demo identical to A).
+- **Manipulation check** (`ambiguity/manipulation-check/`, `scripts/ambiguity_measure.py` with the entry terms):
+
+  | variant | longest data-access file | median share of hits with a near-twin | median similarity of hits |
+  |---|---|---|---|
+  | A | DataStore 10,387 lines | 0.26 | 0.060 |
+  | S | parts ≈ 1,200 lines | 0.19 | 0.042 |
+  | D-names | 10,387 lines | 0.27 | 0.063 |
+  | D | DataStore 5,991 lines | 0.00 | 0.018 |
+  | R | stores ≤ 615 lines | 0.00 | 0.017 |
+
+  S removes length and keeps the look-alikes (its searches hit more methods, median 16 against 11, because every
+  facade delegate matches too: a real cost of facade-style splitting). D and R remove the near-copies. D-names
+  changes only names, which this body-based measure cannot see; its manipulation needs a name-based measure.

@@ -1,0 +1,121 @@
+{
+ "summary": {
+  "files": 277,
+  "main_lines": 15310,
+  "methods": 1180,
+  "twin_pairs": 2736,
+  "clusters_ge3": 14,
+  "methods_in_clusters": 150,
+  "largest_file": "src/main/java/com/acme/backoffice/DataStore.java",
+  "largest_file_lines": 5991,
+  "largest_file_methods": 637,
+  "largest_file_methods_with_twin": 18
+ },
+ "terms": [
+  {
+   "term": "open orders",
+   "methods": 2,
+   "files": 2,
+   "similar": 0.001,
+   "clustered": 0.0
+  },
+  {
+   "term": "overdue",
+   "methods": 18,
+   "files": 6,
+   "similar": 0.026,
+   "clustered": 0.0
+  },
+  {
+   "term": "back order",
+   "methods": 20,
+   "files": 6,
+   "similar": 0.009,
+   "clustered": 0.0
+  },
+  {
+   "term": "in transit",
+   "methods": 14,
+   "files": 4,
+   "similar": 0.028,
+   "clustered": 0.0
+  },
+  {
+   "term": "low stock",
+   "methods": 8,
+   "files": 4,
+   "similar": 0.021,
+   "clustered": 0.0
+  },
+  {
+   "term": "dormant",
+   "methods": 6,
+   "files": 4,
+   "similar": 0.002,
+   "clustered": 0.0
+  },
+  {
+   "term": "per region",
+   "methods": 37,
+   "files": 19,
+   "similar": 0.074,
+   "clustered": 0.378
+  },
+  {
+   "term": "credit limit",
+   "methods": 11,
+   "files": 3,
+   "similar": 0.043,
+   "clustered": 0.0
+  },
+  {
+   "term": "promotion",
+   "methods": 29,
+   "files": 9,
+   "similar": 0.012,
+   "clustered": 0.0
+  },
+  {
+   "term": "price list",
+   "methods": 4,
+   "files": 3,
+   "similar": 0.015,
+   "clustered": 0.0
+  },
+  {
+   "term": "returns",
+   "methods": 52,
+   "files": 15,
+   "similar": 0.018,
+   "clustered": 0.096
+  },
+  {
+   "term": "open tickets",
+   "methods": 1,
+   "files": 1,
+   "similar": 0.0,
+   "clustered": 0.0
+  },
+  {
+   "term": "sales rep",
+   "methods": 83,
+   "files": 30,
+   "similar": 0.017,
+   "clustered": 0.145
+  },
+  {
+   "term": "archived",
+   "methods": 21,
+   "files": 4,
+   "similar": 0.024,
+   "clustered": 0.0
+  },
+  {
+   "term": "between two dates",
+   "methods": 0,
+   "files": 0,
+   "similar": 0.0,
+   "clustered": 0.0
+  }
+ ]
+}

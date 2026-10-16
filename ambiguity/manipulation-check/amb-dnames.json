@@ -1,0 +1,121 @@
+{
+ "summary": {
+  "files": 277,
+  "main_lines": 19706,
+  "methods": 944,
+  "twin_pairs": 3301,
+  "clusters_ge3": 34,
+  "methods_in_clusters": 296,
+  "largest_file": "src/main/java/com/acme/backoffice/DataStore.java",
+  "largest_file_lines": 10387,
+  "largest_file_methods": 401,
+  "largest_file_methods_with_twin": 190
+ },
+ "terms": [
+  {
+   "term": "open orders",
+   "methods": 2,
+   "files": 2,
+   "similar": 0.001,
+   "clustered": 0.0
+  },
+  {
+   "term": "overdue",
+   "methods": 16,
+   "files": 6,
+   "similar": 0.101,
+   "clustered": 0.375
+  },
+  {
+   "term": "back order",
+   "methods": 18,
+   "files": 6,
+   "similar": 0.046,
+   "clustered": 0.167
+  },
+  {
+   "term": "in transit",
+   "methods": 11,
+   "files": 4,
+   "similar": 0.125,
+   "clustered": 0.455
+  },
+  {
+   "term": "low stock",
+   "methods": 7,
+   "files": 4,
+   "similar": 0.076,
+   "clustered": 0.286
+  },
+  {
+   "term": "dormant",
+   "methods": 7,
+   "files": 4,
+   "similar": 0.016,
+   "clustered": 0.0
+  },
+  {
+   "term": "per region",
+   "methods": 51,
+   "files": 20,
+   "similar": 0.097,
+   "clustered": 0.549
+  },
+  {
+   "term": "credit limit",
+   "methods": 11,
+   "files": 3,
+   "similar": 0.072,
+   "clustered": 0.0
+  },
+  {
+   "term": "promotion",
+   "methods": 55,
+   "files": 9,
+   "similar": 0.186,
+   "clustered": 0.545
+  },
+  {
+   "term": "price list",
+   "methods": 4,
+   "files": 3,
+   "similar": 0.005,
+   "clustered": 0.0
+  },
+  {
+   "term": "returns",
+   "methods": 52,
+   "files": 16,
+   "similar": 0.052,
+   "clustered": 0.327
+  },
+  {
+   "term": "open tickets",
+   "methods": 1,
+   "files": 1,
+   "similar": 0.0,
+   "clustered": 0.0
+  },
+  {
+   "term": "sales rep",
+   "methods": 78,
+   "files": 30,
+   "similar": 0.054,
+   "clustered": 0.244
+  },
+  {
+   "term": "archived",
+   "methods": 14,
+   "files": 4,
+   "similar": 0.092,
+   "clustered": 0.286
+  },
+  {
+   "term": "between two dates",
+   "methods": 0,
+   "files": 0,
+   "similar": 0.0,
+   "clustered": 0.0
+  }
+ ]
+}
