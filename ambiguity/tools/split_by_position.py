@@ -112,6 +112,7 @@ def main():
     if cur:
         parts.append(cur)
     widened = set()
+    has_statics = any("static" in m[3]["header"].split("(")[0].split("=")[0] for m in staying if m[2] in ("field", "method"))
     pkg_line = next(l for l in head if l.startswith("package "))
     imports = [l for l in head if l.startswith("import ")]
     for k, part in enumerate(parts, 1):
@@ -121,7 +122,10 @@ def main():
             text = "\n".join(lines[s:e + 1])
             # rewrite unqualified calls to DataStore methods outside this part, and DataStore's instance fields
             for name in method_names - own:
-                new = re.sub(r"(?<![\w.])" + name + r"\s*\(", "store." + name + "(", text)
+                text2 = re.sub(r"\bthis::" + name + r"\b", "store::" + name, text)  # method references
+                if text2 != text:
+                    widened.add(name); text = text2
+                new = re.sub(r"(?<![\w.:])" + name + r"\s*\(", "store." + name + "(", text)
                 if new != text:
                     widened.add(name); text = new
             for f in instance_fields - {"connection"}:
@@ -130,17 +134,25 @@ def main():
                     widened.add(f); text = new
             body.append(text)
         cname = f"DataStorePart{k:02d}"
-        src = [pkg_line, ""] + imports + ([f"import com.acme.backoffice.DataStore.*;"] if type_names else []) + [
+        src = [pkg_line, ""] + imports + ([f"import com.acme.backoffice.DataStore.*;"] if type_names else []) + (["import static com.acme.backoffice.DataStore.*;"] if has_statics else []) + [
             "", f"class {cname} {{", "    private final DataStore store;", "    private final java.sql.Connection connection;", "",
             f"    {cname}(DataStore store, java.sql.Connection connection) {{", "        this.store = store;",
             "        this.connection = connection;", "    }", ""] + ["\n\n".join(body), "}", ""]
         open(os.path.join(args.root, PKG_DIR, cname + ".java"), "w", encoding="utf-8").write("\n".join(src))
     # the new DataStore: staying members (widened where parts use them), lazy parts, one delegate per moved method
     out = head + [lines[cls]]
+    part_text = "\n".join("\n".join(lines[s:e + 1]) for part in parts for s, e, _, _ in part)
     for s, e, kind, info in staying:
         text = "\n".join(lines[s:e + 1])
+        if kind == "type":  # a nested type the parts use: package-private, and so are its private members
+            tn = re.search(r"\b(?:class|record|enum|interface)\s+(\w+)", info["header"]).group(1)
+            if re.search(r"\b" + tn + r"\b", part_text) or any(re.search(r"\b" + tn + r"\b", "\n".join(lines[s2:e2 + 1])) for s2, e2, k2, _ in staying if k2 != "type"):
+                text = re.sub(r"(?m)^(\s*)private\s+", r"\1", text)
+                widened.add(tn)
         if kind in ("method", "field") and "private" in info.get("mods", info["header"].split("(")[0]):
             nm = info.get("name") or (re.search(r"(\w+)\s*(?:=|;)", info["header"]) or [None, None])[1]
+            if nm and nm != "connection" and re.search(r"(?<![\w.])(?:DataStore::|store\.)?" + nm + r"\b", part_text):  # e.g. DataStore::customerRow
+                widened.add(nm)
             if nm in widened:
                 text = re.sub(r"\bprivate\s+", "", text, count=1)
         out.append(text)
