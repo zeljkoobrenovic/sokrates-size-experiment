@@ -16,26 +16,15 @@ import static org.junit.jupiter.api.Assertions.fail;
 class SupplierPaymentTermsTest {
     private final DataStore store = new DataStore(Database.openInMemory());
 
+    private static final List<String> SUPPLIER_BEFORE = List.of("id", "name", "contactEmail", "country", "rating");
+
     private static Supplier supplier(long id, String name, String email, String country, int rating, int paymentTermsDays) {
-        try {
-            return Supplier.class.getConstructor(long.class, String.class, String.class, String.class, int.class, int.class)
-                    .newInstance(id, name, email, country, rating, paymentTermsDays);
-        } catch (NoSuchMethodException e) {
-            return fail("A supplier cannot be given payment terms");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        return AddedRecordComponent.create(Supplier.class, SUPPLIER_BEFORE, java.util.Map.of("id", id, "name", name,
+                "contactEmail", email, "country", country, "rating", rating), paymentTermsDays, "A supplier's payment terms");
     }
 
     private static int paymentTermsDays(Supplier supplier) {
-        try {
-            Method accessor = Supplier.class.getMethod("paymentTermsDays");
-            return ((Number) accessor.invoke(supplier)).intValue();
-        } catch (NoSuchMethodException e) {
-            return fail("A supplier has no payment terms");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        return ((Number) AddedRecordComponent.read(supplier, SUPPLIER_BEFORE, "A supplier's payment terms")).intValue();
     }
 
     private static List<Integer> terms(List<Supplier> suppliers) {

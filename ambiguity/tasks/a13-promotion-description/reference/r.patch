@@ -1,0 +1,76 @@
+diff --git a/src/main/java/com/acme/backoffice/PromotionStore.java b/src/main/java/com/acme/backoffice/PromotionStore.java
+--- a/src/main/java/com/acme/backoffice/PromotionStore.java
++++ b/src/main/java/com/acme/backoffice/PromotionStore.java
+@@ -17,7 +17,7 @@
+ public final class PromotionStore {
+     /** Every promotion query selects from {@code promotion p}. */
+     private static final String SELECT_PROMOTION =
+-            "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category FROM promotion p ";
++            "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category, p.description FROM promotion p ";
+     /** The promotion is active on the date; binds the date twice. */
+     private static final String ACTIVE_ON = "p.start_date <= ? AND p.end_date >= ?";
+ 
+@@ -45,11 +45,12 @@
+ 
+     public Promotion create(Promotion promotion) {
+         long id = jdbc.insert("Cannot create promotion",
+-                "INSERT INTO promotion (code, discount_percent, start_date, end_date, category) VALUES (?, ?, ?, ?, ?)",
++                "INSERT INTO promotion (code, discount_percent, start_date, end_date, category, description) "
++                        + "VALUES (?, ?, ?, ?, ?, ?)",
+                 promotion.code(), promotion.discountPercent(), promotion.startDate(), promotion.endDate(),
+-                promotion.category());
++                promotion.category(), promotion.description());
+         return new Promotion(id, promotion.code(), promotion.discountPercent(), promotion.startDate(),
+-                promotion.endDate(), promotion.category());
++                promotion.endDate(), promotion.category(), promotion.description());
+     }
+ 
+     public Optional<Promotion> findByCode(String code) {
+diff --git a/src/main/java/com/acme/backoffice/Rows.java b/src/main/java/com/acme/backoffice/Rows.java
+--- a/src/main/java/com/acme/backoffice/Rows.java
++++ b/src/main/java/com/acme/backoffice/Rows.java
+@@ -122,11 +122,11 @@
+                 rs.getObject("end_date", LocalDate.class));
+     }
+ 
+-    /** Columns: id, code, discount_percent, start_date, end_date, category. */
++    /** Columns: id, code, discount_percent, start_date, end_date, category, description. */
+     static Promotion promotion(ResultSet rs) throws SQLException {
+         return new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                 rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                rs.getString("category"));
++                rs.getString("category"), rs.getString("description"));
+     }
+ 
+     /** Columns: id, number, customer_id, order_date, status; the lines are loaded per order. */
+diff --git a/src/main/java/com/acme/backoffice/model/Promotion.java b/src/main/java/com/acme/backoffice/model/Promotion.java
+--- a/src/main/java/com/acme/backoffice/model/Promotion.java
++++ b/src/main/java/com/acme/backoffice/model/Promotion.java
+@@ -5,7 +5,14 @@
+ 
+ /**
+  * A percentage discount valid from start to end date, both inclusive. The category is null when the promotion applies to
+- * all products. The id is 0 until the promotion has been created in the database.
++ * all products. The description is the text shown to customers, null when there is none. The id is 0 until the
++ * promotion has been created in the database.
+  */
+-public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category,
++        String description) {
++
++    /** A promotion without a description. */
++    public Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++        this(id, code, discountPercent, startDate, endDate, category, null);
++    }
+ }
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -179,6 +179,7 @@
+     start_date DATE NOT NULL,
+     end_date DATE NOT NULL,
+     category VARCHAR(100),
++    description VARCHAR(500),
+     CHECK (end_date >= start_date)
+ );
+ 

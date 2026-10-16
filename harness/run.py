@@ -240,6 +240,9 @@ def append_row(row):
         fcntl.flock(f, fcntl.LOCK_UN)
     with open(os.path.join(RESULTS, "runs", row["run_id"] + ".json"), "w") as f:
         json.dump(row, f, indent=1)
+    diff = os.path.join(os.path.dirname(row.get("tools_log") or ""), "diff.patch")
+    if row.get("tools_log") and os.path.exists(diff):  # keep the agent's change, so a run can be re-checked later
+        shutil.copy(diff, os.path.join(RESULTS, "runs", row["run_id"] + ".diff"))
     if row.get("tools_log") and os.path.exists(row["tools_log"]):  # keep the per-call log next to the record
         shutil.copy(row["tools_log"], os.path.join(RESULTS, "runs", row["run_id"] + ".tools.jsonl"))
 

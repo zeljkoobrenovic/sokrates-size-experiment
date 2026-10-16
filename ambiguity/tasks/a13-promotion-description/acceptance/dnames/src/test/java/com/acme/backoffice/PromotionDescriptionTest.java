@@ -22,27 +22,18 @@ class PromotionDescriptionTest {
     private final LocalDate june1 = LocalDate.of(2024, 6, 1);
     private final LocalDate june30 = LocalDate.of(2024, 6, 30);
 
+    private static final List<String> PROMOTION_BEFORE = List.of("id", "code", "discountPercent", "startDate", "endDate", "category");
+
     private static Promotion promotion(String code, String percent, LocalDate start, LocalDate end, String category,
             String description) {
-        try {
-            return Promotion.class.getConstructor(long.class, String.class, BigDecimal.class, LocalDate.class, LocalDate.class,
-                    String.class, String.class).newInstance(0L, code, new BigDecimal(percent), start, end, category, description);
-        } catch (NoSuchMethodException e) {
-            return fail("A promotion cannot be given a description");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        java.util.Map<String, Object> values = new java.util.HashMap<>();
+        values.put("id", 0L); values.put("code", code); values.put("discountPercent", new BigDecimal(percent));
+        values.put("startDate", start); values.put("endDate", end); values.put("category", category);
+        return AddedRecordComponent.create(Promotion.class, PROMOTION_BEFORE, values, description, "A promotion's description");
     }
 
     private static String description(Promotion promotion) {
-        try {
-            Method accessor = Promotion.class.getMethod("description");
-            return (String) accessor.invoke(promotion);
-        } catch (NoSuchMethodException e) {
-            return fail("A promotion shows no description");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        return (String) AddedRecordComponent.read(promotion, PROMOTION_BEFORE, "A promotion's description");
     }
 
     private static List<String> descriptions(List<Promotion> promotions) {

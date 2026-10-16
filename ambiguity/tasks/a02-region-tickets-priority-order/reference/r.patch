@@ -1,0 +1,17 @@
+diff --git a/src/main/java/com/acme/backoffice/SupportTicketStore.java b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+--- a/src/main/java/com/acme/backoffice/SupportTicketStore.java
++++ b/src/main/java/com/acme/backoffice/SupportTicketStore.java
+@@ -77,10 +77,10 @@
+         return listOpen("Cannot list open support tickets by priority", "", "t.priority = ?", OLDEST_FIRST, priority.name());
+     }
+ 
+-    /** Tickets of customers in the region that are not closed, oldest first. */
++    /** Tickets of customers in the region that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenInRegion(Region region) {
+-        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?", OLDEST_FIRST,
+-                region.name());
++        return listOpen("Cannot list open support tickets by region", JOIN_CUSTOMER, "c.region = ?",
++                "CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, " + OLDEST_FIRST, region.name());
+     }
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */

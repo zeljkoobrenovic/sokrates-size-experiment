@@ -197,3 +197,11 @@ diff, acceptance; the transcript (per-call usage) and the tool log. Added:
   article-like refactoring (stores per entity, ≤ 615 lines each, near-copies merged), replaces it; H3 (SD ≈ D) stays
   untested. No controls in the targeted series (by the user's choice of tasks); the pilot's controls stand. Infrastructure
   errors are excluded and re-run as in the pilot.
+- **2026-10-16 10:52:17, kind-4 acceptance tests made name-tolerant.** The a11–a13 tests reached the new
+  attribute by a fixed accessor name (`paymentTermsDays`, `assignedAgent`, `description`) and a fixed constructor
+  position, which the task text does not specify; a Haiku run on D named it `agent` and failed on the name alone. The
+  tests now find the one attribute the change added to the record, whatever its name and position
+  (`AddedRecordComponent`), and check its values as before; re-verified on A, S, D, D-names and R (fail before, pass
+  after). Runs of a11–a13 that finished before this time used the strict tests: their token counts stand, their
+  pass/fail is reported separately. From now on the harness keeps each run's diff (`results/runs/<id>.diff`) so
+  a run can be re-checked.

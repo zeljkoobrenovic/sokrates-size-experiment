@@ -1,0 +1,12 @@
+diff --git a/src/main/java/com/acme/backoffice/StockStore.java b/src/main/java/com/acme/backoffice/StockStore.java
+--- a/src/main/java/com/acme/backoffice/StockStore.java
++++ b/src/main/java/com/acme/backoffice/StockStore.java
+@@ -98,7 +98,7 @@
+     public List<StockLevel> listInWarehouse(long warehouseId) {
+         return jdbc.list("Cannot list stock by warehouse",
+                 "SELECT " + Rows.PRODUCT_COLUMNS + ", s.quantity "
+-                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id",
++                        + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 ORDER BY p.name, p.id",
+                 rs -> new StockLevel(Rows.product(rs), rs.getInt("quantity")), warehouseId);
+     }
+ 

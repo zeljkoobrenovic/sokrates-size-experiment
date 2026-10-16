@@ -35,28 +35,20 @@ class TicketAssignedAgentTest {
     private final SalesOrder order = store.createSalesOrder(new SalesOrder(0, "SO-1", alpha.id(), LocalDate.of(2024, 1, 2),
             OrderStatus.CONFIRMED, List.of(new OrderLine(widget.id(), 1, new BigDecimal("10.00")))));
 
+    private static final List<String> TICKET_BEFORE = List.of("id", "number", "customerId", "orderId", "subject", "priority",
+            "status", "openedDate", "closedDate");
+
     private static SupportTicket ticket(String number, long customerId, Long orderId, TicketPriority priority, LocalDate opened,
             String agent) {
-        try {
-            return SupportTicket.class.getConstructor(long.class, String.class, long.class, Long.class, String.class,
-                            TicketPriority.class, TicketStatus.class, LocalDate.class, LocalDate.class, String.class)
-                    .newInstance(0L, number, customerId, orderId, "Problem " + number, priority, TicketStatus.OPEN, opened, null, agent);
-        } catch (NoSuchMethodException e) {
-            return fail("A support ticket cannot be assigned to an agent");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        java.util.Map<String, Object> values = new java.util.HashMap<>();
+        values.put("id", 0L); values.put("number", number); values.put("customerId", customerId); values.put("orderId", orderId);
+        values.put("subject", "Problem " + number); values.put("priority", priority); values.put("status", TicketStatus.OPEN);
+        values.put("openedDate", opened); values.put("closedDate", null);
+        return AddedRecordComponent.create(SupportTicket.class, TICKET_BEFORE, values, agent, "A ticket's assigned agent");
     }
 
     private static String agent(SupportTicket ticket) {
-        try {
-            Method accessor = SupportTicket.class.getMethod("assignedAgent");
-            return (String) accessor.invoke(ticket);
-        } catch (NoSuchMethodException e) {
-            return fail("A support ticket shows no assigned agent");
-        } catch (ReflectiveOperationException e) {
-            throw new IllegalStateException(e);
-        }
+        return (String) AddedRecordComponent.read(ticket, TICKET_BEFORE, "A ticket's assigned agent");
     }
 
     private static List<String> agents(List<SupportTicket> tickets) {
