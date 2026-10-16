@@ -1,0 +1,951 @@
+ambiguity/variant-records/d/BRIEF-agents.md
+  s_3bdacd10641e87::t_b286c48d9199fa 1-73
+ambiguity/variant-records/d/CHANGES.md
+  s_3bdacd10641e87::t_58ca577cd56a78 1-102
+ambiguity/variant-records/d/driver.log
+  s_3bdacd10641e87::t_099b4e7f9332fd 1-3
+ambiguity/variant-records/d/renames.tsv
+  s_3bdacd10641e87::t_1a384d9fdf0ddd 1-245
+ambiguity/variant-records/d/session1.json
+  s_3bdacd10641e87::t_cf69d36ad67255 1
+ambiguity/variants/d/.gitignore
+  s_3bdacd10641e87::t_e85af75d499492 1
+ambiguity/variants/d/pom.xml
+  s_3bdacd10641e87::t_9ae5e8906014e3 1-41
+ambiguity/variants/d/src/main/java/com/acme/backoffice/DataStore.java
+  s_3bdacd10641e87::t_2fc76ac962e7e9 1-5991
+ambiguity/variants/d/src/main/java/com/acme/backoffice/Database.java
+  s_3bdacd10641e87::t_f2c8bd02023285 1-33
+ambiguity/variants/d/src/main/java/com/acme/backoffice/DemoScenario.java
+  s_3bdacd10641e87::t_e5527ea38f3e00 1-3511
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/AddressType.java
+  s_3bdacd10641e87::t_3a4421c1aa6954 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ArchivedYearRevenue.java
+  s_3bdacd10641e87::t_e625c1d4dbe452 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/AuditEntityType.java
+  s_3bdacd10641e87::t_bcac911782658a 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/AuditEntry.java
+  s_3bdacd10641e87::t_b3a924352f5fd9 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/BackOrder.java
+  s_3bdacd10641e87::t_bf8612a4f8bca9 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/BundleComponent.java
+  s_3bdacd10641e87::t_ae9d00a3d84289 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CancellationCount.java
+  s_3bdacd10641e87::t_d5756bc42d36ea 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CancellationReason.java
+  s_3bdacd10641e87::t_7d447fd31f45fd 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CancelledOrder.java
+  s_3bdacd10641e87::t_be9cc11c677d46 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Carrier.java
+  s_3bdacd10641e87::t_9382d408f3bf33 1-15
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CarrierLeadTime.java
+  s_3bdacd10641e87::t_18b7b641a22575 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CarrierOrders.java
+  s_3bdacd10641e87::t_62894d5f15403b 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CarrierPerformance.java
+  s_3bdacd10641e87::t_60bbdeb742267b 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CarrierShippedWeight.java
+  s_3bdacd10641e87::t_45cdae4f9d3132 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Category.java
+  s_3bdacd10641e87::t_c5559445929a4e 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryBackOrders.java
+  s_3bdacd10641e87::t_6e8c815fefc92e 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryMargin.java
+  s_3bdacd10641e87::t_45a87738404591 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryMonthRevenue.java
+  s_3bdacd10641e87::t_cd1b169125205b 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryPurchaseOrders.java
+  s_3bdacd10641e87::t_43cb9d96fcb7d3 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategorySpend.java
+  s_3bdacd10641e87::t_58dacf8ab3a23b 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryStock.java
+  s_3bdacd10641e87::t_f5444518506d35 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategorySupplier.java
+  s_3bdacd10641e87::t_14ca863ef1d293 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategorySupplierProducts.java
+  s_3bdacd10641e87::t_92a5380a6d199c 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CategoryWarehouseStock.java
+  s_3bdacd10641e87::t_13008e413a48d4 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ChannelSales.java
+  s_3bdacd10641e87::t_bd1c69d41f21ad 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ClosedTicket.java
+  s_3bdacd10641e87::t_879755858cc6ea 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CommissionBasis.java
+  s_3bdacd10641e87::t_0bfbbc708937ba 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryCustomerCount.java
+  s_3bdacd10641e87::t_d99c2dfc6d8188 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryInvoiceCount.java
+  s_3bdacd10641e87::t_3c9d24a4c36abe 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryOrderCount.java
+  s_3bdacd10641e87::t_2a2a00640987a1 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryPurchaseOrderCount.java
+  s_3bdacd10641e87::t_a3d08cb69768a9 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryReturnCount.java
+  s_3bdacd10641e87::t_bd10fb4038dfae 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountryShipmentCount.java
+  s_3bdacd10641e87::t_cc92218e07d524 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CountrySpending.java
+  s_3bdacd10641e87::t_f8ba0ce77f7024 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CreditNote.java
+  s_3bdacd10641e87::t_e13cbd6316f853 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Currency.java
+  s_3bdacd10641e87::t_2ac0af8babcc66 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CurrencyInvoices.java
+  s_3bdacd10641e87::t_913e1b90bd6023 1-17
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CurrencyOpenInvoice.java
+  s_3bdacd10641e87::t_743dbc439e31b4 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Customer.java
+  s_3bdacd10641e87::t_5ce32c86a09d28 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerActivity.java
+  s_3bdacd10641e87::t_9c821c07a01fa0 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerAddress.java
+  s_3bdacd10641e87::t_4ffce8d7e8eb26 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerContact.java
+  s_3bdacd10641e87::t_8134a535dcfffc 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerCurrencyInvoices.java
+  s_3bdacd10641e87::t_80d01872627a5e 1-17
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerLateInvoices.java
+  s_3bdacd10641e87::t_5823eaf183e837 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerOpenAmount.java
+  s_3bdacd10641e87::t_67ce6def7bbd4b 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerOpenCredit.java
+  s_3bdacd10641e87::t_f3c6c1fd489b29 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerOverLimit.java
+  s_3bdacd10641e87::t_aa6b1989f8e3fe 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerPartiallyPaidInvoices.java
+  s_3bdacd10641e87::t_5614891b9b987f 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerPrice.java
+  s_3bdacd10641e87::t_12b8ce60254d07 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerPromotionLine.java
+  s_3bdacd10641e87::t_58d6b28f8e53ae 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerPromotions.java
+  s_3bdacd10641e87::t_7cc3b41dbc7c9d 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerRegionSales.java
+  s_3bdacd10641e87::t_2097a7724fbb24 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerReturn.java
+  s_3bdacd10641e87::t_692de2cb8d9215 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerReturns.java
+  s_3bdacd10641e87::t_c359a257508f85 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerSales.java
+  s_3bdacd10641e87::t_0384e651f4ca14 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerSegment.java
+  s_3bdacd10641e87::t_318d04c5e563df 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerStatement.java
+  s_3bdacd10641e87::t_515b85a23e768e 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerStatus.java
+  s_3bdacd10641e87::t_f7a17eedc2c705 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/CustomerUnappliedPayments.java
+  s_3bdacd10641e87::t_1731f333c80d87 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/DailyPaymentTotal.java
+  s_3bdacd10641e87::t_b8b34ad3f5048e 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Dashboard.java
+  s_3bdacd10641e87::t_3a338a8783d531 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/DraftOrder.java
+  s_3bdacd10641e87::t_8bc06fef3764af 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ExchangeRate.java
+  s_3bdacd10641e87::t_1699195af04bd4 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/FirstTimeCustomer.java
+  s_3bdacd10641e87::t_7e6632d64f3e70 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Invoice.java
+  s_3bdacd10641e87::t_f8ed1371524018 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/InvoiceAging.java
+  s_3bdacd10641e87::t_e22767bf5cae9f 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/InvoiceCurrency.java
+  s_3bdacd10641e87::t_e28eb418699261 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/InvoiceStatus.java
+  s_3bdacd10641e87::t_73c9932e376a73 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/InvoiceStatusTotal.java
+  s_3bdacd10641e87::t_de685fb8a7dafe 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/InvoiceTax.java
+  s_3bdacd10641e87::t_041888a2a0aae3 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/LargeOrder.java
+  s_3bdacd10641e87::t_ceaff12be3c9e9 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/LatePaidInvoice.java
+  s_3bdacd10641e87::t_103a0720f14863 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/LatePurchaseOrder.java
+  s_3bdacd10641e87::t_9885cc86217986 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/LowStockAlert.java
+  s_3bdacd10641e87::t_224d27ef1fbadc 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/MonthlyPaymentTotal.java
+  s_3bdacd10641e87::t_f4bbb31fec8887 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/MonthlySales.java
+  s_3bdacd10641e87::t_f3d561f0d32384 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderApproval.java
+  s_3bdacd10641e87::t_83dd49dee1f570 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderHistoryEntry.java
+  s_3bdacd10641e87::t_7f2e8fa2414493 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderLine.java
+  s_3bdacd10641e87::t_1b7901e1309c20 1-13
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderLineMatch.java
+  s_3bdacd10641e87::t_f15006fa55ce45 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderNote.java
+  s_3bdacd10641e87::t_1770476d232011 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderReturns.java
+  s_3bdacd10641e87::t_adba93d04456c3 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderStatus.java
+  s_3bdacd10641e87::t_89fe3db53daef7 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderStatusChange.java
+  s_3bdacd10641e87::t_7f16d01677feca 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/OrderTickets.java
+  s_3bdacd10641e87::t_1644f2d5c08e2f 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PartiallyPaidInvoice.java
+  s_3bdacd10641e87::t_ffa4fd83f39886 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Payment.java
+  s_3bdacd10641e87::t_3882ee40048d3f 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PaymentReceived.java
+  s_3bdacd10641e87::t_abe57fa4ec3302 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PriceChange.java
+  s_3bdacd10641e87::t_a01d5eaa0c45a9 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PriceListUsage.java
+  s_3bdacd10641e87::t_c2b8f134e6d8a9 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PriorityTickets.java
+  s_3bdacd10641e87::t_eedce2c3f023cc 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Product.java
+  s_3bdacd10641e87::t_62f1f7c88bfa00 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductMargin.java
+  s_3bdacd10641e87::t_3e23d54340fe97 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductOrder.java
+  s_3bdacd10641e87::t_3d322ac990a74a 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductPurchaseOrders.java
+  s_3bdacd10641e87::t_eb1f3846475e0a 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductReturnedQuantity.java
+  s_3bdacd10641e87::t_426d56aa979d02 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductReturns.java
+  s_3bdacd10641e87::t_210d6acaff7dd7 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductSales.java
+  s_3bdacd10641e87::t_067c5537cd99cd 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductShipments.java
+  s_3bdacd10641e87::t_2b8d54a51d56ed 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ProductTickets.java
+  s_3bdacd10641e87::t_c7e491c447309a 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Promotion.java
+  s_3bdacd10641e87::t_b74e0be588433f 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PromotionUsage.java
+  s_3bdacd10641e87::t_1676e15477adc9 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PurchaseOrder.java
+  s_3bdacd10641e87::t_3a6c1993e599a0 1-18
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PurchaseOrderLine.java
+  s_3bdacd10641e87::t_35220c9ea1642e 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PurchaseOrderStatus.java
+  s_3bdacd10641e87::t_7c626660175fb2 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/PurchaseSuggestion.java
+  s_3bdacd10641e87::t_fd396d7a6dfaf9 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterCustomers.java
+  s_3bdacd10641e87::t_4f173e3aef0b91 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterInvoices.java
+  s_3bdacd10641e87::t_a9e8c79c90dcd7 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterOrders.java
+  s_3bdacd10641e87::t_3d912935a43089 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterPurchaseOrders.java
+  s_3bdacd10641e87::t_0359e6cd5343a7 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterReturns.java
+  s_3bdacd10641e87::t_467247e446d77e 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/QuarterShipments.java
+  s_3bdacd10641e87::t_30769c53a0a6f2 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ReasonCredit.java
+  s_3bdacd10641e87::t_907a84666d12c9 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ReasonMovements.java
+  s_3bdacd10641e87::t_9025e828a5af22 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ReasonReturns.java
+  s_3bdacd10641e87::t_548ef6b49411b6 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Region.java
+  s_3bdacd10641e87::t_c66e963c4dd2a3 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionContact.java
+  s_3bdacd10641e87::t_d1754bf3003983 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionCustomers.java
+  s_3bdacd10641e87::t_d5c0e39f3a14ad 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionInvoices.java
+  s_3bdacd10641e87::t_8922e695de9f2a 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionLargeInvoice.java
+  s_3bdacd10641e87::t_219c0d182f082b 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionLargeInvoices.java
+  s_3bdacd10641e87::t_222fc7304130b9 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionLeadTime.java
+  s_3bdacd10641e87::t_46accf9b16008f 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionOpenCredit.java
+  s_3bdacd10641e87::t_72ac4da2424d66 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionOverLimit.java
+  s_3bdacd10641e87::t_ad28295272adb3 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionOverview.java
+  s_3bdacd10641e87::t_9468f73c0a6211 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionPartiallyPaidInvoices.java
+  s_3bdacd10641e87::t_77ee4d03e7418a 1-12
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionPayments.java
+  s_3bdacd10641e87::t_50093590e547a1 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionReasonReturns.java
+  s_3bdacd10641e87::t_dee2facd370ec6 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionReport.java
+  s_3bdacd10641e87::t_335fc7db9fd452 1-14
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionSales.java
+  s_3bdacd10641e87::t_3cef5750646445 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionShipments.java
+  s_3bdacd10641e87::t_cf0af39a177c9f 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RegionSmallOrderShare.java
+  s_3bdacd10641e87::t_8e02a7a67dd22e 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RemainingLine.java
+  s_3bdacd10641e87::t_7a3817a44ccc63 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepCommission.java
+  s_3bdacd10641e87::t_cc5dc85b954d37 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepOverLimit.java
+  s_3bdacd10641e87::t_c824b28b4df090 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepOverdueInvoices.java
+  s_3bdacd10641e87::t_38237c4093a5b6 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepPayments.java
+  s_3bdacd10641e87::t_822a8f557c577a 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepPerformance.java
+  s_3bdacd10641e87::t_8799f60bf609f0 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RepeatCustomer.java
+  s_3bdacd10641e87::t_ae5ec85706f6b1 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ReturnLine.java
+  s_3bdacd10641e87::t_0e8546ec7780db 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/RoleContacts.java
+  s_3bdacd10641e87::t_9a1a838c4326f3 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesChannel.java
+  s_3bdacd10641e87::t_e1bcfc70551b14 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesOrder.java
+  s_3bdacd10641e87::t_81f87c20e5f207 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRep.java
+  s_3bdacd10641e87::t_e47c9de3104dc1 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepCustomer.java
+  s_3bdacd10641e87::t_09e589892ba70f 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepCustomerCount.java
+  s_3bdacd10641e87::t_8481459e04cbd7 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepCustomerReportRow.java
+  s_3bdacd10641e87::t_87498887c9b5fe 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepInvoiceCount.java
+  s_3bdacd10641e87::t_d37f108d5b9d27 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepOrderCount.java
+  s_3bdacd10641e87::t_f138f163c71e6e 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepPurchaseOrderCount.java
+  s_3bdacd10641e87::t_e194d11ba7040a 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepReturnCount.java
+  s_3bdacd10641e87::t_2ec872f5de32f2 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesRepShipmentCount.java
+  s_3bdacd10641e87::t_8e4f44d6e58433 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesReturn.java
+  s_3bdacd10641e87::t_7a054e0083a2ea 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SalesTargetProgress.java
+  s_3bdacd10641e87::t_0e9a6f611dcb46 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SegmentRegionCustomers.java
+  s_3bdacd10641e87::t_37d920a0fd69e1 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ServiceLevel.java
+  s_3bdacd10641e87::t_5af3936edd427e 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Shipment.java
+  s_3bdacd10641e87::t_a5c5ec7f8e4178 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/ShipmentStatus.java
+  s_3bdacd10641e87::t_d26200b2e0afc3 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SlowMovingStock.java
+  s_3bdacd10641e87::t_d51c7741e570c4 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SmallOrder.java
+  s_3bdacd10641e87::t_ef8056e642bd77 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StatementEntry.java
+  s_3bdacd10641e87::t_49f694d9f5f781 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StatementEntryType.java
+  s_3bdacd10641e87::t_e4c662f3a2894e 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StockAdjustment.java
+  s_3bdacd10641e87::t_67eb82a40196ee 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StockLevel.java
+  s_3bdacd10641e87::t_e15ca918c0399b 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StockMovement.java
+  s_3bdacd10641e87::t_01d361d203707d 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/StockMovementReason.java
+  s_3bdacd10641e87::t_95ab4eae445a31 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Supplier.java
+  s_3bdacd10641e87::t_c5b6c95592495a 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierPerformance.java
+  s_3bdacd10641e87::t_158eab2b86fc8d 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierProduct.java
+  s_3bdacd10641e87::t_29025179561938 1-10
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierPurchasedQuantity.java
+  s_3bdacd10641e87::t_8bb531bc3bedc5 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierSpending.java
+  s_3bdacd10641e87::t_4e01123bdf71cf 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierStock.java
+  s_3bdacd10641e87::t_7430fa4280227b 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupplierWarehouseStock.java
+  s_3bdacd10641e87::t_54697577d2b24f 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/SupportTicket.java
+  s_3bdacd10641e87::t_64479591ad2565 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TaxRate.java
+  s_3bdacd10641e87::t_46970144c538e3 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TicketCloseTime.java
+  s_3bdacd10641e87::t_bf42677e3246f3 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TicketPriority.java
+  s_3bdacd10641e87::t_ec233a8dcb11fc 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TicketStatus.java
+  s_3bdacd10641e87::t_2e27a6e751c518 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TicketStatusCount.java
+  s_3bdacd10641e87::t_5efefcd543dc9a 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/TransferRoute.java
+  s_3bdacd10641e87::t_265aff41daf704 1-6
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/UnappliedPayment.java
+  s_3bdacd10641e87::t_85e47ca495811c 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/Warehouse.java
+  s_3bdacd10641e87::t_36c1f92b1eef49 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseAdjustments.java
+  s_3bdacd10641e87::t_bf68c9c6315147 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseCategory.java
+  s_3bdacd10641e87::t_b3da13a41da613 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseDeliveryCount.java
+  s_3bdacd10641e87::t_51750fe4ede5f6 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseLatePurchaseOrders.java
+  s_3bdacd10641e87::t_ad00c3803f86b2 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseLateShipments.java
+  s_3bdacd10641e87::t_b9a41f7361c6f6 1-11
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseMovements.java
+  s_3bdacd10641e87::t_cf3239df3eed47 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseOrderFulfillment.java
+  s_3bdacd10641e87::t_d434c512812ec0 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseReturn.java
+  s_3bdacd10641e87::t_5636cc5fc7aa07 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseReturns.java
+  s_3bdacd10641e87::t_773cde52155194 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseShippedQuantity.java
+  s_3bdacd10641e87::t_2fb5369e1b3f5f 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseShippedWeight.java
+  s_3bdacd10641e87::t_7ade8cf04c5b9d 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseSlowMovingStock.java
+  s_3bdacd10641e87::t_1ca547dc172c2a 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseStockValue.java
+  s_3bdacd10641e87::t_38e7e9bf02d8b7 1-7
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseTransfer.java
+  s_3bdacd10641e87::t_2285a9999857db 1-9
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WarehouseTransferLine.java
+  s_3bdacd10641e87::t_569eda5b7fef41 1-5
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayCustomers.java
+  s_3bdacd10641e87::t_c2de5df028cc9d 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayInvoices.java
+  s_3bdacd10641e87::t_a7463e64aa0630 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayOrders.java
+  s_3bdacd10641e87::t_10e80611bca8a0 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayPurchaseOrders.java
+  s_3bdacd10641e87::t_0435c805f47726 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayReturns.java
+  s_3bdacd10641e87::t_d2a86df5378f66 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/WeekdayShipments.java
+  s_3bdacd10641e87::t_beb4e8bedaa08d 1-8
+ambiguity/variants/d/src/main/java/com/acme/backoffice/model/YearOverYearSales.java
+  s_3bdacd10641e87::t_19d9cb5f9978ad 1-51
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/AddressService.java
+  s_3bdacd10641e87::t_822fb267b632c6 1-64
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/AuditService.java
+  s_3bdacd10641e87::t_4144b7403ccacc 1-57
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/BackOrderService.java
+  s_3bdacd10641e87::t_e12cd44cf7d8f7 1-110
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/BundleService.java
+  s_3bdacd10641e87::t_db73ff07009ded 1-61
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CategoryService.java
+  s_3bdacd10641e87::t_6aba1570137197 1-49
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CommissionService.java
+  s_3bdacd10641e87::t_751991c93a0210 1-47
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/ContactService.java
+  s_3bdacd10641e87::t_888de77c8145cb 1-66
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryCustomersService.java
+  s_3bdacd10641e87::t_0561a7cf470556 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryInvoicesService.java
+  s_3bdacd10641e87::t_fa0f497a2a2e20 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryOrdersService.java
+  s_3bdacd10641e87::t_480c922e5af295 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryPurchaseOrdersService.java
+  s_3bdacd10641e87::t_09bee6c1e11302 1-39
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryReturnsService.java
+  s_3bdacd10641e87::t_ce041474b63ac4 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CountryShipmentsService.java
+  s_3bdacd10641e87::t_d2a1887a80c30a 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CreditService.java
+  s_3bdacd10641e87::t_e9463bb57b72ae 1-77
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CurrencyService.java
+  s_3bdacd10641e87::t_fee4542164c659 1-114
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CustomerActivityService.java
+  s_3bdacd10641e87::t_b988debc770758 1-19
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CustomerClosureService.java
+  s_3bdacd10641e87::t_1f13941c85683d 1-36
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/CustomerSegmentService.java
+  s_3bdacd10641e87::t_65bb446af53ee3 1-96
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/DashboardService.java
+  s_3bdacd10641e87::t_b26e67f6a346aa 1-29
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/DiscountApprovalService.java
+  s_3bdacd10641e87::t_d8ef8ad89eda95 1-89
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/DormantCustomerService.java
+  s_3bdacd10641e87::t_34f894729a8ed3 1-37
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/InvoiceService.java
+  s_3bdacd10641e87::t_2c3a9f596a3374 1-210
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestCustomersService.java
+  s_3bdacd10641e87::t_13ef795efe02fe 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestInvoicesService.java
+  s_3bdacd10641e87::t_9c8767b2ef2a16 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestOrdersService.java
+  s_3bdacd10641e87::t_634e9c7681d8c8 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestPurchaseOrdersService.java
+  s_3bdacd10641e87::t_6d4d29cf298b15 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestReturnsService.java
+  s_3bdacd10641e87::t_babb1a8f7d24ab 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/LatestShipmentsService.java
+  s_3bdacd10641e87::t_c76327d7beae65 1-43
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/OrderEntryService.java
+  s_3bdacd10641e87::t_8c5a033eee0c71 1-52
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/OrderFulfillmentService.java
+  s_3bdacd10641e87::t_300577a634c5d6 1-64
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/OrderNoteService.java
+  s_3bdacd10641e87::t_20be74d936a54b 1-57
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/OrderService.java
+  s_3bdacd10641e87::t_c02a7f7137c950 1-252
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/PaymentService.java
+  s_3bdacd10641e87::t_7a857dfc0183c0 1-92
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/PriceHistoryService.java
+  s_3bdacd10641e87::t_4a6c8803fce185 1-39
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/PriceListService.java
+  s_3bdacd10641e87::t_5a69e6db4a09ac 1-89
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/ProductActivationService.java
+  s_3bdacd10641e87::t_d8c240b59ea1ae 1-30
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/PromotionService.java
+  s_3bdacd10641e87::t_106af24af425b4 1-90
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/PurchaseReceivingService.java
+  s_3bdacd10641e87::t_1658122dd3321d 1-115
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterCustomersService.java
+  s_3bdacd10641e87::t_76d5ab74cea7b3 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterInvoicesService.java
+  s_3bdacd10641e87::t_08aad04a309ecc 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterOrdersService.java
+  s_3bdacd10641e87::t_0154425e040a8e 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterPurchaseOrdersService.java
+  s_3bdacd10641e87::t_4817ffb73da1aa 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterReturnsService.java
+  s_3bdacd10641e87::t_2e4e7f8dbb937e 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/QuarterShipmentsService.java
+  s_3bdacd10641e87::t_a07afc7abadc1d 1-22
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/RegionManagerService.java
+  s_3bdacd10641e87::t_9a4479ec75cc9c 1-48
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/RegionReportService.java
+  s_3bdacd10641e87::t_384601fcfbde8d 1-26
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/ReorderService.java
+  s_3bdacd10641e87::t_5a164625e12dfd 1-41
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/ReturnService.java
+  s_3bdacd10641e87::t_1c22bf65358dbe 1-195
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepCustomerCountService.java
+  s_3bdacd10641e87::t_947087a3023a25 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepInvoiceCountService.java
+  s_3bdacd10641e87::t_64fbf352558514 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepOrderCountService.java
+  s_3bdacd10641e87::t_321a0a6c85cd7a 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepPurchaseOrderCountService.java
+  s_3bdacd10641e87::t_e9b4fac4d7ce0a 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepReturnCountService.java
+  s_3bdacd10641e87::t_94cb78c841940f 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesRepShipmentCountService.java
+  s_3bdacd10641e87::t_6e13e91cada0a8 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SalesTargetService.java
+  s_3bdacd10641e87::t_20091968d10596 1-37
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/ShipmentService.java
+  s_3bdacd10641e87::t_e6fa3a5a017372 1-341
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/StatementService.java
+  s_3bdacd10641e87::t_e7bbaedf551b04 1-63
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/StockAdjustmentService.java
+  s_3bdacd10641e87::t_361410158ee833 1-50
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/StockService.java
+  s_3bdacd10641e87::t_dbf1fd4b60e237 1-144
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/StockValueService.java
+  s_3bdacd10641e87::t_39e9d76650bb7c 1-33
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SupplierProductService.java
+  s_3bdacd10641e87::t_0dd5c051bb6835 1-73
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+  s_3bdacd10641e87::t_dd8bded74f537e 1-144
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/TaxService.java
+  s_3bdacd10641e87::t_0bf1cfb985c9ea 1-49
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WarehouseTransferService.java
+  s_3bdacd10641e87::t_b634f7054c1558 1-75
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayCustomersService.java
+  s_3bdacd10641e87::t_d93e0cdf866994 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayInvoicesService.java
+  s_3bdacd10641e87::t_85a60e080a378d 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayOrdersService.java
+  s_3bdacd10641e87::t_4273f9a3430846 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayPurchaseOrdersService.java
+  s_3bdacd10641e87::t_06cc9aa9a37d06 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayReturnsService.java
+  s_3bdacd10641e87::t_8d49a0202147c0 1-23
+ambiguity/variants/d/src/main/java/com/acme/backoffice/service/WeekdayShipmentsService.java
+  s_3bdacd10641e87::t_b7ef46be2c9425 1-23
+ambiguity/variants/d/src/main/resources/schema.sql
+  s_3bdacd10641e87::t_cec5fa4c2d6b17 1-415
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ArchivingTest.java
+  s_3bdacd10641e87::t_d7c371650a35b6 1-101
+ambiguity/variants/d/src/test/java/com/acme/backoffice/AuditLogTest.java
+  s_3bdacd10641e87::t_3f165e43a8a116 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/BackOrderTest.java
+  s_3bdacd10641e87::t_8549471a4363bb 1-84
+ambiguity/variants/d/src/test/java/com/acme/backoffice/BackOrdersPerWarehouseTest.java
+  s_3bdacd10641e87::t_67061bd096a7f9 1-97
+ambiguity/variants/d/src/test/java/com/acme/backoffice/BundleTest.java
+  s_3bdacd10641e87::t_5ddadcaed9431f 1-125
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CancelledOrdersTest.java
+  s_3bdacd10641e87::t_dd9c5921e271b9 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CarrierOrdersTest.java
+  s_3bdacd10641e87::t_40d591194072c0 1-86
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CarrierPerformanceTest.java
+  s_3bdacd10641e87::t_c4b333b6488117 1-104
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CarrierTest.java
+  s_3bdacd10641e87::t_d55430d80a2100 1-44
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CategoryMarginTest.java
+  s_3bdacd10641e87::t_c9cdf62d5b130e 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CategoryTest.java
+  s_3bdacd10641e87::t_9e6c219668e9dc 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ClosedTicketsTest.java
+  s_3bdacd10641e87::t_6563f1d22eba85 1-54
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CommissionTest.java
+  s_3bdacd10641e87::t_159f4012ac2995 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ContactsPerRegionTest.java
+  s_3bdacd10641e87::t_cba03cba7b3c50 1-43
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryCustomersTest.java
+  s_3bdacd10641e87::t_de587dc6cc840c 1-70
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryInvoicesTest.java
+  s_3bdacd10641e87::t_c4ed4fef034f97 1-85
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryOrdersTest.java
+  s_3bdacd10641e87::t_b7eee207a79fe0 1-82
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryPurchaseOrdersTest.java
+  s_3bdacd10641e87::t_12c4d12fcee211 1-89
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryReturnsTest.java
+  s_3bdacd10641e87::t_c6ae1078e0fbb3 1-87
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CountryShipmentsTest.java
+  s_3bdacd10641e87::t_f9c920f8cade7d 1-87
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CreditLimitTest.java
+  s_3bdacd10641e87::t_a8d3d031f501d4 1-86
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CreditNoteTest.java
+  s_3bdacd10641e87::t_e5ed0febdf0dc5 1-76
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CreditNotesPerPeriodTest.java
+  s_3bdacd10641e87::t_004d7f25a5b082 1-81
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CurrencyTest.java
+  s_3bdacd10641e87::t_0bdee034cd7007 1-141
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerActivityTest.java
+  s_3bdacd10641e87::t_74b08bf0478cf4 1-88
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerAddressTest.java
+  s_3bdacd10641e87::t_20574b134af13a 1-67
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerClosureTest.java
+  s_3bdacd10641e87::t_5f22f6ea304ad0 1-89
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerContactTest.java
+  s_3bdacd10641e87::t_4b03124f017def 1-58
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerSegmentRegionTest.java
+  s_3bdacd10641e87::t_ae73fba6be285c 1-84
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerSegmentTest.java
+  s_3bdacd10641e87::t_3e93cf196c06bb 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerShipmentsTest.java
+  s_3bdacd10641e87::t_018c9aed5f26f7 1-87
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomerTest.java
+  s_3bdacd10641e87::t_0817489e763778 1-54
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomersOverCreditLimitTest.java
+  s_3bdacd10641e87::t_a6b32fe041a2c8 1-125
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomersPerRegionTest.java
+  s_3bdacd10641e87::t_4f6a9126c0c8a5 1-66
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomersWithOpenCreditTest.java
+  s_3bdacd10641e87::t_2dce110396e33f 1-119
+ambiguity/variants/d/src/test/java/com/acme/backoffice/CustomersWithoutInvoicesTest.java
+  s_3bdacd10641e87::t_145db4b3bcc3a4 1-94
+ambiguity/variants/d/src/test/java/com/acme/backoffice/DashboardTest.java
+  s_3bdacd10641e87::t_26d4206112f23f 1-106
+ambiguity/variants/d/src/test/java/com/acme/backoffice/DeliveryTrackingTest.java
+  s_3bdacd10641e87::t_6b9db31acfbf1f 1-97
+ambiguity/variants/d/src/test/java/com/acme/backoffice/DemoScenarioTest.java
+  s_3bdacd10641e87::t_b0884a22741efa 1-17
+ambiguity/variants/d/src/test/java/com/acme/backoffice/DiscountApprovalTest.java
+  s_3bdacd10641e87::t_c6cf3ec47632cb 1-99
+ambiguity/variants/d/src/test/java/com/acme/backoffice/DormantCustomerTest.java
+  s_3bdacd10641e87::t_89f48e366de30c 1-69
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ExpiringPriceListTest.java
+  s_3bdacd10641e87::t_d39d540fd49fda 1-56
+ambiguity/variants/d/src/test/java/com/acme/backoffice/FirstTimeCustomersTest.java
+  s_3bdacd10641e87::t_5c7af52203542f 1-95
+ambiguity/variants/d/src/test/java/com/acme/backoffice/InvoiceAgingTest.java
+  s_3bdacd10641e87::t_27e6acd2a7c265 1-88
+ambiguity/variants/d/src/test/java/com/acme/backoffice/InvoiceSearchTest.java
+  s_3bdacd10641e87::t_5425075a9291b5 1-72
+ambiguity/variants/d/src/test/java/com/acme/backoffice/InvoiceTest.java
+  s_3bdacd10641e87::t_1d47504db95922 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LargeInvoicesTest.java
+  s_3bdacd10641e87::t_ff72bbb54d993a 1-76
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LargeOrderTest.java
+  s_3bdacd10641e87::t_f776c552c5f43a 1-60
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatePaidInvoicesTest.java
+  s_3bdacd10641e87::t_9923cd98f37e50 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatePurchaseOrdersPerWarehouseTest.java
+  s_3bdacd10641e87::t_fb78904d959ae7 1-65
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LateShipmentsByWarehouseTest.java
+  s_3bdacd10641e87::t_179470a16f22fd 1-85
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestCustomersTest.java
+  s_3bdacd10641e87::t_47feec859f3c5e 1-66
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestInvoicesTest.java
+  s_3bdacd10641e87::t_e5132d76d486ae 1-76
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestOrdersTest.java
+  s_3bdacd10641e87::t_c422ce7cc930ec 1-73
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestPurchaseOrdersTest.java
+  s_3bdacd10641e87::t_fe7de47b38fe9b 1-76
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestReturnsTest.java
+  s_3bdacd10641e87::t_5aa7f4ee5ef71c 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LatestShipmentsTest.java
+  s_3bdacd10641e87::t_797b9fddc9d13d 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LeadTimeTest.java
+  s_3bdacd10641e87::t_3a22268f061907 1-103
+ambiguity/variants/d/src/test/java/com/acme/backoffice/LowStockTest.java
+  s_3bdacd10641e87::t_ac5e0b9a434c1b 1-71
+ambiguity/variants/d/src/test/java/com/acme/backoffice/MonthlySalesTest.java
+  s_3bdacd10641e87::t_a41a2909164c44 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/NegativeAdjustmentsTest.java
+  s_3bdacd10641e87::t_cdf4ff244b9f63 1-58
+ambiguity/variants/d/src/test/java/com/acme/backoffice/NotesPerCustomerTest.java
+  s_3bdacd10641e87::t_76772f7ba0e08d 1-53
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OpenInvoicesPerCurrencyTest.java
+  s_3bdacd10641e87::t_d7c183468b5c97 1-74
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OpenOrdersTest.java
+  s_3bdacd10641e87::t_9d34a3d3425f33 1-71
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OpenPurchaseOrdersTest.java
+  s_3bdacd10641e87::t_6c50601fd1e51f 1-72
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderCancellationTest.java
+  s_3bdacd10641e87::t_b65530b5ca49a3 1-70
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderFulfillmentTest.java
+  s_3bdacd10641e87::t_22915ed1912db2 1-95
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderHistoryTest.java
+  s_3bdacd10641e87::t_cef3e02cc57081 1-73
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderLineSearchTest.java
+  s_3bdacd10641e87::t_7a177f9a650abb 1-80
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderNoteTest.java
+  s_3bdacd10641e87::t_2f37a0fd3c15f3 1-63
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderPromotionTest.java
+  s_3bdacd10641e87::t_9ebc4bda9a95e5 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderReturnsTest.java
+  s_3bdacd10641e87::t_2c52117d3dd704 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderSearchTest.java
+  s_3bdacd10641e87::t_29a06c14c8c2d7 1-68
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderStatusTest.java
+  s_3bdacd10641e87::t_dd86140e1cf98b 1-93
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrderTotalsTest.java
+  s_3bdacd10641e87::t_f0add81c4ff90d 1-64
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrdersByPeriodTest.java
+  s_3bdacd10641e87::t_c9144ea4ddb68a 1-63
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrdersPerCategoryTest.java
+  s_3bdacd10641e87::t_26099b4ddc9091 1-96
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OrdersPerProductTest.java
+  s_3bdacd10641e87::t_bdae9b7cdbc2af 1-84
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OverdueInvoiceTest.java
+  s_3bdacd10641e87::t_66a76b52a23491 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/OverdueInvoicesPerRepTest.java
+  s_3bdacd10641e87::t_d8e0a39f4ea8d2 1-81
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PartialShipmentTest.java
+  s_3bdacd10641e87::t_da29366b72e639 1-111
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PartiallyPaidInvoicesTest.java
+  s_3bdacd10641e87::t_d45a0063aa0790 1-76
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PaymentTest.java
+  s_3bdacd10641e87::t_4bb7e54661dc9c 1-81
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PaymentsPerPeriodTest.java
+  s_3bdacd10641e87::t_ac0c0b656b2425 1-102
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PaymentsPerRepTest.java
+  s_3bdacd10641e87::t_6e85a2667ce7cb 1-89
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PriceHistoryTest.java
+  s_3bdacd10641e87::t_29280d9ca408c6 1-71
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PriceListPerCategoryTest.java
+  s_3bdacd10641e87::t_7c3950d7b963ea 1-64
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PriceListTest.java
+  s_3bdacd10641e87::t_2afb1e620778e0 1-88
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PriceListUsageTest.java
+  s_3bdacd10641e87::t_7ebc086e5c2e8d 1-72
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ProductActivationTest.java
+  s_3bdacd10641e87::t_45f5a4e585a12b 1-87
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ProductMarginTest.java
+  s_3bdacd10641e87::t_10b6f46bced6a0 1-81
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ProductReturnsTest.java
+  s_3bdacd10641e87::t_56f7af793b0d6a 1-84
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ProductShipmentsTest.java
+  s_3bdacd10641e87::t_20e30dc7f4ad85 1-93
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ProductTest.java
+  s_3bdacd10641e87::t_06b02f4be53aee 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PromotionTest.java
+  s_3bdacd10641e87::t_f3e3130ffbd39b 1-65
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PromotionUsageTest.java
+  s_3bdacd10641e87::t_c53c50191b6309 1-96
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PromotionsPerCustomerTest.java
+  s_3bdacd10641e87::t_9cc3208cfc3a65 1-82
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PromotionsPerRegionTest.java
+  s_3bdacd10641e87::t_92bb808133e324 1-55
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseOrderSearchTest.java
+  s_3bdacd10641e87::t_a825eef45eccff 1-73
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseOrderTest.java
+  s_3bdacd10641e87::t_312b328eb65cb9 1-69
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseOrdersPerCategoryTest.java
+  s_3bdacd10641e87::t_ae7a269021a7f7 1-81
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseOrdersPerProductTest.java
+  s_3bdacd10641e87::t_541a4013853c14 1-68
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseReceivingTest.java
+  s_3bdacd10641e87::t_748b3cbb8f8668 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/PurchaseSuggestionTest.java
+  s_3bdacd10641e87::t_790a76c5e52197 1-82
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterCustomersTest.java
+  s_3bdacd10641e87::t_ca917c12e69266 1-73
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterInvoicesTest.java
+  s_3bdacd10641e87::t_e67f924c65c15b 1-89
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterOrdersTest.java
+  s_3bdacd10641e87::t_1f24a6dbc40283 1-85
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterPurchaseOrdersTest.java
+  s_3bdacd10641e87::t_b06598c82991be 1-83
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterReturnsTest.java
+  s_3bdacd10641e87::t_c57fb4db70b5ed 1-90
+ambiguity/variants/d/src/test/java/com/acme/backoffice/QuarterShipmentsTest.java
+  s_3bdacd10641e87::t_7100c817349be6 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ReasonReturnsTest.java
+  s_3bdacd10641e87::t_853212b11226a8 1-75
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RegionInvoicesTest.java
+  s_3bdacd10641e87::t_2ee48f088b7b66 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RegionManagerTest.java
+  s_3bdacd10641e87::t_e79c9e168cf0d8 1-105
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RegionPaymentsTest.java
+  s_3bdacd10641e87::t_a494c640bff042 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RegionReportTest.java
+  s_3bdacd10641e87::t_dc413be78902df 1-114
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RegionShipmentsTest.java
+  s_3bdacd10641e87::t_5806e1dbdfcb78 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RepInvoicesTest.java
+  s_3bdacd10641e87::t_014d39ee78680b 1-97
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RepPerformanceTest.java
+  s_3bdacd10641e87::t_96cc26dfbfebc4 1-62
+ambiguity/variants/d/src/test/java/com/acme/backoffice/RepeatCustomersTest.java
+  s_3bdacd10641e87::t_023caa514d01ca 1-97
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ReturnSearchTest.java
+  s_3bdacd10641e87::t_cf2f9a6775fc1d 1-72
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ReturnTest.java
+  s_3bdacd10641e87::t_e918b21304eeb5 1-105
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ReturnsPerCustomerTest.java
+  s_3bdacd10641e87::t_a16a6d610f5b7b 1-68
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ReturnsPerWarehouseTest.java
+  s_3bdacd10641e87::t_7e8b5b39ef66fd 1-72
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesOrderTest.java
+  s_3bdacd10641e87::t_6e2c5d4d4955bf 1-63
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesPerChannelTest.java
+  s_3bdacd10641e87::t_6392e426c8c2c9 1-78
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesPerCustomerTest.java
+  s_3bdacd10641e87::t_612868c285fb0e 1-71
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesPerProductTest.java
+  s_3bdacd10641e87::t_19d602cb8607e2 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesPerRegionTest.java
+  s_3bdacd10641e87::t_14960a1b307bae 1-56
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepCustomerCountTest.java
+  s_3bdacd10641e87::t_2bdd4da9af02e1 1-70
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepCustomerReportTest.java
+  s_3bdacd10641e87::t_c99b84ce65613a 1-99
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepInvoiceCountTest.java
+  s_3bdacd10641e87::t_9e8b6ada4065d8 1-90
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepOrderCountTest.java
+  s_3bdacd10641e87::t_b8750b7772a32c 1-86
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+  s_3bdacd10641e87::t_00ec496a748c5a 1-84
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepReturnCountTest.java
+  s_3bdacd10641e87::t_668840ea766468 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepShipmentCountTest.java
+  s_3bdacd10641e87::t_257171beb0e2c3 1-92
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesRepTest.java
+  s_3bdacd10641e87::t_baddc8ec526cbe 1-46
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SalesTargetTest.java
+  s_3bdacd10641e87::t_07d9746099e93c 1-94
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ShipmentSearchTest.java
+  s_3bdacd10641e87::t_dc0e5d1f84d406 1-86
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ShipmentTest.java
+  s_3bdacd10641e87::t_2ba270ef26901b 1-107
+ambiguity/variants/d/src/test/java/com/acme/backoffice/ShipmentWeightTest.java
+  s_3bdacd10641e87::t_a402236646456d 1-100
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SlowMovingStockTest.java
+  s_3bdacd10641e87::t_a745c74134a002 1-92
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SmallOrderTest.java
+  s_3bdacd10641e87::t_4bd1add593bd6c 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StaleDraftOrdersTest.java
+  s_3bdacd10641e87::t_58e15ac26f5ee0 1-86
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StatementTest.java
+  s_3bdacd10641e87::t_dd0177620e5ffc 1-123
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockAdjustmentTest.java
+  s_3bdacd10641e87::t_d699bee92aa660 1-90
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockMovementTest.java
+  s_3bdacd10641e87::t_caa873ad7ce9ae 1-122
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockMovementsByCategoryTest.java
+  s_3bdacd10641e87::t_7e69c7281dfd22 1-61
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockMovementsPerReasonTest.java
+  s_3bdacd10641e87::t_b4ff090efc47fc 1-53
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockOverviewTest.java
+  s_3bdacd10641e87::t_f45c12047c88bd 1-52
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockPerCategoryTest.java
+  s_3bdacd10641e87::t_fb8b3ce9861e12 1-70
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockPerSupplierTest.java
+  s_3bdacd10641e87::t_df29ef520e4534 1-61
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockTest.java
+  s_3bdacd10641e87::t_52a54749ea4dd6 1-64
+ambiguity/variants/d/src/test/java/com/acme/backoffice/StockValueTest.java
+  s_3bdacd10641e87::t_f1799d3e32f045 1-71
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupplierPerformanceTest.java
+  s_3bdacd10641e87::t_1454cd159f41ae 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupplierProductTest.java
+  s_3bdacd10641e87::t_e63991e0afd571 1-59
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupplierProductsPerCategoryTest.java
+  s_3bdacd10641e87::t_d99f6cf621be38 1-57
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupplierSpendingTest.java
+  s_3bdacd10641e87::t_209a6eedc78703 1-77
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupplierTest.java
+  s_3bdacd10641e87::t_5db80c62107849 1-61
+ambiguity/variants/d/src/test/java/com/acme/backoffice/SupportTicketTest.java
+  s_3bdacd10641e87::t_ce835ada407aee 1-128
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TaxRateTest.java
+  s_3bdacd10641e87::t_e72e6e56e0b121 1-79
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TicketsPerOrderTest.java
+  s_3bdacd10641e87::t_1bd032c8b8fb0b 1-80
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TicketsPerProductTest.java
+  s_3bdacd10641e87::t_9d22a6dc1f5616 1-66
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TicketsPerRegionTest.java
+  s_3bdacd10641e87::t_f2d8a9b364cf85 1-59
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TicketsPerSalesRepTest.java
+  s_3bdacd10641e87::t_fe1d75260ceb44 1-67
+ambiguity/variants/d/src/test/java/com/acme/backoffice/TransfersPerProductTest.java
+  s_3bdacd10641e87::t_0f7ba1991b6f7a 1-61
+ambiguity/variants/d/src/test/java/com/acme/backoffice/UnappliedPaymentsTest.java
+  s_3bdacd10641e87::t_3dd635e6cb8d40 1-69
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WarehousePurchaseOrdersTest.java
+  s_3bdacd10641e87::t_d159658c157432 1-69
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WarehouseTest.java
+  s_3bdacd10641e87::t_c57c627f43696e 1-37
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WarehouseTransferTest.java
+  s_3bdacd10641e87::t_0b093cbeee7b3a 1-120
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayCustomersTest.java
+  s_3bdacd10641e87::t_f60c5369486eca 1-74
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayInvoicesTest.java
+  s_3bdacd10641e87::t_02ce034add5c21 1-91
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayOrdersTest.java
+  s_3bdacd10641e87::t_1b97465627e047 1-87
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayPurchaseOrdersTest.java
+  s_3bdacd10641e87::t_10296e73fcf4e2 1-80
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayReturnsTest.java
+  s_3bdacd10641e87::t_b35d75bab74ed9 1-88
+ambiguity/variants/d/src/test/java/com/acme/backoffice/WeekdayShipmentsTest.java
+  s_3bdacd10641e87::t_0f9ca9b53cbfb2 1-89
+ambiguity/variants/d/src/test/java/com/acme/backoffice/YearOverYearSalesTest.java
+  s_3bdacd10641e87::t_79df7d6cde1188 1-89
+ambiguity/manipulation-check/amb-a.json
+  s_3bdacd10641e87::t_0225ec5d3771a9 1-121
+ambiguity/manipulation-check/amb-d.json
+  s_3bdacd10641e87::t_66b159280b6052 1-121
+ambiguity/manipulation-check/amb-dnames.json
+  s_3bdacd10641e87::t_205528b84d4e3a 1-121
+ambiguity/manipulation-check/amb-r.json
+  s_3bdacd10641e87::t_d4918b51eb184b 1-121
+ambiguity/manipulation-check/amb-s.json
+  s_3bdacd10641e87::t_b73d3ce1e7a3f4 1-121
+plans/ambiguity-experiment.md
+  s_3bdacd10641e87::t_9cf703ada8a31b 174-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "27912c6b04c8d1151748486dcd800dfabfc51c59",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
