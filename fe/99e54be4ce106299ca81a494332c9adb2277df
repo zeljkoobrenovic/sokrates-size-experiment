@@ -1,0 +1,77 @@
+ambiguity/tasks/a08-tickets-per-country/reference/d.patch
+  s_3bdacd10641e87::t_fe2378f7353011 1-121
+ambiguity/tasks/a05-payments-cancelled-invoices/reference/d.patch
+  s_3bdacd10641e87::t_76926e483fb593 1-50
+ambiguity/tasks/a04-latest-orders-archived/reference/d.patch
+  s_3bdacd10641e87::t_f28c77c094d3e9 1-35
+ambiguity/tasks/a02-region-tickets-priority-order/reference/d.patch
+  s_4b2fc1c83277fe::t_1ff5d0c70eaf97 1-14
+ambiguity/tasks/a03-warehouse-stock-empty-lines/reference/d.patch
+  s_720b9e455988fa::t_2764ca286ccea9 1-15
+ambiguity/tasks/a06-closed-customer-contacts/reference/d.patch
+  s_4b2fc1c83277fe::t_61744f696cebf2 1-24
+ambiguity/tasks/a07-payments-per-quarter/reference/d.patch
+  s_0fcf8626e90292::t_7d03a155ad574f 1-74
+ambiguity/tasks/a09-supplier-overdue-purchase-orders/reference/d.patch
+  s_4b2fc1c83277fe::t_d4a22b0c1eb71c 1-14
+ambiguity/tasks/a10-sales-target-unknown-rep/reference/d.patch
+  s_4b2fc1c83277fe::t_634d74add78d4b 1-15
+ambiguity/tasks/a11-supplier-payment-terms/reference/d.patch
+  s_880dc2182cecfe::t_4a04a9513fa6ef 1-157
+ambiguity/tasks/a12-ticket-assigned-agent/reference/d.patch
+  s_880dc2182cecfe::t_70da34e3a70695 1-90
+ambiguity/tasks/a13-promotion-description/reference/d.patch
+  s_880dc2182cecfe::t_d056f971caa7f9 1-103
+ambiguity/tasks/a14-promotion-code-spaces/reference/d.patch
+  s_4b2fc1c83277fe::t_b41ca2401df65d 1-27
+ambiguity/tasks/a15-average-order-value-change/reference/d.patch
+  s_4b2fc1c83277fe::t_caaa52b1c09ed4 1-18
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "fe99e54be4ce106299ca81a494332c9adb2277df",
+  "prompts": {},
+  "sessions": {
+    "s_0fcf8626e90292": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a9f057b0-68b3-46a3-b46f-a9bb32461478",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_4b2fc1c83277fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "agent-ab2d4a4960670d944",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_720b9e455988fa": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c1ae075-db06-434a-854c-d87f4fa32319",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    },
+    "s_880dc2182cecfe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "15875c19-3401-49c1-9913-36598e1dea23",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
