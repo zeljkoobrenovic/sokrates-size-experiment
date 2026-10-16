@@ -384,3 +384,159 @@ amount.
 ## 100 Year-over-year comparison
 For a month, compare revenue, orders and average order value with the same month of the previous year, overall and
 per region.
+
+# Third batch (used only if the first 100 do not reach the entry criteria)
+
+## 101 Orders per carrier
+List the orders shipped with a given carrier between two dates, and report per carrier the number of orders and their
+value.
+
+## 102 Orders with returns
+List the orders that have at least one return, per customer and between two dates, with the returned share of their
+value.
+
+## 103 Large orders
+List the orders above a given value between two dates, per region, biggest first, and the customers who placed them.
+
+## 104 Small orders
+List the orders below a given value between two dates, per customer, and the share of such orders per region.
+
+## 105 Order lead time
+For delivered orders between two dates, report the average days from order to delivery, per region and per carrier.
+
+## 106 Cancelled orders list
+List the cancelled orders between two dates, per customer and per region, newest first.
+
+## 107 Draft orders cleanup list
+List the draft orders older than N days on a given date, per customer and per sales rep.
+
+## 108 Orders per product
+List the non-cancelled orders that contain a product between two dates, newest first, and per customer.
+
+## 109 Orders per category
+List the non-cancelled orders that contain a product of a category between two dates, and the revenue per category
+per month.
+
+## 110 Repeat customers
+List the customers with at least N orders between two dates, per region, most orders first.
+
+## 111 First-time customers
+List the customers whose first order falls between two dates, per region and per sales rep.
+
+## 112 Customers without invoices
+List the active customers that have orders but no invoice between two dates.
+
+## 113 Customers with open credit
+List the customers with credit notes not yet used against an invoice, and the total open credit per region.
+
+## 114 Customers over credit limit
+List the customers whose open invoice amount exceeds their credit limit on a given date, per region and per sales rep.
+
+## 115 Customers per segment and region
+Count and list the customers of each segment per region on a given date.
+
+## 116 Invoices per region
+List the invoices of a region between two dates, the open ones and the paid ones, and the total per status.
+
+## 117 Paid late invoices
+List the invoices paid after their due date between two dates, per customer, with the days late.
+
+## 118 Partially paid invoices
+List the open invoices with at least one payment, per customer and per region, with the amount still due.
+
+## 119 Invoices per currency
+List the open invoices per currency, with their amount in that currency and in EUR, per customer.
+
+## 120 Large invoices
+List the invoices above a given amount between two dates, per region, biggest first.
+
+## 121 Payments per region
+List the payments received from customers of a region between two dates, and the total per month.
+
+## 122 Unapplied payments
+List the payments that exceed the amount due of their invoice (overpayments), per customer.
+
+## 123 Shipments per region
+List the shipments to customers of a region between two dates, those in transit and those delivered late.
+
+## 124 Shipments per product
+List the shipments containing a product between two dates, and the shipped quantity per warehouse.
+
+## 125 Late shipments per warehouse
+List the shipments delivered late per warehouse between two dates, and the share delivered late per warehouse.
+
+## 126 Shipment weight
+Products get a weight. Report the shipped weight per carrier and per warehouse between two dates.
+
+## 127 Returns per customer
+List the returns of a customer between two dates and the returned value; the customers with the most returns first.
+
+## 128 Returns per warehouse
+List the returns received into a warehouse between two dates, and the returned quantity per product there.
+
+## 129 Purchase orders per product
+List the purchase orders containing a product between two dates, and the purchased quantity per supplier.
+
+## 130 Purchase orders per category
+List the purchase orders containing products of a category between two dates, and the spend per category.
+
+## 131 Late purchase orders per warehouse
+List the purchase orders received late into a warehouse between two dates, with the days late.
+
+## 132 Supplier products per category
+List the supplier products of a category, cheapest supplier first, and the categories with a single supplier.
+
+## 133 Stock per supplier
+Show the stock quantity and value of the products a supplier delivers, per warehouse.
+
+## 134 Stock movements per reason
+Report the stock movements per reason between two dates, per warehouse and per product category.
+
+## 135 Stock movements per product category
+List the stock movements of the products of a category between two dates, per warehouse.
+
+## 136 Negative adjustments
+List the stock adjustments that lowered the stock between two dates, per warehouse, biggest loss first.
+
+## 137 Transfers per product
+List the warehouse transfers containing a product between two dates, and the transferred quantity per route.
+
+## 138 Promotions per region
+Promotions can be limited to a region. List the promotions active in a region on a given date.
+
+## 139 Promotions per customer
+List the order lines of a customer that got a promotion between two dates, and the discount given to that customer.
+
+## 140 Price list per category
+List a customer's special prices for the products of a category, valid on a given date.
+
+## 141 Expiring price lists
+List the special prices that expire in the N days after a given date, per customer.
+
+## 142 Tickets per sales rep
+List the open tickets of the customers of a sales rep, per priority, oldest first.
+
+## 143 Tickets per order
+List the tickets that refer to an order, per customer, and the orders with more than one ticket.
+
+## 144 Closed tickets
+List the tickets closed between two dates, per customer and per priority, with the days to close.
+
+## 145 Contacts per region
+List the contact persons of the customers of a region, per role.
+
+## 146 Notes per customer
+List the order notes of all orders of a customer, newest first, and those of an author for a customer.
+
+## 147 Audit entries per entity type
+List the audit entries of one entity type (customer, order, invoice) between two dates, newest first.
+
+## 148 Archived orders per customer
+List the archived orders of a customer and of a region, and the archived revenue per year.
+
+## 149 Sales rep customers report
+For a sales rep: the customers, their segment, their last order date and their open invoice amount.
+
+## 150 Region report
+For a region and a period: customers, orders, revenue, open invoices, overdue amount, shipments, returns and open
+tickets.
