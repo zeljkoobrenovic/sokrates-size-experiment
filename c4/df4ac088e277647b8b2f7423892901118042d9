@@ -1,0 +1,87 @@
+levers/claude-md/sokrates-index.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-163
+levers/hints/a02-region-tickets-priority-order.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/tools/code_index.py
+  s_3bdacd10641e87::t_cbb047b9f8320f 2-6,9-13,16-45
+  s_3bdacd10641e87::t_05efc2f0057229 1,7-8,14-15,46-48
+levers/claude-md/ambiguity-index.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-45
+levers/tools/make_hints.py
+  s_3bdacd10641e87::t_b0cda7aabbdb59 67,100-104
+  s_3bdacd10641e87::t_c419d3aa31d347 84-91
+  s_3bdacd10641e87::t_0267d50942c943 92
+  s_3bdacd10641e87::t_4c8cfb239dabfa 7-8,12-13,17-47,51-52,55-56,60,65-66,94,97-98
+  s_3bdacd10641e87::t_32220edf6d5510 1-6,9-11,14-16,48-50,53-54,57-59,61-64,68-83,93,95-96,99,105-120
+levers/claude-md/ambiguity-init.agent.json
+  s_3bdacd10641e87::t_c6d905276f116e 1
+levers/hints/a13-promotion-description.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/hints/t08-scope-file-lists-named-after-aspects.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-2,4
+  s_3bdacd10641e87::t_4c8cfb239dabfa 3
+harness/run.py
+  s_3bdacd10641e87::t_cac4d95fc7c514 20,63,65,79-80,275-276,294,354-356,358
+levers/hints/t03-scoping-conventions-never-matched.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/hints/a12-ticket-assigned-agent.json
+  s_3bdacd10641e87::t_4c8cfb239dabfa 3
+  s_3bdacd10641e87::t_32220edf6d5510 1-2,4
+levers/claude-md/ambiguity-padding.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-314
+levers/claude-md/sokrates-padding.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-402
+levers/claude-md/sokrates-init.agent.json
+  s_3bdacd10641e87::t_c6d905276f116e 1
+harness/chain.py
+  s_3bdacd10641e87::t_3189c1c9209aca 1-173
+levers/tools/run_series.sh
+  s_3bdacd10641e87::t_98598d7d49629e 1-26
+levers/hints/t02-extension-metric-names.json
+  s_3bdacd10641e87::t_0267d50942c943 3
+  s_3bdacd10641e87::t_32220edf6d5510 1-2,4
+levers/claude-md/ambiguity-init.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-37
+levers/hints/t04-mock-folder-is-test-code.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-2,4
+  s_3bdacd10641e87::t_0267d50942c943 3
+levers/hints/a01-po-count-per-rep-cancelled.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/hints/t01-undefined-team-active.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/hints/a11-supplier-payment-terms.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/tools/analyze_levers.py
+  s_3bdacd10641e87::t_7dfe411346b902 1-131
+  s_3bdacd10641e87::t_cbb5531d4a009a 132
+levers/tools/make_claude_md.py
+  s_3bdacd10641e87::t_c6d905276f116e 1-23
+levers/hints/a03-warehouse-stock-empty-lines.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/hints/t09-analyzelandscape-command.json
+  s_3bdacd10641e87::t_32220edf6d5510 1-4
+levers/claude-md/sokrates-init.md
+  s_3bdacd10641e87::t_c6d905276f116e 1-50
+plans/levers-experiment.md
+  s_3bdacd10641e87::t_1113848e5fc858 1-116
+levers/claude-md/padding-prompt.md
+  s_3bdacd10641e87::t_baf0eac7496daf 1-7
+levers/claude-md/padding-source.md
+  s_3bdacd10641e87::t_04f58cc9406eae 1-399
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "c4df4ac088e277647b8b2f7423892901118042d9",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
