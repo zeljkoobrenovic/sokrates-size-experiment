@@ -15,6 +15,8 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+TASKS_DIR = os.path.join(ROOT, "tasks")        # --set <name>: <name>/tasks and <name>/variants instead
+VARIANTS_DIR = os.path.join(ROOT, "variants")
 WORK = os.path.join(ROOT, "work", "check-tasks")
 
 
@@ -38,13 +40,13 @@ def outcome(result):
 
 
 def check(task, variant, keep):
-    task_dir = os.path.join(ROOT, "tasks", task)
+    task_dir = os.path.join(TASKS_DIR, task)
     meta = json.load(open(os.path.join(task_dir, "meta.json")))
     command = with_am(meta.get(f"test_command_{variant}") or meta["test_command"])
     repo = os.path.join(WORK, task, variant)
     shutil.rmtree(repo, ignore_errors=True)
     os.makedirs(repo)
-    subprocess.run(["rsync", "-a", "--exclude", "target", os.path.join(ROOT, "variants", variant) + "/", repo + "/"], check=True)
+    subprocess.run(["rsync", "-a", "--exclude", "target", os.path.join(VARIANTS_DIR, variant) + "/", repo + "/"], check=True)
     acceptance = os.path.join(task_dir, "acceptance", variant)
     if not os.path.isdir(acceptance):
         acceptance = os.path.join(task_dir, "acceptance", "a")
@@ -67,8 +69,12 @@ def main():
     ap.add_argument("--tasks", nargs="*")
     ap.add_argument("--variants", nargs="*", default=["a", "b"])
     ap.add_argument("--keep", action="store_true")
+    ap.add_argument("--set", help="task and variant set under the experiment root, e.g. ambiguity (default: tasks/ and variants/)")
     args = ap.parse_args()
-    tasks = args.tasks or sorted(d for d in os.listdir(os.path.join(ROOT, "tasks")) if os.path.isfile(os.path.join(ROOT, "tasks", d, "meta.json")))
+    global TASKS_DIR, VARIANTS_DIR
+    if args.set:
+        TASKS_DIR, VARIANTS_DIR = os.path.join(ROOT, args.set, "tasks"), os.path.join(ROOT, args.set, "variants")
+    tasks = args.tasks or sorted(d for d in os.listdir(TASKS_DIR) if os.path.isfile(os.path.join(TASKS_DIR, d, "meta.json")))
     ok = True
     for task in tasks:
         for variant in args.variants:

@@ -35,6 +35,8 @@ import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
+TASKS_DIR = os.path.join(ROOT, "tasks")        # --set <name>: <name>/tasks and <name>/variants instead
+VARIANTS_DIR = os.path.join(ROOT, "variants")
 CONFIG = json.load(open(os.path.join(HERE, "config.json")))
 RESULTS = os.path.join(ROOT, "results")
 RUNS_CSV = os.path.join(RESULTS, "runs.csv")
@@ -71,7 +73,7 @@ def ignore_patterns():
 
 
 def prepare_repo(variant, repo):
-    shutil.copytree(os.path.join(ROOT, "variants", variant), repo, ignore=ignore_patterns(), symlinks=True)
+    shutil.copytree(os.path.join(VARIANTS_DIR, variant), repo, ignore=ignore_patterns(), symlinks=True)
     env = dict(ENV, GIT_AUTHOR_DATE=CONFIG["git_date"], GIT_COMMITTER_DATE=CONFIG["git_date"])
     name, email = CONFIG["git_author"].rsplit(" <", 1)
     email = email.rstrip(">")
@@ -257,9 +259,12 @@ def archive_transcript(repo, run_id):
 
 
 def one_run(task, variant, repeat, model, keep, dry_run):
-    task_dir = os.path.join(ROOT, "tasks", task)
+    task_dir = os.path.join(TASKS_DIR, task)
     meta = json.load(open(os.path.join(task_dir, "meta.json")))
-    prompt = open(os.path.join(HERE, "prompt-preamble.md")).read().strip() + "\n\n" + open(os.path.join(task_dir, "task.md")).read().strip()
+    preamble = os.path.join(os.path.dirname(TASKS_DIR), "prompt-preamble.md")  # a set's own preamble, if it has one
+    if not os.path.exists(preamble) or os.path.dirname(TASKS_DIR) == ROOT:
+        preamble = os.path.join(HERE, "prompt-preamble.md")
+    prompt = open(preamble).read().strip() + "\n\n" + open(os.path.join(task_dir, "task.md")).read().strip()
     started = dt.datetime.now()
     run_id = f"{task}-{variant}-r{repeat:02d}-{started.strftime('%Y%m%d-%H%M%S')}"
     work = os.path.join(ROOT, "work", run_id)
@@ -331,16 +336,20 @@ def main():
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--m2", help="own Maven local repository for this process (seeded from ~/.m2); lets one process per variant run in parallel")
     ap.add_argument("--results", default="runs.csv", help="CSV file under results/ to append to (one per series, e.g. runs-haiku.csv)")
+    ap.add_argument("--set", help="task and variant set under the experiment root, e.g. ambiguity (default: tasks/ and variants/)")
     args = ap.parse_args()
+    global TASKS_DIR, VARIANTS_DIR
+    if args.set:
+        TASKS_DIR, VARIANTS_DIR = os.path.join(ROOT, args.set, "tasks"), os.path.join(ROOT, args.set, "variants")
     global RUNS_CSV
     RUNS_CSV = os.path.join(RESULTS, args.results)
     if args.m2:
         use_maven_repo(args.m2)
     for v in args.variants:
-        if not os.path.isdir(os.path.join(ROOT, "variants", v)):
+        if not os.path.isdir(os.path.join(VARIANTS_DIR, v)):
             sys.exit(f"variants/{v} does not exist")
     for t in args.tasks:
-        if not os.path.isfile(os.path.join(ROOT, "tasks", t, "task.md")):
+        if not os.path.isfile(os.path.join(TASKS_DIR, t, "task.md")):
             sys.exit(f"tasks/{t}/task.md does not exist")
     for i in range(args.repeats):
         repeat = args.first_repeat + i
