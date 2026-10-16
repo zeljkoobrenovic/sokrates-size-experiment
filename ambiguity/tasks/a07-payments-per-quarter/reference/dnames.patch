@@ -1,0 +1,89 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+--- a/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:18
++++ b/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:40
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -5880,6 +5881,40 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot find invoices per quarter", e);
++        }
++    }
++
++    /**
++     * For each of the four quarters of the year, in order: the number of payments received in the quarter, in total and
++     * per region of the customer (payments of cancelled invoices are not counted). Quarters and regions without payments
++     * are included with zeros.
++     */
++    public List<QuarterPayments> findPaymentsPerQuarter(int year) {
++        String sql = "SELECT q.x AS quarter_no, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED') AS total_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'NORTH') AS north_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'SOUTH') AS south_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'EAST') AS east_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'WEST') AS west_count "
++                + "FROM SYSTEM_RANGE(1, 4) q ORDER BY q.x";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            for (int i = 1; i <= 5; i++) {
++                statement.setInt(i, year);
++            }
++            try (ResultSet rs = statement.executeQuery()) {
++                List<QuarterPayments> quarters = new ArrayList<>();
++                while (rs.next()) {
++                    Map<Region, Integer> perRegion = new EnumMap<>(Region.class);
++                    perRegion.put(Region.NORTH, rs.getInt("north_count"));
++                    perRegion.put(Region.SOUTH, rs.getInt("south_count"));
++                    perRegion.put(Region.EAST, rs.getInt("east_count"));
++                    perRegion.put(Region.WEST, rs.getInt("west_count"));
++                    quarters.add(new QuarterPayments(rs.getInt("quarter_no"), rs.getInt("total_count"), perRegion));
++                }
++                return quarters;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find payments per quarter", e);
+         }
+     }
+ 
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/model/QuarterPayments.java b/src/main/java/com/acme/backoffice/model/QuarterPayments.java
+--- a/src/main/java/com/acme/backoffice/model/QuarterPayments.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/model/QuarterPayments.java	2026-10-16 07:56:33
+@@ -0,0 +1,7 @@
++package com.acme.backoffice.model;
++
++import java.util.Map;
++
++/** Payments received in one calendar quarter (1 to 4): the total and the number per region (every region present). */
++public record QuarterPayments(int quarter, int total, Map<Region, Integer> perRegion) {
++}
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java b/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java
+--- a/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java	2026-10-16 07:56:33
+@@ -0,0 +1,22 @@
++package com.acme.backoffice.service;
++
++import com.acme.backoffice.DataStore;
++import com.acme.backoffice.model.QuarterPayments;
++
++import java.util.List;
++
++/** The number of payments received per quarter of a year, overall and per region. */
++public class QuarterPaymentsService {
++    private final DataStore store;
++
++    public QuarterPaymentsService(DataStore store) {
++        this.store = store;
++    }
++
++    public List<QuarterPayments> report(int year) {
++        if (year < 1) {
++            throw new IllegalArgumentException("Year must be positive");
++        }
++        return store.findPaymentsPerQuarter(year);
++    }
++}

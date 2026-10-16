@@ -1,0 +1,120 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+--- a/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:18
++++ b/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:53
+@@ -150,6 +150,7 @@
+ import com.acme.backoffice.model.SupplierPurchasedQuantity;
+ import com.acme.backoffice.model.SupplierSpending;
+ import com.acme.backoffice.model.CountrySpending;
++import com.acme.backoffice.model.CountryTicketCount;
+ import com.acme.backoffice.model.SupplierProduct;
+ import com.acme.backoffice.model.SupplierWarehouseStock;
+ import com.acme.backoffice.model.ClosedTicket;
+@@ -6827,6 +6828,59 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot find invoice count per country", e);
++        }
++    }
++
++    /**
++     * The support tickets of the customers of the country opened between the two dates, inclusive, whatever their
++     * status, oldest first, then by id.
++     */
++    public List<SupportTicket> findSupportTicketsByCountry(String country, LocalDate from, LocalDate to) {
++        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date "
++                + "FROM support_ticket t JOIN customer c ON c.id = t.customer_id "
++                + "WHERE c.country = ? AND t.opened_date >= ? AND t.opened_date <= ? "
++                + "ORDER BY t.opened_date, t.id";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            statement.setString(1, country);
++            statement.setObject(2, from);
++            statement.setObject(3, to);
++            try (ResultSet rs = statement.executeQuery()) {
++                List<SupportTicket> tickets = new ArrayList<>();
++                while (rs.next()) {
++                    tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
++                            rs.getObject("order_id", Long.class), rs.getString("subject"),
++                            TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                }
++                return tickets;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find support tickets by country", e);
++        }
++    }
++
++    /**
++     * The number of support tickets opened between the two dates, inclusive, by the customers of each country, whatever
++     * their status (countries without tickets in the period are left out). Sorted by ticket count, highest first, then
++     * by country.
++     */
++    public List<CountryTicketCount> findSupportTicketCountPerCountry(LocalDate from, LocalDate to) {
++        String sql = "SELECT c.country AS country, COUNT(*) AS ticket_count FROM support_ticket t "
++                + "JOIN customer c ON c.id = t.customer_id "
++                + "WHERE t.opened_date >= ? AND t.opened_date <= ? "
++                + "GROUP BY c.country ORDER BY ticket_count DESC, c.country";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            statement.setObject(1, from);
++            statement.setObject(2, to);
++            try (ResultSet rs = statement.executeQuery()) {
++                List<CountryTicketCount> counts = new ArrayList<>();
++                while (rs.next()) {
++                    counts.add(new CountryTicketCount(rs.getString("country"), rs.getInt("ticket_count")));
++                }
++                return counts;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find support ticket count per country", e);
+         }
+     }
+ 
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/model/CountryTicketCount.java b/src/main/java/com/acme/backoffice/model/CountryTicketCount.java
+--- a/src/main/java/com/acme/backoffice/model/CountryTicketCount.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/model/CountryTicketCount.java	2026-10-16 07:56:47
+@@ -0,0 +1,5 @@
++package com.acme.backoffice.model;
++
++/** The number of support tickets of the customers of a country opened in a period. */
++public record CountryTicketCount(String country, int ticketCount) {
++}
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/service/CountryTicketsService.java b/src/main/java/com/acme/backoffice/service/CountryTicketsService.java
+--- a/src/main/java/com/acme/backoffice/service/CountryTicketsService.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/service/CountryTicketsService.java	2026-10-16 07:56:47
+@@ -0,0 +1,36 @@
++package com.acme.backoffice.service;
++
++import com.acme.backoffice.DataStore;
++import com.acme.backoffice.model.CountryTicketCount;
++import com.acme.backoffice.model.SupportTicket;
++
++import java.time.LocalDate;
++import java.util.List;
++
++/** The support tickets of the customers of a country opened between two dates, and the number of tickets per country. */
++public class CountryTicketsService {
++    private final DataStore store;
++
++    public CountryTicketsService(DataStore store) {
++        this.store = store;
++    }
++
++    public List<SupportTicket> tickets(String country, LocalDate from, LocalDate to) {
++        if (country == null || country.isBlank()) {
++            throw new IllegalArgumentException("Country is required");
++        }
++        checkRange(from, to);
++        return store.findSupportTicketsByCountry(country, from, to);
++    }
++
++    public List<CountryTicketCount> countPerCountry(LocalDate from, LocalDate to) {
++        checkRange(from, to);
++        return store.findSupportTicketCountPerCountry(from, to);
++    }
++
++    private void checkRange(LocalDate from, LocalDate to) {
++        if (from == null || to == null || to.isBefore(from)) {
++            throw new IllegalArgumentException("Invalid date range");
++        }
++    }
++}

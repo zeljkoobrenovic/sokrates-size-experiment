@@ -1,0 +1,26 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+--- a/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:18
++++ b/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:56:26
+@@ -7739,7 +7739,8 @@
+     }
+ 
+     public List<CustomerContact> listCustomerContactsWithRole(String role) {
+-        String sql = "SELECT id, customer_id, name, role, email, phone FROM customer_contact WHERE LOWER(role) = LOWER(?) ORDER BY customer_id, id";
++        String sql = "SELECT id, customer_id, name, role, email, phone FROM customer_contact WHERE LOWER(role) = LOWER(?) "
++                + "AND NOT EXISTS (SELECT 1 FROM customer_closure cl WHERE cl.customer_id = customer_contact.customer_id) ORDER BY customer_id, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, role);
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -7755,10 +7756,11 @@
+         }
+     }
+ 
+-    /** Contacts of the customers of the region, sorted by role ignoring case, then customer name, customer id and contact id. */
++    /** Contacts of the customers of the region (closed customers are left out), sorted by role ignoring case, then customer name, customer id and contact id. */
+     public List<RegionContact> listCustomerContactsInRegion(Region region) {
+         String sql = "SELECT k.id, k.customer_id, k.name, k.role, k.email, k.phone, c.name AS customer_name "
+                 + "FROM customer_contact k JOIN customer c ON c.id = k.customer_id WHERE c.region = ? "
++                + "AND NOT EXISTS (SELECT 1 FROM customer_closure cl WHERE cl.customer_id = c.id) "
+                 + "ORDER BY LOWER(k.role), c.name, c.id, k.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, region.name());

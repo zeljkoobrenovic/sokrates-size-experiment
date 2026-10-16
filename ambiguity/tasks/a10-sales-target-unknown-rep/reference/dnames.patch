@@ -1,0 +1,16 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/service/SalesTargetService.java b/src/main/java/com/acme/backoffice/service/SalesTargetService.java
+--- a/src/main/java/com/acme/backoffice/service/SalesTargetService.java	2026-10-16 07:56:18
++++ b/src/main/java/com/acme/backoffice/service/SalesTargetService.java	2026-10-16 07:57:10
+@@ -22,6 +22,12 @@
+         if (target == null || target.signum() <= 0) {
+             throw new IllegalArgumentException("Target must be positive");
+         }
++        if (month == null) {
++            throw new IllegalArgumentException("Month is required");
++        }
++        if (store.findSalesRepById(salesRepId).isEmpty()) {
++            throw new IllegalArgumentException("Unknown sales rep: " + salesRepId);
++        }
+         store.saveSalesTarget(salesRepId, month.atDay(1), target);
+     }
+ 

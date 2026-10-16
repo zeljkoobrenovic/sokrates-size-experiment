@@ -1,0 +1,512 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+--- a/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:07:57
++++ b/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:54:54
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -1163,6 +1164,10 @@
+         return part06().findInvoicesPerQuarter(year);
+     }
+ 
++    public List<QuarterPayments> findPaymentsPerQuarter(int year) {
++        return part06().findPaymentsPerQuarter(year);
++    }
++
+     public List<WeekdayCustomers> findCustomersPerWeekday(LocalDate from, LocalDate to) {
+         return part06().findCustomersPerWeekday(from, to);
+     }
+@@ -1220,7 +1225,7 @@
+     }
+ 
+     public List<SalesOrder> findLatestOrders(int limit) {
+-        return part06().findLatestOrders(limit);
++        return part07().findLatestOrders(limit);
+     }
+ 
+     public List<SalesOrder> findLatestOrdersByRegion(Region region, int limit) {
+@@ -1356,7 +1361,7 @@
+     }
+ 
+     public List<CustomerSales> findSalesPerCustomer(LocalDate from, LocalDate to) {
+-        return part07().findSalesPerCustomer(from, to);
++        return part08().findSalesPerCustomer(from, to);
+     }
+ 
+     public List<CustomerSales> findTopCustomersInRegion(Region region, int limit, LocalDate from, LocalDate to) {
+@@ -1508,7 +1513,7 @@
+     }
+ 
+     public List<RegionOpenCredit> findOpenCreditPerRegion() {
+-        return part08().findOpenCreditPerRegion();
++        return part09().findOpenCreditPerRegion();
+     }
+ 
+     public List<CustomerOverLimit> findCustomersOverCreditLimit(LocalDate asOf) {
+@@ -1712,7 +1717,7 @@
+     }
+ 
+     public BackOrder createBackOrder(long orderId, LocalDate date) {
+-        return part09().createBackOrder(orderId, date);
++        return part10().createBackOrder(orderId, date);
+     }
+ 
+     public Optional<BackOrder> findBackOrderByOrder(long orderId) {
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart01.java b/src/main/java/com/acme/backoffice/DataStorePart01.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart01.java	2026-10-16 07:07:53
++++ b/src/main/java/com/acme/backoffice/DataStorePart01.java	2026-10-16 07:54:31
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart02.java b/src/main/java/com/acme/backoffice/DataStorePart02.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart02.java	2026-10-16 07:07:53
++++ b/src/main/java/com/acme/backoffice/DataStorePart02.java	2026-10-16 07:54:32
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart03.java b/src/main/java/com/acme/backoffice/DataStorePart03.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart03.java	2026-10-16 07:07:54
++++ b/src/main/java/com/acme/backoffice/DataStorePart03.java	2026-10-16 07:54:34
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart04.java b/src/main/java/com/acme/backoffice/DataStorePart04.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart04.java	2026-10-16 07:07:54
++++ b/src/main/java/com/acme/backoffice/DataStorePart04.java	2026-10-16 07:54:36
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart05.java b/src/main/java/com/acme/backoffice/DataStorePart05.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart05.java	2026-10-16 07:07:55
++++ b/src/main/java/com/acme/backoffice/DataStorePart05.java	2026-10-16 07:54:38
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart06.java b/src/main/java/com/acme/backoffice/DataStorePart06.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart06.java	2026-10-16 07:07:55
++++ b/src/main/java/com/acme/backoffice/DataStorePart06.java	2026-10-16 07:54:40
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -772,6 +773,40 @@
+     }
+ 
+     /**
++     * For each of the four quarters of the year, in order: the number of payments received in the quarter, in total and
++     * per region of the customer (payments of cancelled invoices are not counted). Quarters and regions without payments
++     * are included with zeros.
++     */
++    public List<QuarterPayments> findPaymentsPerQuarter(int year) {
++        String sql = "SELECT q.x AS quarter_no, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED') AS total_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'NORTH') AS north_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'SOUTH') AS south_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'EAST') AS east_count, "
++                + "(SELECT COUNT(*) FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id WHERE YEAR(p.payment_date) = ? AND QUARTER(p.payment_date) = q.x AND i.status <> 'CANCELLED' AND c.region = 'WEST') AS west_count "
++                + "FROM SYSTEM_RANGE(1, 4) q ORDER BY q.x";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            for (int i = 1; i <= 5; i++) {
++                statement.setInt(i, year);
++            }
++            try (ResultSet rs = statement.executeQuery()) {
++                List<QuarterPayments> quarters = new ArrayList<>();
++                while (rs.next()) {
++                    Map<Region, Integer> perRegion = new EnumMap<>(Region.class);
++                    perRegion.put(Region.NORTH, rs.getInt("north_count"));
++                    perRegion.put(Region.SOUTH, rs.getInt("south_count"));
++                    perRegion.put(Region.EAST, rs.getInt("east_count"));
++                    perRegion.put(Region.WEST, rs.getInt("west_count"));
++                    quarters.add(new QuarterPayments(rs.getInt("quarter_no"), rs.getInt("total_count"), perRegion));
++                }
++                return quarters;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find payments per quarter", e);
++        }
++    }
++
++    /**
+      * For each day of the week, Monday to Sunday: the number of customers created between the two dates, inclusive, in
+      * total and per region (customers without a created date are not counted). Days and regions without customers are
+      * included with zeros.
+@@ -1164,40 +1199,6 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot find latest customers before customer", e);
+-        }
+-    }
+-
+-    /**
+-     * The N most recently placed orders (cancelled orders are left out), newest first, then by highest id.
+-     */
+-    public List<SalesOrder> findLatestOrders(int limit) {
+-        String sql = "SELECT o.id, o.number, o.customer_id, o.order_date, o.status FROM sales_order o "
+-                + "WHERE o.status <> 'CANCELLED' "
+-                + "ORDER BY o.order_date DESC, o.id DESC LIMIT ?";
+-        String lineSql = "SELECT product_id, quantity, unit_price, promotion_code FROM sales_order_line WHERE order_id = ? ORDER BY line_no";
+-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+-            statement.setInt(1, limit);
+-            try (ResultSet rs = statement.executeQuery()) {
+-                List<SalesOrder> orders = new ArrayList<>();
+-                while (rs.next()) {
+-                    long id = rs.getLong("id");
+-                    List<OrderLine> lines = new ArrayList<>();
+-                    try (PreparedStatement lineStatement = connection.prepareStatement(lineSql)) {
+-                        lineStatement.setLong(1, id);
+-                        try (ResultSet lineRs = lineStatement.executeQuery()) {
+-                            while (lineRs.next()) {
+-                                lines.add(new OrderLine(lineRs.getLong("product_id"), lineRs.getInt("quantity"),
+-                                        lineRs.getBigDecimal("unit_price"), lineRs.getString("promotion_code")));
+-                            }
+-                        }
+-                    }
+-                    orders.add(new SalesOrder(id, rs.getString("number"), rs.getLong("customer_id"),
+-                            rs.getObject("order_date", LocalDate.class), OrderStatus.valueOf(rs.getString("status")), lines));
+-                }
+-                return orders;
+-            }
+-        } catch (SQLException e) {
+-            throw new IllegalStateException("Cannot find latest orders", e);
+         }
+     }
+ }
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart07.java b/src/main/java/com/acme/backoffice/DataStorePart07.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart07.java	2026-10-16 07:07:56
++++ b/src/main/java/com/acme/backoffice/DataStorePart07.java	2026-10-16 07:54:43
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -198,6 +199,40 @@
+     }
+ 
+     /**
++     * The N most recently placed orders (cancelled orders are left out), newest first, then by highest id.
++     */
++    public List<SalesOrder> findLatestOrders(int limit) {
++        String sql = "SELECT o.id, o.number, o.customer_id, o.order_date, o.status FROM sales_order o "
++                + "WHERE o.status <> 'CANCELLED' "
++                + "ORDER BY o.order_date DESC, o.id DESC LIMIT ?";
++        String lineSql = "SELECT product_id, quantity, unit_price, promotion_code FROM sales_order_line WHERE order_id = ? ORDER BY line_no";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            statement.setInt(1, limit);
++            try (ResultSet rs = statement.executeQuery()) {
++                List<SalesOrder> orders = new ArrayList<>();
++                while (rs.next()) {
++                    long id = rs.getLong("id");
++                    List<OrderLine> lines = new ArrayList<>();
++                    try (PreparedStatement lineStatement = connection.prepareStatement(lineSql)) {
++                        lineStatement.setLong(1, id);
++                        try (ResultSet lineRs = lineStatement.executeQuery()) {
++                            while (lineRs.next()) {
++                                lines.add(new OrderLine(lineRs.getLong("product_id"), lineRs.getInt("quantity"),
++                                        lineRs.getBigDecimal("unit_price"), lineRs.getString("promotion_code")));
++                            }
++                        }
++                    }
++                    orders.add(new SalesOrder(id, rs.getString("number"), rs.getLong("customer_id"),
++                            rs.getObject("order_date", LocalDate.class), OrderStatus.valueOf(rs.getString("status")), lines));
++                }
++                return orders;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find latest orders", e);
++        }
++    }
++
++    /**
+      * The N most recently placed orders of customers in the region (cancelled orders are left out), newest first, then
+      * by highest id.
+      */
+@@ -1185,33 +1220,6 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot find returns per reason and region", e);
+-        }
+-    }
+-
+-    /**
+-     * Number and total value of the non-cancelled orders placed between the two dates, inclusive, per customer. Sorted
+-     * by revenue, highest first (then by customer name, then id); customers without orders are left out.
+-     */
+-    public List<CustomerSales> findSalesPerCustomer(LocalDate from, LocalDate to) {
+-        String sql = "SELECT c.id AS id, c.name AS name, COUNT(DISTINCT o.id) AS order_count, "
+-                + "COALESCE(SUM(l.quantity * l.unit_price), 0) AS revenue "
+-                + "FROM sales_order o JOIN customer c ON c.id = o.customer_id "
+-                + "LEFT JOIN sales_order_line l ON l.order_id = o.id "
+-                + "WHERE o.order_date >= ? AND o.order_date <= ? AND o.status <> 'CANCELLED' "
+-                + "GROUP BY c.id, c.name ORDER BY revenue DESC, c.name, c.id";
+-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+-            statement.setObject(1, from);
+-            statement.setObject(2, to);
+-            try (ResultSet rs = statement.executeQuery()) {
+-                List<CustomerSales> sales = new ArrayList<>();
+-                while (rs.next()) {
+-                    sales.add(new CustomerSales(rs.getLong("id"), rs.getString("name"), rs.getInt("order_count"),
+-                            rs.getBigDecimal("revenue")));
+-                }
+-                return sales;
+-            }
+-        } catch (SQLException e) {
+-            throw new IllegalStateException("Cannot find sales per customer", e);
+         }
+     }
+ }
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart08.java b/src/main/java/com/acme/backoffice/DataStorePart08.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart08.java	2026-10-16 07:07:56
++++ b/src/main/java/com/acme/backoffice/DataStorePart08.java	2026-10-16 07:54:46
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -198,6 +199,33 @@
+     }
+ 
+     /**
++     * Number and total value of the non-cancelled orders placed between the two dates, inclusive, per customer. Sorted
++     * by revenue, highest first (then by customer name, then id); customers without orders are left out.
++     */
++    public List<CustomerSales> findSalesPerCustomer(LocalDate from, LocalDate to) {
++        String sql = "SELECT c.id AS id, c.name AS name, COUNT(DISTINCT o.id) AS order_count, "
++                + "COALESCE(SUM(l.quantity * l.unit_price), 0) AS revenue "
++                + "FROM sales_order o JOIN customer c ON c.id = o.customer_id "
++                + "LEFT JOIN sales_order_line l ON l.order_id = o.id "
++                + "WHERE o.order_date >= ? AND o.order_date <= ? AND o.status <> 'CANCELLED' "
++                + "GROUP BY c.id, c.name ORDER BY revenue DESC, c.name, c.id";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            statement.setObject(1, from);
++            statement.setObject(2, to);
++            try (ResultSet rs = statement.executeQuery()) {
++                List<CustomerSales> sales = new ArrayList<>();
++                while (rs.next()) {
++                    sales.add(new CustomerSales(rs.getLong("id"), rs.getString("name"), rs.getInt("order_count"),
++                            rs.getBigDecimal("revenue")));
++                }
++                return sales;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find sales per customer", e);
++        }
++    }
++
++    /**
+      * The customers of the region with the highest revenue, as for the sales per customer, at most the given number of
+      * them.
+      */
+@@ -1194,26 +1222,6 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot find customers with open credit", e);
+-        }
+-    }
+-
+-    /** The open (unused) credit per region: customers, notes and total amount. Largest amount first, then region. */
+-    public List<RegionOpenCredit> findOpenCreditPerRegion() {
+-        String sql = "SELECT c.region AS region, COUNT(DISTINCT c.id) AS customer_count, COUNT(n.id) AS note_count, "
+-                + "SUM(n.amount) AS open_amount FROM credit_note n JOIN customer c ON c.id = n.customer_id "
+-                + "WHERE NOT EXISTS (SELECT 1 FROM credit_note_application a WHERE a.credit_note_id = n.id) "
+-                + "GROUP BY c.region ORDER BY open_amount DESC, c.region";
+-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+-            try (ResultSet rs = statement.executeQuery()) {
+-                List<RegionOpenCredit> regions = new ArrayList<>();
+-                while (rs.next()) {
+-                    regions.add(new RegionOpenCredit(Region.valueOf(rs.getString("region")), rs.getInt("customer_count"),
+-                            rs.getInt("note_count"), rs.getBigDecimal("open_amount")));
+-                }
+-                return regions;
+-            }
+-        } catch (SQLException e) {
+-            throw new IllegalStateException("Cannot find open credit per region", e);
+         }
+     }
+ }
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart09.java b/src/main/java/com/acme/backoffice/DataStorePart09.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart09.java	2026-10-16 07:07:57
++++ b/src/main/java/com/acme/backoffice/DataStorePart09.java	2026-10-16 07:54:49
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -197,6 +198,26 @@
+         this.connection = connection;
+     }
+ 
++    /** The open (unused) credit per region: customers, notes and total amount. Largest amount first, then region. */
++    public List<RegionOpenCredit> findOpenCreditPerRegion() {
++        String sql = "SELECT c.region AS region, COUNT(DISTINCT c.id) AS customer_count, COUNT(n.id) AS note_count, "
++                + "SUM(n.amount) AS open_amount FROM credit_note n JOIN customer c ON c.id = n.customer_id "
++                + "WHERE NOT EXISTS (SELECT 1 FROM credit_note_application a WHERE a.credit_note_id = n.id) "
++                + "GROUP BY c.region ORDER BY open_amount DESC, c.region";
++        try (PreparedStatement statement = connection.prepareStatement(sql)) {
++            try (ResultSet rs = statement.executeQuery()) {
++                List<RegionOpenCredit> regions = new ArrayList<>();
++                while (rs.next()) {
++                    regions.add(new RegionOpenCredit(Region.valueOf(rs.getString("region")), rs.getInt("customer_count"),
++                            rs.getInt("note_count"), rs.getBigDecimal("open_amount")));
++                }
++                return regions;
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot find open credit per region", e);
++        }
++    }
++
+     /**
+      * The customers whose open invoice amount on the date exceeds their credit limit (customers without a limit never do).
+      * Only invoices dated and payments made up to the date count. Sorted by region, then sales rep name (customers
+@@ -1212,30 +1233,6 @@
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot list audit entries by entity type", e);
+-        }
+-    }
+-
+-    public BackOrder createBackOrder(long orderId, LocalDate date) {
+-        String sql = "INSERT INTO back_order (order_id, back_order_date) VALUES (?, ?)";
+-        String selectSql = "SELECT number, customer_id FROM sales_order WHERE id = ?";
+-        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+-            statement.setLong(1, orderId);
+-            statement.setObject(2, date);
+-            statement.executeUpdate();
+-            long id;
+-            try (ResultSet keys = statement.getGeneratedKeys()) {
+-                keys.next();
+-                id = keys.getLong(1);
+-            }
+-            try (PreparedStatement select = connection.prepareStatement(selectSql)) {
+-                select.setLong(1, orderId);
+-                try (ResultSet rs = select.executeQuery()) {
+-                    rs.next();
+-                    return new BackOrder(id, orderId, rs.getString("number"), rs.getLong("customer_id"), date);
+-                }
+-            }
+-        } catch (SQLException e) {
+-            throw new IllegalStateException("Cannot create back order", e);
+         }
+     }
+ }
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart10.java b/src/main/java/com/acme/backoffice/DataStorePart10.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart10.java	2026-10-16 07:07:57
++++ b/src/main/java/com/acme/backoffice/DataStorePart10.java	2026-10-16 07:54:54
+@@ -96,6 +96,7 @@
+ import com.acme.backoffice.model.QuarterCustomers;
+ import com.acme.backoffice.model.QuarterInvoices;
+ import com.acme.backoffice.model.QuarterOrders;
++import com.acme.backoffice.model.QuarterPayments;
+ import com.acme.backoffice.model.QuarterPurchaseOrders;
+ import com.acme.backoffice.model.QuarterReturns;
+ import com.acme.backoffice.model.QuarterShipments;
+@@ -195,6 +196,30 @@
+     DataStorePart10(DataStore store, java.sql.Connection connection) {
+         this.store = store;
+         this.connection = connection;
++    }
++
++    public BackOrder createBackOrder(long orderId, LocalDate date) {
++        String sql = "INSERT INTO back_order (order_id, back_order_date) VALUES (?, ?)";
++        String selectSql = "SELECT number, customer_id FROM sales_order WHERE id = ?";
++        try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
++            statement.setLong(1, orderId);
++            statement.setObject(2, date);
++            statement.executeUpdate();
++            long id;
++            try (ResultSet keys = statement.getGeneratedKeys()) {
++                keys.next();
++                id = keys.getLong(1);
++            }
++            try (PreparedStatement select = connection.prepareStatement(selectSql)) {
++                select.setLong(1, orderId);
++                try (ResultSet rs = select.executeQuery()) {
++                    rs.next();
++                    return new BackOrder(id, orderId, rs.getString("number"), rs.getLong("customer_id"), date);
++                }
++            }
++        } catch (SQLException e) {
++            throw new IllegalStateException("Cannot create back order", e);
++        }
+     }
+ 
+     public Optional<BackOrder> findBackOrderByOrder(long orderId) {
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/model/QuarterPayments.java b/src/main/java/com/acme/backoffice/model/QuarterPayments.java
+--- a/src/main/java/com/acme/backoffice/model/QuarterPayments.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/model/QuarterPayments.java	2026-10-16 07:54:28
+@@ -0,0 +1,7 @@
++package com.acme.backoffice.model;
++
++import java.util.Map;
++
++/** Payments received in one calendar quarter (1 to 4): the total and the number per region (every region present). */
++public record QuarterPayments(int quarter, int total, Map<Region, Integer> perRegion) {
++}
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java b/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java
+--- a/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java	1970-01-01 01:00:00
++++ b/src/main/java/com/acme/backoffice/service/QuarterPaymentsService.java	2026-10-16 07:54:28
+@@ -0,0 +1,22 @@
++package com.acme.backoffice.service;
++
++import com.acme.backoffice.DataStore;
++import com.acme.backoffice.model.QuarterPayments;
++
++import java.util.List;
++
++/** The number of payments received per quarter of a year, overall and per region. */
++public class QuarterPaymentsService {
++    private final DataStore store;
++
++    public QuarterPaymentsService(DataStore store) {
++        this.store = store;
++    }
++
++    public List<QuarterPayments> report(int year) {
++        if (year < 1) {
++            throw new IllegalArgumentException("Year must be positive");
++        }
++        return store.findPaymentsPerQuarter(year);
++    }
++}
