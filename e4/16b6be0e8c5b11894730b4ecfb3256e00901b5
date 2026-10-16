@@ -1,0 +1,19 @@
+scripts/pilots/series_ambiguity.sh
+  s_3bdacd10641e87::t_f2ad215cd5502e 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e416b6be0e8c5b11894730b4ecfb3256e00901b5",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
