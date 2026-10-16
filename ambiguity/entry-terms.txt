@@ -1,0 +1,18 @@
+# Search terms for the entry criterion "ambiguity >= 8 methods hit, median over the terms" (plans/ambiguity-experiment.md).
+# Fixed 2026-10-16 before the final growth was measured and before any task was written: typical words of change
+# requests, taken from the feature requests' vocabulary.
+open orders
+overdue
+back order
+in transit
+low stock
+dormant
+per region
+credit limit
+promotion
+price list
+returns
+open tickets
+sales rep
+archived
+between two dates
