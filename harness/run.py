@@ -271,6 +271,11 @@ def one_run(task, variant, repeat, model, keep, dry_run):
     started = dt.datetime.now()
     run_id = f"{task}-{variant}-r{repeat:02d}-{started.strftime('%Y%m%d-%H%M%S')}"
     work = os.path.join(ROOT, "work", run_id)
+    n = 2
+    while os.path.exists(work) or os.path.exists(os.path.join(RESULTS, "runs", run_id + ".json")):  # two workers, same second
+        run_id = f"{task}-{variant}-r{repeat:02d}-{started.strftime('%Y%m%d-%H%M%S')}-{n}"
+        work = os.path.join(ROOT, "work", run_id)
+        n += 1
     repo = os.path.join(work, "repo")
     log_path = os.path.join(work, "tools.jsonl")
     print(f"=== {run_id}", flush=True)
