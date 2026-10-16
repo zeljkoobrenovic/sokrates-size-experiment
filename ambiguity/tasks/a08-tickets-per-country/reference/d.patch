@@ -1,0 +1,121 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -132,6 +132,7 @@
+ import com.acme.backoffice.model.CountryCustomerCount;
+ import com.acme.backoffice.model.CountryOrderCount;
+ import com.acme.backoffice.model.CountryInvoiceCount;
++import com.acme.backoffice.model.CountryTicketCount;
+ import com.acme.backoffice.model.SalesReturn;
+ import com.acme.backoffice.model.SalesTargetProgress;
+ import com.acme.backoffice.model.ServiceLevel;
+@@ -5200,6 +5201,12 @@
+             return where("c.region = ?", region.name());
+         }
+ 
++        /** Tickets of customers in the country. */
++        public SupportTicketQuery ofCustomersInCountry(String country) {
++            joinCustomer = true;
++            return where("c.country = ?", country);
++        }
++
+         /** Tickets of the customers of the sales rep. */
+         public SupportTicketQuery ofCustomersOfSalesRep(long salesRepId) {
+             joinCustomer = true;
+@@ -5221,6 +5228,11 @@
+             return where("t.order_id IS NOT NULL");
+         }
+ 
++        /** Tickets opened between the two dates, inclusive. */
++        public SupportTicketQuery openedBetween(LocalDate from, LocalDate to) {
++            return where("t.opened_date >= ?", from).where("t.opened_date <= ?", to);
++        }
++
+         /** Tickets opened on or before the date. */
+         public SupportTicketQuery openedOnOrBefore(LocalDate date) {
+             return where("t.opened_date <= ?", date);
+@@ -5281,6 +5293,11 @@
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> findOpenSupportTicketsOfSalesRepHighestPriorityFirst(long salesRepId) {
+         return querySupportTickets(SupportTicketQuery.open().ofCustomersOfSalesRep(salesRepId).highestPriorityFirst());
++    }
++
++    /** Tickets of customers in the country opened between the two dates, inclusive, whatever their status, oldest first. */
++    public List<SupportTicket> findSupportTicketsOfCustomersInCountryOpenedBetween(String country, LocalDate from, LocalDate to) {
++        return querySupportTickets(SupportTicketQuery.all().ofCustomersInCountry(country).openedBetween(from, to));
+     }
+ 
+     /** Tickets about the product that are not closed, oldest first. */
+@@ -5833,7 +5850,9 @@
+          * Cancelled purchase orders are counted too.
+          */
+         PURCHASE_ORDERS("purchase_order po JOIN warehouse w ON w.id = po.warehouse_id JOIN customer c ON c.region = w.region",
+-                "po.id", "po.order_date", "");
++                "po.id", "po.order_date", ""),
++        /** Support tickets of the customer by opened date, whatever their status. */
++        SUPPORT_TICKETS("support_ticket t JOIN customer c ON c.id = t.customer_id", "t.id", "t.opened_date", "");
+ 
+         private final String from;
+         private final String idColumn;
+@@ -5987,5 +6006,14 @@
+      */
+     public List<CountryCustomerCount> findNewCustomerCountPerCountry(LocalDate from, LocalDate to) {
+         return findCountPerCountry(CustomerAttributedRecords.NEW_CUSTOMERS, from, to, CountryCustomerCount::new);
++    }
++
++    /**
++     * The number of support tickets opened between the two dates, inclusive, by the customers of each country, whatever
++     * their status (countries without tickets in the period are left out). Sorted by ticket count, highest first, then
++     * by country.
++     */
++    public List<CountryTicketCount> findSupportTicketCountPerCountry(LocalDate from, LocalDate to) {
++        return findCountPerCountry(CustomerAttributedRecords.SUPPORT_TICKETS, from, to, CountryTicketCount::new);
+     }
+ }
+\ No newline at end of file
+--- a/src/main/java/com/acme/backoffice/model/CountryTicketCount.java
++++ b/src/main/java/com/acme/backoffice/model/CountryTicketCount.java
+@@ -0,0 +1,5 @@
++package com.acme.backoffice.model;
++
++/** The number of support tickets of the customers of a country opened in a period. */
++public record CountryTicketCount(String country, int ticketCount) {
++}
+--- a/src/main/java/com/acme/backoffice/service/CountryTicketsService.java
++++ b/src/main/java/com/acme/backoffice/service/CountryTicketsService.java
+@@ -0,0 +1,36 @@
++package com.acme.backoffice.service;
++
++import com.acme.backoffice.DataStore;
++import com.acme.backoffice.model.CountryTicketCount;
++import com.acme.backoffice.model.SupportTicket;
++
++import java.time.LocalDate;
++import java.util.List;
++
++/** The support tickets of the customers of a country opened between two dates, and the number of tickets per country. */
++public class CountryTicketsService {
++    private final DataStore store;
++
++    public CountryTicketsService(DataStore store) {
++        this.store = store;
++    }
++
++    public List<SupportTicket> tickets(String country, LocalDate from, LocalDate to) {
++        if (country == null || country.isBlank()) {
++            throw new IllegalArgumentException("Country is required");
++        }
++        checkRange(from, to);
++        return store.findSupportTicketsOfCustomersInCountryOpenedBetween(country, from, to);
++    }
++
++    public List<CountryTicketCount> countPerCountry(LocalDate from, LocalDate to) {
++        checkRange(from, to);
++        return store.findSupportTicketCountPerCountry(from, to);
++    }
++
++    private void checkRange(LocalDate from, LocalDate to) {
++        if (from == null || to == null || to.isBefore(from)) {
++            throw new IllegalArgumentException("Invalid date range");
++        }
++    }
++}

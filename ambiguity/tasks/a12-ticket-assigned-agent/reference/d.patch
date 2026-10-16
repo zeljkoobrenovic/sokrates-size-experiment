@@ -1,0 +1,90 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -5140,25 +5140,26 @@
+     // ===== Support tickets =====
+ 
+     public SupportTicket createSupportTicket(SupportTicket ticket) {
+-        long id = insert("INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date) "
+-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
++        long id = insert("INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date, "
++                        + "assigned_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                 ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(), ticket.priority().name(),
+-                ticket.status().name(), ticket.openedDate(), ticket.closedDate());
++                ticket.status().name(), ticket.openedDate(), ticket.closedDate(), ticket.assignedAgent());
+         return new SupportTicket(id, ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate());
++                ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate(), ticket.assignedAgent());
+     }
+ 
+     public Optional<SupportTicket> findSupportTicketByNumber(String number) {
+-        return queryOptional("SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date "
+-                + "FROM support_ticket WHERE number = ?", DataStore::supportTicketRow, number);
++        return queryOptional("SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, "
++                + "assigned_agent FROM support_ticket WHERE number = ?", DataStore::supportTicketRow, number);
+     }
+ 
+-    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date. */
++    /** Columns: id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent. */
+     private static SupportTicket supportTicketRow(ResultSet rs) throws SQLException {
+         return new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                 rs.getObject("order_id", Long.class), rs.getString("subject"),
+                 TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class));
++                rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                rs.getString("assigned_agent"));
+     }
+ 
+     public void updateSupportTicketStatus(long ticketId, TicketStatus status, LocalDate closedDate) {
+@@ -5254,7 +5255,7 @@
+     /** The support tickets selected by the query, in the query's order (oldest first, then by id, by default). */
+     private List<SupportTicket> querySupportTickets(SupportTicketQuery query) {
+         return queryList("SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, "
+-                        + "t.closed_date FROM support_ticket t"
++                        + "t.closed_date, t.assigned_agent FROM support_ticket t"
+                         + (query.joinCustomer ? " JOIN customer c ON c.id = t.customer_id" : "")
+                         + (query.conditions.isEmpty() ? "" : " WHERE " + String.join(" AND ", query.conditions))
+                         + " ORDER BY "
+--- a/src/main/java/com/acme/backoffice/model/SupportTicket.java
++++ b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+@@ -2,7 +2,16 @@
+ 
+ import java.time.LocalDate;
+ 
+-/** A support ticket of a customer. The id is 0 until created. The order id and the closed date may be null. */
++/**
++ * A support ticket of a customer. The id is 0 until created. The order id, the closed date and the assigned agent (the
++ * name of the support agent handling the ticket) may be null.
++ */
+ public record SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
+-        TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        TicketStatus status, LocalDate openedDate, LocalDate closedDate, String assignedAgent) {
++
++    /** A ticket not assigned to an agent. */
++    public SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
++            TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        this(id, number, customerId, orderId, subject, priority, status, openedDate, closedDate, null);
++    }
+ }
+--- a/src/main/java/com/acme/backoffice/service/SupportTicketService.java
++++ b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+@@ -63,7 +63,7 @@
+         LocalDate closedDate = status == TicketStatus.CLOSED ? date : null;
+         store.updateSupportTicketStatus(ticket.id(), status, closedDate);
+         return new SupportTicket(ticket.id(), ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), status, ticket.openedDate(), closedDate);
++                ticket.priority(), status, ticket.openedDate(), closedDate, ticket.assignedAgent());
+     }
+ 
+     /** Tickets of the customer that are open or in progress, oldest first. */
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -350,7 +350,8 @@
+     status VARCHAR(20) NOT NULL,
+     opened_date DATE NOT NULL,
+     closed_date DATE,
+-    product_id BIGINT REFERENCES product (id)
++    product_id BIGINT REFERENCES product (id),
++    assigned_agent VARCHAR(200)
+ );
+ 
+ CREATE TABLE bundle_component (

@@ -1,0 +1,14 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -2520,6 +2520,11 @@
+         return findPurchaseOrders(PurchaseOrderQuery.overdueOn(date).intoWarehouse(warehouseId));
+     }
+ 
++    /** Sent purchase orders of the supplier whose expected date is before the given date, earliest expected date first (then by id). */
++    public List<PurchaseOrder> findOverduePurchaseOrdersOfSupplier(long supplierId, LocalDate date) {
++        return findPurchaseOrders(PurchaseOrderQuery.overdueOn(date).ofSupplier(supplierId));
++    }
++
+     /**
+      * The purchase orders matching all the given criteria, earliest expected date first (then by id). Every criterion is
+      * optional: a null supplier id, warehouse id, status, from date or to date is not applied. The dates are inclusive

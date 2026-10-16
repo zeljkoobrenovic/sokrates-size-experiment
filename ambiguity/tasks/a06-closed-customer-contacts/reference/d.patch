@@ -1,0 +1,24 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -866,16 +866,18 @@
+                 DataStore::customerContactRow, customerId);
+     }
+ 
+-    /** The contacts (of all customers) with the role, ignoring case, ordered by customer id, then contact id. */
++    /** The contacts (of all customers except closed ones) with the role, ignoring case, ordered by customer id, then contact id. */
+     public List<CustomerContact> findCustomerContactsByRole(String role) {
+-        return queryList("SELECT id, customer_id, name, role, email, phone FROM customer_contact WHERE LOWER(role) = LOWER(?) ORDER BY customer_id, id",
++        return queryList("SELECT id, customer_id, name, role, email, phone FROM customer_contact WHERE LOWER(role) = LOWER(?) "
++                + "AND NOT EXISTS (SELECT 1 FROM customer_closure cl WHERE cl.customer_id = customer_contact.customer_id) ORDER BY customer_id, id",
+                 DataStore::customerContactRow, role);
+     }
+ 
+-    /** Contacts of the customers of the region, sorted by role ignoring case, then customer name, customer id and contact id. */
++    /** Contacts of the customers of the region (closed customers are left out), sorted by role ignoring case, then customer name, customer id and contact id. */
+     public List<RegionContact> findCustomerContactsInRegion(Region region) {
+         return queryList("SELECT k.id, k.customer_id, k.name, k.role, k.email, k.phone, c.name AS customer_name "
+                 + "FROM customer_contact k JOIN customer c ON c.id = k.customer_id WHERE c.region = ? "
++                + "AND NOT EXISTS (SELECT 1 FROM customer_closure cl WHERE cl.customer_id = c.id) "
+                 + "ORDER BY LOWER(k.role), c.name, c.id, k.id",
+                 rs -> new RegionContact(rs.getString("customer_name"), customerContactRow(rs)), region.name());
+     }

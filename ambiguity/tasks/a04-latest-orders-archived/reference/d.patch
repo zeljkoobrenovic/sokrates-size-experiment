@@ -1,0 +1,35 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -2780,9 +2780,9 @@
+             return new SalesOrderQuery().where("o.status <> 'CANCELLED'");
+         }
+ 
+-        /** The N most recently placed orders that are not CANCELLED (archived ones included), newest first, then by highest id. */
++        /** The N most recently placed orders that are not CANCELLED and not archived, newest first, then by highest id. */
+         public static SalesOrderQuery latest(int limit) {
+-            SalesOrderQuery query = notCancelled().newestFirst();
++            SalesOrderQuery query = notCancelled().where(NOT_ARCHIVED).newestFirst();
+             query.limit = limit;
+             return query;
+         }
+@@ -3318,17 +3318,17 @@
+                 maxValue, from, to);
+     }
+ 
+-    /** The N latest sales orders (see {@link SalesOrderQuery#latest(int)}: cancelled ones left out), newest first. */
++    /** The N latest sales orders (see {@link SalesOrderQuery#latest(int)}: cancelled and archived ones left out), newest first. */
+     public List<SalesOrder> findLatestSalesOrders(int limit) {
+         return querySalesOrders(SalesOrderQuery.latest(limit));
+     }
+ 
+-    /** The N latest sales orders of customers in the region (cancelled ones left out), newest first, then by highest id. */
++    /** The N latest sales orders of customers in the region (cancelled and archived ones left out), newest first, then by highest id. */
+     public List<SalesOrder> findLatestSalesOrdersInRegion(Region region, int limit) {
+         return querySalesOrders(SalesOrderQuery.latest(limit).inRegion(region));
+     }
+ 
+-    /** The N latest sales orders of the customer (cancelled ones left out), newest first, then by highest id. */
++    /** The N latest sales orders of the customer (cancelled and archived ones left out), newest first, then by highest id. */
+     public List<SalesOrder> findLatestSalesOrdersOfCustomer(long customerId, int limit) {
+         return querySalesOrders(SalesOrderQuery.latest(limit).ofCustomer(customerId));
+     }

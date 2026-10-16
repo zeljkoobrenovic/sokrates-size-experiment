@@ -1,0 +1,18 @@
+--- a/src/main/java/com/acme/backoffice/model/YearOverYearSales.java
++++ b/src/main/java/com/acme/backoffice/model/YearOverYearSales.java
+@@ -30,8 +30,14 @@
+         return changePercent(BigDecimal.valueOf(orderCount), BigDecimal.valueOf(previousOrderCount));
+     }
+ 
+-    /** Average order value change against the previous year in percent, or null when the previous value is zero. */
++    /**
++     * Average order value change against the previous year in percent, or null when the month has no orders (there is
++     * no average to compare) or the previous value is zero.
++     */
+     public BigDecimal averageOrderValueChangePercent() {
++        if (orderCount == 0) {
++            return null;
++        }
+         return changePercent(averageOrderValue(), previousAverageOrderValue());
+     }
+ 

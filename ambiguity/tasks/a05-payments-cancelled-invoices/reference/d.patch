@@ -1,0 +1,50 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -3931,7 +3931,7 @@
+ 
+     /**
+      * Which received payments {@link #findPaymentsReceived} returns: always those received in a period (both dates
+-     * inclusive), narrowed by the chained filters.
++     * inclusive), never those of cancelled invoices, narrowed by the chained filters.
+      */
+     private static final class PaymentReceivedQuery {
+         private final List<String> conditions = new ArrayList<>();
+@@ -3939,6 +3939,7 @@
+ 
+         private PaymentReceivedQuery(LocalDate from, LocalDate to) {
+             where("p.payment_date >= ?", from).where("p.payment_date <= ?", to);
++            conditions.add("i.status <> 'CANCELLED'");
+         }
+ 
+         private PaymentReceivedQuery where(String condition, Object param) {
+@@ -3947,7 +3948,7 @@
+             return this;
+         }
+ 
+-        /** The payments received between the two dates, inclusive. */
++        /** The payments received between the two dates, inclusive, without those of cancelled invoices. */
+         public static PaymentReceivedQuery between(LocalDate from, LocalDate to) {
+             return new PaymentReceivedQuery(from, to);
+         }
+@@ -3966,12 +3967,6 @@
+         public PaymentReceivedQuery ofSalesRep(long salesRepId) {
+             return where("c.sales_rep_id = ?", salesRepId);
+         }
+-
+-        /** Leaves out the payments of cancelled invoices. */
+-        public PaymentReceivedQuery excludingCancelledInvoices() {
+-            conditions.add("i.status <> 'CANCELLED'");
+-            return this;
+-        }
+     }
+ 
+     /** The payments received in the period between the two dates, inclusive, oldest first (then by id). */
+@@ -3986,7 +3981,7 @@
+ 
+     /** The payments of the customer received between the two dates, inclusive, oldest first (then by id), without those of cancelled invoices. */
+     public List<PaymentReceived> findPaymentsReceivedFromCustomerBetweenExcludingCancelledInvoices(long customerId, LocalDate from, LocalDate to) {
+-        return findPaymentsReceived(PaymentReceivedQuery.between(from, to).ofCustomer(customerId).excludingCancelledInvoices());
++        return findPaymentsReceived(PaymentReceivedQuery.between(from, to).ofCustomer(customerId));
+     }
+ 
+     /** The payments received from customers of the region between the two dates, inclusive, oldest first (then by id). */
