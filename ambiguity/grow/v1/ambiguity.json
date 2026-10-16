@@ -1,0 +1,58 @@
+{
+ "summary": {
+  "files": 104,
+  "main_lines": 7088,
+  "methods": 413,
+  "twin_pairs": 305,
+  "clusters_ge3": 2,
+  "methods_in_clusters": 28,
+  "largest_file": "src/main/java/com/acme/backoffice/DataStore.java",
+  "largest_file_lines": 3881,
+  "largest_file_methods": 240,
+  "largest_file_methods_with_twin": 7
+ },
+ "terms": [
+  {
+   "term": "open orders",
+   "methods": 9,
+   "files": 4,
+   "similar": 0.016,
+   "clustered": 0.0
+  },
+  {
+   "term": "overdue invoices",
+   "methods": 7,
+   "files": 4,
+   "similar": 0.012,
+   "clustered": 0.0
+  },
+  {
+   "term": "customer",
+   "methods": 105,
+   "files": 17,
+   "similar": 0.039,
+   "clustered": 0.076
+  },
+  {
+   "term": "region",
+   "methods": 32,
+   "files": 8,
+   "similar": 0.041,
+   "clustered": 0.0
+  },
+  {
+   "term": "back order",
+   "methods": 12,
+   "files": 5,
+   "similar": 0.01,
+   "clustered": 0.0
+  },
+  {
+   "term": "shipment",
+   "methods": 21,
+   "files": 4,
+   "similar": 0.024,
+   "clustered": 0.0
+  }
+ ]
+}
