@@ -189,3 +189,11 @@ diff, acceptance; the transcript (per-call usage) and the tool log. Added:
   S removes length and keeps the look-alikes (its searches hit more methods, median 16 against 11, because every
   facade delegate matches too: a real cost of facade-style splitting). D and R remove the near-copies. D-names
   changes only names, which this body-based measure cannot see; its manipulation needs a name-based measure.
+- **2026-10-16 ~10:45, targeted series started** (after the pilot report, `docs/posts/ambiguity-pilot.md`): the
+  kind-1 and kind-4 tasks (a01–a03, a11–a13), 10 repeats, Sonnet 5.5 and Haiku 5.5, variants A, S, D, D-names and
+  **R instead of SD**. SD (the position split applied to D) was built and passes the behaviour check, but D's
+  134 private helpers and nested types stay in `DataStore`, which is still 4,123 lines (≈ 62k tokens, 2.5× the read
+  window): SD does not bring every piece under one read, so it does not isolate length the way S does. R, the
+  article-like refactoring (stores per entity, ≤ 615 lines each, near-copies merged), replaces it; H3 (SD ≈ D) stays
+  untested. No controls in the targeted series (by the user's choice of tasks); the pilot's controls stand. Infrastructure
+  errors are excluded and re-run as in the pilot.
