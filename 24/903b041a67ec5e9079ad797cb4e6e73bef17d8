@@ -1,0 +1,19 @@
+ambiguity/tasks/a01-po-count-per-rep-cancelled/reference/d.patch
+  s_3bdacd10641e87::t_03c2ddb8399be7 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "24903b041a67ec5e9079ad797cb4e6e73bef17d8",
+  "prompts": {},
+  "sessions": {
+    "s_3bdacd10641e87": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90ff86d9-b4c8-465f-af35-64a8c470eea8",
+        "model": "unknown"
+      },
+      "human_author": "Zeljko Obrenovic <zeljkoobrenovic@yahoo.com>"
+    }
+  }
+}
