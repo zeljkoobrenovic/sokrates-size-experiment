@@ -1,0 +1,6 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-amb-rerun2 from ~/.m2/repository
+=== a13-promotion-description-d-r01-20261016-091845
+  success=True turns=28 input=480506 output=9606 cost=0.2742833 lines_read=81
+=== a05-payments-cancelled-invoices-s-r02-20261016-092005
+  success=True turns=15 input=310293 output=3940 cost=0.14736730000000003 lines_read=0
+reruns done

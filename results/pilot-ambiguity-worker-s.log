@@ -1,0 +1,92 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-amb-s from ~/.m2/repository
+=== a01-po-count-per-rep-cancelled-s-r01-20261016-074932
+  success=True turns=9 input=177652 output=1511 cost=0.0842335 lines_read=0
+=== a02-region-tickets-priority-order-s-r01-20261016-075330
+  success=True turns=9 input=192497 output=1679 cost=0.10066190000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-s-r01-20261016-075559
+  success=True turns=10 input=199425 output=1570 cost=0.08744530000000002 lines_read=0
+=== a04-latest-orders-archived-s-r01-20261016-075853
+  success=True turns=12 input=261664 output=4052 cost=0.1480862 lines_read=0
+=== a05-payments-cancelled-invoices-s-r01-20261016-080132
+  success=True turns=13 input=238074 output=3479 cost=0.14834329999999998 lines_read=0
+=== a06-closed-customer-contacts-s-r01-20261016-080432
+  success=True turns=12 input=292502 output=2821 cost=0.1347337 lines_read=0
+=== a07-payments-per-quarter-s-r01-20261016-080705
+  success=True turns=20 input=360934 output=8459 cost=0.22317410000000004 lines_read=90
+=== a08-tickets-per-country-s-r01-20261016-080944
+  success=True turns=17 input=354621 output=7152 cost=0.2115087 lines_read=0
+=== a09-supplier-overdue-purchase-orders-s-r01-20261016-081147
+  success=True turns=8 input=145165 output=2232 cost=0.11436009999999999 lines_read=0
+=== a10-sales-target-unknown-rep-s-r01-20261016-081324
+  success=True turns=8 input=155279 output=1356 cost=0.08341810000000001 lines_read=0
+=== a11-supplier-payment-terms-s-r01-20261016-081514
+  success=True turns=30 input=655730 output=12452 cost=0.34222640000000004 lines_read=0
+=== a12-ticket-assigned-agent-s-r01-20261016-082053
+  success=True turns=23 input=423148 output=7723 cost=0.2402953 lines_read=0
+=== a13-promotion-description-s-r01-20261016-082620
+  success=True turns=27 input=384024 output=8399 cost=0.2566644 lines_read=6
+=== a14-promotion-code-spaces-s-r01-20261016-082931
+  success=True turns=9 input=188257 output=1485 cost=0.09815750000000002 lines_read=0
+=== a15-average-order-value-change-s-r01-20261016-083143
+  success=True turns=7 input=123865 output=1093 cost=0.0666839 lines_read=52
+=== a01-po-count-per-rep-cancelled-s-r02-20261016-083411
+  success=True turns=6 input=109617 output=1006 cost=0.07587079999999999 lines_read=0
+=== a02-region-tickets-priority-order-s-r02-20261016-083626
+  success=True turns=13 input=258592 output=2429 cost=0.11305899999999999 lines_read=0
+=== a03-warehouse-stock-empty-lines-s-r02-20261016-083843
+  success=True turns=9 input=177671 output=1395 cost=0.0866985 lines_read=0
+=== a04-latest-orders-archived-s-r02-20261016-084109
+  success=True turns=12 input=249041 output=3357 cost=0.1289617 lines_read=0
+=== a05-payments-cancelled-invoices-s-r02-20261016-084334
+  success=True turns=13 input=231846 output=3071 cost=0.1284539 lines_read=0
+=== a06-closed-customer-contacts-s-r02-20261016-091339
+  success=True turns=11 input=226615 output=2542 cost=0.11832740000000001 lines_read=0
+=== a07-payments-per-quarter-s-r02-20261016-091820
+  success=True turns=15 input=245501 output=7961 cost=0.20291109999999998 lines_read=0
+=== a08-tickets-per-country-s-r02-20261016-091933
+  success=True turns=15 input=251186 output=6907 cost=0.20113740000000002 lines_read=0
+=== a09-supplier-overdue-purchase-orders-s-r02-20261016-092028
+  success=True turns=11 input=196685 output=3311 cost=0.12312980000000001 lines_read=0
+=== a10-sales-target-unknown-rep-s-r02-20261016-092116
+  success=True turns=7 input=134242 output=1458 cost=0.08518150000000001 lines_read=0
+=== a11-supplier-payment-terms-s-r02-20261016-092154
+  success=True turns=40 input=733996 output=16831 cost=0.42659509999999995 lines_read=106
+=== a12-ticket-assigned-agent-s-r02-20261016-092402
+  success=True turns=26 input=596490 output=8827 cost=0.31452150000000006 lines_read=240
+=== a13-promotion-description-s-r02-20261016-092522
+  success=True turns=28 input=444031 output=9544 cost=0.27546040000000005 lines_read=74
+=== a14-promotion-code-spaces-s-r02-20261016-092644
+  success=True turns=7 input=136204 output=1250 cost=0.0819015 lines_read=91
+=== a15-average-order-value-change-s-r02-20261016-092720
+  success=True turns=6 input=101449 output=901 cost=0.0591918 lines_read=0
+=== a01-po-count-per-rep-cancelled-s-r03-20261016-092751
+  success=True turns=12 input=241363 output=2256 cost=0.1104681 lines_read=0
+=== a02-region-tickets-priority-order-s-r03-20261016-092829
+  success=True turns=9 input=155376 output=1729 cost=0.0859839 lines_read=0
+=== a03-warehouse-stock-empty-lines-s-r03-20261016-092909
+  success=True turns=10 input=208256 output=1729 cost=0.09880259999999999 lines_read=0
+=== a04-latest-orders-archived-s-r03-20261016-092947
+  success=True turns=18 input=387979 output=4974 cost=0.17513600000000001 lines_read=0
+=== a05-payments-cancelled-invoices-s-r03-20261016-093046
+  success=True turns=14 input=322839 output=3603 cost=0.16654990000000003 lines_read=0
+=== a06-closed-customer-contacts-s-r03-20261016-093147
+  success=True turns=9 input=196756 output=2004 cost=0.10858489999999998 lines_read=0
+=== a07-payments-per-quarter-s-r03-20261016-093226
+  success=True turns=18 input=320810 output=9628 cost=0.2415418 lines_read=0
+=== a08-tickets-per-country-s-r03-20261016-093339
+  success=True turns=19 input=325558 output=10689 cost=0.2635661 lines_read=0
+=== a09-supplier-overdue-purchase-orders-s-r03-20261016-093501
+  success=True turns=11 input=226479 output=3842 cost=0.13829870000000002 lines_read=0
+=== a10-sales-target-unknown-rep-s-r03-20261016-093549
+  success=True turns=9 input=177645 output=1508 cost=0.08877750000000001 lines_read=0
+=== a11-supplier-payment-terms-s-r03-20261016-093626
+  success=True turns=36 input=574494 output=12968 cost=0.344879 lines_read=0
+=== a12-ticket-assigned-agent-s-r03-20261016-095159
+  success=True turns=24 input=537846 output=9657 cost=0.27733700000000006 lines_read=0
+=== a13-promotion-description-s-r03-20261016-100944
+  success=True turns=21 input=242958 output=6450 cost=0.188046 lines_read=0
+=== a14-promotion-code-spaces-s-r03-20261016-101043
+  success=True turns=9 input=189132 output=1360 cost=0.09677269999999999 lines_read=0
+=== a15-average-order-value-change-s-r03-20261016-101111
+  success=True turns=7 input=123366 output=1079 cost=0.0658583 lines_read=0
+worker s done
