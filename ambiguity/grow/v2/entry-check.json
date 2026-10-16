@@ -1,0 +1,36 @@
+{
+ "datastore_lines": 10387,
+ "sokrates_duplication_codebase_pct": 19.01987389256924,
+ "sokrates_duplication_datastore_pct": 32.0,
+ "clusters_ge3": 34,
+ "datastore_methods": 401,
+ "datastore_methods_with_twin": 190,
+ "terms": {
+  "open orders": 2,
+  "overdue": 16,
+  "back order": 18,
+  "in transit": 11,
+  "low stock": 7,
+  "dormant": 7,
+  "per region": 41,
+  "credit limit": 11,
+  "promotion": 55,
+  "price list": 4,
+  "returns": 48,
+  "open tickets": 1,
+  "sales rep": 76,
+  "archived": 11,
+  "between two dates": 0
+ },
+ "ambiguity_median_methods_hit": 11,
+ "tests_green": true,
+ "demo_lines": 1106,
+ "demo_deterministic": true,
+ "criteria": {
+  "1 DataStore >= 10,000 lines": true,
+  "2a Sokrates duplication in DataStore >= 15%": true,
+  "2b >= 20 clusters of >= 3 near-twins": true,
+  "3 median methods hit >= 8": true,
+  "4 tests green, demo deterministic": true
+ }
+}

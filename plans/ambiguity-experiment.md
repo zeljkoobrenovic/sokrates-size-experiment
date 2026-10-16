@@ -166,3 +166,8 @@ diff, acceptance; the transcript (per-call usage) and the tool log. Added:
   parallel, with features 1–100 (73–100 added for length), rather than after the first finished. The first growth
   runs to its end and is kept as the record of unguided growth; A is taken from whichever growth meets the entry
   criteria (the second, if the projection holds), and the choice is recorded here.
+- **2026-10-16 ~08:00, A frozen.** The second growth needed 180 features (1–100, then 101–150, then 151–180 from the
+  template-generated fourth batch) to pass 10,000 lines; $62.02, one fix-up session. All entry criteria pass
+  (`ambiguity/grow/v2/README.md`): DataStore 10,387 lines, 190 of 401 methods with a near-twin, Sokrates
+  duplication 32% of DataStore, 34 clusters, median 11 methods hit per entry term. Found on the way: Sokrates'
+  default `maxLines` of 10,000 silently drops longer files from the whole analysis.

@@ -43,6 +43,9 @@ def main():
         code = os.path.join(tmp, "code")
         env = "SOKRATES_OFFLINE=1"
         run(f"{env} java -jar {args.sokrates_jar} init -srcRoot . -confFile _sokrates/config.json -name backoffice", code)
+        cfg_path = os.path.join(code, "_sokrates/config.json")  # Sokrates' default maxLines (10,000) drops longer files
+        cfg = json.load(open(cfg_path)); cfg["analysis"]["maxLines"] = 1000000   # from the analysis altogether
+        json.dump(cfg, open(cfg_path, "w"), indent=2)
         r = run(f"{env} java -jar {args.sokrates_jar} generateReports -confFile _sokrates/config.json -outputFolder _sokrates/reports -timeout 1200", code)
         with zipfile.ZipFile(os.path.join(code, "_sokrates/reports/data/data.zip")) as z:
             dups = json.loads(z.read("duplicates.json"))

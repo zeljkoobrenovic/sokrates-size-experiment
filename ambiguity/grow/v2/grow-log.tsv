@@ -1,0 +1,181 @@
+feature	title	datastore_lines	main_lines	turns	cost	fixup	status
+01	Customers	95	173	12	0.187	0	ok
+02	Customer search	168	253	14	0.202	0	ok
+03	Products	237	342	14	0.2	0	ok
+04	Product search	294	405	10	0.178	0	ok
+05	Suppliers	375	503	13	0.212	0	ok
+06	Warehouses	424	567	18	0.213	0	ok
+07	Stock levels	483	686	12	0.237	0	ok
+08	Stock overview	538	777	14	0.242	0	ok
+09	Sales orders	647	924	20	0.315	0	ok
+10	Order status	698	1065	17	0.246	0	ok
+11	Open orders	788	1173	14	0.241	0	ok
+12	Order totals	818	1210	14	0.219	0	ok
+13	Orders by period	883	1283	13	0.23	0	ok
+14	Invoices	977	1455	19	0.339	0	ok
+15	Payments	1037	1596	18	0.319	0	ok
+16	Overdue invoices	1103	1701	13	0.29	0	ok
+17	Shipments	1161	1871	20	0.414	0	ok
+18	Carriers	1242	1981	43	0.548	0	ok
+19	Purchase orders	1353	2134	23	0.371	0	ok
+20	Receiving goods	1427	2267	16	0.315	0	ok
+21	Open purchase orders	1520	2375	16	0.184	0	ok
+22	Sales reps	1597	2477	15	0.285	0	ok
+23	Rep performance	1617	2512	13	0.228	0	ok
+24	Customer addresses	1702	2688	23	0.402	0	ok
+25	Returns	1853	2964	18	0.472	0	ok
+26	Credit notes	1905	3051	16	0.296	0	ok
+27	Promotions	1981	3198	17	0.288	0	ok
+28	Applying promotions	2020	3302	30	0.438	0	ok
+29	Price lists	2130	3515	23	0.505	0	ok
+30	Product categories	2211	3666	20	0.374	0	ok
+31	Low stock alerts	2272	3784	23	0.348	0	ok
+32	Supplier products	2373	3962	27	0.301	0	ok
+33	Customer credit limit	2416	4079	22	0.418	0	ok
+34	Order notes	2472	4204	20	0.305	0	ok
+35	Customer activity	2502	4277	21	0.312	0	ok
+36	Sales per region	2530	4319	15	0.242	0	ok
+37	Sales per product	2589	4396	14	0.274	0	ok
+38	Sales per customer	2646	4470	14	0.276	0	ok
+39	Invoice aging	2683	4522	16	0.327	0	ok
+40	Payments per period	2755	4628	19	0.285	0	ok
+41	Stock movements	2861	4822	27	0.493	0	ok
+42	Stock adjustments	2953	4978	19	0.382	0	ok
+43	Stock value	2975	5049	21	0.35	0	ok
+44	Back orders	3074	5246	22	0.434	0	ok
+45	Partial shipments	3115	5368	29	0.51	0	ok
+46	Delivery tracking	3182	5496	21	0.409	0	ok
+47	Carrier performance	3223	5587	29	0.463	0	ok
+48	Customer segments	3251	5684	16	0.273	0	ok
+49	Dormant customers	3278	5758	17	0.225	0	ok
+50	Supplier performance	3312	5831	18	0.34	0	ok
+51	Purchase suggestions	3356	5905	18	0.347	0	ok
+52	Order search	3414	5971	13	0.226	0	ok
+53	Invoice search	3462	6028	15	0.183	0	ok
+54	Product price history	3562	6190	26	0.319	0	ok
+55	Currency	3665	6464	31	0.546	0	ok
+56	Tax rates	3709	6584	18	0.339	0	ok
+57	Discount approvals	3810	6808	24	0.433	0	ok
+58	Customer contacts	3880	6944	16	0.289	0	ok
+59	Support tickets	3973	7142	29	0.485	0	ok
+60	Ticket reports	4036	7259	19	0.346	0	ok
+61	Warehouse transfers	4191	7511	26	0.458	0	ok
+62	Product bundles	4295	7728	28	0.603	0	ok
+63	Order cancellation reasons	4361	7839	33	0.41	0	ok
+64	Customer statements	4478	8074	31	0.558	0	ok
+65	Sales targets	4523	8198	27	0.523	0	ok
+66	Commission	4577	8339	19	0.354	0	ok
+67	Audit log	4639	8477	19	0.372	0	ok
+68	Archiving	4691	8560	20	0.399	0	ok
+69	Soft-deleting customers	4734	8653	28	0.395	0	ok
+70	Inactive products	4748	8719	27	0.339	0	ok
+71	Region managers	4831	8882	29	0.479	0	ok
+72	Dashboard	4941	9042	39	0.563	0	ok
+73	Orders per sales channel	5017	9149	25	0.47	0	ok
+74	Open orders per warehouse	5017	9239	19	0.382	0	ok
+75	Customer order history export	5063	9308	16	0.319	0	ok
+76	Invoices per sales rep	5135	9398	14	0.343	0	ok
+77	Shipments per customer	5202	9484	12	0.318	0	ok
+78	Returns per product	5292	9601	21	0.418	0	ok
+79	Returns per reason	5354	9687	17	0.311	0	ok
+80	Purchase orders per warehouse	5423	9772	23	0.382	0	ok
+81	Supplier spending	5482	9855	16	0.295	0	ok
+82	Product margin	5518	9914	26	0.476	0	ok
+83	Category margin	5592	10004	17	0.26	0	ok
+84	Customers per region report	5639	10067	18	0.297	0	ok
+85	Overdue invoices per sales rep	5665	10121	18	0.343	0	ok
+86	Back orders per warehouse	5688	10219	26	0.425	0	ok
+87	Promotion usage	5748	10322	20	0.37	0	ok
+88	Price list usage	5780	10390	17	0.285	0	ok
+89	Credit notes per period	5848	10504	21	0.377	0	ok
+90	Payments per sales rep	5900	10589	14	0.325	0	ok
+91	Tickets per product	5952	10665	17	0.28	0	ok
+92	Tickets per region	5995	10732	14	0.237	0	ok
+93	Stock per category	6067	10858	22	0.39	0	ok
+94	Slow-moving stock	6150	10987	21	0.431	0	ok
+95	Order line search	6204	11075	24	0.41	0	ok
+96	Shipment search	6251	11157	21	0.363	0	ok
+97	Purchase order search	6303	11233	11	0.221	0	ok
+98	Return search	6353	11312	14	0.223	0	ok
+99	Monthly sales report	6387	11380	20	0.331	0	ok
+100	Year-over-year comparison	6463	11533	18	0.331	0	ok
+101	Orders per carrier	6541	11646	19	0.506	0	ok
+102	Orders with returns	6589	11726	18	0.367	0	ok
+103	Large orders	6636	11800	15	0.311	0	ok
+104	Small orders	6718	11922	28	0.448	0	ok
+105	Order lead time	6777	12053	23	0.412	0	ok
+106	Cancelled orders list	6864	12193	19	0.322	0	ok
+107	Draft orders cleanup list	6964	12344	31	0.444	0	ok
+108	Orders per product	7050	12483	17	0.365	0	ok
+109	Orders per category	7127	12619	19	0.385	0	ok
+110	Repeat customers	7156	12688	26	0.347	0	ok
+111	First-time customers	7191	12755	19	0.311	0	ok
+112	Customers without invoices	7223	12807	24	0.334	0	ok
+113	Customers with open credit	7312	12971	23	0.47	0	ok
+114	Customers over credit limit	7399	13143	24	0.444	0	ok
+115	Customers per segment and region	7429	13224	17	0.302	0	ok
+116	Invoices per region	7478	13332	18	0.374	0	ok
+117	Paid late invoices	7507	13424	16	0.29	0	ok
+118	Partially paid invoices	7534	13540	20	0.437	0	ok
+119	Invoices per currency	7560	13668	19	0.327	0	ok
+120	Large invoices	7587	13754	22	0.362	0	ok
+121	Payments per region	7639	13859	25	0.321	0	ok
+122	Unapplied payments	7669	13954	20	0.377	0	ok
+123	Shipments per region	7722	14059	25	0.508	0	ok
+124	Shipments per product	7783	14179	25	0.43	0	ok
+125	Late shipments per warehouse	7840	14305	17	0.298	0	ok
+126	Shipment weight	7931	14474	26	0.491	0	ok
+127	Returns per customer	7967	14577	21	0.366	0	ok
+128	Returns per warehouse	8024	14700	33	0.483	0	ok
+129	Purchase orders per product	8088	14821	30	0.51	0	ok
+130	Purchase orders per category	8160	14955	19	0.369	0	ok
+131	Late purchase orders per warehouse	8203	15055	32	0.396	0	ok
+132	Supplier products per category	8259	15159	18	0.349	0	ok
+133	Stock per supplier	8289	15240	17	0.321	0	ok
+134	Stock movements per reason	8319	15309	16	0.294	0	ok
+135	Stock movements per product category	8358	15391	20	0.268	0	ok
+136	Negative adjustments	8396	15475	26	0.333	0	ok
+137	Transfers per product	8459	15596	22	0.427	0	ok
+138	Promotions per region	8492	15661	15	0.268	0	ok
+139	Promotions per customer	8526	15749	21	0.39	0	ok
+140	Price list per category	8553	15803	23	0.269	0	ok
+141	Expiring price lists	8575	15846	11	0.193	0	ok
+142	Tickets per sales rep	8597	15900	14	0.271	0	ok
+143	Tickets per order	8635	15975	19	0.372	0	ok
+144	Closed tickets	8658	16037	20	0.278	0	ok
+145	Contacts per region	8680	16110	21	0.324	0	ok
+146	Notes per customer	8719	16181	13	0.213	0	ok
+147	Audit entries per entity type	8740	16216	13	0.149	0	ok
+148	Archived orders per customer	8822	16334	18	0.238	0	ok
+149	Sales rep customers report	8857	16408	19	0.331	0	ok
+150	Region report	8917	16525	28	0.52	0	ok
+151	Customers per quarter	8954	16604	23	0.277	0	ok
+152	Customers per weekday	8991	16685	15	0.23	0	ok
+153	Latest customers	9068	16824	17	0.237	0	ok
+154	Customers count per sales rep	9094	16896	17	0.34	0	ok
+155	Customers per country	9145	17004	14	0.301	0	ok
+156	Orders per quarter	9180	17086	19	0.31	0	ok
+157	Orders per weekday	9216	17171	16	0.298	0	ok
+158	Latest orders	9322	17344	21	0.37	0	ok
+159	Orders count per sales rep	9347	17419	17	0.284	0	ok
+160	Orders per country	9411	17542	19	0.325	0	ok
+161	Invoices per quarter	9446	17625	19	0.338	0	ok
+162	Invoices per weekday	9482	17715	27	0.302	0	ok
+163	Latest invoices	9558	17862	16	0.247	0	ok
+164	Invoices count per sales rep	9583	17943	19	0.214	0	ok
+165	Invoices per country	9637	18062	15	0.291	0	ok
+166	Shipments per quarter	9671	18147	23	0.328	0	ok
+167	Shipments per weekday	9706	18235	27	0.411	0	ok
+168	Latest shipments	9776	18376	21	0.39	0	ok
+169	Shipments count per sales rep	9801	18458	18	0.308	0	ok
+170	Shipments per country	9854	18577	14	0.217	0	ok
+171	Returns per quarter	9888	18662	28	0.32	0	ok
+172	Returns per weekday	9923	18750	20	0.352	0	ok
+173	Latest returns	10023	18921	23	0.443	0	ok
+174	Returns count per sales rep	10048	19003	19	0.322	0	ok
+175	Returns per country	10110	19131	18	0.248	0	ok
+176	Purchase orders per quarter	10145	19215	17	0.343	0	ok
+177	Purchase orders per weekday	10181	19302	28	0.292	0	ok
+178	Latest purchase orders	10290	19482	19	0.472	0	ok
+179	Purchase orders count per sales rep	10317	19565	34	0.418	1	ok
+180	Purchase orders per country	10387	19706	18	0.343	0	ok

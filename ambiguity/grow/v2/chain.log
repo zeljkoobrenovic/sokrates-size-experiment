@@ -1,0 +1,9 @@
+after 100 features DataStore has 6463 lines
+continuing with 101-150
+101-150 finished: === done 06:17:38
+chain done
+DataStore has 8917 lines: growing 151-160
+DataStore has 9411 lines: growing 161-170
+DataStore has 9854 lines: growing 171-180
+DataStore has 10387 lines: target reached, stopping before 181
+chain2 done: DataStore 10387 lines
