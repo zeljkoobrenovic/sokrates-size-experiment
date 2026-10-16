@@ -540,3 +540,155 @@ For a sales rep: the customers, their segment, their last order date and their o
 ## 150 Region report
 For a region and a period: customers, orders, revenue, open invoices, overdue amount, shipments, returns and open
 tickets.
+
+# Fourth batch (used only if the first 150 do not reach the entry criteria)
+
+## 151 Customers per quarter
+Report, for a year, the number of customers per quarter, overall and per region.
+
+## 152 Customers per weekday
+Report the number of customers per day of the week between two dates, overall and per region.
+
+## 153 Latest customers
+List the N most recent customers, overall, per region and per customer.
+
+## 154 Customers count per sales rep
+Count the customers of the customers of each sales rep between two dates, highest first.
+
+## 155 Customers per country
+List the customers of the customers of a country between two dates, and count them per country.
+
+## 156 Orders per quarter
+Report, for a year, the number of orders per quarter, overall and per region.
+
+## 157 Orders per weekday
+Report the number of orders per day of the week between two dates, overall and per region.
+
+## 158 Latest orders
+List the N most recent orders, overall, per region and per customer.
+
+## 159 Orders count per sales rep
+Count the orders of the customers of each sales rep between two dates, highest first.
+
+## 160 Orders per country
+List the orders of the customers of a country between two dates, and count them per country.
+
+## 161 Invoices per quarter
+Report, for a year, the number of invoices per quarter, overall and per region.
+
+## 162 Invoices per weekday
+Report the number of invoices per day of the week between two dates, overall and per region.
+
+## 163 Latest invoices
+List the N most recent invoices, overall, per region and per customer.
+
+## 164 Invoices count per sales rep
+Count the invoices of the customers of each sales rep between two dates, highest first.
+
+## 165 Invoices per country
+List the invoices of the customers of a country between two dates, and count them per country.
+
+## 166 Shipments per quarter
+Report, for a year, the number of shipments per quarter, overall and per region.
+
+## 167 Shipments per weekday
+Report the number of shipments per day of the week between two dates, overall and per region.
+
+## 168 Latest shipments
+List the N most recent shipments, overall, per region and per customer.
+
+## 169 Shipments count per sales rep
+Count the shipments of the customers of each sales rep between two dates, highest first.
+
+## 170 Shipments per country
+List the shipments of the customers of a country between two dates, and count them per country.
+
+## 171 Returns per quarter
+Report, for a year, the number of returns per quarter, overall and per region.
+
+## 172 Returns per weekday
+Report the number of returns per day of the week between two dates, overall and per region.
+
+## 173 Latest returns
+List the N most recent returns, overall, per region and per customer.
+
+## 174 Returns count per sales rep
+Count the returns of the customers of each sales rep between two dates, highest first.
+
+## 175 Returns per country
+List the returns of the customers of a country between two dates, and count them per country.
+
+## 176 Purchase orders per quarter
+Report, for a year, the number of purchase orders per quarter, overall and per region.
+
+## 177 Purchase orders per weekday
+Report the number of purchase orders per day of the week between two dates, overall and per region.
+
+## 178 Latest purchase orders
+List the N most recent purchase orders, overall, per region and per customer.
+
+## 179 Purchase orders count per sales rep
+Count the purchase orders of the customers of each sales rep between two dates, highest first.
+
+## 180 Purchase orders per country
+List the purchase orders of the customers of a country between two dates, and count them per country.
+
+## 181 Tickets per quarter
+Report, for a year, the number of tickets per quarter, overall and per region.
+
+## 182 Tickets per weekday
+Report the number of tickets per day of the week between two dates, overall and per region.
+
+## 183 Latest tickets
+List the N most recent tickets, overall, per region and per customer.
+
+## 184 Tickets count per sales rep
+Count the tickets of the customers of each sales rep between two dates, highest first.
+
+## 185 Tickets per country
+List the tickets of the customers of a country between two dates, and count them per country.
+
+## 186 Payments per quarter
+Report, for a year, the number of payments per quarter, overall and per region.
+
+## 187 Payments per weekday
+Report the number of payments per day of the week between two dates, overall and per region.
+
+## 188 Latest payments
+List the N most recent payments, overall, per region and per customer.
+
+## 189 Payments count per sales rep
+Count the payments of the customers of each sales rep between two dates, highest first.
+
+## 190 Payments per country
+List the payments of the customers of a country between two dates, and count them per country.
+
+## 191 Credit notes per quarter
+Report, for a year, the number of credit notes per quarter, overall and per region.
+
+## 192 Credit notes per weekday
+Report the number of credit notes per day of the week between two dates, overall and per region.
+
+## 193 Latest credit notes
+List the N most recent credit notes, overall, per region and per customer.
+
+## 194 Credit notes count per sales rep
+Count the credit notes of the customers of each sales rep between two dates, highest first.
+
+## 195 Credit notes per country
+List the credit notes of the customers of a country between two dates, and count them per country.
+
+## 196 Stock movements per quarter
+Report, for a year, the number of stock movements per quarter, overall and per region.
+
+## 197 Stock movements per weekday
+Report the number of stock movements per day of the week between two dates, overall and per region.
+
+## 198 Latest stock movements
+List the N most recent stock movements, overall, per region and per customer.
+
+## 199 Stock movements count per sales rep
+Count the stock movements of the customers of each sales rep between two dates, highest first.
+
+## 200 Stock movements per country
+List the stock movements of the customers of a country between two dates, and count them per country.
