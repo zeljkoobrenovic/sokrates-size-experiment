@@ -1,0 +1,14 @@
+{
+  "id": "a14-promotion-code-spaces",
+  "kind": "control",
+  "task_kind": "control",
+  "title": "Spaces around a promotion code are dropped when the promotion is set up",
+  "test_command": "mvn -q -o test -Dtest=PromotionCodeSpacesTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "promotion",
+    "promotion code",
+    "code",
+    "duplicate"
+  ],
+  "notes": "Control: the change is in PromotionService.createPromotion only (trim the code before the duplicate check and before creating); DataStore is not touched although the terms hit its many promotion-code queries (findPromotionByCode, listPromotionsActiveOn, findPromotionUsage, ...). Patch: 1 file, +5/-4. Verification (scratch copy of variant a, work/tasks-3/verify-<id>): with the acceptance test added to the untouched code the test command compiles and FAILS (2 tests, 2 failures: e.g. expected <SPRING10> but was <  SPRING10 >); after applying reference/a.patch it PASSES and the full `mvn -q -o test` is green. ambiguity_measure.py on the untouched code, methods hit per term: promotion 55, promotion code 36, code 96, duplicate 3 (median 45.5)."
+}

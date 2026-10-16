@@ -1,0 +1,14 @@
+{
+  "id": "a01-po-count-per-rep-cancelled",
+  "kind": "target",
+  "task_kind": 1,
+  "title": "Purchase-order count per sales rep counts cancelled purchase orders",
+  "test_command": "mvn -q -o test -Dtest=CancelledPurchaseOrdersPerRepTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "purchase orders",
+    "sales rep",
+    "cancelled",
+    "count"
+  ],
+  "notes": "The reference change adds `AND po.status <> 'CANCELLED'` to the count subquery of findPurchaseOrderCountPerSalesRep (DataStore). Similar methods (the per-sales-rep count family, which all exclude cancelled records except this one): findCustomerCountPerSalesRep, findOrderCountPerSalesRep, findInvoiceCountPerSalesRep, findShipmentCountPerSalesRep, findReturnCountPerSalesRep, findPurchaseOrderCountPerSalesRep (the one fixed). Related purchase-order look-alikes that are NOT in scope: findPurchaseOrdersByCountry and findPurchaseOrderCountPerCountry (also count cancelled), findPurchaseOrdersPerQuarter, findPurchaseOrdersPerWeekday, findLatestPurchaseOrders* (exclude cancelled). Verification (scratch copy work/tasks-1/a01): test added to the untouched code compiles and FAILS with an assertion failure (expected <[Anna:2, Bob:1]> but was <[Bob:3, Anna:2]>); with reference/a.patch applied the test PASSES and the full suite `mvn -q -o test` is green. Patch: 1 file, 1 line changed (+1 -1). ambiguity_measure.py on the copy, per term (methods, files, similar, clustered): purchase orders 41 methods (12 files, similar 0.10, clustered 0.44); sales rep 76 (30, 0.06, 0.25); cancelled 78 (5, 0.17, 0.51); count 282 (89, 0.06, 0.32); median 77."
+}

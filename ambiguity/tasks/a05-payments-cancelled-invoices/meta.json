@@ -1,0 +1,15 @@
+{
+  "id": "a05-payments-cancelled-invoices",
+  "kind": "target",
+  "task_kind": 2,
+  "title": "Payments on cancelled invoices must not show in the payment lists",
+  "test_command": "mvn -q -o test -Dtest=CancelledInvoicePaymentsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "payments",
+    "cancelled",
+    "invoice",
+    "region",
+    "sales rep"
+  ],
+  "notes": "The reference change adds `AND i.status <> 'CANCELLED'` to findPaymentsByPeriod, findPaymentsByPeriodAndCustomer, findPaymentsByRegionAndPeriod and findPaymentsBySalesRepAndPeriod (DataStore). Siblings that already have the rule: findPaymentsByCustomerAndPeriodExcludingCancelled (used by the statement), findPaymentTotalBeforeByCustomer. Payment look-alikes not in scope (totals, still counting cancelled invoices): findPaymentsPerSalesRep, findPaymentTotalsPerDay, findPaymentTotalsPerMonthByRegion, listPaymentsByInvoice, findPaymentTotalByInvoice, findUnappliedPayments. Verification (scratch copy work/tasks-1/a05): test added to the untouched code compiles and FAILS with an assertion failure (expected <[I-1]> but was <[I-1, I-2]>); with reference/a.patch applied the test PASSES and the full suite `mvn -q -o test` is green. Patch: 1 file, 4 methods, +7 -4 lines. ambiguity_measure.py on the copy, per term (methods, files, similar, clustered): payments 17 methods (7 files, similar 0.11, clustered 0.29); cancelled 81 (5, 0.18, 0.56); invoice 120 (37, 0.06, 0.26); region 188 (55, 0.07, 0.38); sales rep 76 (30, 0.06, 0.25); median 81."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "a12-ticket-assigned-agent",
+  "kind": "target",
+  "task_kind": 4,
+  "title": "Support tickets record the assigned support agent, shown in every ticket listing",
+  "test_command": "mvn -q -o test -Dtest=TicketAssignedAgentTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "support ticket",
+    "ticket",
+    "agent",
+    "assigned"
+  ],
+  "notes": "Reference change: new nullable column support_ticket.assigned_agent VARCHAR(200) in schema.sql; SupportTicket record gets String assignedAgent with a backward-compatible 9-argument constructor (null agent); DataStore stores it in createSupportTicket and reads it in findSupportTicketByNumber and all eight look-alike ticket listings that build a SupportTicket with the same column list: listOpenSupportTicketsByCustomer, listOpenSupportTicketsByPriority, listOpenSupportTicketsByRegion, listOpenSupportTicketsBySalesRep, listSupportTicketsWithOrderByCustomer, listHighPrioritySupportTicketsByRegionOlderThan, listSupportTicketsOpenOnDateOpenedBefore, listOpenSupportTicketsByProduct; SupportTicketService.changeStatus carries the agent into the ticket it returns. Not touched: the ticket counts/aggregates (findOrdersWithMultipleSupportTickets, findOpenSupportTicketCountsPerPriorityByRegion, closed-ticket reports with their own model). Patch: 4 files, +35/-24. The test reaches the new constructor and accessor by reflection so that it compiles on the untouched code. Verification (scratch copy of variant a, work/tasks-3/verify-<id>): with the acceptance test added to the untouched code the test command compiles and FAILS (2 tests, 2 failures: AssertionFailedError 'A support ticket cannot be assigned to an agent'); after applying reference/a.patch it PASSES and the full `mvn -q -o test` is green. ambiguity_measure.py on the untouched code, methods hit per term: support ticket 34, ticket 39, agent 0, assigned 1 (median 17.5)."
+}

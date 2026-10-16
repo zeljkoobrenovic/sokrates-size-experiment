@@ -1,0 +1,12 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStorePart07.java b/src/main/java/com/acme/backoffice/DataStorePart07.java
+--- a/src/main/java/com/acme/backoffice/DataStorePart07.java	2026-10-16 07:07:56
++++ b/src/main/java/com/acme/backoffice/DataStorePart07.java	2026-10-16 07:33:17
+@@ -398,7 +398,7 @@
+     public List<SalesRepPurchaseOrderCount> findPurchaseOrderCountPerSalesRep(LocalDate from, LocalDate to) {
+         String sql = "SELECT r.id AS id, r.name AS name, "
+                 + "(SELECT COUNT(*) FROM purchase_order po JOIN warehouse w ON w.id = po.warehouse_id "
+-                + "WHERE po.order_date >= ? AND po.order_date <= ? "
++                + "WHERE po.order_date >= ? AND po.order_date <= ? AND po.status <> 'CANCELLED' "
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)) AS purchase_order_count "
+                 + "FROM sales_rep r ORDER BY purchase_order_count DESC, r.name, r.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {

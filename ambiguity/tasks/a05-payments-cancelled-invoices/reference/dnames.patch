@@ -1,0 +1,42 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+--- a/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:36:18
++++ b/src/main/java/com/acme/backoffice/DataStore.java	2026-10-16 07:36:43
+@@ -3967,7 +3967,8 @@
+         String sql = "SELECT p.id AS id, i.number AS invoice_number, c.id AS customer_id, c.name AS customer_name, "
+                 + "p.payment_date AS payment_date, p.amount AS amount "
+                 + "FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id "
+-                + "WHERE c.sales_rep_id = ? AND p.payment_date >= ? AND p.payment_date <= ? ORDER BY p.payment_date, p.id";
++                + "WHERE c.sales_rep_id = ? AND p.payment_date >= ? AND p.payment_date <= ? AND i.status <> 'CANCELLED' "
++                + "ORDER BY p.payment_date, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, salesRepId);
+             statement.setObject(2, from);
+@@ -4077,7 +4078,7 @@
+         String sql = "SELECT p.id AS id, i.number AS invoice_number, c.id AS customer_id, c.name AS customer_name, "
+                 + "p.payment_date AS payment_date, p.amount AS amount "
+                 + "FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id "
+-                + "WHERE p.payment_date >= ? AND p.payment_date <= ? ORDER BY p.payment_date, p.id";
++                + "WHERE p.payment_date >= ? AND p.payment_date <= ? AND i.status <> 'CANCELLED' ORDER BY p.payment_date, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -4100,7 +4101,8 @@
+         String sql = "SELECT p.id AS id, i.number AS invoice_number, c.id AS customer_id, c.name AS customer_name, "
+                 + "p.payment_date AS payment_date, p.amount AS amount "
+                 + "FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id "
+-                + "WHERE p.payment_date >= ? AND p.payment_date <= ? AND c.id = ? ORDER BY p.payment_date, p.id";
++                + "WHERE p.payment_date >= ? AND p.payment_date <= ? AND c.id = ? AND i.status <> 'CANCELLED' "
++                + "ORDER BY p.payment_date, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -4188,7 +4190,8 @@
+         String sql = "SELECT p.id AS id, i.number AS invoice_number, c.id AS customer_id, c.name AS customer_name, "
+                 + "p.payment_date AS payment_date, p.amount AS amount "
+                 + "FROM payment p JOIN invoice i ON i.id = p.invoice_id JOIN customer c ON c.id = i.customer_id "
+-                + "WHERE p.payment_date >= ? AND p.payment_date <= ? AND c.region = ? ORDER BY p.payment_date, p.id";
++                + "WHERE p.payment_date >= ? AND p.payment_date <= ? AND c.region = ? AND i.status <> 'CANCELLED' "
++                + "ORDER BY p.payment_date, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);

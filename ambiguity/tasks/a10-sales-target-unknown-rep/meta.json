@@ -1,0 +1,13 @@
+{
+  "id": "a10-sales-target-unknown-rep",
+  "kind": "control",
+  "task_kind": "control",
+  "title": "Refuse sales targets for unknown reps or without a month",
+  "test_command": "mvn -q -o test -Dtest=SalesTargetValidationTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "sales target",
+    "sales rep",
+    "month"
+  ],
+  "notes": "Control: the change is in the service layer (SalesTargetService.setTarget), not in DataStore. Today an unknown rep hits the sales_target foreign key (IllegalStateException 'Cannot save sales target') and a null month throws a NullPointerException. Reference change (+6, service/SalesTargetService.java only): after the positive-target check, refuse a null month and a rep that DataStore.findSalesRepById does not find with IllegalArgumentException('Unknown sales rep: <id>'). Acceptance test (3 cases, via SalesTargetService): unknown rep refused with IllegalArgumentException naming the id and nothing saved; null month refused with IllegalArgumentException; valid target still saved. Verification on a fresh copy of variants/a: test compiles and FAILS (3 run, 2 assertion failures 'Unexpected exception type thrown', 0 errors); with the reference patch it PASSES; mvn -q -o test green (610 tests, 0 failures). ambiguity_measure.py terms (methods hit / files / similar / clustered): sales target 9/3/0.05/0.00, sales rep 76/30/0.06/0.25, month 20/9/0.04/0.00; median 20."
+}

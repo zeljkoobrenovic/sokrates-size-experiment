@@ -1,0 +1,14 @@
+{
+  "id": "a06-closed-customer-contacts",
+  "kind": "target",
+  "task_kind": 2,
+  "title": "Contacts of closed customers stay out of the contact lists",
+  "test_command": "mvn -q -o test -Dtest=ClosedCustomerContactsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "contact",
+    "closed",
+    "role",
+    "region"
+  ],
+  "notes": "Look-alike family (DataStore, customer contact lookups): findCustomerContactByEmail, listCustomerContacts(customerId), findCustomerContactsByRole(role), listRegionContacts(region); the closed-customer rule (NOT EXISTS customer_closure) itself is shared by the customer listings listCustomersByName, searchCustomersByName/Region/Country/Status, listCustomersBySalesRep, findLatestCustomers/ByRegion/Before, findActiveCustomersWithout*, findRevenuePerCustomer*IncludingIdle. Today the rule is missing from both cross-customer contact lists. Reference change (DataStore only, +4/-2): adds `NOT EXISTS (SELECT 1 FROM customer_closure ...)` to findCustomerContactsByRole and listRegionContacts (and mentions it in the latter's javadoc); listCustomerContacts and findCustomerContactByEmail stay unchanged (the email lookup keeps enforcing unique emails). Acceptance test (4 cases, via ContactService and DataStore.closeCustomer/reopenCustomer): by-role list and region-per-role list leave out closed customers' contacts, reopened customer's contacts come back, one customer's own list unchanged. Verification on a fresh copy of variants/a: test compiles and FAILS (4 run, 3 assertion failures, 0 errors); with the reference patch it PASSES; mvn -q -o test green (611 tests, 0 failures). ambiguity_measure.py terms (methods hit / files / similar / clustered): contact 27/7/0.08/0.15, closed 23/5/0.17/0.35, role 11/5/0.06/0.18, region 188/55/0.07/0.38; median 25."
+}

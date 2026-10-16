@@ -1,0 +1,14 @@
+{
+  "id": "a07-payments-per-quarter",
+  "kind": "target",
+  "task_kind": 3,
+  "title": "Payments per quarter report",
+  "test_command": "mvn -q -o test -Dtest=QuarterPaymentsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "payments",
+    "quarter",
+    "region",
+    "year"
+  ],
+  "notes": "Look-alike family (DataStore, per-quarter reports taking the year, all SYSTEM_RANGE(1, 4) with one COUNT subquery per region): findCustomersPerQuarter, findOrdersPerQuarter, findPurchaseOrdersPerQuarter, findShipmentsPerQuarter, findReturnsPerQuarter, findInvoicesPerQuarter (each with a Quarter* record and a Quarter*Service). Reference change (+56, 3 files): new record model/QuarterPayments(int quarter, int total, Map<Region,Integer> perRegion), DataStore.findPaymentsPerQuarter(int year) next to findInvoicesPerQuarter (payment -> invoice -> customer, YEAR/QUARTER of payment_date, invoice status <> 'CANCELLED'), and service/QuarterPaymentsService.report(year) like QuarterInvoicesService. The acceptance test does not depend on the names the solver picks: it looks up exactly one public DataStore method whose name contains 'payment' and 'quarter', taking (int) and returning a List, and reads each row record by its components (two numbers = quarter and total, in that order, plus a Map of counts per region with every region present). Cases: a year with payments in Q1, Q2 and Q4 including year-boundary dates (2023-12-31, 2025-01-01) and a payment of a cancelled invoice; an empty year. Verification on a fresh copy of variants/a: test compiles and FAILS (2 run, 2 assertion failures 'expected one query ... found []', 0 errors); with the reference patch it PASSES; mvn -q -o test green (609 tests, 0 failures). ambiguity_measure.py terms (methods hit / files / similar / clustered): payments 17/7/0.11/0.29, quarter 29/14/0.10/0.62, region 188/55/0.07/0.38, year 29/14/0.07/0.21; median 29."
+}

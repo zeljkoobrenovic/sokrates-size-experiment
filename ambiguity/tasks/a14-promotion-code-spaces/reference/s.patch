@@ -1,0 +1,28 @@
+diff -ruN -x target -x .git a/src/main/java/com/acme/backoffice/service/PromotionService.java b/src/main/java/com/acme/backoffice/service/PromotionService.java
+--- a/src/main/java/com/acme/backoffice/service/PromotionService.java	2026-10-16 07:07:52
++++ b/src/main/java/com/acme/backoffice/service/PromotionService.java	2026-10-16 07:35:50
+@@ -19,7 +19,7 @@
+         this.store = store;
+     }
+ 
+-    /** Creates a promotion. A null or blank category means all products. */
++    /** Creates a promotion. Spaces around the code are dropped. A null or blank category means all products. */
+     public Promotion createPromotion(String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
+         if (code == null || code.isBlank()) {
+             throw new IllegalArgumentException("Promotion code is required");
+@@ -30,11 +30,12 @@
+         if (startDate == null || endDate == null || endDate.isBefore(startDate)) {
+             throw new IllegalArgumentException("The end date must not be before the start date");
+         }
+-        if (store.findPromotionByCode(code).isPresent()) {
+-            throw new IllegalArgumentException("Duplicate promotion code: " + code);
++        String trimmedCode = code.trim();
++        if (store.findPromotionByCode(trimmedCode).isPresent()) {
++            throw new IllegalArgumentException("Duplicate promotion code: " + trimmedCode);
+         }
+         String appliesTo = category == null || category.isBlank() ? null : category;
+-        return store.createPromotion(new Promotion(0, code, discountPercent, startDate, endDate, appliesTo));
++        return store.createPromotion(new Promotion(0, trimmedCode, discountPercent, startDate, endDate, appliesTo));
+     }
+ 
+     /** The promotions whose period includes the date. */

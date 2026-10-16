@@ -1,0 +1,14 @@
+{
+  "id": "a08-tickets-per-country",
+  "kind": "target",
+  "task_kind": 3,
+  "title": "Support tickets per country",
+  "test_command": "mvn -q -o test -Dtest=CountryTicketsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "support ticket",
+    "country",
+    "opened",
+    "count"
+  ],
+  "notes": "Look-alike family (DataStore, per-country pairs of a listing (country, from, to) and a count per country (from, to)): findCustomersByCountry/findCustomerCountPerCountry, findOrdersByCountry/findOrderCountPerCountry, findInvoicesByCountry/findInvoiceCountPerCountry, findShipmentsByCountry/findShipmentCountPerCountry, findReturnsByCountry/findReturnCountPerCountry, findPurchaseOrdersByCountry/findPurchaseOrderCountPerCountry (each with a Country*Count record and a Country*Service); the ticket row mapping is shared with the listOpenSupportTicketsBy* family. Reference change (+85, 3 files): new record model/CountryTicketCount(String country, int ticketCount), DataStore.findSupportTicketsByCountry(country, from, to) and findSupportTicketCountPerCountry(from, to) next to the invoice pair (support_ticket JOIN customer, opened_date inclusive range, no status filter, ORDER BY opened_date, id / ticket_count DESC, country), and service/CountryTicketsService like CountryInvoicesService. The acceptance test does not depend on the names: it looks up exactly one public DataStore method whose name contains 'ticket' and 'country' for each parameter list (String, LocalDate, LocalDate) and (LocalDate, LocalDate), returning a List; the listing must return SupportTicket rows, a count row is read by its String and Number components. Cases: listing per country with a closed and an in-progress ticket, same-date tie by creation order, boundary dates, empty country; counts per country with ordering, another period, empty period; equal counts sorted by country. Verification on a fresh copy of variants/a: test compiles and FAILS (3 run, 3 assertion failures, 0 errors); with the reference patch it PASSES; mvn -q -o test green (610 tests, 0 failures). ambiguity_measure.py terms (methods hit / files / similar / clustered): support ticket 34/5/0.10/0.23, country 94/20/0.09/0.37, opened 18/3/0.24/0.44, count 282/89/0.06/0.32; median 64."
+}

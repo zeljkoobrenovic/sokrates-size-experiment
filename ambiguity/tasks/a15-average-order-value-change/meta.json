@@ -1,0 +1,14 @@
+{
+  "id": "a15-average-order-value-change",
+  "kind": "control",
+  "task_kind": "control",
+  "title": "Year-over-year average order value change is empty for a month without orders",
+  "test_command": "mvn -q -o test -Dtest=AverageOrderValueChangeTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "year over year",
+    "average order value",
+    "region",
+    "orders"
+  ],
+  "notes": "Control: the change is in the model class YearOverYearSales only (averageOrderValueChangePercent returns null when orderCount is 0); DataStore's findYearOverYearSales / findYearOverYearSalesPerRegion are not touched. The demo scenario does not print this value, so its output is unchanged. Patch: 1 file, +7/-1. Verification (scratch copy of variant a, work/tasks-3/verify-<id>): with the acceptance test added to the untouched code the test command compiles and FAILS (1 test, 1 failure: expected <null> but was <-100.00>); after applying reference/a.patch it PASSES and the full `mvn -q -o test` is green. ambiguity_measure.py on the untouched code, methods hit per term: year over year 3, average order value 4, region 188, orders 158 (median 81.0)."
+}

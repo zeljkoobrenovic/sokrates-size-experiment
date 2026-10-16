@@ -1,0 +1,13 @@
+{
+  "id": "a09-supplier-overdue-purchase-orders",
+  "kind": "target",
+  "task_kind": 3,
+  "title": "Overdue purchase orders of a supplier",
+  "test_command": "mvn -q -o test -Dtest=SupplierOverduePurchaseOrdersTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "overdue",
+    "purchase orders",
+    "supplier"
+  ],
+  "notes": "Look-alike family (DataStore, open and overdue purchase order listings, each a copy of the same PO + lines mapping): listOpenPurchaseOrders, listOpenPurchaseOrdersBySupplier(supplierId), listOpenPurchaseOrdersByWarehouse(warehouseId), listOverduePurchaseOrders(date), listOverduePurchaseOrdersByWarehouse(warehouseId, date); nearby also searchPurchaseOrders, listPurchaseOrdersBySupplier, listLatePurchaseOrdersByWarehouseAndPeriod, findLatestPurchaseOrdersBySupplier. The supplier x overdue cell of that matrix is missing. Reference change (DataStore only, +33): listOverduePurchaseOrdersBySupplier(long supplierId, LocalDate date), a copy of listOverduePurchaseOrdersByWarehouse with supplier_id instead of warehouse_id (status = 'SENT' AND expected_date < ?, ORDER BY expected_date, id, lines loaded). The acceptance test does not depend on the name: it looks up exactly one public DataStore method whose name contains 'overdue', 'purchase' and 'supplier', taking (long, LocalDate) or (LocalDate, long) and returning a List of PurchaseOrder. Cases: strict 'before' bound, status filter (DRAFT/RECEIVED/CANCELLED excluded), tie on expected date by creation order, lines loaded, other supplier, unknown supplier. Verification on a fresh copy of variants/a: test compiles and FAILS (2 run, 2 assertion failures, 0 errors); with the reference patch it PASSES; mvn -q -o test green (609 tests, 0 failures). ambiguity_measure.py terms (methods hit / files / similar / clustered): overdue 16/6/0.10/0.38, purchase orders 41/12/0.10/0.44, supplier 59/15/0.09/0.32; median 41."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "a11-supplier-payment-terms",
+  "kind": "target",
+  "task_kind": 4,
+  "title": "Suppliers get payment terms (days), shown in every supplier listing",
+  "test_command": "mvn -q -o test -Dtest=SupplierPaymentTermsTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "supplier",
+    "payment terms",
+    "country",
+    "rating"
+  ],
+  "notes": "Reference change: new column supplier.payment_terms_days (INT NOT NULL DEFAULT 30) in schema.sql; Supplier record gets int paymentTermsDays with DEFAULT_PAYMENT_TERMS_DAYS = 30 and a backward-compatible 5-argument constructor; DataStore threads the column through createSupplier, updateSupplier and every query that builds a Supplier: the look-alike listings listSuppliersByName, listSuppliersByCountry, listSuppliersByMinimumRating and findSupplierById (four near-identical SELECT id, name, contact_email, country, rating FROM supplier queries), plus the reports that embed a Supplier: listPurchaseSuggestionsByWarehouse, findPurchasedQuantityPerSupplier, listSupplierPerformance, findSpendingPerSupplier, findCategoriesWithSingleSupplier (the test checks only the listings, the lookup and update). Patch: 3 files, +41/-29. The test reaches the new constructor and accessor by reflection so that it compiles on the untouched code. Verification (scratch copy of variant a, work/tasks-3/verify-<id>): with the acceptance test added to the untouched code the test command compiles and FAILS (2 tests, 2 failures: AssertionFailedError 'A supplier cannot be given payment terms'); after applying reference/a.patch it PASSES and the full `mvn -q -o test` is green. ambiguity_measure.py on the untouched code, methods hit per term: supplier 59, payment terms 0, country 94, rating 13 (median 36.0)."
+}

@@ -1,0 +1,14 @@
+{
+  "id": "a13-promotion-description",
+  "kind": "target",
+  "task_kind": 4,
+  "title": "Promotions get a customer-facing description, shown in every promotion listing",
+  "test_command": "mvn -q -o test -Dtest=PromotionDescriptionTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "promotion",
+    "description",
+    "active promotions",
+    "category"
+  ],
+  "notes": "Reference change: new nullable column promotion.description VARCHAR(500) in schema.sql; Promotion record gets String description with a backward-compatible 6-argument constructor (null description); DataStore stores it in createPromotion and reads it in all six look-alike queries that build a Promotion with the same column list: findPromotionByCode, listPromotionsActiveOn, listPromotionsActiveOnInRegion, listPromotionsByCategory, findBestPromotion, listUnusedPromotions. PromotionService is left unchanged (its createPromotion creates promotions without a description). Patch: 3 files, +25/-16. The test reaches the new constructor and accessor by reflection so that it compiles on the untouched code. Verification (scratch copy of variant a, work/tasks-3/verify-<id>): with the acceptance test added to the untouched code the test command compiles and FAILS (1 test, 1 failure: AssertionFailedError 'A promotion cannot be given a description'); after applying reference/a.patch it PASSES and the full `mvn -q -o test` is green. ambiguity_measure.py on the untouched code, methods hit per term: promotion 55, description 6, active promotions 2, category 78 (median 30.5)."
+}

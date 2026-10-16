@@ -1,0 +1,14 @@
+{
+  "id": "a04-latest-orders-archived",
+  "kind": "target",
+  "task_kind": 2,
+  "title": "Archived orders must not show in the latest-orders lists",
+  "test_command": "mvn -q -o test -Dtest=ArchivedLatestOrdersTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "latest orders",
+    "archived",
+    "region",
+    "customer"
+  ],
+  "notes": "The reference change adds `NOT EXISTS (SELECT 1 FROM order_archive ar WHERE ar.order_id = o.id)` to findLatestOrders, findLatestOrdersByRegion and findLatestOrdersByCustomer (DataStore), the same condition the open-order listings use. Siblings that already have the rule: listSalesOrdersByCustomer, listOpenSalesOrders, countOpenSalesOrdersOnDate, findOpenSalesOrderValueOnDate, listOpenSalesOrdersByCustomer, listOpenSalesOrdersByRegion, searchSalesOrders. Look-alike 'latest' families not in scope: findLatestInvoices*, findLatestShipments*, findLatestReturns*, findLatestPurchaseOrders*, findLatestCustomers*. Archived listings: listArchivedSalesOrders*, findArchivedRevenuePerYear. Verification (scratch copy work/tasks-1/a04): test added to the untouched code compiles and FAILS with an assertion failure (expected <[SO-4, SO-2]> but was <[SO-4, SO-3, SO-2, SO-1]>); with reference/a.patch applied the test PASSES and the full suite `mvn -q -o test` is green. Patch: 1 file, 3 methods, +3 -1 lines. ambiguity_measure.py on the copy, per term (methods, files, similar, clustered): latest orders 8 methods (3 files, similar 0.10, clustered 0.38); archived 11 (4, 0.06, 0.27); region 188 (55, 0.07, 0.38); customer 346 (69, 0.07, 0.39); median 99.5."
+}

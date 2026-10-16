@@ -1,0 +1,14 @@
+{
+  "id": "a03-warehouse-stock-empty-lines",
+  "kind": "target",
+  "task_kind": 1,
+  "title": "A warehouse's stock list shows products it no longer holds",
+  "test_command": "mvn -q -o test -Dtest=EmptyStockLinesTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "stock",
+    "warehouse",
+    "quantity",
+    "product"
+  ],
+  "notes": "The reference change adds `AND s.quantity > 0` to listStockByWarehouse (DataStore), used by StockService.getWarehouseStock. Similar methods (stock listings and overviews): listStockByWarehouse (the one fixed), listTotalStockBelow, listStockValueByWarehouse, findTotalStockValue, findStockPerCategoryAndWarehouse, findStockPerCategory, findCategoriesWithoutStockPerWarehouse, findSlowMovingStockPerWarehouse, findSlowMovingStock (the last five filter s.quantity > 0), listLowStockByWarehouse, listLowStock, findStockQuantity, findTotalStockQuantity; findStockPerWarehouseOfSupplier. Verification (scratch copy work/tasks-1/a03): test added to the untouched code compiles and FAILS with an assertion failure (expected <[StockLevel[Bolt, 10]]> but was <[Bolt 10, Nut 0, Screw 0]>); with reference/a.patch applied the test PASSES and the full suite `mvn -q -o test` is green. Patch: 1 file, 1 line changed (+1 -1). ambiguity_measure.py on the copy, per term (methods, files, similar, clustered): stock 72 methods (22 files, similar 0.04, clustered 0.18); warehouse 148 (35, 0.06, 0.28); quantity 175 (31, 0.12, 0.43); product 233 (42, 0.08, 0.38); median 161.5."
+}

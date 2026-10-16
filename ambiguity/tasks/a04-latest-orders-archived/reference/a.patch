@@ -1,0 +1,27 @@
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -6284,7 +6284,7 @@
+      */
+     public List<SalesOrder> findLatestOrders(int limit) {
+         String sql = "SELECT o.id, o.number, o.customer_id, o.order_date, o.status FROM sales_order o "
+-                + "WHERE o.status <> 'CANCELLED' "
++                + "WHERE o.status <> 'CANCELLED' AND NOT EXISTS (SELECT 1 FROM order_archive ar WHERE ar.order_id = o.id) "
+                 + "ORDER BY o.order_date DESC, o.id DESC LIMIT ?";
+         String lineSql = "SELECT product_id, quantity, unit_price, promotion_code FROM sales_order_line WHERE order_id = ? ORDER BY line_no";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -6320,6 +6320,7 @@
+     public List<SalesOrder> findLatestOrdersByRegion(Region region, int limit) {
+         String sql = "SELECT o.id, o.number, o.customer_id, o.order_date, o.status FROM sales_order o "
+                 + "JOIN customer c ON c.id = o.customer_id WHERE c.region = ? AND o.status <> 'CANCELLED' "
++                + "AND NOT EXISTS (SELECT 1 FROM order_archive ar WHERE ar.order_id = o.id) "
+                 + "ORDER BY o.order_date DESC, o.id DESC LIMIT ?";
+         String lineSql = "SELECT product_id, quantity, unit_price, promotion_code FROM sales_order_line WHERE order_id = ? ORDER BY line_no";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -6356,6 +6357,7 @@
+     public List<SalesOrder> findLatestOrdersByCustomer(long customerId, int limit) {
+         String sql = "SELECT o.id, o.number, o.customer_id, o.order_date, o.status FROM sales_order o "
+                 + "WHERE o.customer_id = ? AND o.status <> 'CANCELLED' "
++                + "AND NOT EXISTS (SELECT 1 FROM order_archive ar WHERE ar.order_id = o.id) "
+                 + "ORDER BY o.order_date DESC, o.id DESC LIMIT ?";
+         String lineSql = "SELECT product_id, quantity, unit_price, promotion_code FROM sales_order_line WHERE order_id = ? ORDER BY line_no";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {

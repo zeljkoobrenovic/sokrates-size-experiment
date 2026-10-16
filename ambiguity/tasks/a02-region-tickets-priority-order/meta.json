@@ -1,0 +1,14 @@
+{
+  "id": "a02-region-tickets-priority-order",
+  "kind": "target",
+  "task_kind": 1,
+  "title": "Open support tickets of a region should list high priority first",
+  "test_command": "mvn -q -o test -Dtest=RegionTicketPriorityTest -Dsurefire.failIfNoSpecifiedTests=false",
+  "terms": [
+    "support ticket",
+    "ticket",
+    "region",
+    "priority"
+  ],
+  "notes": "The reference change makes listOpenSupportTicketsByRegion (DataStore) order by `CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, t.opened_date, t.id` (the order listOpenSupportTicketsBySalesRep already uses) and updates its doc comment. Similar methods (open-ticket listings, all ordered by opened date only except the sales rep one): listOpenSupportTicketsByCustomer, listOpenSupportTicketsByPriority, listOpenSupportTicketsByRegion (the one fixed), listOpenSupportTicketsBySalesRep, listOpenSupportTicketsByProduct; also listHighPrioritySupportTicketsByRegionOlderThan, findOpenSupportTicketCountsPerPriorityByRegion. The test goes through RegionManagerService.overviewFor, the only caller. Verification (scratch copy work/tasks-1/a02): test added to the untouched code compiles and FAILS with an assertion failure (expected <[T-3, T-5, T-2, T-4, T-1]> but was <[T-1, T-2, T-3, T-4, T-5]>); with reference/a.patch applied the test PASSES and the full suite `mvn -q -o test` is green. Patch: 1 file, +3 -2 lines. ambiguity_measure.py on the copy, per term (methods, files, similar, clustered): support ticket 34 methods (5 files, similar 0.10, clustered 0.23); ticket 39 (10, 0.08, 0.20); region 188 (55, 0.07, 0.38); priority 21 (5, 0.17, 0.38); median 36.5."
+}
