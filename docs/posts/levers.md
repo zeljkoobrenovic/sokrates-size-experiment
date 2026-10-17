@@ -74,8 +74,8 @@ not the re-sent context as such, but the price tier it crosses.
 
 1. **Say where, when you know.** Naming the method saves about a quarter on small fixes described as behaviour. Naming
    only the file saves under 10%.
-2. **Keep CLAUDE.md short.** Every 10k characters costs roughly 10–20% on every task; even a useful code map doesn't earn
-   that back. `/init` size is fine.
+2. **Keep CLAUDE.md short.** Adding 20–27k characters cost 13–44% more on every task, depending on the codebase; even
+   a useful code map didn't earn that back. `/init` size is fine.
 3. **Continue a session for related changes, but watch the context size.** With Sonnet, continuing six related changes
    cost 40% less than fresh sessions. Where a model has a long-context price tier, start a fresh session (or compact)
    before crossing it; for Haiku that came after three or four changes.
