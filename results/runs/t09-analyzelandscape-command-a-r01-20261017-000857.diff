@@ -1,0 +1,85 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 2a3fa87..419aecc 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -27,7 +27,7 @@ Notes:
+ 
+ ## CLI usage
+ 
+-Commands are defined in `cli/.../Commands.java` (name, description, and argument constants) and dispatched from `CommandLineInterface.java`. Main commands: `init`, `generateReports`, `updateConfig`, `updateLandscape`, `createConventionsFile`, `exportStandardConventions`, `extractGitHistory`, `extractGitSubHistory`, `extractFiles`. Typical flow: `init` creates an analysis config JSON (default under `_sokrates/`), then `generateReports` consumes it. Add a new command by adding constants/options in `Commands` and handling it in `CommandLineInterface`.
++Commands are defined in `cli/.../Commands.java` (name, description, and argument constants) and dispatched from `CommandLineInterface.java`. Main commands: `init`, `generateReports`, `updateConfig`, `updateLandscape` (alias `analyzeLandscape`), `createConventionsFile`, `exportStandardConventions`, `extractGitHistory`, `extractGitSubHistory`, `extractFiles`. Typical flow: `init` creates an analysis config JSON (default under `_sokrates/`), then `generateReports` consumes it. Add a new command by adding constants/options in `Commands` and handling it in `CommandLineInterface`.
+ 
+ ## Architecture
+ 
+diff --git a/README.md b/README.md
+index db5a398..f27dd46 100644
+--- a/README.md
++++ b/README.md
+@@ -21,6 +21,18 @@ The build will create two jar files:
+ * the command line interface in the cli/target folder
+ * the interactive explorer in the codeexplorer/target folder
+ 
++### Command line
++
++> java -jar sokrates.jar <command> <options>
++
++Run a command with `-help` to see its options. Commands:
++* `init` - creates a new analysis configuration file
++* `generateReports` - generates reports based on the analysis configuration
++* `updateConfig` - updates an analysis configuration file and completes missing fields
++* `analyzeLandscape` - creates or updates a landscape report (`<analysisRoot>/_sokrates_landscape/index.html`), aggregating the results of multiple analyses; the landscape counterpart of the analysis commands
++* `updateLandscape` - the same as `analyzeLandscape` (kept for existing scripts)
++* `createConventionsFile`, `exportStandardConventions`, `extractGitHistory`, `extractGitSubHistory`, `extractFiles` - utilities
++
+ ### Docker
+ 
+ Build the docker image:
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index aa63084..83d437b 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -104,7 +104,8 @@ public class CommandLineInterface {
+             } else if (args[0].equalsIgnoreCase(Commands.EXPORT_STANDARD_CONVENTIONS)) {
+                 exportConventions(args);
+                 return;
+-            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)) {
++            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)
++                    || args[0].equalsIgnoreCase(Commands.ANALYZE_LANDSCAPE)) {
+                 updateLandscape(args);
+                 return;
+             } else if (args[0].equalsIgnoreCase(Commands.INIT_CONVENTIONS)) {
+@@ -232,7 +233,11 @@ public class CommandLineInterface {
+ 
+         if (cmd.hasOption(commands.getHelp().getOpt())) {
+             helpMode = true;
+-            commands.usage(Commands.UPDATE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++            if (args[0].equalsIgnoreCase(Commands.ANALYZE_LANDSCAPE)) {
++                commands.usage(Commands.ANALYZE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.ANALYZE_LANDSCAPE_DESCRIPTION);
++            } else {
++                commands.usage(Commands.UPDATE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++            }
+             return;
+         }
+ 
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+index 366f1bb..245a6d5 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -27,6 +27,9 @@ public class Commands {
+     public static final String UPDATE_LANDSCAPE = "updateLandscape";
+     public static final String UPDATE_LANDSCAPE_DESCRIPTION = "Updates or creates a Sokrates landscape report, aggregating results of multiple analyses";
+ 
++    public static final String ANALYZE_LANDSCAPE = "analyzeLandscape";
++    public static final String ANALYZE_LANDSCAPE_DESCRIPTION = "The landscape counterpart of the analysis commands: creates or updates a Sokrates landscape report, aggregating results of multiple analyses (the same as " + UPDATE_LANDSCAPE + ")";
++
+     public static final String INIT_CONVENTIONS = "createConventionsFile";
+     public static final String INIT_CONVENTIONS_DESCRIPTION = "Create a new analysis conventions file and saves it in <current-folder>/analysis_conventions.json ";
+ 
+@@ -112,6 +115,7 @@ public class Commands {
+ 
+         commands.add(new CommandUsage(INIT, INIT_DESCRIPTION, getInitOptions()));
+         commands.add(new CommandUsage(GENERATE_REPORTS, GENERATE_REPORTS_DESCRIPTION, getReportingOptions()));
++        commands.add(new CommandUsage(ANALYZE_LANDSCAPE, ANALYZE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_LANDSCAPE, UPDATE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_CONFIG, UPDATE_CONFIG_DESCRIPTION, getUpdateConfigOptions()));
+         commands.add(new CommandUsage(EXTRACT_GIT_HISTORY, EXTRACT_GIT_HISTORY_DESCRIPTION, getExtractGitHistoryOption()));

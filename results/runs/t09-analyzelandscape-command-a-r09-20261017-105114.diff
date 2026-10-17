@@ -1,0 +1,68 @@
+diff --git a/README.md b/README.md
+index db5a398..e90d5f2 100644
+--- a/README.md
++++ b/README.md
+@@ -21,6 +21,15 @@ The build will create two jar files:
+ * the command line interface in the cli/target folder
+ * the interactive explorer in the codeexplorer/target folder
+ 
++### Command line
++
++Landscape reports aggregate the analyses found under an analysis root:
++
++* `analyzeLandscape`: landscape counterpart of the analysis commands; creates or updates the landscape report (`<folder>/_sokrates_landscape/`). Same as `updateLandscape`.
++* `updateLandscape`: updates or creates a landscape report, aggregating results of multiple analyses. Kept for existing scripts; the same as `analyzeLandscape`.
++
++Run `java -jar sokrates.jar <command> -help` for the options of a command.
++
+ ### Docker
+ 
+ Build the docker image:
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+index aa63084..ba58b3d 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/CommandLineInterface.java
+@@ -104,7 +104,7 @@ public class CommandLineInterface {
+             } else if (args[0].equalsIgnoreCase(Commands.EXPORT_STANDARD_CONVENTIONS)) {
+                 exportConventions(args);
+                 return;
+-            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE)) {
++            } else if (args[0].equalsIgnoreCase(Commands.UPDATE_LANDSCAPE) || args[0].equalsIgnoreCase(Commands.ANALYZE_LANDSCAPE)) {
+                 updateLandscape(args);
+                 return;
+             } else if (args[0].equalsIgnoreCase(Commands.INIT_CONVENTIONS)) {
+@@ -232,7 +232,11 @@ public class CommandLineInterface {
+ 
+         if (cmd.hasOption(commands.getHelp().getOpt())) {
+             helpMode = true;
+-            commands.usage(Commands.UPDATE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++            if (args[0].equalsIgnoreCase(Commands.ANALYZE_LANDSCAPE)) {
++                commands.usage(Commands.ANALYZE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.ANALYZE_LANDSCAPE_DESCRIPTION);
++            } else {
++                commands.usage(Commands.UPDATE_LANDSCAPE, commands.getUpdateLandscapeOptions(), Commands.UPDATE_LANDSCAPE_DESCRIPTION);
++            }
+             return;
+         }
+ 
+diff --git a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+index 366f1bb..dd4c467 100644
+--- a/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
++++ b/cli/src/main/java/nl/obren/sokrates/cli/Commands.java
+@@ -24,6 +24,9 @@ public class Commands {
+     public static final String UPDATE_CONFIG = "updateConfig";
+     public static final String UPDATE_CONFIG_DESCRIPTION = "Updates an analysis configuration file and completes missing fields";
+ 
++    public static final String ANALYZE_LANDSCAPE = "analyzeLandscape";
++    public static final String ANALYZE_LANDSCAPE_DESCRIPTION = "Landscape counterpart of the analysis commands: updates or creates a Sokrates landscape report, aggregating results of multiple analyses (same as updateLandscape)";
++
+     public static final String UPDATE_LANDSCAPE = "updateLandscape";
+     public static final String UPDATE_LANDSCAPE_DESCRIPTION = "Updates or creates a Sokrates landscape report, aggregating results of multiple analyses";
+ 
+@@ -112,6 +115,7 @@ public class Commands {
+ 
+         commands.add(new CommandUsage(INIT, INIT_DESCRIPTION, getInitOptions()));
+         commands.add(new CommandUsage(GENERATE_REPORTS, GENERATE_REPORTS_DESCRIPTION, getReportingOptions()));
++        commands.add(new CommandUsage(ANALYZE_LANDSCAPE, ANALYZE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_LANDSCAPE, UPDATE_LANDSCAPE_DESCRIPTION, getUpdateLandscapeOptions()));
+         commands.add(new CommandUsage(UPDATE_CONFIG, UPDATE_CONFIG_DESCRIPTION, getUpdateConfigOptions()));
+         commands.add(new CommandUsage(EXTRACT_GIT_HISTORY, EXTRACT_GIT_HISTORY_DESCRIPTION, getExtractGitHistoryOption()));

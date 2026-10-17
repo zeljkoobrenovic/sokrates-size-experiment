@@ -1,0 +1,297 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+index 732345e..39940c1 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/analysis/AnalysisUtils.java
+@@ -71,7 +71,7 @@ public class AnalysisUtils {
+         }
+ 
+         SourceCodeAspectUtils.getAspectsPerExtensions(aspect).forEach(aspectPerExtension -> {
+-            String extensionMetricName = name + "_EXT_" + aspectPerExtension.getName().replace("*.", "");
++            String extensionMetricName = name + "_EXT_" + aspectPerExtension.getName();
+             metricsList.addMetric()
+                     .id(getMetricId("NUMBER_OF_FILES_" + extensionMetricName))
+                     .value(aspectPerExtension.getSourceFiles().size());
+@@ -80,7 +80,7 @@ public class AnalysisUtils {
+                     .id(getMetricId("LINES_OF_CODE_" + extensionMetricName))
+                     .value(aspectPerExtension.getLinesOfCode());
+ 
+-            detailedInfo(textSummary, progressFeedback, aspectPerExtension.getName() + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
++            detailedInfo(textSummary, progressFeedback, "  *." + aspectPerExtension.getName() + ": " + aspectPerExtension.getSourceFiles().size() + " files, (" + aspectPerExtension.getLinesOfCode() + " lines of code)", start);
+             aspectAnalysisResults.getFileCountPerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getSourceFiles().size()));
+             aspectAnalysisResults.getLinesOfCodePerExtension().add(new NumericMetric(aspectPerExtension.getName(), aspectPerExtension.getLinesOfCode()));
+         });
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+index 603dcb0..f412d74 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/aspects/SourceCodeAspectUtils.java
+@@ -162,7 +162,7 @@ public class SourceCodeAspectUtils {
+             String extension = ExtensionGroupExtractor.getExtension(sourceFile.getFile().getPath()).toLowerCase();
+             NamedSourceCodeAspect extensionAspect = map.get(extension);
+             if (extensionAspect == null) {
+-                extensionAspect = new NamedSourceCodeAspect("  *." + extension);
++                extensionAspect = new NamedSourceCodeAspect(extension);
+                 map.put(extension, extensionAspect);
+             }
+             extensionAspect.getSourceFiles().add(sourceFile);
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index bcfe9d5..edae6e9 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -515,8 +515,8 @@ public class LandscapeAnalysisResults {
+                 repositoryLinesOfCodePerExtension = repositoryAnalysisResults.getAnalysisResults().getMainAspectAnalysisResults().getLinesOfCodePerExtension();
+             }
+             repositoryLinesOfCodePerExtension.forEach(metric -> {
+-                String id = metric.getName().toLowerCase();
+-                Optional<NumericMetric> existingMetric = linesOfCodePerExtension.stream().filter(c -> c.getName().equalsIgnoreCase(id)).findAny();
++                String id = getExtensionName(metric.getName());
++                Optional<NumericMetric> existingMetric = linesOfCodePerExtension.stream().filter(c -> c.getName().equals(id)).findAny();
+                 if (existingMetric.isPresent()) {
+                     NumericMetric metricObject = existingMetric.get();
+                     metricObject.getDescription().add(new NumericMetric(repositoryName, metric.getValue()));
+@@ -539,12 +539,13 @@ public class LandscapeAnalysisResults {
+ 
+         metricLists.forEach(list -> {
+             list.forEach(metric -> {
+-                if (mergedMap.containsKey(metric.getName())) {
+-                    mergedMap.get(metric.getName()).setValue(mergedMap.get(metric.getName()).getValue().doubleValue() + metric.getValue().doubleValue());
++                String name = getExtensionName(metric.getName());
++                if (mergedMap.containsKey(name)) {
++                    mergedMap.get(name).setValue(mergedMap.get(name).getValue().doubleValue() + metric.getValue().doubleValue());
+                 } else {
+-                    NumericMetric newMetric = new NumericMetric(metric.getName(), metric.getValue());
++                    NumericMetric newMetric = new NumericMetric(name, metric.getValue());
+                     merged.add(newMetric);
+-                    mergedMap.put(newMetric.getName(), newMetric);
++                    mergedMap.put(name, newMetric);
+                 }
+             });
+         });
+@@ -552,6 +553,11 @@ public class LandscapeAnalysisResults {
+         return merged;
+     }
+ 
++    // Analyses made before extension names were made plain carry a decorated name such as "  *.java"
++    private static String getExtensionName(String name) {
++        return name.replace("*.", "").trim().toLowerCase();
++    }
++
+     @JsonIgnore
+     public List<String> getAllExtensions() {
+         List<String> extensions = new ArrayList<>();
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+index 7f11f23..e44e672 100644
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/CodeConfigurationTest.java
+@@ -39,9 +39,9 @@ public class CodeConfigurationTest {
+ 
+         assertEquals(scopesWithExtensions.size(), 8);
+         assertEquals(scopesWithExtensions.get(0).getName(), "main");
+-        assertEquals(scopesWithExtensions.get(1).getName(), "  *.java");
+-        assertEquals(scopesWithExtensions.get(2).getName(), "  *.js");
+-        assertEquals(scopesWithExtensions.get(3).getName(), "  *.html");
++        assertEquals(scopesWithExtensions.get(1).getName(), "java");
++        assertEquals(scopesWithExtensions.get(2).getName(), "js");
++        assertEquals(scopesWithExtensions.get(3).getName(), "html");
+         assertEquals(scopesWithExtensions.get(4).getName(), "test");
+         assertEquals(scopesWithExtensions.get(5).getName(), "generated");
+         assertEquals(scopesWithExtensions.get(6).getName(), "build and deployment");
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+index a5cc65d..97173d4 100644
+--- a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/aspects/NamedSourceCodeAspectTest.java
+@@ -70,17 +70,17 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/A.java")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+ 
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/a.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 1);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+ 
+@@ -88,11 +88,11 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(new SourceFile(new File("/testdir/b.js")));
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 2);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(0).getFile().getName(), "A.java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().get(1).getFile().getName(), "B.java");
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "  *.js");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getName(), "js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().size(), 2);
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(0).getFile().getName(), "a.js");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(1).getSourceFiles().get(1).getFile().getName(), "b.js");
+@@ -115,7 +115,7 @@ public class NamedSourceCodeAspectTest {
+         aspect.getSourceFiles().add(sourceFile3);
+ 
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).size(), 1);
+-        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "  *.java");
++        assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getName(), "java");
+         assertEquals(SourceCodeAspectUtils.getAspectsPerExtensions(aspect).get(0).getSourceFiles().size(), 3);
+     }
+ 
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+index e505e28..be5ecbf 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/core/ReportFileExporter.java
+@@ -979,7 +979,7 @@ public class ReportFileExporter {
+         summary.append("<div style='margin-bottom: 20px; white-space: nowrap; overflow: hidden;'>");
+         boolean first[] = {true};
+         extensions.stream().limit(16).forEach(ext -> {
+-            String lang = ext.getName().toUpperCase().replace("*.", "").trim();
++            String lang = ext.getName().toUpperCase().trim();
+             int loc = ext.getValue().intValue();
+             int fontSize = loc >= 1000 ? 20 : 20;
+             int width = (first[0] ? loc >= 1000 ? 64 : 65 : loc >= 1000 ? 42 : 43);
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java b/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java
+index ab5e1f1..6127308 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/core/SummaryUtils.java
+@@ -141,7 +141,7 @@ public class SummaryUtils {
+             } else {
+                 first[0] = false;
+             }
+-            String language = ext.getName().toUpperCase().replace("*.", "");
++            String language = ext.getName().toUpperCase();
+             int loc = ext.getValue().intValue();
+             double percentage = totalLoc > 0 ? 100.0 * loc / totalLoc : 0;
+             String formattedPercentage = FormattingUtils.getFormattedPercentage(percentage) + "%";
+@@ -290,7 +290,7 @@ public class SummaryUtils {
+         summary.append("<div>");
+         Set<String> alreadyAddedImage = new HashSet<>();
+         extensions.forEach(ext -> {
+-            String lang = ext.getName().toUpperCase().replace("*.", "").trim();
++            String lang = ext.getName().toUpperCase().trim();
+             String image = DataImageUtils.getLangDataImage(lang);
+             if (image == null || !alreadyAddedImage.contains(image)) {
+                 int loc = ext.getValue().intValue();
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
+index 665c62e..3fb7edf 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/generators/statichtml/OverviewReportGenerator.java
+@@ -112,7 +112,7 @@ public class OverviewReportGenerator {
+ 
+         report.startUnorderedList();
+         results.getMainAspectAnalysisResults().getFileCountPerExtension().forEach(extension -> {
+-            String extensionString = extension.getName().replace("*.", "").trim().toLowerCase();
++            String extensionString = extension.getName().trim().toLowerCase();
+             LanguageAnalyzer analyzer = LanguageAnalyzerFactory.getInstance().getLanguageAnalyzerByExtension(extensionString);
+ 
+             report.addListItem("*." + extensionString + " files are analyzed with <b> " + analyzer.getClass().getSimpleName() + ":");
+@@ -130,7 +130,7 @@ public class OverviewReportGenerator {
+         StringBuilder langDivs = new StringBuilder("<div style='margin-bottom: 16px'>");
+         Set<String> alreadyAddedImage = new HashSet<>();
+         fileCountPerExtension.forEach(fileType -> {
+-            String lang = fileType.getName().replace("*.", "").trim();
++            String lang = fileType.getName().trim();
+             String image = DataImageUtils.getLangDataImage(lang);
+             if (image == null || !alreadyAddedImage.contains(image)) {
+                 langDivs.append(DataImageUtils.getLangDataImageDiv42(lang));
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/LandscapeDataExport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/LandscapeDataExport.java
+index 606a796..cbbbbc2 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/LandscapeDataExport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/data/LandscapeDataExport.java
+@@ -113,7 +113,7 @@ public class LandscapeDataExport {
+         List<NumericMetric> linesOfCodePerExtension = main.getLinesOfCodePerExtension();
+         StringBuilder locSummary = new StringBuilder();
+         if (linesOfCodePerExtension.size() > 0) {
+-            locSummary.append(linesOfCodePerExtension.get(0).getName().replace("*.", "").trim().toUpperCase());
++            locSummary.append(linesOfCodePerExtension.get(0).getName().trim().toUpperCase());
+         } else {
+             locSummary.append("-");
+         }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java
+index 120a858..fbe2d14 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeIndividualContributorsReports.java
+@@ -438,7 +438,7 @@ public class LandscapeIndividualContributorsReports {
+         List<NumericMetric> linesOfCodePerExtension = main.getLinesOfCodePerExtension();
+         StringBuilder locSummary = new StringBuilder();
+         if (linesOfCodePerExtension.size() > 0) {
+-            locSummary.append(linesOfCodePerExtension.get(0).getName().replace("*.", "").trim().toUpperCase());
++            locSummary.append(linesOfCodePerExtension.get(0).getName().trim().toUpperCase());
+         } else {
+             locSummary.append("-");
+         }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+index 9443f12..b179bf2 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportContributorsTab.java
+@@ -378,7 +378,7 @@ public class LandscapeReportContributorsTab {
+ 
+     private List<String> getMainExtensions() {
+         return landscapeAnalysisResults.getMainLinesOfCodePerExtension().stream()
+-                .map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
++                .map(l -> l.getName().trim()).collect(Collectors.toList());
+     }
+ 
+     private void addLangInfo(CommitsPerExtension extension, ExtractStringListValue<CommitsPerExtension> extractor, int commitsCount, String suffix) {
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+index 478d334..1e536ff 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/LandscapeReportGenerator.java
+@@ -1175,7 +1175,7 @@ public class LandscapeReportGenerator {
+ 
+     private List<String> getMainExtensions() {
+         return landscapeAnalysisResults.getMainLinesOfCodePerExtension().stream()
+-                .map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
++                .map(l -> l.getName().trim()).collect(Collectors.toList());
+     }
+ 
+     private void addLangInfo(CommitsPerExtension extension, ExtractStringListValue<CommitsPerExtension> extractor, int commitsCount, String suffix) {
+@@ -1191,7 +1191,7 @@ public class LandscapeReportGenerator {
+         String smallTextForNumber = FormattingUtils.getSmallTextForNumber(extension.getValue().intValue());
+         int size = extension.getDescription().size();
+         Collections.sort(extension.getDescription(), (a, b) -> b.getValue().intValue() - a.getValue().intValue());
+-        addLangInfoBlock(smallTextForNumber, extension.getName().replace("*.", "").trim(),
++        addLangInfoBlock(smallTextForNumber, extension.getName().trim(),
+                 size + " " + (size == 1 ? "repository" : "repositories") + ":\n  " +
+                         extension.getDescription().stream()
+                                 .map(a -> a.getName() + " (" + FormattingUtils.formatCount(a.getValue().intValue()) + " LOC)")
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+index ea8f9d9..f1d0ade 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/statichtml/repositories/LandscapeRepositoriesReport.java
+@@ -638,7 +638,7 @@ public class LandscapeRepositoriesReport {
+         List<NumericMetric> linesOfCodePerExtension = main.getLinesOfCodePerExtension();
+         StringBuilder locSummary = new StringBuilder();
+         if (linesOfCodePerExtension.size() > 0) {
+-            locSummary.append(linesOfCodePerExtension.get(0).getName().replace("*.", "").trim().toUpperCase());
++            locSummary.append(linesOfCodePerExtension.get(0).getName().trim().toUpperCase());
+         } else {
+             locSummary.append("-");
+         }
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeVisualsGenerator.java b/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeVisualsGenerator.java
+index 14b6fd0..650a3a5 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeVisualsGenerator.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/landscape/utils/LandscapeVisualsGenerator.java
+@@ -92,7 +92,7 @@ public class LandscapeVisualsGenerator {
+         List<VisualizationItem> items = new ArrayList<>();
+         List<NumericMetric> mainLinesOfCodePerExtension = getMergedMainLocPerExtension(landscapeAnalysisResults);
+         mainLinesOfCodePerExtension.forEach(metric -> {
+-            items.add(new VisualizationItem(metric.getName().replace("*.", ""), metric.getValue().intValue()));
++            items.add(new VisualizationItem(metric.getName(),metric.getValue().intValue()));
+         });
+         exportVisuals("extensions", items);
+     }
+@@ -132,6 +132,6 @@ public class LandscapeVisualsGenerator {
+     }
+ 
+     private List<String> getMainExtensions(LandscapeAnalysisResults landscapeAnalysisResults) {
+-        return getMergedMainLocPerExtension(landscapeAnalysisResults).stream().map(l -> l.getName().replace("*.", "").trim()).collect(Collectors.toList());
++        return getMergedMainLocPerExtension(landscapeAnalysisResults).stream().map(l -> l.getName().trim()).collect(Collectors.toList());
+     }
+ }

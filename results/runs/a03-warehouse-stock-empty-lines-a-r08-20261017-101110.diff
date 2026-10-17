@@ -1,0 +1,37 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..891b64a 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -1488,7 +1488,7 @@ public class DataStore {
+ 
+     public List<StockLevel> listStockByWarehouse(long warehouseId) {
+         String sql = "SELECT p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, s.quantity "
+-                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? ORDER BY p.name, p.id";
++                + "FROM stock s JOIN product p ON p.id = s.product_id WHERE s.warehouse_id = ? AND s.quantity > 0 ORDER BY p.name, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, warehouseId);
+             try (ResultSet rs = statement.executeQuery()) {
+diff --git a/src/test/java/com/acme/backoffice/StockTest.java b/src/test/java/com/acme/backoffice/StockTest.java
+index 8dde779..97ee9a1 100644
+--- a/src/test/java/com/acme/backoffice/StockTest.java
++++ b/src/test/java/com/acme/backoffice/StockTest.java
+@@ -55,6 +55,19 @@ class StockTest {
+         assertThrows(IllegalStateException.class, () -> stock.takeQuantity(second.id(), product.id(), 1));
+     }
+ 
++    @Test
++    void warehouseStockListLeavesOutEmptyLines() {
++        Product bolt = store.createProduct(new Product(0, "P-2", "Bolt", "Cat", new BigDecimal("1.00"), "piece", true));
++        Product nut = store.createProduct(new Product(0, "P-3", "Nut", "Cat", new BigDecimal("1.00"), "piece", true));
++        stock.setQuantity(first.id(), bolt.id(), 10);
++        stock.setQuantity(first.id(), nut.id(), 4);
++        stock.takeQuantity(first.id(), nut.id(), 4);
++        stock.setQuantity(first.id(), product.id(), 0);
++        assertEquals(1, stock.getWarehouseStock(first.id()).size());
++        assertEquals("Bolt", stock.getWarehouseStock(first.id()).get(0).product().name());
++        assertEquals(0, stock.getQuantity(first.id(), nut.id()));
++    }
++
+     @Test
+     void negativeValuesAreRejected() {
+         assertThrows(IllegalArgumentException.class, () -> stock.setQuantity(first.id(), product.id(), -1));

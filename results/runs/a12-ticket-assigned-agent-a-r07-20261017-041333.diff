@@ -1,0 +1,270 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..bd60e94 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -9928,7 +9928,7 @@ public class DataStore {
+     }
+ 
+     public SupportTicket createSupportTicket(SupportTicket ticket) {
+-        String sql = "INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
++        String sql = "INSERT INTO support_ticket (number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             statement.setString(1, ticket.number());
+             statement.setLong(2, ticket.customerId());
+@@ -9938,11 +9938,12 @@ public class DataStore {
+             statement.setString(6, ticket.status().name());
+             statement.setObject(7, ticket.openedDate());
+             statement.setObject(8, ticket.closedDate());
++            statement.setString(9, ticket.assignedAgent());
+             statement.executeUpdate();
+             try (ResultSet keys = statement.getGeneratedKeys()) {
+                 keys.next();
+                 return new SupportTicket(keys.getLong(1), ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                        ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate());
++                        ticket.priority(), ticket.status(), ticket.openedDate(), ticket.closedDate(), ticket.assignedAgent());
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot create support ticket", e);
+@@ -9950,7 +9951,7 @@ public class DataStore {
+     }
+ 
+     public Optional<SupportTicket> findSupportTicketByNumber(String number) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE number = ?";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE number = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, number);
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -9958,7 +9959,8 @@ public class DataStore {
+                     return Optional.of(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return Optional.empty();
+             }
+@@ -9980,7 +9982,7 @@ public class DataStore {
+     }
+ 
+     public List<SupportTicket> listOpenSupportTicketsByCustomer(long customerId) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE customer_id = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE customer_id = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, customerId);
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -9989,7 +9991,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -9999,7 +10002,7 @@ public class DataStore {
+     }
+ 
+     public List<SupportTicket> listOpenSupportTicketsByPriority(TicketPriority priority) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE priority = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE priority = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, priority.name());
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -10008,7 +10011,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10019,7 +10023,7 @@ public class DataStore {
+ 
+     /** Tickets of customers in the region that are not closed, oldest first. */
+     public List<SupportTicket> listOpenSupportTicketsByRegion(Region region) {
+-        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date FROM support_ticket t "
++        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date, t.assigned_agent FROM support_ticket t "
+                 + "JOIN customer c ON c.id = t.customer_id WHERE c.region = ? AND t.status <> 'CLOSED' ORDER BY t.opened_date, t.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, region.name());
+@@ -10029,7 +10033,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10040,7 +10045,7 @@ public class DataStore {
+ 
+     /** Tickets of customers of the sales rep that are not closed, highest priority first, oldest first within a priority. */
+     public List<SupportTicket> listOpenSupportTicketsBySalesRep(long salesRepId) {
+-        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date FROM support_ticket t "
++        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date, t.assigned_agent FROM support_ticket t "
+                 + "JOIN customer c ON c.id = t.customer_id WHERE c.sales_rep_id = ? AND t.status <> 'CLOSED' "
+                 + "ORDER BY CASE t.priority WHEN 'HIGH' THEN 0 WHEN 'NORMAL' THEN 1 ELSE 2 END, t.opened_date, t.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -10051,7 +10056,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10062,7 +10068,7 @@ public class DataStore {
+ 
+     /** Tickets of the customer that refer to an order, whatever their status, oldest first. */
+     public List<SupportTicket> listSupportTicketsWithOrderByCustomer(long customerId) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE customer_id = ? AND order_id IS NOT NULL ORDER BY opened_date, id";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE customer_id = ? AND order_id IS NOT NULL ORDER BY opened_date, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, customerId);
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -10071,7 +10077,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10117,7 +10124,7 @@ public class DataStore {
+ 
+     /** High-priority tickets of customers in the region that were open on the date and opened more than the given number of days before it, oldest first. */
+     public List<SupportTicket> listHighPrioritySupportTicketsByRegionOlderThan(Region region, LocalDate date, int days) {
+-        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date FROM support_ticket t "
++        String sql = "SELECT t.id, t.number, t.customer_id, t.order_id, t.subject, t.priority, t.status, t.opened_date, t.closed_date, t.assigned_agent FROM support_ticket t "
+                 + "JOIN customer c ON c.id = t.customer_id WHERE c.region = ? AND t.priority = 'HIGH' AND t.opened_date < ? "
+                 + "AND (t.closed_date IS NULL OR t.closed_date > ?) ORDER BY t.opened_date, t.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -10130,7 +10137,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10141,7 +10149,7 @@ public class DataStore {
+ 
+     /** Tickets that were open on the date (opened on or before it, not closed by then) and opened before the cutoff date, oldest first. */
+     public List<SupportTicket> listSupportTicketsOpenOnDateOpenedBefore(LocalDate date, LocalDate cutoff) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE opened_date <= ? AND opened_date < ? AND (closed_date IS NULL OR closed_date > ?) ORDER BY opened_date, id";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE opened_date <= ? AND opened_date < ? AND (closed_date IS NULL OR closed_date > ?) ORDER BY opened_date, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, date);
+             statement.setObject(2, cutoff);
+@@ -10152,7 +10160,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+@@ -10251,7 +10260,7 @@ public class DataStore {
+ 
+     /** Tickets about the product that are not closed, oldest first. */
+     public List<SupportTicket> listOpenSupportTicketsByProduct(long productId) {
+-        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date FROM support_ticket WHERE product_id = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
++        String sql = "SELECT id, number, customer_id, order_id, subject, priority, status, opened_date, closed_date, assigned_agent FROM support_ticket WHERE product_id = ? AND status <> 'CLOSED' ORDER BY opened_date, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, productId);
+             try (ResultSet rs = statement.executeQuery()) {
+@@ -10260,7 +10269,8 @@ public class DataStore {
+                     tickets.add(new SupportTicket(rs.getLong("id"), rs.getString("number"), rs.getLong("customer_id"),
+                             rs.getObject("order_id", Long.class), rs.getString("subject"),
+                             TicketPriority.valueOf(rs.getString("priority")), TicketStatus.valueOf(rs.getString("status")),
+-                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class)));
++                            rs.getObject("opened_date", LocalDate.class), rs.getObject("closed_date", LocalDate.class),
++                            rs.getString("assigned_agent")));
+                 }
+                 return tickets;
+             }
+diff --git a/src/main/java/com/acme/backoffice/model/SupportTicket.java b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+index 93a0017..d0c0474 100644
+--- a/src/main/java/com/acme/backoffice/model/SupportTicket.java
++++ b/src/main/java/com/acme/backoffice/model/SupportTicket.java
+@@ -2,7 +2,16 @@ package com.acme.backoffice.model;
+ 
+ import java.time.LocalDate;
+ 
+-/** A support ticket of a customer. The id is 0 until created. The order id and the closed date may be null. */
++/**
++ * A support ticket of a customer. The id is 0 until created. The order id, the closed date and the assigned support
++ * agent may be null.
++ */
+ public record SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
+-        TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        TicketStatus status, LocalDate openedDate, LocalDate closedDate, String assignedAgent) {
++
++    /** A ticket that is not assigned to a support agent. */
++    public SupportTicket(long id, String number, long customerId, Long orderId, String subject, TicketPriority priority,
++            TicketStatus status, LocalDate openedDate, LocalDate closedDate) {
++        this(id, number, customerId, orderId, subject, priority, status, openedDate, closedDate, null);
++    }
+ }
+diff --git a/src/main/java/com/acme/backoffice/service/SupportTicketService.java b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+index 57f6853..6978656 100644
+--- a/src/main/java/com/acme/backoffice/service/SupportTicketService.java
++++ b/src/main/java/com/acme/backoffice/service/SupportTicketService.java
+@@ -28,6 +28,12 @@ public class SupportTicketService {
+     /** Creates an open ticket. The order number is optional but, when given, must be an order of the customer. */
+     public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
+             LocalDate date) {
++        return create(number, customerId, orderNumber, subject, priority, date, null);
++    }
++
++    /** Creates an open ticket assigned to the support agent, who may be null for an unassigned ticket. */
++    public SupportTicket create(String number, long customerId, String orderNumber, String subject, TicketPriority priority,
++            LocalDate date, String assignedAgent) {
+         if (number == null || number.isBlank() || subject == null || subject.isBlank() || priority == null || date == null) {
+             throw new IllegalArgumentException("Number, subject, priority and date are required");
+         }
+@@ -47,7 +53,7 @@ public class SupportTicketService {
+             orderId = order.id();
+         }
+         return store.createSupportTicket(new SupportTicket(0, number.trim(), customerId, orderId, subject.trim(), priority,
+-                TicketStatus.OPEN, date, null));
++                TicketStatus.OPEN, date, null, assignedAgent == null || assignedAgent.isBlank() ? null : assignedAgent.trim()));
+     }
+ 
+     /** Sets the status. Closing records the date; reopening a closed ticket clears it. */
+@@ -63,7 +69,7 @@ public class SupportTicketService {
+         LocalDate closedDate = status == TicketStatus.CLOSED ? date : null;
+         store.updateSupportTicketStatus(ticket.id(), status, closedDate);
+         return new SupportTicket(ticket.id(), ticket.number(), ticket.customerId(), ticket.orderId(), ticket.subject(),
+-                ticket.priority(), status, ticket.openedDate(), closedDate);
++                ticket.priority(), status, ticket.openedDate(), closedDate, ticket.assignedAgent());
+     }
+ 
+     /** Tickets of the customer that are open or in progress, oldest first. */
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..9ef109d 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -350,7 +350,8 @@ CREATE TABLE support_ticket (
+     status VARCHAR(20) NOT NULL,
+     opened_date DATE NOT NULL,
+     closed_date DATE,
+-    product_id BIGINT REFERENCES product (id)
++    product_id BIGINT REFERENCES product (id),
++    assigned_agent VARCHAR(200)
+ );
+ 
+ CREATE TABLE bundle_component (

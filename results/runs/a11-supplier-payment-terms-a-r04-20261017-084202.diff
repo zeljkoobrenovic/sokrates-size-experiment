@@ -1,0 +1,282 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..4f6b7e0 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -688,17 +688,18 @@ public class DataStore {
+     }
+ 
+     public Supplier createSupplier(Supplier supplier) {
+-        String sql = "INSERT INTO supplier (name, contact_email, country, rating) VALUES (?, ?, ?, ?)";
++        String sql = "INSERT INTO supplier (name, contact_email, country, rating, payment_terms_days) VALUES (?, ?, ?, ?, ?)";
+         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             statement.setString(1, supplier.name());
+             statement.setString(2, supplier.contactEmail());
+             statement.setString(3, supplier.country());
+             statement.setInt(4, supplier.rating());
++            statement.setInt(5, supplier.paymentTermsDays());
+             statement.executeUpdate();
+             try (ResultSet keys = statement.getGeneratedKeys()) {
+                 keys.next();
+                 return new Supplier(keys.getLong(1), supplier.name(), supplier.contactEmail(), supplier.country(),
+-                        supplier.rating());
++                        supplier.rating(), supplier.paymentTermsDays());
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot create supplier", e);
+@@ -706,13 +707,14 @@ public class DataStore {
+     }
+ 
+     public void updateSupplier(Supplier supplier) {
+-        String sql = "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ? WHERE id = ?";
++        String sql = "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ?, payment_terms_days = ? WHERE id = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, supplier.name());
+             statement.setString(2, supplier.contactEmail());
+             statement.setString(3, supplier.country());
+             statement.setInt(4, supplier.rating());
+-            statement.setLong(5, supplier.id());
++            statement.setInt(5, supplier.paymentTermsDays());
++            statement.setLong(6, supplier.id());
+             statement.executeUpdate();
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot update supplier", e);
+@@ -720,12 +722,12 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByName() {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+             List<Supplier> suppliers = new ArrayList<>();
+             while (rs.next()) {
+                 suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                        rs.getString("country"), rs.getInt("rating")));
++                        rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+             }
+             return suppliers;
+         } catch (SQLException e) {
+@@ -734,14 +736,14 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByCountry(String country) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE country = ? ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE country = ? ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, country);
+             try (ResultSet rs = statement.executeQuery()) {
+                 List<Supplier> suppliers = new ArrayList<>();
+                 while (rs.next()) {
+                     suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return suppliers;
+             }
+@@ -751,14 +753,14 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByMinimumRating(int minimumRating) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE rating >= ? ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE rating >= ? ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setInt(1, minimumRating);
+             try (ResultSet rs = statement.executeQuery()) {
+                 List<Supplier> suppliers = new ArrayList<>();
+                 while (rs.next()) {
+                     suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return suppliers;
+             }
+@@ -1760,7 +1762,7 @@ public class DataStore {
+         String sql = "SELECT w.id AS warehouse_id, w.code, w.name AS warehouse_name, w.city, w.region, "
+                 + "p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, "
+                 + "COALESCE(s.quantity, 0) AS quantity, r.level, "
+-                + "su.id AS supplier_id, su.name AS supplier_name, su.contact_email, su.country, su.rating, sp.last_unit_cost "
++                + "su.id AS supplier_id, su.name AS supplier_name, su.contact_email, su.country, su.rating, su.payment_terms_days, sp.last_unit_cost "
+                 + "FROM reorder_level r JOIN warehouse w ON w.id = r.warehouse_id JOIN product p ON p.id = r.product_id "
+                 + "LEFT JOIN stock s ON s.warehouse_id = r.warehouse_id AND s.product_id = r.product_id "
+                 + "LEFT JOIN supplier_product sp ON sp.id = (SELECT sp2.id FROM supplier_product sp2 "
+@@ -1776,7 +1778,7 @@ public class DataStore {
+                     Supplier supplier = null;
+                     if (rs.getObject("supplier_id") != null) {
+                         supplier = new Supplier(rs.getLong("supplier_id"), rs.getString("supplier_name"),
+-                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"));
++                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     }
+                     int quantity = rs.getInt("quantity");
+                     int level = rs.getInt("level");
+@@ -2286,11 +2288,11 @@ public class DataStore {
+      * quantity, highest first (then by supplier name, then id); suppliers without such orders are left out.
+      */
+     public List<SupplierPurchasedQuantity> findPurchasedQuantityPerSupplier(long productId, LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, SUM(l.quantity) AS purchased "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, SUM(l.quantity) AS purchased "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "JOIN purchase_order_line l ON l.order_id = o.id "
+                 + "WHERE l.product_id = ? AND o.order_date >= ? AND o.order_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY purchased DESC, s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY purchased DESC, s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, productId);
+             statement.setObject(2, from);
+@@ -2299,7 +2301,7 @@ public class DataStore {
+                 List<SupplierPurchasedQuantity> quantities = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     quantities.add(new SupplierPurchasedQuantity(supplier, rs.getLong("purchased")));
+                 }
+                 return quantities;
+@@ -8926,12 +8928,12 @@ public class DataStore {
+      * Sorted by supplier name; suppliers without received orders in the period are left out.
+      */
+     public List<SupplierPerformance> listSupplierPerformance(LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, COUNT(o.id) AS received_count, "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, COUNT(o.id) AS received_count, "
+                 + "AVG(CAST(DATEDIFF('DAY', o.expected_date, o.received_date) AS DECIMAL(10, 2))) AS average_delay, "
+                 + "COALESCE(SUM(CASE WHEN o.received_date > o.expected_date THEN 1 ELSE 0 END), 0) AS late_count "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "WHERE o.status = 'RECEIVED' AND o.received_date >= ? AND o.received_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -8939,7 +8941,7 @@ public class DataStore {
+                 List<SupplierPerformance> performance = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     int receivedCount = rs.getInt("received_count");
+                     BigDecimal lateShare = BigDecimal.valueOf(rs.getInt("late_count") * 100L)
+                             .divide(BigDecimal.valueOf(receivedCount), 2, RoundingMode.HALF_UP);
+@@ -8959,12 +8961,12 @@ public class DataStore {
+      * received orders are left out.
+      */
+     public List<SupplierSpending> findSpendingPerSupplier(LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, COUNT(DISTINCT o.id) AS order_count, "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, COUNT(DISTINCT o.id) AS order_count, "
+                 + "COALESCE(SUM(l.quantity * l.unit_cost), 0) AS total "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "LEFT JOIN purchase_order_line l ON l.order_id = o.id "
+                 + "WHERE o.status = 'RECEIVED' AND o.received_date >= ? AND o.received_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY total DESC, s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY total DESC, s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -8972,7 +8974,7 @@ public class DataStore {
+                 List<SupplierSpending> spending = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     spending.add(new SupplierSpending(supplier, rs.getInt("order_count"), rs.getBigDecimal("total")));
+                 }
+                 return spending;
+@@ -9011,13 +9013,13 @@ public class DataStore {
+     }
+ 
+     public Optional<Supplier> findSupplierById(long id) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE id = ?";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE id = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, id);
+             try (ResultSet rs = statement.executeQuery()) {
+                 if (rs.next()) {
+                     return Optional.of(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return Optional.empty();
+             }
+@@ -9142,11 +9144,11 @@ public class DataStore {
+     public List<CategorySupplier> findCategoriesWithSingleSupplier(String category) {
+         String sql = "WITH RECURSIVE tree (code) AS (SELECT code FROM category WHERE code = ? "
+                 + "UNION ALL SELECT c.code FROM category c JOIN tree t ON c.parent_code = t.code) "
+-                + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating "
++                + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days "
+                 + "FROM supplier_product sp JOIN product p ON p.id = sp.product_id "
+                 + "JOIN supplier s ON s.id = sp.supplier_id "
+                 + "WHERE p.category IN (SELECT code FROM tree) "
+-                + "GROUP BY p.category, s.id, s.name, s.contact_email, s.country, s.rating "
++                + "GROUP BY p.category, s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days "
+                 + "HAVING (SELECT COUNT(DISTINCT sp2.supplier_id) FROM supplier_product sp2 "
+                 + "JOIN product p2 ON p2.id = sp2.product_id WHERE p2.category = p.category) = 1 "
+                 + "ORDER BY p.category";
+@@ -9156,7 +9158,7 @@ public class DataStore {
+                 List<CategorySupplier> result = new ArrayList<>();
+                 while (rs.next()) {
+                     result.add(new CategorySupplier(rs.getString("category"), new Supplier(rs.getLong("id"),
+-                            rs.getString("name"), rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"))));
++                            rs.getString("name"), rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"))));
+                 }
+                 return result;
+             }
+diff --git a/src/main/java/com/acme/backoffice/model/Supplier.java b/src/main/java/com/acme/backoffice/model/Supplier.java
+index 3eac40c..607fe88 100644
+--- a/src/main/java/com/acme/backoffice/model/Supplier.java
++++ b/src/main/java/com/acme/backoffice/model/Supplier.java
+@@ -1,5 +1,15 @@
+ package com.acme.backoffice.model;
+ 
+-/** A supplier with a rating from 1 to 5. The id is 0 until the supplier has been created in the database. */
+-public record Supplier(long id, String name, String contactEmail, String country, int rating) {
++/**
++ * A supplier with a rating from 1 to 5 and payment terms in days after the invoice date. The id is 0 until the supplier
++ * has been created in the database.
++ */
++public record Supplier(long id, String name, String contactEmail, String country, int rating, int paymentTermsDays) {
++
++    /** The standard payment terms, for a supplier for whom nothing was agreed. */
++    public static final int STANDARD_PAYMENT_TERMS_DAYS = 30;
++
++    public Supplier(long id, String name, String contactEmail, String country, int rating) {
++        this(id, name, contactEmail, country, rating, STANDARD_PAYMENT_TERMS_DAYS);
++    }
+ }
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..c382c7a 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -35,7 +35,8 @@ CREATE TABLE supplier (
+     name VARCHAR(200) NOT NULL,
+     contact_email VARCHAR(200) NOT NULL,
+     country VARCHAR(100) NOT NULL,
+-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5)
++    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
++    payment_terms_days INT NOT NULL DEFAULT 30 CHECK (payment_terms_days >= 0)
+ );
+ 
+ CREATE TABLE warehouse (
+diff --git a/src/test/java/com/acme/backoffice/SupplierTest.java b/src/test/java/com/acme/backoffice/SupplierTest.java
+index 5136faa..122672e 100644
+--- a/src/test/java/com/acme/backoffice/SupplierTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierTest.java
+@@ -32,6 +32,22 @@ class SupplierTest {
+         assertEquals(List.of(changed), store.listSuppliersByName());
+     }
+ 
++    @Test
++    void paymentTermsDefaultToThirtyDaysAndCanBeRenegotiated() {
++        Supplier created = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3));
++        assertEquals(30, created.paymentTermsDays());
++        Supplier agreed = store.createSupplier(new Supplier(0, "Swede", "s@example.com", "Sweden", 4, 45));
++        assertEquals(45, store.findSupplierById(agreed.id()).orElseThrow().paymentTermsDays());
++        store.updateSupplier(new Supplier(agreed.id(), "Swede", "s@example.com", "Sweden", 4, 14));
++        assertEquals(14, store.findSupplierById(agreed.id()).orElseThrow().paymentTermsDays());
++        assertEquals(List.of(14), store.listSuppliersByName().stream().filter(s -> s.id() == agreed.id())
++                .map(Supplier::paymentTermsDays).toList());
++        assertEquals(List.of(14), store.listSuppliersByCountry("Sweden").stream().filter(s -> s.id() == agreed.id())
++                .map(Supplier::paymentTermsDays).toList());
++        assertEquals(List.of(14), store.listSuppliersByMinimumRating(4).stream().filter(s -> s.id() == agreed.id())
++                .map(Supplier::paymentTermsDays).toList());
++    }
++
+     @Test
+     void ratingMustBeBetweenOneAndFive() {
+         assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 0)));

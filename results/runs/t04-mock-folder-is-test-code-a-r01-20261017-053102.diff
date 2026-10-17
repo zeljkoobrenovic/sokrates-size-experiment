@@ -1,0 +1,81 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..c55a318 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -390,8 +390,8 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/__mock[^/]*/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[^/]*/.*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsMockTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsMockTest.java
+new file mode 100644
+index 0000000..6e514dc
+--- /dev/null
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsMockTest.java
+@@ -0,0 +1,60 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.sourcecode.scoping;
++
++import nl.obren.sokrates.sourcecode.SourceFile;
++import org.junit.Test;
++
++import java.io.File;
++import java.lang.reflect.Field;
++import java.util.List;
++
++import static org.junit.Assert.assertFalse;
++import static org.junit.Assert.assertTrue;
++
++public class ScopingConventionsMockTest {
++    @Test
++    public void mockFoldersAreTestResources() throws Exception {
++        assertMockScope("src/main/java/org/x/mock/Service.java");
++        assertMockScope("src/main/java/org/x/mock.data/Service.java");
++        assertMockScope("src/main/java/org/x/mock(old)/Service.java");
++        assertMockScope("src/main/java/org/x/mock-größe/Service.java");
++        assertMockScope("src/main/java/org/x/mock模拟/Service.java");
++        assertMockScope("src/mocks/Service.java");
++        assertMockScope("src/__mocks__/Service.java");
++        assertMockScope("src/mock-data/Service.java");
++        assertMockScope("src/mock_data/Service.java");
++        assertMockScope("src/mock data/Service.java");
++        assertMockScope("src/mockStore/Service.java");
++        assertMockScope("src\\main\\mock\\Service.java");
++    }
++
++    @Test
++    public void otherFoldersAndFilesAreNotTestResources() throws Exception {
++        assertNotMockScope("src/main/java/org/x/remock/Service.java");
++        assertNotMockScope("src/main/java/org/x/demo/Service.java");
++        assertNotMockScope("src/main/java/org/x/mock.java");
++        assertNotMockScope("src/main/java/org/x/mockery.java");
++        assertNotMockScope("src/main/java/org/x/Service.java");
++    }
++
++    private void assertMockScope(String path) throws Exception {
++        assertTrue(path, matchesMockConvention(path));
++    }
++
++    private void assertNotMockScope(String path) throws Exception {
++        assertFalse(path, matchesMockConvention(path));
++    }
++
++    private boolean matchesMockConvention(String path) throws Exception {
++        Field field = ScopingConventions.class.getDeclaredField("testFilesConventions");
++        field.setAccessible(true);
++        List<Convention> conventions = (List<Convention>) field.get(new ScopingConventions());
++        SourceFile sourceFile = new SourceFile(new File(path), "");
++        return conventions.stream()
++                .filter(convention -> "Mock resources".equals(convention.getNote()))
++                .anyMatch(convention -> convention.matches(sourceFile));
++    }
++}

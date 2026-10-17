@@ -1,0 +1,33 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..2650bd0 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -475,6 +475,11 @@ public class DataExporter {
+         }
+     }
+ 
++    private String[] getAspectTextEntry(NamedSourceCodeAspect aspect) throws IOException {
++        String fileName = DataExportUtils.getAspectFileListFileName(aspect, "");
++        return new String[]{fileName, FileUtils.readFileToString(new File(textDataFolder, fileName), UTF_8)};
++    }
++
+     private void saveFoundText(AspectAnalysisResults aspectAnalysisResults, String prefix) {
+         if (aspectAnalysisResults.getFoundTextList().size() == 0) {
+             return;
+@@ -639,11 +644,11 @@ public class DataExporter {
+             zipFolder.mkdirs();
+ 
+             ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
+-                    {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+-                    {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+-                    {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+-                    {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+-                    {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
++                    getAspectTextEntry(analysisResults.getMainAspectAnalysisResults().getAspect()),
++                    getAspectTextEntry(analysisResults.getTestAspectAnalysisResults().getAspect()),
++                    getAspectTextEntry(analysisResults.getGeneratedAspectAnalysisResults().getAspect()),
++                    getAspectTextEntry(analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect()),
++                    getAspectTextEntry(analysisResults.getOtherAspectAnalysisResults().getAspect())
+             });
+             File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
+             if (gitHistoryFile.exists()) {

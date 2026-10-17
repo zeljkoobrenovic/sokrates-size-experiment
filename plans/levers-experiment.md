@@ -114,3 +114,10 @@ runs and chain steps go to `results/levers-{sonnet,haiku}.csv` and `results/leve
 
 - 2026-10-16, designed. A smoke run comes before the series (Haiku, one repeat of each condition on a few tasks, and
   one chain per mode). It checks only the mechanics, and its runs are not analysed.
+- 2026-10-17 ~00:03, Sonnet series launched (14 workers); Haiku launched in parallel later at the user's request, with
+  its own Maven repositories (`run_series.sh` now names them per model). Both complete: 1,440 single runs, 40 chains,
+  $175.10 (Sonnet $134.43 + $18.76, Haiku $16.56 + $5.36). No harness errors; 3 single runs failed acceptance.
+- Found while analysing: `num_turns` sometimes reports 1 for runs with many calls (cost and tokens unaffected; the
+  mechanism counts calls from transcripts). Haiku's session chains cross 100k tokens of context at step 4–5, above
+  which the reported price per token is 5×; that, not the re-sent context, makes Haiku's sessions dearer.
+- Report: `docs/posts/levers.md`.

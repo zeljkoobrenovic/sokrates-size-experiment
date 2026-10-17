@@ -1,0 +1,17 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+index bcfe9d5..05b7d22 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java
+@@ -744,7 +744,11 @@ public class LandscapeAnalysisResults {
+                 }
+             });
+ 
+-            if (!added[0] && !remainder.getMembers().contains(email)) {
++            // only active contributors (or those with no commit date) go to the undefined team
++            Contributor c = contributor.getContributor();
++            boolean activeOrUnknown = StringUtils.isBlank(c.getLatestCommitDate()) || c.isActive();
++
++            if (!added[0] && activeOrUnknown && !remainder.getMembers().contains(email)) {
+                 remainder.getMembers().add(contributor);
+                 contributor.getRepositories().forEach(repo -> {
+                     addRepoToTeam(repo, remainder);

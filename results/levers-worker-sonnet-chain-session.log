@@ -1,0 +1,71 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-levers-chain-session from ~/.m2/repository
+=== chain-session-a-r01-20261017-000305
+  s1 a01 success=True turns=12 input=201743 cost=0.104408 cum=0.104408
+  s2 a11 success=True turns=15 input=304577 cost=0.184673 cum=0.289081
+  s3 a02 success=True turns=6 input=245076 cost=0.058492 cum=0.347573
+  s4 a12 success=True turns=19 input=481847 cost=0.162385 cum=0.509957
+  s5 a03 success=True turns=5 input=267750 cost=0.047605 cum=0.557563
+  s6 a13 success=True turns=15 input=438780 cost=0.126169 cum=0.683732
+=== chain-session-a-r02-20261017-001447
+  s1 a01 success=True turns=8 input=129548 cost=0.078633 cum=0.078633
+  s2 a11 success=True turns=17 input=264651 cost=0.18514 cum=0.263773
+  s3 a02 success=True turns=7 input=233181 cost=0.057786 cum=0.321559
+  s4 a12 success=True turns=18 input=380613 cost=0.135246 cum=0.456806
+  s5 a03 success=True turns=4 input=187704 cost=0.037939 cum=0.494745
+  s6 a13 success=True turns=14 input=336985 cost=0.101432 cum=0.596176
+=== chain-session-a-r03-20261017-002530
+  s1 a01 success=True turns=9 input=154134 cost=0.089308 cum=0.089308
+  s2 a11 success=True turns=14 input=209090 cost=0.169273 cum=0.258581
+  s3 a02 success=True turns=6 input=241543 cost=0.056424 cum=0.315005
+  s4 a12 success=True turns=19 input=525338 cost=0.165682 cum=0.480687
+  s5 a03 success=True turns=6 input=328040 cost=0.051229 cum=0.531916
+  s6 a13 success=True turns=1 input=79429 cost=0.161066 cum=0.692982
+=== chain-session-a-r04-20261017-005854
+  s1 a01 success=True turns=7 input=132674 cost=0.074982 cum=0.074982
+  s2 a11 success=True turns=1 input=47506 cost=0.239833 cum=0.314815
+  s3 a02 success=True turns=7 input=248261 cost=0.051212 cum=0.366027
+  s4 a12 success=True turns=14 input=287352 cost=0.11721 cum=0.483237
+  s5 a03 success=True turns=5 input=259670 cost=0.046665 cum=0.529902
+  s6 a13 success=True turns=14 input=355849 cost=0.113504 cum=0.643406
+=== chain-session-a-r05-20261017-012812
+  s1 a01 success=True turns=11 input=229800 cost=0.100472 cum=0.100472
+  s2 a11 success=True turns=43 input=844766 cost=0.351137 cum=0.451609
+  s3 a02 success=True turns=6 input=302003 cost=0.065781 cum=0.517389
+  s4 a12 success=True turns=19 input=498126 cost=0.175754 cum=0.693143
+  s5 a03 success=True turns=5 input=320046 cost=0.054451 cum=0.747594
+  s6 a13 success=True turns=17 input=540792 cost=0.16445 cum=0.912044
+=== chain-session-a-r06-20261017-020256
+  s1 a01 success=True turns=14 input=296848 cost=0.135164 cum=0.135164
+  s2 a11 success=True turns=1 input=56487 cost=0.252721 cum=0.387885
+  s3 a02 success=True turns=1 input=63910 cost=0.101303 cum=0.489188
+  s4 a12 success=True turns=1 input=80269 cost=0.23065 cum=0.719838
+  s5 a03 success=True turns=1 input=84261 cost=0.067192 cum=0.78703
+  s6 a13 success=True turns=1 input=99246 cost=0.199333 cum=0.986363
+=== chain-session-a-r07-20261017-023403
+  s1 a01 success=True turns=9 input=159775 cost=0.086831 cum=0.086831
+  s2 a11 success=True turns=23 input=508406 cost=0.223635 cum=0.310466
+  s3 a02 success=True turns=6 input=258014 cost=0.056177 cum=0.366642
+  s4 a12 success=True turns=18 input=432433 cost=0.160142 cum=0.526785
+  s5 a03 success=True turns=5 input=276195 cost=0.045448 cum=0.572233
+  s6 a13 success=True turns=14 input=448386 cost=0.118019 cum=0.690251
+=== chain-session-a-r08-20261017-031453
+  s1 a01 success=True turns=13 input=252417 cost=0.107488 cum=0.107488
+  s2 a11 success=True turns=23 input=565517 cost=0.224171 cum=0.33166
+  s3 a02 success=True turns=8 input=319484 cost=0.072606 cum=0.404266
+  s4 a12 success=True turns=24 input=808110 cost=0.223092 cum=0.627358
+  s5 a03 success=True turns=5 input=308153 cost=0.049472 cum=0.67683
+  s6 a13 success=True turns=21 input=700895 cost=0.1834 cum=0.86023
+=== chain-session-a-r09-20261017-040045
+  s1 a01 success=True turns=8 input=152420 cost=0.082948 cum=0.082948
+  s2 a11 success=True turns=1 input=43116 cost=0.182776 cum=0.265724
+  s3 a02 success=True turns=5 input=180857 cost=0.045421 cum=0.311146
+  s4 a12 success=True turns=18 input=394355 cost=0.154195 cum=0.465341
+  s5 a03 success=True turns=5 input=255718 cost=0.048715 cum=0.514056
+  s6 a13 success=True turns=18 input=505746 cost=0.151954 cum=0.66601
+=== chain-session-a-r10-20261017-043706
+  s1 a01 success=True turns=11 input=207335 cost=0.099127 cum=0.099127
+  s2 a11 success=True turns=1 input=38844 cost=0.138489 cum=0.237616
+  s3 a02 success=True turns=8 input=254429 cost=0.058398 cum=0.296014
+  s4 a12 success=True turns=2 input=114957 cost=0.155511 cum=0.451526
+  s5 a03 success=True turns=5 input=239939 cost=0.046612 cum=0.498137
+  s6 a13 success=True turns=2 input=149444 cost=0.152676 cum=0.650814

@@ -1,0 +1,63 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..7b19010 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -390,8 +390,8 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/__mock[^/\\\\]*/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[^/\\\\]*/.*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java
+new file mode 100644
+index 0000000..96e59f0
+--- /dev/null
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java
+@@ -0,0 +1,42 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.sourcecode.scoping;
++
++import org.junit.Test;
++
++import static junit.framework.TestCase.assertFalse;
++import static junit.framework.TestCase.assertTrue;
++
++public class ScopingConventionsTest {
++    private boolean isTestFile(String path) {
++        return new ScopingConventions().getTestFilesConventions().stream()
++                .anyMatch(convention -> convention.pathMatches(path));
++    }
++
++    @Test
++    public void testMockFoldersAreTestResources() {
++        assertTrue(isTestFile("/src/main/java/org/x/mock/Helper.java"));
++        assertTrue(isTestFile("/src/mock.data/Helper.java"));
++        assertTrue(isTestFile("/src/mock(old)/Helper.java"));
++        assertTrue(isTestFile("/src/mock-größe/Helper.java"));
++        assertTrue(isTestFile("/src/mock模拟/Helper.java"));
++        assertTrue(isTestFile("/src/mocks/Helper.java"));
++        assertTrue(isTestFile("/src/__mocks__/Helper.java"));
++        assertTrue(isTestFile("/src/mock-data/Helper.java"));
++        assertTrue(isTestFile("/src/mock_data/Helper.java"));
++        assertTrue(isTestFile("/src/mock data/Helper.java"));
++        assertTrue(isTestFile("/src/mockStore/Helper.java"));
++        assertTrue(isTestFile("C:\\src\\mock\\Helper.java"));
++    }
++
++    @Test
++    public void testOnlyWholeMockFolderNamesAreTestResources() {
++        assertFalse(isTestFile("/src/remock/Helper.java"));
++        assertFalse(isTestFile("/src/demo/Helper.java"));
++        assertFalse(isTestFile("/src/main/java/Helper.java"));
++        assertFalse(isTestFile("/src/main/java/mock.java"));
++        assertFalse(isTestFile("/src/main/java/mockery.java"));
++    }
++}

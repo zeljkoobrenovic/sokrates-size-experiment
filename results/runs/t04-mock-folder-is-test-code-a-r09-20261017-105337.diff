@@ -1,0 +1,89 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..f540bbf 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -390,8 +390,7 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention("(.*[/\\\\])?(__)?mock[^/\\\\]*[/\\\\].*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java
+new file mode 100644
+index 0000000..0767e0f
+--- /dev/null
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventionsTest.java
+@@ -0,0 +1,69 @@
++/*
++ * Copyright (c) 2021 Željko Obrenović. All rights reserved.
++ */
++
++package nl.obren.sokrates.sourcecode.scoping;
++
++import nl.obren.sokrates.sourcecode.SourceFile;
++import nl.obren.sokrates.sourcecode.core.CodeConfiguration;
++import org.junit.Test;
++
++import java.io.File;
++import java.util.Arrays;
++import java.util.List;
++
++import static junit.framework.TestCase.assertEquals;
++
++public class ScopingConventionsTest {
++    @Test
++    public void mockFoldersAreTestCode() {
++        assertTestScope(
++                "x-pack/plugin/inference/qa/test-service-plugin/src/main/java/org/elasticsearch/xpack/inference/mock/Foo.java",
++                "src/mocks/Foo.java",
++                "src/__mocks__/Foo.java",
++                "src/__mock__/Foo.java",
++                "src/mock-data/Foo.java",
++                "src/mock_data/Foo.java",
++                "src/mock data/Foo.java",
++                "src/mockStore/Foo.java",
++                "src/mock.data/Foo.java",
++                "src/mock(old)/Foo.java",
++                "src/mock-größe/Foo.java",
++                "src/mock模拟/Foo.java",
++                "src\\main\\mock\\Foo.java",
++                "src\\mock.data\\Foo.java"
++        );
++    }
++
++    @Test
++    public void otherFoldersAreNotTestCode() {
++        assertNotTestScope(
++                "src/remock/Foo.java",
++                "src/demo/Foo.java",
++                "src/main/java/Foo.java",
++                "src/main/java/mock.java",
++                "src/main/java/mockery.java",
++                "src/main/java/Mock.java"
++        );
++    }
++
++    private void assertTestScope(String... paths) {
++        assertEquals(paths.length, countTestFiles(paths));
++    }
++
++    private void assertNotTestScope(String... paths) {
++        assertEquals(0, countTestFiles(paths));
++    }
++
++    private int countTestFiles(String... paths) {
++        List<SourceFile> sourceFiles = Arrays.stream(paths)
++                .map(path -> new SourceFile(new File(path), ""))
++                .collect(java.util.stream.Collectors.toList());
++        CodeConfiguration codeConfiguration = new CodeConfiguration();
++        new ScopingConventions().addConventions(codeConfiguration, sourceFiles);
++        return (int) sourceFiles.stream()
++                .filter(sourceFile -> codeConfiguration.getTest().getSourceFileFilters().stream()
++                        .anyMatch(filter -> filter.matches(sourceFile)))
++                .count();
++    }
++}

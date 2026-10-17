@@ -1,0 +1,823 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..a719178 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -688,17 +688,18 @@ public class DataStore {
+     }
+ 
+     public Supplier createSupplier(Supplier supplier) {
+-        String sql = "INSERT INTO supplier (name, contact_email, country, rating) VALUES (?, ?, ?, ?)";
++        String sql = "INSERT INTO supplier (name, contact_email, country, rating, payment_terms_days) VALUES (?, ?, ?, ?, ?)";
+         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             statement.setString(1, supplier.name());
+             statement.setString(2, supplier.contactEmail());
+             statement.setString(3, supplier.country());
+             statement.setInt(4, supplier.rating());
++            statement.setInt(5, supplier.paymentTermsDays());
+             statement.executeUpdate();
+             try (ResultSet keys = statement.getGeneratedKeys()) {
+                 keys.next();
+                 return new Supplier(keys.getLong(1), supplier.name(), supplier.contactEmail(), supplier.country(),
+-                        supplier.rating());
++                        supplier.rating(), supplier.paymentTermsDays());
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot create supplier", e);
+@@ -706,13 +707,14 @@ public class DataStore {
+     }
+ 
+     public void updateSupplier(Supplier supplier) {
+-        String sql = "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ? WHERE id = ?";
++        String sql = "UPDATE supplier SET name = ?, contact_email = ?, country = ?, rating = ?, payment_terms_days = ? WHERE id = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, supplier.name());
+             statement.setString(2, supplier.contactEmail());
+             statement.setString(3, supplier.country());
+             statement.setInt(4, supplier.rating());
+-            statement.setLong(5, supplier.id());
++            statement.setInt(5, supplier.paymentTermsDays());
++            statement.setLong(6, supplier.id());
+             statement.executeUpdate();
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot update supplier", e);
+@@ -720,12 +722,12 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByName() {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql); ResultSet rs = statement.executeQuery()) {
+             List<Supplier> suppliers = new ArrayList<>();
+             while (rs.next()) {
+                 suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                        rs.getString("country"), rs.getInt("rating")));
++                        rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+             }
+             return suppliers;
+         } catch (SQLException e) {
+@@ -734,14 +736,14 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByCountry(String country) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE country = ? ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE country = ? ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, country);
+             try (ResultSet rs = statement.executeQuery()) {
+                 List<Supplier> suppliers = new ArrayList<>();
+                 while (rs.next()) {
+                     suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return suppliers;
+             }
+@@ -751,14 +753,14 @@ public class DataStore {
+     }
+ 
+     public List<Supplier> listSuppliersByMinimumRating(int minimumRating) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE rating >= ? ORDER BY name, id";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE rating >= ? ORDER BY name, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setInt(1, minimumRating);
+             try (ResultSet rs = statement.executeQuery()) {
+                 List<Supplier> suppliers = new ArrayList<>();
+                 while (rs.next()) {
+                     suppliers.add(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return suppliers;
+             }
+@@ -1760,7 +1762,7 @@ public class DataStore {
+         String sql = "SELECT w.id AS warehouse_id, w.code, w.name AS warehouse_name, w.city, w.region, "
+                 + "p.id, p.sku, p.name, p.category, p.unit_price, p.unit_of_measure, p.active, "
+                 + "COALESCE(s.quantity, 0) AS quantity, r.level, "
+-                + "su.id AS supplier_id, su.name AS supplier_name, su.contact_email, su.country, su.rating, sp.last_unit_cost "
++                + "su.id AS supplier_id, su.name AS supplier_name, su.contact_email, su.country, su.rating, su.payment_terms_days, sp.last_unit_cost "
+                 + "FROM reorder_level r JOIN warehouse w ON w.id = r.warehouse_id JOIN product p ON p.id = r.product_id "
+                 + "LEFT JOIN stock s ON s.warehouse_id = r.warehouse_id AND s.product_id = r.product_id "
+                 + "LEFT JOIN supplier_product sp ON sp.id = (SELECT sp2.id FROM supplier_product sp2 "
+@@ -1776,7 +1778,8 @@ public class DataStore {
+                     Supplier supplier = null;
+                     if (rs.getObject("supplier_id") != null) {
+                         supplier = new Supplier(rs.getLong("supplier_id"), rs.getString("supplier_name"),
+-                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"));
++                                rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"),
++                                rs.getInt("payment_terms_days"));
+                     }
+                     int quantity = rs.getInt("quantity");
+                     int level = rs.getInt("level");
+@@ -2286,11 +2289,11 @@ public class DataStore {
+      * quantity, highest first (then by supplier name, then id); suppliers without such orders are left out.
+      */
+     public List<SupplierPurchasedQuantity> findPurchasedQuantityPerSupplier(long productId, LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, SUM(l.quantity) AS purchased "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, SUM(l.quantity) AS purchased "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "JOIN purchase_order_line l ON l.order_id = o.id "
+                 + "WHERE l.product_id = ? AND o.order_date >= ? AND o.order_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY purchased DESC, s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY purchased DESC, s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, productId);
+             statement.setObject(2, from);
+@@ -2299,7 +2302,7 @@ public class DataStore {
+                 List<SupplierPurchasedQuantity> quantities = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     quantities.add(new SupplierPurchasedQuantity(supplier, rs.getLong("purchased")));
+                 }
+                 return quantities;
+@@ -8926,12 +8929,12 @@ public class DataStore {
+      * Sorted by supplier name; suppliers without received orders in the period are left out.
+      */
+     public List<SupplierPerformance> listSupplierPerformance(LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, COUNT(o.id) AS received_count, "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, COUNT(o.id) AS received_count, "
+                 + "AVG(CAST(DATEDIFF('DAY', o.expected_date, o.received_date) AS DECIMAL(10, 2))) AS average_delay, "
+                 + "COALESCE(SUM(CASE WHEN o.received_date > o.expected_date THEN 1 ELSE 0 END), 0) AS late_count "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "WHERE o.status = 'RECEIVED' AND o.received_date >= ? AND o.received_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -8939,7 +8942,7 @@ public class DataStore {
+                 List<SupplierPerformance> performance = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     int receivedCount = rs.getInt("received_count");
+                     BigDecimal lateShare = BigDecimal.valueOf(rs.getInt("late_count") * 100L)
+                             .divide(BigDecimal.valueOf(receivedCount), 2, RoundingMode.HALF_UP);
+@@ -8959,12 +8962,12 @@ public class DataStore {
+      * received orders are left out.
+      */
+     public List<SupplierSpending> findSpendingPerSupplier(LocalDate from, LocalDate to) {
+-        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, COUNT(DISTINCT o.id) AS order_count, "
++        String sql = "SELECT s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days, COUNT(DISTINCT o.id) AS order_count, "
+                 + "COALESCE(SUM(l.quantity * l.unit_cost), 0) AS total "
+                 + "FROM supplier s JOIN purchase_order o ON o.supplier_id = s.id "
+                 + "LEFT JOIN purchase_order_line l ON l.order_id = o.id "
+                 + "WHERE o.status = 'RECEIVED' AND o.received_date >= ? AND o.received_date <= ? "
+-                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating ORDER BY total DESC, s.name, s.id";
++                + "GROUP BY s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days ORDER BY total DESC, s.name, s.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, from);
+             statement.setObject(2, to);
+@@ -8972,7 +8975,7 @@ public class DataStore {
+                 List<SupplierSpending> spending = new ArrayList<>();
+                 while (rs.next()) {
+                     Supplier supplier = new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating"));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days"));
+                     spending.add(new SupplierSpending(supplier, rs.getInt("order_count"), rs.getBigDecimal("total")));
+                 }
+                 return spending;
+@@ -9011,13 +9014,13 @@ public class DataStore {
+     }
+ 
+     public Optional<Supplier> findSupplierById(long id) {
+-        String sql = "SELECT id, name, contact_email, country, rating FROM supplier WHERE id = ?";
++        String sql = "SELECT id, name, contact_email, country, rating, payment_terms_days FROM supplier WHERE id = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setLong(1, id);
+             try (ResultSet rs = statement.executeQuery()) {
+                 if (rs.next()) {
+                     return Optional.of(new Supplier(rs.getLong("id"), rs.getString("name"), rs.getString("contact_email"),
+-                            rs.getString("country"), rs.getInt("rating")));
++                            rs.getString("country"), rs.getInt("rating"), rs.getInt("payment_terms_days")));
+                 }
+                 return Optional.empty();
+             }
+@@ -9142,11 +9145,11 @@ public class DataStore {
+     public List<CategorySupplier> findCategoriesWithSingleSupplier(String category) {
+         String sql = "WITH RECURSIVE tree (code) AS (SELECT code FROM category WHERE code = ? "
+                 + "UNION ALL SELECT c.code FROM category c JOIN tree t ON c.parent_code = t.code) "
+-                + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating "
++                + "SELECT p.category AS category, s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days "
+                 + "FROM supplier_product sp JOIN product p ON p.id = sp.product_id "
+                 + "JOIN supplier s ON s.id = sp.supplier_id "
+                 + "WHERE p.category IN (SELECT code FROM tree) "
+-                + "GROUP BY p.category, s.id, s.name, s.contact_email, s.country, s.rating "
++                + "GROUP BY p.category, s.id, s.name, s.contact_email, s.country, s.rating, s.payment_terms_days "
+                 + "HAVING (SELECT COUNT(DISTINCT sp2.supplier_id) FROM supplier_product sp2 "
+                 + "JOIN product p2 ON p2.id = sp2.product_id WHERE p2.category = p.category) = 1 "
+                 + "ORDER BY p.category";
+@@ -9156,7 +9159,8 @@ public class DataStore {
+                 List<CategorySupplier> result = new ArrayList<>();
+                 while (rs.next()) {
+                     result.add(new CategorySupplier(rs.getString("category"), new Supplier(rs.getLong("id"),
+-                            rs.getString("name"), rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"))));
++                            rs.getString("name"), rs.getString("contact_email"), rs.getString("country"), rs.getInt("rating"),
++                            rs.getInt("payment_terms_days"))));
+                 }
+                 return result;
+             }
+diff --git a/src/main/java/com/acme/backoffice/DemoScenario.java b/src/main/java/com/acme/backoffice/DemoScenario.java
+index 23ba653..f2cde95 100644
+--- a/src/main/java/com/acme/backoffice/DemoScenario.java
++++ b/src/main/java/com/acme/backoffice/DemoScenario.java
+@@ -275,6 +275,10 @@ import java.util.Map;
+  * Its output must be deterministic: no current dates, no random values.
+  */
+ public class DemoScenario {
++    private static Supplier registerSupplier(DataStore store, String name, String email, String country, int rating) {
++        return store.createSupplier(new Supplier(0, name, email, country, rating, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    }
++
+     public static void run(DataStore store, PrintStream out) {
+         out.println("BackOffice demo");
+ 
+@@ -312,10 +316,10 @@ public class DemoScenario {
+         out.println("  price 4.75 to 12.00: " + store.searchProductsByPriceRange(new BigDecimal("4.75"), new BigDecimal("12.00")).stream().map(Product::name).toList());
+ 
+         out.println("Suppliers:");
+-        Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
+-        store.createSupplier(new Supplier(0, "Acme Parts", "sales@acmeparts.example", "USA", 5));
+-        store.createSupplier(new Supplier(0, "Baltic Goods", "info@baltic.example", "Sweden", 2));
+-        store.updateSupplier(new Supplier(nordic.id(), nordic.name(), "purchasing@nordic.example", nordic.country(), 4));
++        Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, 45));
++        registerSupplier(store, "Acme Parts", "sales@acmeparts.example", "USA", 5);
++        registerSupplier(store, "Baltic Goods", "info@baltic.example", "Sweden", 2);
++        store.updateSupplier(new Supplier(nordic.id(), nordic.name(), "purchasing@nordic.example", nordic.country(), 4, 14));
+         for (Supplier supplier : store.listSuppliersByName()) {
+             out.println("  " + supplier.name() + " " + supplier.contactEmail() + " " + supplier.country() + " " + supplier.rating());
+         }
+@@ -1624,7 +1628,7 @@ public class DemoScenario {
+ 
+         out.println("Product margin:");
+         Customer marCustomer = store.createCustomer(new Customer(0, "Margin Cust", "marcust@example.com", null, "UK", Region.EAST, CustomerStatus.ACTIVE));
+-        Supplier marSupplier = store.createSupplier(new Supplier(0, "Margin Supply", "marsup@example.com", "Latvia", 4));
++        Supplier marSupplier = registerSupplier(store, "Margin Supply", "marsup@example.com", "Latvia", 4);
+         Product marBolt = store.createProduct(new Product(0, "PM-001", "Margin Bolt", "Fasteners", new BigDecimal("5.00"), "piece", true));
+         Product marNut = store.createProduct(new Product(0, "PM-002", "Margin Nut", "Fasteners", new BigDecimal("3.00"), "piece", true));
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-PM-1", marSupplier.id(), LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 10), PurchaseOrderStatus.SENT,
+@@ -1841,7 +1845,7 @@ public class DemoScenario {
+         }
+ 
+         out.println("Stock per category:");
+-        Supplier scSupplier = store.createSupplier(new Supplier(0, "SC Supply", "sc@example.com", "Sweden", 3));
++        Supplier scSupplier = registerSupplier(store, "SC Supply", "sc@example.com", "Sweden", 3);
+         Warehouse scA = store.createWarehouse(new Warehouse(0, "WH-SC-A", "SC Warehouse A", "Oslo", Region.NORTH));
+         Warehouse scB = store.createWarehouse(new Warehouse(0, "WH-SC-B", "SC Warehouse B", "Warsaw", Region.EAST));
+         Product scNail = store.createProduct(new Product(0, "SC-N", "SC Nail", "SC-Fasteners", new BigDecimal("1.00"), "piece", true));
+@@ -1873,7 +1877,7 @@ public class DemoScenario {
+         }
+ 
+         out.println("Slow-moving stock:");
+-        Supplier smSupplier = store.createSupplier(new Supplier(0, "SM Supply", "sm@example.com", "Sweden", 3));
++        Supplier smSupplier = registerSupplier(store, "SM Supply", "sm@example.com", "Sweden", 3);
+         Warehouse smA = store.createWarehouse(new Warehouse(0, "WH-SM-A", "SM Warehouse A", "Oslo", Region.NORTH));
+         Warehouse smB = store.createWarehouse(new Warehouse(0, "WH-SM-B", "SM Warehouse B", "Warsaw", Region.EAST));
+         Carrier smCarrier = store.createCarrier(new Carrier(0, "SM Carrier", ServiceLevel.STANDARD, new BigDecimal("1.00")));
+@@ -1955,8 +1959,8 @@ public class DemoScenario {
+         }
+ 
+         out.println("Purchase order search:");
+-        Supplier posS1 = store.createSupplier(new Supplier(0, "POS Supplier 1", "pos1@example.com", "Norway", 3));
+-        Supplier posS2 = store.createSupplier(new Supplier(0, "POS Supplier 2", "pos2@example.com", "Poland", 4));
++        Supplier posS1 = registerSupplier(store, "POS Supplier 1", "pos1@example.com", "Norway", 3);
++        Supplier posS2 = registerSupplier(store, "POS Supplier 2", "pos2@example.com", "Poland", 4);
+         Warehouse posWarehouseN = store.createWarehouse(new Warehouse(0, "POS-WH-N", "POS North", "Oslo", Region.NORTH));
+         Warehouse posWarehouseE = store.createWarehouse(new Warehouse(0, "POS-WH-E", "POS East", "Warsaw", Region.EAST));
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-POS-1", posS1.id(), LocalDate.of(2028, 10, 1), LocalDate.of(2028, 10, 10),
+@@ -2516,8 +2520,8 @@ public class DemoScenario {
+         out.println("Purchase orders per product:");
+         Product popProduct = store.createProduct(new Product(0, "POP-1", "POP Item 1", "Hardware", new BigDecimal("1.00"), "piece", true));
+         Product popOther = store.createProduct(new Product(0, "POP-2", "POP Item 2", "Hardware", new BigDecimal("1.00"), "piece", true));
+-        Supplier popSupplier1 = store.createSupplier(new Supplier(0, "POP Supplier 1", "pop1@example.com", "Austria", 4));
+-        Supplier popSupplier2 = store.createSupplier(new Supplier(0, "POP Supplier 2", "pop2@example.com", "Germany", 3));
++        Supplier popSupplier1 = registerSupplier(store, "POP Supplier 1", "pop1@example.com", "Austria", 4);
++        Supplier popSupplier2 = registerSupplier(store, "POP Supplier 2", "pop2@example.com", "Germany", 3);
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-POP-1", popSupplier1.id(), LocalDate.of(2038, 2, 3), LocalDate.of(2038, 2, 20),
+                 PurchaseOrderStatus.SENT, List.of(new PurchaseOrderLine(popProduct.id(), 30, new BigDecimal("1.20")),
+                 new PurchaseOrderLine(popOther.id(), 5, new BigDecimal("2.00")))));
+@@ -2543,7 +2547,7 @@ public class DemoScenario {
+         Product pocRoot = store.createProduct(new Product(0, "POC-1", "POC Item 1", "POC", new BigDecimal("1.00"), "piece", true));
+         Product pocSub = store.createProduct(new Product(0, "POC-2", "POC Item 2", "POC-SUB", new BigDecimal("1.00"), "piece", true));
+         Product pocOther = store.createProduct(new Product(0, "POC-3", "POC Item 3", "Hardware", new BigDecimal("1.00"), "piece", true));
+-        Supplier pocSupplier = store.createSupplier(new Supplier(0, "POC Supplier", "poc@example.com", "Austria", 4));
++        Supplier pocSupplier = registerSupplier(store, "POC Supplier", "poc@example.com", "Austria", 4);
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-POC-1", pocSupplier.id(), LocalDate.of(2039, 2, 3), LocalDate.of(2039, 2, 20),
+                 PurchaseOrderStatus.SENT, List.of(new PurchaseOrderLine(pocRoot.id(), 10, new BigDecimal("2.00")),
+                 new PurchaseOrderLine(pocOther.id(), 5, new BigDecimal("9.00")))));
+@@ -2567,7 +2571,7 @@ public class DemoScenario {
+         store.createWarehouse(new Warehouse(0, "WH-LPO", "LPO Hub", "Tallinn", Region.NORTH));
+         store.createWarehouse(new Warehouse(0, "WH-LPO2", "LPO Depot", "Vilnius", Region.EAST));
+         Product lpoProduct = store.createProduct(new Product(0, "LPO-1", "LPO Item", "Hardware", new BigDecimal("1.00"), "piece", true));
+-        Supplier lpoSupplier = store.createSupplier(new Supplier(0, "LPO Supplier", "lpo@example.com", "Estonia", 5));
++        Supplier lpoSupplier = registerSupplier(store, "LPO Supplier", "lpo@example.com", "Estonia", 5);
+         String[][] lpoData = {{"PO-LPO-1", "2040-04-20", "2040-05-04", "WH-LPO", "2040-05-07"},
+                 {"PO-LPO-2", "2040-04-25", "2040-05-10", "WH-LPO", "2040-05-10"},
+                 {"PO-LPO-3", "2040-04-25", "2040-05-02", "WH-LPO", "2040-05-12"},
+@@ -2591,8 +2595,8 @@ public class DemoScenario {
+         store.createCategory(new Category("SPC-SUB", "SPC Sub", "SPC"));
+         Product spcRoot = store.createProduct(new Product(0, "SPC-1", "SPC Item 1", "SPC", new BigDecimal("1.00"), "piece", true));
+         Product spcSub = store.createProduct(new Product(0, "SPC-2", "SPC Item 2", "SPC-SUB", new BigDecimal("1.00"), "piece", true));
+-        Supplier spcFirst = store.createSupplier(new Supplier(0, "SPC First", "spc1@example.com", "Spain", 4));
+-        Supplier spcSecond = store.createSupplier(new Supplier(0, "SPC Second", "spc2@example.com", "Portugal", 3));
++        Supplier spcFirst = registerSupplier(store, "SPC First", "spc1@example.com", "Spain", 4);
++        Supplier spcSecond = registerSupplier(store, "SPC Second", "spc2@example.com", "Portugal", 3);
+         SupplierProductService spcService = new SupplierProductService(store);
+         spcService.record(spcFirst.id(), spcRoot.id(), 5, new BigDecimal("2.50"));
+         spcService.record(spcSecond.id(), spcRoot.id(), 3, new BigDecimal("1.75"));
+@@ -2613,7 +2617,7 @@ public class DemoScenario {
+         Product sksNail = store.createProduct(new Product(0, "SKS-1", "SKS Nail", "SKS", new BigDecimal("1.00"), "piece", true));
+         Product sksScrew = store.createProduct(new Product(0, "SKS-2", "SKS Screw", "SKS", new BigDecimal("2.00"), "piece", true));
+         Product sksPaint = store.createProduct(new Product(0, "SKS-3", "SKS Paint", "SKS", new BigDecimal("10.00"), "piece", true));
+-        Supplier sksSupplier = store.createSupplier(new Supplier(0, "SKS Supplier", "sks@example.com", "Sweden", 4));
++        Supplier sksSupplier = registerSupplier(store, "SKS Supplier", "sks@example.com", "Sweden", 4);
+         SupplierProductService sksService = new SupplierProductService(store);
+         sksService.record(sksSupplier.id(), sksNail.id(), 5, new BigDecimal("0.50"));
+         sksService.record(sksSupplier.id(), sksScrew.id(), 5, new BigDecimal("1.50"));
+@@ -3121,7 +3125,7 @@ public class DemoScenario {
+     private static void purchaseOrdersPerCountry(DataStore store, PrintStream out) {
+         out.println("Purchase orders per country:");
+         Product pcProduct = store.createProduct(new Product(0, "PC-1", "PC Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+-        Supplier pcSupplier = store.createSupplier(new Supplier(0, "PC Supplier", "pc@example.com", "Sweden", 3));
++        Supplier pcSupplier = registerSupplier(store, "PC Supplier", "pc@example.com", "Sweden", 3);
+         Warehouse pcNorth = store.createWarehouse(new Warehouse(0, "WH-PCN", "PC North", "Oslo", Region.NORTH));
+         Warehouse pcSouth = store.createWarehouse(new Warehouse(0, "WH-PCS", "PC South", "Rome", Region.SOUTH));
+         store.createCustomer(new Customer(0, "PC Customer 1", "pc1@example.com", null, "Ruritania", Region.NORTH, CustomerStatus.ACTIVE));
+@@ -3147,7 +3151,7 @@ public class DemoScenario {
+         SalesRep ppRepA = store.createSalesRep(new SalesRep(0, "PP Alice", "pp-a@example.com", Region.NORTH));
+         SalesRep ppRepB = store.createSalesRep(new SalesRep(0, "PP Bob", "pp-b@example.com", Region.SOUTH));
+         Product ppProduct = store.createProduct(new Product(0, "PP-SR1", "PP Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+-        Supplier ppSupplier = store.createSupplier(new Supplier(0, "PP Supplier", "pp@example.com", "Sweden", 3));
++        Supplier ppSupplier = registerSupplier(store, "PP Supplier", "pp@example.com", "Sweden", 3);
+         Warehouse ppNorth = store.createWarehouse(new Warehouse(0, "WH-PPN", "PP North", "Oslo", Region.NORTH));
+         Warehouse ppSouth = store.createWarehouse(new Warehouse(0, "WH-PPS", "PP South", "Rome", Region.SOUTH));
+         Customer ppCustomerA = store.createCustomer(new Customer(0, "PP Customer A", "ppa@example.com", null, "UK", Region.NORTH, CustomerStatus.ACTIVE));
+@@ -3170,8 +3174,8 @@ public class DemoScenario {
+     private static void latestPurchaseOrders(DataStore store, PrintStream out) {
+         out.println("Latest purchase orders:");
+         Product lpProduct = store.createProduct(new Product(0, "LP-1", "LP Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+-        Supplier lpFirst = store.createSupplier(new Supplier(0, "LP First", "lp1@example.com", "Sweden", 3));
+-        Supplier lpSecond = store.createSupplier(new Supplier(0, "LP Second", "lp2@example.com", "Norway", 3));
++        Supplier lpFirst = registerSupplier(store, "LP First", "lp1@example.com", "Sweden", 3);
++        Supplier lpSecond = registerSupplier(store, "LP Second", "lp2@example.com", "Norway", 3);
+         Warehouse lpNorth = store.createWarehouse(new Warehouse(0, "WH-LPN", "LP North", "Oslo", Region.NORTH));
+         Warehouse lpSouth = store.createWarehouse(new Warehouse(0, "WH-LPS", "LP South", "Rome", Region.SOUTH));
+         Supplier[] lpSuppliers = new Supplier[] {lpFirst, lpSecond, lpFirst, lpSecond};
+@@ -3362,7 +3366,7 @@ public class DemoScenario {
+ 
+     private static void purchaseOrdersPerQuarter(DataStore store, PrintStream out) {
+         out.println("Purchase orders per quarter:");
+-        Supplier pqSupplier = store.createSupplier(new Supplier(0, "PQ Supplier", "pq@example.com", "Sweden", 3));
++        Supplier pqSupplier = registerSupplier(store, "PQ Supplier", "pq@example.com", "Sweden", 3);
+         Product pqProduct = store.createProduct(new Product(0, "PQ-1", "PQ Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+         Warehouse pqNorth = store.createWarehouse(new Warehouse(0, "WH-PQN", "PQ North", "Oslo", Region.NORTH));
+         Warehouse pqWest = store.createWarehouse(new Warehouse(0, "WH-PQW", "PQ West", "Dublin", Region.WEST));
+@@ -3379,7 +3383,7 @@ public class DemoScenario {
+ 
+     private static void purchaseOrdersPerWeekday(DataStore store, PrintStream out) {
+         out.println("Purchase orders per weekday:");
+-        Supplier pwSupplier = store.createSupplier(new Supplier(0, "PW Supplier", "pw@example.com", "Sweden", 3));
++        Supplier pwSupplier = registerSupplier(store, "PW Supplier", "pw@example.com", "Sweden", 3);
+         Product pwProduct = store.createProduct(new Product(0, "PW-1", "PW Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+         Warehouse pwNorth = store.createWarehouse(new Warehouse(0, "WH-PWN", "PW North", "Oslo", Region.NORTH));
+         Warehouse pwWest = store.createWarehouse(new Warehouse(0, "WH-PWW", "PW West", "Dublin", Region.WEST));
+diff --git a/src/main/java/com/acme/backoffice/model/Supplier.java b/src/main/java/com/acme/backoffice/model/Supplier.java
+index 3eac40c..97f5f61 100644
+--- a/src/main/java/com/acme/backoffice/model/Supplier.java
++++ b/src/main/java/com/acme/backoffice/model/Supplier.java
+@@ -1,5 +1,11 @@
+ package com.acme.backoffice.model;
+ 
+-/** A supplier with a rating from 1 to 5. The id is 0 until the supplier has been created in the database. */
+-public record Supplier(long id, String name, String contactEmail, String country, int rating) {
++/**
++ * A supplier with a rating from 1 to 5 and the number of days after the invoice date within which we pay it. The id is
++ * 0 until the supplier has been created in the database.
++ */
++public record Supplier(long id, String name, String contactEmail, String country, int rating, int paymentTermsDays) {
++
++    /** The payment terms for a supplier for whom nothing was agreed. */
++    public static final int STANDARD_PAYMENT_TERMS_DAYS = 30;
+ }
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index ee20cb7..c382c7a 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -35,7 +35,8 @@ CREATE TABLE supplier (
+     name VARCHAR(200) NOT NULL,
+     contact_email VARCHAR(200) NOT NULL,
+     country VARCHAR(100) NOT NULL,
+-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5)
++    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
++    payment_terms_days INT NOT NULL DEFAULT 30 CHECK (payment_terms_days >= 0)
+ );
+ 
+ CREATE TABLE warehouse (
+diff --git a/src/test/java/com/acme/backoffice/CategoryMarginTest.java b/src/test/java/com/acme/backoffice/CategoryMarginTest.java
+index e8d371c..fab8f1a 100644
+--- a/src/test/java/com/acme/backoffice/CategoryMarginTest.java
++++ b/src/test/java/com/acme/backoffice/CategoryMarginTest.java
+@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ class CategoryMarginTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final Customer customer = store.createCustomer(new Customer(0, "Alpha", "a@example.com", null, "UK", Region.NORTH, CustomerStatus.ACTIVE));
+-    private final Supplier supplier = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3));
++    private final Supplier supplier = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product bolt = store.createProduct(new Product(0, "B-1", "Bolt", "Fasteners", new BigDecimal("5.00"), "piece", true));
+     private final Product nut = store.createProduct(new Product(0, "N-1", "Nut", "Fasteners", new BigDecimal("3.00"), "piece", true));
+     private final Product rice = store.createProduct(new Product(0, "R-1", "Rice", "Food", new BigDecimal("1.00"), "kg", true));
+diff --git a/src/test/java/com/acme/backoffice/CountryPurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/CountryPurchaseOrdersTest.java
+index 022f636..2e36dc5 100644
+--- a/src/test/java/com/acme/backoffice/CountryPurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/CountryPurchaseOrdersTest.java
+@@ -24,7 +24,7 @@ class CountryPurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final CountryPurchaseOrdersService service = new CountryPurchaseOrdersService(store);
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+-    private final Supplier supplier = store.createSupplier(new Supplier(0, "Acme Supply", "s@example.com", "Sweden", 3));
++    private final Supplier supplier = store.createSupplier(new Supplier(0, "Acme Supply", "s@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));
+     private int counter;
+diff --git a/src/test/java/com/acme/backoffice/DashboardTest.java b/src/test/java/com/acme/backoffice/DashboardTest.java
+index c7ec5e5..4f829f1 100644
+--- a/src/test/java/com/acme/backoffice/DashboardTest.java
++++ b/src/test/java/com/acme/backoffice/DashboardTest.java
+@@ -78,7 +78,7 @@ class DashboardTest {
+         tickets.changeStatus("T-2", TicketStatus.CLOSED, day.plusDays(30));
+ 
+         Warehouse warehouse = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+-        Supplier supplier = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Norway", 4));
++        Supplier supplier = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Norway", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-1", supplier.id(), day, day.plusDays(10), PurchaseOrderStatus.RECEIVED,
+                 List.of(new PurchaseOrderLine(widget.id(), 10, new BigDecimal("2.50")))));
+         store.setStockQuantity(warehouse.id(), widget.id(), 4);
+diff --git a/src/test/java/com/acme/backoffice/LatePurchaseOrdersPerWarehouseTest.java b/src/test/java/com/acme/backoffice/LatePurchaseOrdersPerWarehouseTest.java
+index 5fc658b..62abcc3 100644
+--- a/src/test/java/com/acme/backoffice/LatePurchaseOrdersPerWarehouseTest.java
++++ b/src/test/java/com/acme/backoffice/LatePurchaseOrdersPerWarehouseTest.java
+@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class LatePurchaseOrdersPerWarehouseTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final PurchaseReceivingService service = new PurchaseReceivingService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+ 
+     private void receive(String number, String expected, String warehouse, String received) {
+diff --git a/src/test/java/com/acme/backoffice/LatestPurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/LatestPurchaseOrdersTest.java
+index 249669e..df389b6 100644
+--- a/src/test/java/com/acme/backoffice/LatestPurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/LatestPurchaseOrdersTest.java
+@@ -21,8 +21,8 @@ class LatestPurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final LatestPurchaseOrdersService service = new LatestPurchaseOrdersService(store);
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
+-    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Supply", "orders@acme.example", "UK", 5));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Supply", "orders@acme.example", "UK", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));
+ 
+diff --git a/src/test/java/com/acme/backoffice/OpenPurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/OpenPurchaseOrdersTest.java
+index 4c6e594..e86308b 100644
+--- a/src/test/java/com/acme/backoffice/OpenPurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/OpenPurchaseOrdersTest.java
+@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ class OpenPurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
+-    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "sales@baltic.example", "Latvia", 5));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "sales@baltic.example", "Latvia", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+ 
+     private void order(String number, Supplier supplier, LocalDate expected, PurchaseOrderStatus status) {
+diff --git a/src/test/java/com/acme/backoffice/ProductMarginTest.java b/src/test/java/com/acme/backoffice/ProductMarginTest.java
+index 3696159..4adf73d 100644
+--- a/src/test/java/com/acme/backoffice/ProductMarginTest.java
++++ b/src/test/java/com/acme/backoffice/ProductMarginTest.java
+@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ class ProductMarginTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final Customer customer = store.createCustomer(new Customer(0, "Alpha", "a@example.com", null, "UK", Region.NORTH, CustomerStatus.ACTIVE));
+-    private final Supplier supplier = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3));
++    private final Supplier supplier = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product bolt = store.createProduct(new Product(0, "B-1", "Bolt", "Fasteners", new BigDecimal("5.00"), "piece", true));
+     private final Product nut = store.createProduct(new Product(0, "N-1", "Nut", "Fasteners", new BigDecimal("3.00"), "piece", true));
+     private final Product rice = store.createProduct(new Product(0, "R-1", "Rice", "Food", new BigDecimal("1.00"), "kg", true));
+diff --git a/src/test/java/com/acme/backoffice/PurchaseOrderSearchTest.java b/src/test/java/com/acme/backoffice/PurchaseOrderSearchTest.java
+index 8b46746..cdbc590 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseOrderSearchTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseOrderSearchTest.java
+@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ class PurchaseOrderSearchTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
+-    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "info@baltic.example", "Sweden", 2));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "info@baltic.example", "Sweden", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse east = store.createWarehouse(new Warehouse(0, "WH-E", "East", "Warsaw", Region.EAST));
+ 
+diff --git a/src/test/java/com/acme/backoffice/PurchaseOrderTest.java b/src/test/java/com/acme/backoffice/PurchaseOrderTest.java
+index b2c78b3..5297284 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseOrderTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseOrderTest.java
+@@ -17,8 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ class PurchaseOrderTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
+-    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Parts", "sales@acmeparts.example", "USA", 5));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Parts", "sales@acmeparts.example", "USA", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "WID-001", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Product gadget = store.createProduct(new Product(0, "GAD-002", "Gadget", "Hardware", new BigDecimal("30.00"), "piece", true));
+ 
+diff --git a/src/test/java/com/acme/backoffice/PurchaseOrdersPerCategoryTest.java b/src/test/java/com/acme/backoffice/PurchaseOrdersPerCategoryTest.java
+index 86e0286..e0a9a74 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseOrdersPerCategoryTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseOrdersPerCategoryTest.java
+@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class PurchaseOrdersPerCategoryTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final PurchaseReceivingService service = new PurchaseReceivingService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private Product tool;
+     private Product drill;
+     private Product paint;
+diff --git a/src/test/java/com/acme/backoffice/PurchaseOrdersPerProductTest.java b/src/test/java/com/acme/backoffice/PurchaseOrdersPerProductTest.java
+index 90d3929..4599b13 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseOrdersPerProductTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseOrdersPerProductTest.java
+@@ -21,8 +21,8 @@ class PurchaseOrdersPerProductTest {
+     private final PurchaseReceivingService service = new PurchaseReceivingService(store);
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Product gadget = store.createProduct(new Product(0, "G-1", "Gadget", "Hardware", new BigDecimal("6.00"), "piece", true));
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
+-    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "b@example.com", "Latvia", 4));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "b@example.com", "Latvia", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+ 
+     private void order(String number, Supplier supplier, String date, PurchaseOrderStatus status, PurchaseOrderLine... lines) {
+         store.createPurchaseOrder(new PurchaseOrder(0, number, supplier.id(), LocalDate.parse(date), LocalDate.parse(date).plusDays(14),
+diff --git a/src/test/java/com/acme/backoffice/PurchaseReceivingTest.java b/src/test/java/com/acme/backoffice/PurchaseReceivingTest.java
+index 15470d4..2ca84bb 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseReceivingTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseReceivingTest.java
+@@ -22,7 +22,7 @@ class PurchaseReceivingTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final PurchaseReceivingService receiving = new PurchaseReceivingService(store);
+     private final LocalDate day = LocalDate.of(2024, 7, 10);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Product gadget = store.createProduct(new Product(0, "G-1", "Gadget", "Hardware", new BigDecimal("30.00"), "piece", true));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+diff --git a/src/test/java/com/acme/backoffice/PurchaseSuggestionTest.java b/src/test/java/com/acme/backoffice/PurchaseSuggestionTest.java
+index 8e00d38..e5d0ba6 100644
+--- a/src/test/java/com/acme/backoffice/PurchaseSuggestionTest.java
++++ b/src/test/java/com/acme/backoffice/PurchaseSuggestionTest.java
+@@ -26,8 +26,8 @@ class PurchaseSuggestionTest {
+     private final Product washer = store.createProduct(new Product(0, "P-4", "Washer", "Cat", new BigDecimal("1.00"), "piece", true));
+     private final Warehouse first = store.createWarehouse(new Warehouse(0, "WH-1", "First", "Oslo", Region.NORTH));
+     private final Warehouse second = store.createWarehouse(new Warehouse(0, "WH-2", "Second", "Rome", Region.SOUTH));
+-    private final Supplier cheap = store.createSupplier(new Supplier(0, "Cheap", "c@example.com", "Sweden", 2));
+-    private final Supplier fast = store.createSupplier(new Supplier(0, "Fast", "f@example.com", "Norway", 4));
++    private final Supplier cheap = store.createSupplier(new Supplier(0, "Cheap", "c@example.com", "Sweden", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier fast = store.createSupplier(new Supplier(0, "Fast", "f@example.com", "Norway", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+ 
+     private void fill() {
+         stock.setQuantity(first.id(), bolt.id(), 4);
+diff --git a/src/test/java/com/acme/backoffice/QuarterPurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/QuarterPurchaseOrdersTest.java
+index 6b26e7d..c729d3d 100644
+--- a/src/test/java/com/acme/backoffice/QuarterPurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/QuarterPurchaseOrdersTest.java
+@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class QuarterPurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final QuarterPurchaseOrdersService service = new QuarterPurchaseOrdersService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));
+diff --git a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+index 9265fe3..e185f0c 100644
+--- a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
++++ b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+@@ -25,7 +25,7 @@ class SalesRepPurchaseOrderCountTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final SalesRepPurchaseOrderCountService service = new SalesRepPurchaseOrderCountService(store);
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+-    private final Supplier supplier = store.createSupplier(new Supplier(0, "Acme Supply", "s@example.com", "Sweden", 3));
++    private final Supplier supplier = store.createSupplier(new Supplier(0, "Acme Supply", "s@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));
+     private int counter;
+diff --git a/src/test/java/com/acme/backoffice/SlowMovingStockTest.java b/src/test/java/com/acme/backoffice/SlowMovingStockTest.java
+index 5607bd0..6ca3d53 100644
+--- a/src/test/java/com/acme/backoffice/SlowMovingStockTest.java
++++ b/src/test/java/com/acme/backoffice/SlowMovingStockTest.java
+@@ -43,7 +43,7 @@ class SlowMovingStockTest {
+     }
+ 
+     private void setUp() {
+-        Supplier supplier = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3));
++        Supplier supplier = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-1", supplier.id(), LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5),
+                 PurchaseOrderStatus.RECEIVED, List.of(new PurchaseOrderLine(nail.id(), 10, new BigDecimal("0.50")),
+                 new PurchaseOrderLine(paint.id(), 10, new BigDecimal("6.00")), new PurchaseOrderLine(tool.id(), 10, new BigDecimal("12.00")))));
+diff --git a/src/test/java/com/acme/backoffice/StockPerCategoryTest.java b/src/test/java/com/acme/backoffice/StockPerCategoryTest.java
+index ef6e080..0f8b9f2 100644
+--- a/src/test/java/com/acme/backoffice/StockPerCategoryTest.java
++++ b/src/test/java/com/acme/backoffice/StockPerCategoryTest.java
+@@ -28,7 +28,7 @@ class StockPerCategoryTest {
+     private final Product tool = store.createProduct(new Product(0, "T", "Tool", "Tools", new BigDecimal("20.00"), "piece", true));
+ 
+     private void setUp() {
+-        Supplier supplier = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3));
++        Supplier supplier = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+         store.createPurchaseOrder(new PurchaseOrder(0, "PO-1", supplier.id(), LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5),
+                 PurchaseOrderStatus.RECEIVED, List.of(new PurchaseOrderLine(nail.id(), 10, new BigDecimal("0.50")),
+                 new PurchaseOrderLine(screw.id(), 10, new BigDecimal("1.50")), new PurchaseOrderLine(paint.id(), 10, new BigDecimal("6.00")))));
+diff --git a/src/test/java/com/acme/backoffice/StockPerSupplierTest.java b/src/test/java/com/acme/backoffice/StockPerSupplierTest.java
+index eb2d26a..1b38249 100644
+--- a/src/test/java/com/acme/backoffice/StockPerSupplierTest.java
++++ b/src/test/java/com/acme/backoffice/StockPerSupplierTest.java
+@@ -27,8 +27,8 @@ class StockPerSupplierTest {
+     private final Product nail = store.createProduct(new Product(0, "N", "Nail", "Fasteners", new BigDecimal("1.00"), "piece", true));
+     private final Product screw = store.createProduct(new Product(0, "S", "Screw", "Fasteners", new BigDecimal("2.00"), "piece", true));
+     private final Product paint = store.createProduct(new Product(0, "P", "Paint", "Paints", new BigDecimal("10.00"), "piece", true));
+-    private final Supplier sup = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3));
+-    private final Supplier other = store.createSupplier(new Supplier(0, "Other", "o@example.com", "Latvia", 4));
++    private final Supplier sup = store.createSupplier(new Supplier(0, "Sup", "s@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier other = store.createSupplier(new Supplier(0, "Other", "o@example.com", "Latvia", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+ 
+     @Test
+     void sumsQuantityAndValueOfSupplierProductsPerWarehouse() {
+diff --git a/src/test/java/com/acme/backoffice/StockValueTest.java b/src/test/java/com/acme/backoffice/StockValueTest.java
+index 02cfd70..b9a7edb 100644
+--- a/src/test/java/com/acme/backoffice/StockValueTest.java
++++ b/src/test/java/com/acme/backoffice/StockValueTest.java
+@@ -36,7 +36,7 @@ class StockValueTest {
+         north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+         east = store.createWarehouse(new Warehouse(0, "WH-E", "East", "Warsaw", Region.EAST));
+         store.createWarehouse(new Warehouse(0, "WH-Z", "Empty", "Berlin", Region.EAST));
+-        supplier = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Norway", 4));
++        supplier = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Norway", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     }
+ 
+     private void purchase(String number, LocalDate date, PurchaseOrderStatus status, Product product, String cost) {
+diff --git a/src/test/java/com/acme/backoffice/SupplierPerformanceTest.java b/src/test/java/com/acme/backoffice/SupplierPerformanceTest.java
+index 06f119e..bec74e5 100644
+--- a/src/test/java/com/acme/backoffice/SupplierPerformanceTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierPerformanceTest.java
+@@ -35,9 +35,9 @@ class SupplierPerformanceTest {
+     void setUp() {
+         widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+         store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+-        Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
+-        Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "b@example.com", "Sweden", 4));
+-        store.createSupplier(new Supplier(0, "Idle", "i@example.com", "Norway", 2));
++        Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++        Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "b@example.com", "Sweden", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++        store.createSupplier(new Supplier(0, "Idle", "i@example.com", "Norway", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+         order("PO-1", nordic, 10);
+         order("PO-2", nordic, 10);
+         order("PO-3", nordic, 10);
+diff --git a/src/test/java/com/acme/backoffice/SupplierProductTest.java b/src/test/java/com/acme/backoffice/SupplierProductTest.java
+index 4f0c912..e7c3af8 100644
+--- a/src/test/java/com/acme/backoffice/SupplierProductTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierProductTest.java
+@@ -15,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class SupplierProductTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final SupplierProductService service = new SupplierProductService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3));
+-    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme", "a@example.com", "USA", 5));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme", "a@example.com", "USA", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("10.00"), "piece", true));
+     private final Product gadget = store.createProduct(new Product(0, "G-1", "Gadget", "Hardware", new BigDecimal("20.00"), "piece", true));
+ 
+diff --git a/src/test/java/com/acme/backoffice/SupplierProductsPerCategoryTest.java b/src/test/java/com/acme/backoffice/SupplierProductsPerCategoryTest.java
+index 4363305..7b699b2 100644
+--- a/src/test/java/com/acme/backoffice/SupplierProductsPerCategoryTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierProductsPerCategoryTest.java
+@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class SupplierProductsPerCategoryTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final SupplierProductService service = new SupplierProductService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
+-    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "b@example.com", "Latvia", 4));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Trade", "b@example.com", "Latvia", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+ 
+     private Product product(String sku, String category) {
+         return store.createProduct(new Product(0, sku, sku, category, new BigDecimal("1.00"), "piece", true));
+diff --git a/src/test/java/com/acme/backoffice/SupplierSpendingTest.java b/src/test/java/com/acme/backoffice/SupplierSpendingTest.java
+index b647738..f3e759f 100644
+--- a/src/test/java/com/acme/backoffice/SupplierSpendingTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierSpendingTest.java
+@@ -20,10 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ class SupplierSpendingTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
+-    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "b@example.com", "Sweden", 4));
+-    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Parts", "a@example.com", "USA", 5));
+-    private final Supplier idle = store.createSupplier(new Supplier(0, "Idle Ltd", "i@example.com", "Norway", 2));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier baltic = store.createSupplier(new Supplier(0, "Baltic Goods", "b@example.com", "Sweden", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier acme = store.createSupplier(new Supplier(0, "Acme Parts", "a@example.com", "USA", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++    private final Supplier idle = store.createSupplier(new Supplier(0, "Idle Ltd", "i@example.com", "Norway", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Product gadget = store.createProduct(new Product(0, "G-1", "Gadget", "Hardware", new BigDecimal("9.00"), "piece", true));
+     private final Warehouse warehouse = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+diff --git a/src/test/java/com/acme/backoffice/SupplierTest.java b/src/test/java/com/acme/backoffice/SupplierTest.java
+index 5136faa..c51df19 100644
+--- a/src/test/java/com/acme/backoffice/SupplierTest.java
++++ b/src/test/java/com/acme/backoffice/SupplierTest.java
+@@ -17,25 +17,41 @@ class SupplierTest {
+     }
+ 
+     private void createData() {
+-        store.createSupplier(new Supplier(0, "Charlie", "c@example.com", "UK", 5));
+-        store.createSupplier(new Supplier(0, "Alpha", "a@example.com", "UK", 2));
+-        store.createSupplier(new Supplier(0, "Bravo", "b@example.com", "Peru", 4));
++        store.createSupplier(new Supplier(0, "Charlie", "c@example.com", "UK", 5, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++        store.createSupplier(new Supplier(0, "Alpha", "a@example.com", "UK", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
++        store.createSupplier(new Supplier(0, "Bravo", "b@example.com", "Peru", 4, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     }
+ 
+     @Test
+     void createAndUpdate() {
+-        Supplier created = store.createSupplier(new Supplier(0, "Alpha", "a@example.com", "UK", 2));
++        Supplier created = store.createSupplier(new Supplier(0, "Alpha", "a@example.com", "UK", 2, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+         assertTrue(created.id() > 0);
+         assertEquals(List.of(created), store.listSuppliersByName());
+-        Supplier changed = new Supplier(created.id(), "Alpha Ltd", "x@example.com", "Peru", 5);
++        Supplier changed = new Supplier(created.id(), "Alpha Ltd", "x@example.com", "Peru", 5, 14);
+         store.updateSupplier(changed);
+         assertEquals(List.of(changed), store.listSuppliersByName());
+     }
+ 
++    @Test
++    void paymentTermsAreShownAndCanBeRenegotiated() {
++        Supplier created = store.createSupplier(new Supplier(0, "Nordic", "n@example.com", "Sweden", 3, 45));
++        assertEquals(45, created.paymentTermsDays());
++        store.updateSupplier(new Supplier(created.id(), "Nordic", "n@example.com", "Sweden", 3, 14));
++        assertEquals(14, store.listSuppliersByName().get(0).paymentTermsDays());
++        assertEquals(14, store.listSuppliersByCountry("Sweden").get(0).paymentTermsDays());
++        assertEquals(14, store.listSuppliersByMinimumRating(3).get(0).paymentTermsDays());
++        assertEquals(14, store.findSupplierById(created.id()).orElseThrow().paymentTermsDays());
++    }
++
++    @Test
++    void paymentTermsMustNotBeNegative() {
++        assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 3, -1)));
++    }
++
+     @Test
+     void ratingMustBeBetweenOneAndFive() {
+-        assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 0)));
+-        assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 6)));
++        assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 0, Supplier.STANDARD_PAYMENT_TERMS_DAYS)));
++        assertThrows(IllegalStateException.class, () -> store.createSupplier(new Supplier(0, "A", "a@example.com", "UK", 6, Supplier.STANDARD_PAYMENT_TERMS_DAYS)));
+     }
+ 
+     @Test
+diff --git a/src/test/java/com/acme/backoffice/WarehousePurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/WarehousePurchaseOrdersTest.java
+index 1f995f8..71a4630 100644
+--- a/src/test/java/com/acme/backoffice/WarehousePurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/WarehousePurchaseOrdersTest.java
+@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ class WarehousePurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse east = store.createWarehouse(new Warehouse(0, "WH-E", "East", "Warsaw", Region.EAST));
+diff --git a/src/test/java/com/acme/backoffice/WeekdayPurchaseOrdersTest.java b/src/test/java/com/acme/backoffice/WeekdayPurchaseOrdersTest.java
+index ef0c3d3..0017d19 100644
+--- a/src/test/java/com/acme/backoffice/WeekdayPurchaseOrdersTest.java
++++ b/src/test/java/com/acme/backoffice/WeekdayPurchaseOrdersTest.java
+@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
+ class WeekdayPurchaseOrdersTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final WeekdayPurchaseOrdersService service = new WeekdayPurchaseOrdersService(store);
+-    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3));
++    private final Supplier nordic = store.createSupplier(new Supplier(0, "Nordic Supply", "orders@nordic.example", "Sweden", 3, Supplier.STANDARD_PAYMENT_TERMS_DAYS));
+     private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));

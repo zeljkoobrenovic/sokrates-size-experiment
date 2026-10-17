@@ -1,0 +1,71 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-levers-chain-fresh from ~/.m2/repository
+=== chain-fresh-a-r01-20261017-000305
+  s1 a01 success=True turns=9 input=176457 cost=0.0869003 cum=0.0869
+  s2 a11 success=True turns=27 input=518537 cost=0.2571997 cum=0.3441
+  s3 a02 success=True turns=11 input=247833 cost=0.11760649999999999 cum=0.461706
+  s4 a12 success=True turns=38 input=854235 cost=0.3883405999999999 cum=0.850047
+  s5 a03 success=True turns=8 input=156574 cost=0.07375840000000002 cum=0.923805
+  s6 a13 success=True turns=27 input=567580 cost=0.2937043 cum=1.21751
+=== chain-fresh-a-r02-20261017-001923
+  s1 a01 success=True turns=10 input=182368 cost=0.0950146 cum=0.095015
+  s2 a11 success=True turns=41 input=672975 cost=0.33426159999999994 cum=0.429276
+  s3 a02 success=True turns=10 input=222135 cost=0.08160179999999999 cum=0.510878
+  s4 a12 success=True turns=30 input=584619 cost=0.31664679999999995 cum=0.827525
+  s5 a03 success=True turns=9 input=176245 cost=0.07511319999999999 cum=0.902638
+  s6 a13 success=True turns=22 input=412501 cost=0.2843843 cum=1.187022
+=== chain-fresh-a-r03-20261017-004832
+  s1 a01 success=True turns=10 input=184687 cost=0.09711040000000001 cum=0.09711
+  s2 a11 success=True turns=18 input=351074 cost=0.20573540000000004 cum=0.302846
+  s3 a02 success=True turns=1 input=26108 cost=0.10295199999999999 cum=0.405798
+  s4 a12 success=True turns=25 input=447213 cost=0.24540620000000005 cum=0.651204
+  s5 a03 success=True turns=2 input=53831 cost=0.1002313 cum=0.751435
+  s6 a13 success=True turns=25 input=395634 cost=0.2951511 cum=1.046586
+=== chain-fresh-a-r04-20261017-011835
+  s1 a01 success=True turns=9 input=172919 cost=0.08277450000000001 cum=0.082775
+  s2 a11 success=True turns=35 input=597348 cost=0.33920839999999997 cum=0.421983
+  s3 a02 success=True turns=10 input=214024 cost=0.0970266 cum=0.51901
+  s4 a12 success=True turns=27 input=519031 cost=0.32248899999999997 cum=0.841498
+  s5 a03 success=True turns=1 input=24524 cost=0.0898178 cum=0.931316
+  s6 a13 success=True turns=25 input=447349 cost=0.2193404 cum=1.150657
+=== chain-fresh-a-r05-20261017-020527
+  s1 a01 success=True turns=8 input=150800 cost=0.07842189999999999 cum=0.078422
+  s2 a11 success=True turns=30 input=783579 cost=0.35031619999999997 cum=0.428738
+  s3 a02 success=True turns=1 input=26113 cost=0.09182159999999999 cum=0.52056
+  s4 a12 success=True turns=2 input=100755 cost=0.35809630000000003 cum=0.878656
+  s5 a03 success=True turns=1 input=27881 cost=0.1187814 cum=0.997437
+  s6 a13 success=True turns=27 input=575380 cost=0.2861977 cum=1.283635
+=== chain-fresh-a-r06-20261017-030906
+  s1 a01 success=True turns=9 input=157597 cost=0.08588909999999998 cum=0.085889
+  s2 a11 success=True turns=21 input=377856 cost=0.2237804 cum=0.309669
+  s3 a02 success=True turns=8 input=151602 cost=0.07284170000000001 cum=0.382511
+  s4 a12 success=True turns=33 input=674765 cost=0.3354271 cum=0.717938
+  s5 a03 success=True turns=1 input=26993 cost=0.09171289999999999 cum=0.809651
+  s6 a13 success=True turns=24 input=441732 cost=0.23347249999999997 cum=1.043124
+=== chain-fresh-a-r07-20261017-034512
+  s1 a01 success=True turns=11 input=206868 cost=0.1030496 cum=0.10305
+  s2 a11 success=True turns=28 input=531903 cost=0.2589987 cum=0.362048
+  s3 a02 success=True turns=8 input=132362 cost=0.0823936 cum=0.444442
+  s4 a12 success=False turns=1 input=45250 cost=0.2929048 cum=0.737347
+  s5 a03 success=True turns=1 input=27604 cost=0.10875649999999999 cum=0.846103
+  s6 a13 success=True turns=26 input=454979 cost=0.23463510000000004 cum=1.080738
+=== chain-fresh-a-r08-20261017-043007
+  s1 a01 success=True turns=7 input=106923 cost=0.0728415 cum=0.072842
+  s2 a11 success=True turns=1 input=51489 cost=0.31575780000000003 cum=0.388599
+  s3 a02 success=True turns=11 input=214657 cost=0.11102609999999999 cum=0.499625
+  s4 a12 success=True turns=22 input=407460 cost=0.2117995 cum=0.711425
+  s5 a03 success=True turns=1 input=27201 cost=0.10008970000000002 cum=0.811515
+  s6 a13 success=True turns=1 input=43277 cost=0.23082810000000004 cum=1.042343
+=== chain-fresh-a-r09-20261017-051230
+  s1 a01 success=True turns=9 input=181728 cost=0.08920109999999999 cum=0.089201
+  s2 a11 success=True turns=28 input=574903 cost=0.28519690000000003 cum=0.374398
+  s3 a02 success=True turns=9 input=177662 cost=0.10506400000000002 cum=0.479462
+  s4 a12 success=True turns=26 input=593624 cost=0.3027522 cum=0.782214
+  s5 a03 success=True turns=10 input=196106 cost=0.076399 cum=0.858613
+  s6 a13 success=True turns=31 input=531353 cost=0.2730654 cum=1.131679
+=== chain-fresh-a-r10-20261017-053515
+  s1 a01 success=True turns=9 input=183433 cost=0.097052 cum=0.097052
+  s2 a11 success=True turns=1 input=60384 cost=0.3683083 cum=0.46536
+  s3 a02 success=True turns=7 input=130972 cost=0.0720237 cum=0.537384
+  s4 a12 success=True turns=29 input=510274 cost=0.2704969 cum=0.807881
+  s5 a03 success=True turns=1 input=29332 cost=0.1272053 cum=0.935086
+  s6 a13 success=True turns=1 input=42983 cost=0.25693930000000004 cum=1.192025

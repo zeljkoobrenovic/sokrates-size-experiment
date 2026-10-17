@@ -1,0 +1,50 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..7b19010 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -390,8 +390,8 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/__mock[^/\\\\]*/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[^/\\\\]*/.*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java
+new file mode 100644
+index 0000000..1ee16b3
+--- /dev/null
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java
+@@ -0,0 +1,29 @@
++package nl.obren.sokrates.sourcecode.scoping;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++public class MockFolderConventionTest {
++    private boolean isMock(String path) {
++        return new ScopingConventions().getTestFilesConventions().stream()
++                .anyMatch(c -> c.getNote().contains("Mock") && c.pathMatches(path));
++    }
++
++    @Test
++    public void mockFolders() {
++        for (String folder : new String[]{"mock", "mocks", "__mocks__", "mock-data", "mock_data", "mock data",
++                "mockStore", "mock.data", "mock(old)", "mock-größe", "mock模拟", "__mock"}) {
++            assertEquals(true, isMock("a/b/" + folder + "/F.java"), folder);
++            assertEquals(true, isMock("a\\b\\" + folder + "\\F.java"), folder);
++        }
++    }
++
++    @Test
++    public void nonMockFolders() {
++        for (String path : new String[]{"a/remock/F.java", "a/demo/F.java", "a/src/main/java/F.java",
++                "a/mock.java", "a/mockery.java"}) {
++            assertEquals(false, isMock(path), path);
++        }
++    }
++}

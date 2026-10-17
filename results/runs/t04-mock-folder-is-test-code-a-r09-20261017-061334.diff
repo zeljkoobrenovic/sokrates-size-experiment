@@ -1,0 +1,52 @@
+diff --git a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+index 543d025..7b19010 100644
+--- a/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
++++ b/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/scoping/ScopingConventions.java
+@@ -390,8 +390,8 @@ public class ScopingConventions {
+         testFilesConventions.add(new Convention(".*/test[-]helpers/.*", "", "Test helpers"));
+         testFilesConventions.add(new Convention(".*/TestData/.*", "", "Test data"));
+         testFilesConventions.add(new Convention(".*/mockapi/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/__mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
+-        testFilesConventions.add(new Convention(".*/mock[a-zA-Z0-9_\\- ]+/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/__mock[^/\\\\]*/.*", "", "Mock resources"));
++        testFilesConventions.add(new Convention(".*/mock[^/\\\\]*/.*", "", "Mock resources"));
+         testFilesConventions.add(new Convention(".*_mock[.][a-zA-Z0-9_\\-]+", "", "Mock resources"));
+ 
+         testFilesConventions.add(new Convention(".*[.]snap", "", "Jest snapshots"));
+diff --git a/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java
+new file mode 100644
+index 0000000..145d888
+--- /dev/null
++++ b/codeanalyzer/src/test/java/nl/obren/sokrates/sourcecode/scoping/MockFolderConventionTest.java
+@@ -0,0 +1,31 @@
++package nl.obren.sokrates.sourcecode.scoping;
++
++import nl.obren.sokrates.sourcecode.SourceFile;
++import org.junit.jupiter.api.Test;
++
++import java.io.File;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++public class MockFolderConventionTest {
++    private boolean isTest(String path) {
++        SourceFile file = new SourceFile(new File(path));
++        return new ScopingConventions().getTestFilesConventions().stream()
++                .anyMatch(c -> "Mock resources".equals(c.getNote()) && c.matches(file));
++    }
++
++    @Test
++    void mockFolders() {
++        String[] folders = {"mock", "mock.data", "mock(old)", "mock-größe", "mock模拟", "mocks", "__mocks__",
++                "mock-data", "mock_data", "mock data", "mockStore", "__mock"};
++        for (String f : folders) {
++            assertEquals(true, isTest("/a/src/" + f + "/X.java"), f);
++            assertEquals(true, isTest("C:\\a\\src\\" + f + "\\X.java"), f);
++        }
++        String[] others = {"/a/remock/X.java", "/a/demo/X.java", "/a/src/main/java/X.java",
++                "/a/mock.java", "/a/mockery.java"};
++        for (String p : others) {
++            assertEquals(false, isTest(p), p);
++        }
++    }
++}

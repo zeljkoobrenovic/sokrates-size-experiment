@@ -16,11 +16,11 @@ for set in ambiguity sokrates; do
       *) EXTRA="";;
     esac
     nohup python3 -I harness/run.py $SETARG --tasks $TASKS --variants a --repeats $N $EXTRA --condition $c --model $MODEL \
-      --results levers-$M.csv --m2 work/m2-levers-$set-$c > results/levers-worker-$M-$set-$c.log 2>&1 &
+      --results levers-$M.csv --m2 work/m2-levers-$M-$set-$c > results/levers-worker-$M-$set-$c.log 2>&1 &
   done
 done
 for mode in fresh session; do
   nohup python3 -I harness/chain.py --set ambiguity --tasks a01 a11 a02 a12 a03 a13 --mode $mode --repeats $N --model $MODEL \
-    --results levers-chains-$M.csv --m2 work/m2-levers-chain-$mode > results/levers-worker-$M-chain-$mode.log 2>&1 &
+    --results levers-chains-$M.csv --m2 work/m2-levers-$M-chain-$mode > results/levers-worker-$M-chain-$mode.log 2>&1 &
 done
 echo launched

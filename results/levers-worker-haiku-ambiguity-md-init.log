@@ -1,0 +1,121 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-levers-haiku-ambiguity-md-init from ~/.m2/repository
+=== a01-po-count-per-rep-cancelled-a-r01-20261017-051349
+  success=True turns=16 input=360591 output=4995 cost=0.010170990000000001 lines_read=115
+=== a02-region-tickets-priority-order-a-r01-20261017-051726
+  success=True turns=9 input=211081 output=2644 cost=0.0067545 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r01-20261017-052011
+  success=True turns=11 input=257553 output=2905 cost=0.007979749999999999 lines_read=60
+=== a11-supplier-payment-terms-a-r01-20261017-052311
+  success=True turns=22 input=742881 output=11712 cost=0.02308771 lines_read=90
+=== a12-ticket-assigned-agent-a-r01-20261017-052757
+  success=True turns=29 input=1065739 output=17735 cost=0.029965950000000005 lines_read=0
+=== a13-promotion-description-a-r01-20261017-053301
+  success=True turns=32 input=1158485 output=17269 cost=0.03137707 lines_read=30
+=== a01-po-count-per-rep-cancelled-a-r02-20261017-053931
+  success=True turns=14 input=419265 output=4919 cost=0.011056970000000003 lines_read=0
+=== a02-region-tickets-priority-order-a-r02-20261017-055658
+  success=True turns=10 input=250432 output=3085 cost=0.00786269 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r02-20261017-061658
+  success=True turns=1 input=58885 output=67 cost=0.027270390000000005 lines_read=1
+=== a11-supplier-payment-terms-a-r02-20261017-062956
+  success=True turns=25 input=989636 output=13802 cost=0.026127479999999998 lines_read=18
+=== a12-ticket-assigned-agent-a-r02-20261017-064752
+  success=True turns=38 input=1374086 output=18103 cost=0.03600263999999999 lines_read=0
+=== a13-promotion-description-a-r02-20261017-070533
+  success=True turns=28 input=732800 output=15281 cost=0.023110960000000003 lines_read=30
+=== a01-po-count-per-rep-cancelled-a-r03-20261017-071801
+  success=True turns=1 input=41975 output=138 cost=0.01885592 lines_read=106
+=== a02-region-tickets-priority-order-a-r03-20261017-073106
+  success=True turns=1 input=39155 output=283 cost=0.015483580000000002 lines_read=43
+=== a03-warehouse-stock-empty-lines-a-r03-20261017-075513
+  success=True turns=3 input=105834 output=687 cost=0.01216571 lines_read=0
+=== a11-supplier-payment-terms-a-r03-20261017-080334
+  success=True turns=38 input=1070707 output=18886 cost=0.031007400000000004 lines_read=15
+=== a12-ticket-assigned-agent-a-r03-20261017-081624
+  success=True turns=25 input=878785 output=13090 cost=0.024885490000000003 lines_read=25
+=== a13-promotion-description-a-r03-20261017-082625
+  success=True turns=30 input=1039903 output=16563 cost=0.028652659999999996 lines_read=66
+=== a01-po-count-per-rep-cancelled-a-r04-20261017-083121
+  success=True turns=12 input=217685 output=4083 cost=0.00817996 lines_read=115
+=== a02-region-tickets-priority-order-a-r04-20261017-083225
+  success=True turns=14 input=345953 output=4572 cost=0.010042449999999998 lines_read=21
+=== a03-warehouse-stock-empty-lines-a-r04-20261017-083334
+  success=True turns=19 input=538566 output=5222 cost=0.013538040000000001 lines_read=30
+=== a11-supplier-payment-terms-a-r04-20261017-083548
+  success=True turns=24 input=908324 output=12141 cost=0.023345770000000005 lines_read=3
+=== a12-ticket-assigned-agent-a-r04-20261017-083830
+  success=True turns=23 input=755946 output=12772 cost=0.02440481 lines_read=20
+=== a13-promotion-description-a-r04-20261017-084107
+  success=True turns=32 input=1359647 output=13421 cost=0.02912911 lines_read=66
+=== a01-po-count-per-rep-cancelled-a-r05-20261017-084450
+  success=True turns=16 input=332832 output=6276 cost=0.01128024 lines_read=0
+=== a02-region-tickets-priority-order-a-r05-20261017-084656
+  success=True turns=13 input=414158 output=4148 cost=0.01127591 lines_read=106
+=== a03-warehouse-stock-empty-lines-a-r05-20261017-084846
+  success=True turns=7 input=155714 output=2028 cost=0.00584573 lines_read=0
+=== a11-supplier-payment-terms-a-r05-20261017-084950
+  success=True turns=22 input=709387 output=12710 cost=0.022469539999999996 lines_read=0
+=== a12-ticket-assigned-agent-a-r05-20261017-085233
+  success=True turns=32 input=952993 output=17317 cost=0.02850144 lines_read=0
+=== a13-promotion-description-a-r05-20261017-085525
+  success=True turns=28 input=840351 output=19202 cost=0.027193680000000005 lines_read=30
+=== a01-po-count-per-rep-cancelled-a-r06-20261017-085905
+  success=True turns=14 input=278902 output=5006 cost=0.00970942 lines_read=107
+=== a02-region-tickets-priority-order-a-r06-20261017-090123
+  success=True turns=13 input=390756 output=4342 cost=0.01049042 lines_read=95
+=== a03-warehouse-stock-empty-lines-a-r06-20261017-090241
+  success=True turns=13 input=307045 output=3542 cost=0.00902077 lines_read=53
+=== a11-supplier-payment-terms-a-r06-20261017-090433
+  success=True turns=37 input=1239410 output=20611 cost=0.036313460000000006 lines_read=25
+=== a12-ticket-assigned-agent-a-r06-20261017-090837
+  success=True turns=28 input=1102290 output=15594 cost=0.029015270000000003 lines_read=0
+=== a13-promotion-description-a-r06-20261017-091211
+  success=True turns=24 input=662839 output=11609 cost=0.02067455 lines_read=0
+=== a01-po-count-per-rep-cancelled-a-r07-20261017-091437
+  success=True turns=19 input=401474 output=5516 cost=0.011043609999999999 lines_read=34
+=== a02-region-tickets-priority-order-a-r07-20261017-093157
+  success=True turns=7 input=165532 output=2212 cost=0.00813807 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r07-20261017-093310
+  success=True turns=9 input=212216 output=2603 cost=0.006764350000000001 lines_read=0
+=== a11-supplier-payment-terms-a-r07-20261017-093541
+  success=True turns=24 input=710989 output=13382 cost=0.02163613 lines_read=40
+=== a12-ticket-assigned-agent-a-r07-20261017-094342
+  success=True turns=26 input=855487 output=13351 cost=0.023391250000000002 lines_read=60
+=== a13-promotion-description-a-r07-20261017-095109
+  success=True turns=29 input=864884 output=12703 cost=0.024335040000000002 lines_read=0
+=== a01-po-count-per-rep-cancelled-a-r08-20261017-100106
+  success=True turns=15 input=309473 output=4666 cost=0.009535040000000002 lines_read=105
+=== a02-region-tickets-priority-order-a-r08-20261017-100531
+  success=True turns=9 input=212705 output=2722 cost=0.006834820000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r08-20261017-101110
+  success=True turns=14 input=339430 output=4193 cost=0.009701840000000002 lines_read=0
+=== a11-supplier-payment-terms-a-r08-20261017-101900
+  success=True turns=29 input=947334 output=14699 cost=0.025793860000000002 lines_read=0
+=== a12-ticket-assigned-agent-a-r08-20261017-102657
+  success=True turns=27 input=1001593 output=14388 cost=0.026806430000000003 lines_read=12
+=== a13-promotion-description-a-r08-20261017-103405
+  success=True turns=30 input=943353 output=15301 cost=0.02738393 lines_read=0
+=== a01-po-count-per-rep-cancelled-a-r09-20261017-103733
+  success=True turns=19 input=538374 output=7573 cost=0.01460483 lines_read=22
+=== a02-region-tickets-priority-order-a-r09-20261017-103950
+  success=True turns=6 input=128387 output=2016 cost=0.005652350000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r09-20261017-104045
+  success=True turns=8 input=163564 output=2266 cost=0.00657143 lines_read=0
+=== a11-supplier-payment-terms-a-r09-20261017-104157
+  success=False turns=93 input=1739372 output=48023 cost=0.0974027 lines_read=30
+=== a12-ticket-assigned-agent-a-r09-20261017-104722
+  success=True turns=29 input=1062745 output=14223 cost=0.02971253 lines_read=0
+=== a13-promotion-description-a-r09-20261017-105024
+  success=True turns=25 input=669165 output=14562 cost=0.022465299999999997 lines_read=0
+=== a01-po-count-per-rep-cancelled-a-r10-20261017-105313
+  success=True turns=14 input=445950 output=5151 cost=0.012337 lines_read=235
+=== a02-region-tickets-priority-order-a-r10-20261017-105450
+  success=True turns=8 input=181105 output=2450 cost=0.006330960000000001 lines_read=0
+=== a03-warehouse-stock-empty-lines-a-r10-20261017-105603
+  success=True turns=8 input=178208 output=2109 cost=0.006169299999999999 lines_read=0
+=== a11-supplier-payment-terms-a-r10-20261017-105737
+  success=True turns=20 input=580948 output=12010 cost=0.019323140000000003 lines_read=0
+=== a12-ticket-assigned-agent-a-r10-20261017-105951
+  success=True turns=26 input=920203 output=15363 cost=0.026477579999999994 lines_read=72
+=== a13-promotion-description-a-r10-20261017-110152
+  success=True turns=30 input=818870 output=11951 cost=0.02259831 lines_read=66

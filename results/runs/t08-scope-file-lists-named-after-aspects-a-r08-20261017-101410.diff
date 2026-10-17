@@ -1,0 +1,33 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..402d083 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -639,11 +639,11 @@ public class DataExporter {
+             zipFolder.mkdirs();
+ 
+             ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
+-                    {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+-                    {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+-                    {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+-                    {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+-                    {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
++                    getAspectFileListEntry(analysisResults.getMainAspectAnalysisResults().getAspect()),
++                    getAspectFileListEntry(analysisResults.getTestAspectAnalysisResults().getAspect()),
++                    getAspectFileListEntry(analysisResults.getGeneratedAspectAnalysisResults().getAspect()),
++                    getAspectFileListEntry(analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect()),
++                    getAspectFileListEntry(analysisResults.getOtherAspectAnalysisResults().getAspect())
+             });
+             File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
+             if (gitHistoryFile.exists()) {
+@@ -655,6 +655,11 @@ public class DataExporter {
+         }
+     }
+ 
++    private String[] getAspectFileListEntry(NamedSourceCodeAspect aspect) throws IOException {
++        String fileName = DataExportUtils.getAspectFileListFileName(aspect, "");
++        return new String[]{fileName, FileUtils.readFileToString(new File(textDataFolder, fileName), UTF_8)};
++    }
++
+     public File getTextDataFolder() {
+         File textDataFolder = new File(dataFolder, "text");
+         textDataFolder.mkdirs();

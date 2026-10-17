@@ -1,0 +1,41 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..b8b21e9 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -52,6 +52,7 @@ import org.apache.commons.text.StringEscapeUtils;
+ 
+ import java.io.File;
+ import java.io.IOException;
++import java.io.UncheckedIOException;
+ import java.nio.charset.StandardCharsets;
+ import java.util.*;
+ import java.util.stream.Collectors;
+@@ -638,13 +639,21 @@ public class DataExporter {
+             File zipFolder = new File(dataFolder, "zips");
+             zipFolder.mkdirs();
+ 
+-            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
+-                    {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+-                    {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+-                    {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+-                    {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+-                    {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
+-            });
++            List<NamedSourceCodeAspect> scopeAspects = Arrays.asList(
++                    analysisResults.getMainAspectAnalysisResults().getAspect(),
++                    analysisResults.getTestAspectAnalysisResults().getAspect(),
++                    analysisResults.getGeneratedAspectAnalysisResults().getAspect(),
++                    analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect(),
++                    analysisResults.getOtherAspectAnalysisResults().getAspect());
++            String[][] allFiles = scopeAspects.stream().map(aspect -> {
++                String fileName = DataExportUtils.getAspectFileListFileName(aspect, "");
++                try {
++                    return new String[]{fileName, FileUtils.readFileToString(new File(textDataFolder, fileName), UTF_8)};
++                } catch (IOException e) {
++                    throw new UncheckedIOException(e);
++                }
++            }).toArray(String[][]::new);
++            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), allFiles);
+             File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
+             if (gitHistoryFile.exists()) {
+                 String gitHistoryContent = FileUtils.readFileToString(gitHistoryFile, UTF_8);

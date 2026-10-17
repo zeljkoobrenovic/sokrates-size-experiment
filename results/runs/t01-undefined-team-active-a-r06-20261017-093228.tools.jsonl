@@ -1,0 +1,9 @@
+{"t": 1792222384.037, "tool": "Bash", "command": "grep -rn \"Undefined Team\\|isActive()\" --include=*.java . | grep -v /target/", "lines": 1, "response_chars": 187}
+{"t": 1792222385.851, "tool": "Bash", "command": "grep -rn \"Undefined Team\\|isActive()\" -- '*.java' | grep -v /target/", "lines": 1, "response_chars": 192}
+{"t": 1792222387.618, "tool": "Bash", "command": "grep -rn \"Undefined Team\\|isActive()\" . --include='*.java' | grep -v /target/", "lines": 6, "response_chars": 1226}
+{"t": 1792222389.393, "tool": "Bash", "command": "sed -n 40,110p codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java && echo ---- && sed -n 660,760p codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java", "lines": 173, "response_chars": 7197}
+{"t": 1792222394.757, "tool": "Bash", "command": "sed -n 1,70p codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/ContributorRepositories.java; sed -n 140,150p codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/contributors/Contributor.java", "lines": 81, "response_chars": 3626}
+{"t": 1792222396.88, "tool": "Bash", "command": "grep -n \"getAllContributors\\|new ContributorRepositories(\" -A6 codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java | head -80", "lines": 63, "response_chars": 3758}
+{"t": 1792222399.751, "tool": "Edit", "file": "/Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/t01-undefined-team-active-a-r06-20261017-093228/repo/codeanalyzer/src/main/java/nl/obren/sokrates/sourcecode/landscape/analysis/LandscapeAnalysisResults.java", "response_chars": 64756}
+{"t": 1792222437.661, "tool": "Bash", "command": "mvn -q -o -pl codeanalyzer test", "lines": 8, "response_chars": 683}
+{"t": 1792222441.927, "tool": "Bash", "command": "grep -h \"Tests run\" codeanalyzer/target/surefire-reports/*.txt", "lines": 106, "response_chars": 14665}

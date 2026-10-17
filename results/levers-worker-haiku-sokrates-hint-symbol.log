@@ -1,0 +1,121 @@
+seeding Maven repository /Users/zeljkoobrenovic/IdeaProjects/sokrates-size-experiment/work/m2-levers-haiku-sokrates-hint-symbol from ~/.m2/repository
+=== t02-extension-metric-names-a-r01-20261017-051348
+  success=True turns=34 input=1830522 output=15754 cost=0.04216893000000001 lines_read=342
+=== t03-scoping-conventions-never-matched-a-r01-20261017-051941
+  success=True turns=18 input=658055 output=8421 cost=0.01974106 lines_read=636
+=== t09-analyzelandscape-command-a-r01-20261017-052414
+  success=True turns=20 input=705863 output=6788 cost=0.01947368 lines_read=1299
+=== t04-mock-folder-is-test-code-a-r01-20261017-052758
+  success=True turns=18 input=545148 output=7774 cost=0.014188240000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r01-20261017-053238
+  success=True turns=12 input=375745 output=6134 cost=0.011668000000000001 lines_read=0
+=== t01-undefined-team-active-a-r01-20261017-053646
+  success=True turns=12 input=259502 output=3268 cost=0.00772587 lines_read=0
+=== t02-extension-metric-names-a-r02-20261017-054103
+  success=True turns=30 input=1569126 output=22736 cost=0.07816087 lines_read=1739
+=== t03-scoping-conventions-never-matched-a-r02-20261017-061943
+  success=True turns=4 input=195692 output=1217 cost=0.020118979999999998 lines_read=133
+=== t09-analyzelandscape-command-a-r02-20261017-063313
+  success=True turns=23 input=549366 output=8320 cost=0.01583344 lines_read=644
+=== t04-mock-folder-is-test-code-a-r02-20261017-064802
+  success=True turns=20 input=531351 output=8634 cost=0.014439979999999998 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r02-20261017-070453
+  success=True turns=15 input=444802 output=5571 cost=0.01247263 lines_read=3
+=== t01-undefined-team-active-a-r02-20261017-071701
+  success=True turns=12 input=278880 output=3425 cost=0.00786096 lines_read=1
+=== t02-extension-metric-names-a-r03-20261017-072847
+  success=True turns=26 input=1073833 output=12721 cost=0.028684070000000002 lines_read=62
+=== t03-scoping-conventions-never-matched-a-r03-20261017-074153
+  success=True turns=21 input=495979 output=7899 cost=0.014162820000000003 lines_read=30
+=== t09-analyzelandscape-command-a-r03-20261017-075055
+  success=True turns=26 input=693703 output=8761 cost=0.017270410000000003 lines_read=0
+=== t04-mock-folder-is-test-code-a-r03-20261017-080109
+  success=True turns=19 input=962757 output=11485 cost=0.024254849999999998 lines_read=636
+=== t08-scope-file-lists-named-after-aspects-a-r03-20261017-081121
+  success=True turns=13 input=345411 output=5202 cost=0.01086998 lines_read=62
+=== t01-undefined-team-active-a-r03-20261017-081857
+  success=True turns=11 input=263337 output=3084 cost=0.0075966 lines_read=0
+=== t02-extension-metric-names-a-r04-20261017-082725
+  success=True turns=25 input=943628 output=12896 cost=0.03180177 lines_read=1741
+=== t03-scoping-conventions-never-matched-a-r04-20261017-083127
+  success=True turns=14 input=393203 output=6961 cost=0.01287377 lines_read=0
+=== t09-analyzelandscape-command-a-r04-20261017-083303
+  success=True turns=23 input=816996 output=7620 cost=0.021111 lines_read=1329
+=== t04-mock-folder-is-test-code-a-r04-20261017-083455
+  success=True turns=11 input=515178 output=6185 cost=0.01631746 lines_read=636
+=== t08-scope-file-lists-named-after-aspects-a-r04-20261017-083722
+  success=True turns=17 input=518743 output=6294 cost=0.01326305 lines_read=0
+=== t01-undefined-team-active-a-r04-20261017-083912
+  success=True turns=10 input=229056 output=3189 cost=0.00707906 lines_read=0
+=== t02-extension-metric-names-a-r05-20261017-084048
+  success=True turns=26 input=1421712 output=14971 cost=0.038294200000000014 lines_read=1640
+=== t03-scoping-conventions-never-matched-a-r05-20261017-084435
+  success=True turns=20 input=596961 output=9257 cost=0.016992390000000003 lines_read=0
+=== t09-analyzelandscape-command-a-r05-20261017-084706
+  success=True turns=26 input=1008335 output=8865 cost=0.02423795 lines_read=1329
+=== t04-mock-folder-is-test-code-a-r05-20261017-084944
+  success=True turns=15 input=384252 output=7058 cost=0.011546820000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r05-20261017-085138
+  success=True turns=10 input=307781 output=4249 cost=0.01057143 lines_read=0
+=== t01-undefined-team-active-a-r05-20261017-085331
+  success=True turns=14 input=307262 output=3441 cost=0.008221740000000002 lines_read=0
+=== t02-extension-metric-names-a-r06-20261017-085543
+  success=True turns=25 input=760780 output=13817 cost=0.024869820000000004 lines_read=7
+=== t03-scoping-conventions-never-matched-a-r06-20261017-085825
+  success=True turns=18 input=547076 output=8525 cost=0.01573463 lines_read=0
+=== t09-analyzelandscape-command-a-r06-20261017-090101
+  success=True turns=26 input=613942 output=9745 cost=0.01675943 lines_read=0
+=== t04-mock-folder-is-test-code-a-r06-20261017-090320
+  success=True turns=16 input=435505 output=7605 cost=0.012356200000000005 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r06-20261017-090511
+  success=True turns=11 input=342970 output=4658 cost=0.010367610000000003 lines_read=0
+=== t01-undefined-team-active-a-r06-20261017-090634
+  success=True turns=10 input=178124 output=2791 cost=0.006752279999999999 lines_read=283
+=== t02-extension-metric-names-a-r07-20261017-090819
+  success=True turns=25 input=1213541 output=13392 cost=0.04412439 lines_read=1406
+=== t03-scoping-conventions-never-matched-a-r07-20261017-091116
+  success=True turns=18 input=713361 output=11043 cost=0.021925640000000003 lines_read=636
+=== t09-analyzelandscape-command-a-r07-20261017-091405
+  success=True turns=26 input=613334 output=8455 cost=0.0161682 lines_read=0
+=== t04-mock-folder-is-test-code-a-r07-20261017-091615
+  success=True turns=14 input=400653 output=6584 cost=0.0117993 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r07-20261017-093317
+  success=True turns=10 input=401026 output=4410 cost=0.0130582 lines_read=986
+=== t01-undefined-team-active-a-r07-20261017-093654
+  success=True turns=12 input=262912 output=2958 cost=0.00765418 lines_read=223
+=== t02-extension-metric-names-a-r08-20261017-094313
+  success=True turns=26 input=1015261 output=12046 cost=0.027174519999999997 lines_read=66
+=== t03-scoping-conventions-never-matched-a-r08-20261017-095131
+  success=True turns=18 input=512073 output=9259 cost=0.01570734 lines_read=0
+=== t09-analyzelandscape-command-a-r08-20261017-095937
+  success=True turns=20 input=426908 output=7507 cost=0.01329495 lines_read=0
+=== t04-mock-folder-is-test-code-a-r08-20261017-100606
+  success=True turns=14 input=382729 output=7113 cost=0.011532490000000001 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r08-20261017-101410
+  success=True turns=16 input=596952 output=5956 cost=0.014853700000000001 lines_read=0
+=== t01-undefined-team-active-a-r08-20261017-102120
+  success=True turns=12 input=282007 output=3360 cost=0.0077615 lines_read=0
+=== t02-extension-metric-names-a-r09-20261017-102921
+  success=True turns=33 input=1459159 output=18313 cost=0.06124922000000001 lines_read=1618
+=== t03-scoping-conventions-never-matched-a-r09-20261017-103552
+  success=True turns=21 input=568488 output=9616 cost=0.01675151 lines_read=355
+=== t09-analyzelandscape-command-a-r09-20261017-103801
+  success=True turns=35 input=1014692 output=12195 cost=0.023542240000000006 lines_read=470
+=== t04-mock-folder-is-test-code-a-r09-20261017-104028
+  success=True turns=16 input=413668 output=7369 cost=0.012128139999999999 lines_read=73
+=== t08-scope-file-lists-named-after-aspects-a-r09-20261017-104236
+  success=True turns=11 input=292260 output=4136 cost=0.00914561 lines_read=0
+=== t01-undefined-team-active-a-r09-20261017-104354
+  success=True turns=12 input=287297 output=3604 cost=0.00807548 lines_read=0
+=== t02-extension-metric-names-a-r10-20261017-104526
+  success=True turns=27 input=1014692 output=13880 cost=0.02855968 lines_read=101
+=== t03-scoping-conventions-never-matched-a-r10-20261017-104814
+  success=True turns=14 input=338639 output=7121 cost=0.011780380000000002 lines_read=0
+=== t09-analyzelandscape-command-a-r10-20261017-104957
+  success=True turns=19 input=484973 output=7738 cost=0.01397797 lines_read=0
+=== t04-mock-folder-is-test-code-a-r10-20261017-105239
+  success=True turns=16 input=421889 output=8339 cost=0.01281885 lines_read=0
+=== t08-scope-file-lists-named-after-aspects-a-r10-20261017-105432
+  success=True turns=19 input=591379 output=6390 cost=0.01396196 lines_read=0
+=== t01-undefined-team-active-a-r10-20261017-105642
+  success=True turns=17 input=397036 output=4324 cost=0.00984557 lines_read=0

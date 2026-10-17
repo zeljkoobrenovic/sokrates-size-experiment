@@ -1,0 +1,193 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f4dad1e..65940df 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -8555,18 +8555,19 @@ public class DataStore {
+     }
+ 
+     public Promotion createPromotion(Promotion promotion) {
+-        String sql = "INSERT INTO promotion (code, discount_percent, start_date, end_date, category) VALUES (?, ?, ?, ?, ?)";
++        String sql = "INSERT INTO promotion (code, discount_percent, start_date, end_date, category, description) VALUES (?, ?, ?, ?, ?, ?)";
+         try (PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             statement.setString(1, promotion.code());
+             statement.setBigDecimal(2, promotion.discountPercent());
+             statement.setObject(3, promotion.startDate());
+             statement.setObject(4, promotion.endDate());
+             statement.setString(5, promotion.category());
++            statement.setString(6, promotion.description());
+             statement.executeUpdate();
+             try (ResultSet keys = statement.getGeneratedKeys()) {
+                 keys.next();
+                 return new Promotion(keys.getLong(1), promotion.code(), promotion.discountPercent(), promotion.startDate(),
+-                        promotion.endDate(), promotion.category());
++                        promotion.endDate(), promotion.category(), promotion.description());
+             }
+         } catch (SQLException e) {
+             throw new IllegalStateException("Cannot create promotion", e);
+@@ -8574,14 +8575,14 @@ public class DataStore {
+     }
+ 
+     public Optional<Promotion> findPromotionByCode(String code) {
+-        String sql = "SELECT id, code, discount_percent, start_date, end_date, category FROM promotion WHERE code = ?";
++        String sql = "SELECT id, code, discount_percent, start_date, end_date, category, description FROM promotion WHERE code = ?";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, code);
+             try (ResultSet rs = statement.executeQuery()) {
+                 if (rs.next()) {
+                     return Optional.of(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return Optional.empty();
+             }
+@@ -8591,7 +8592,7 @@ public class DataStore {
+     }
+ 
+     public List<Promotion> listPromotionsActiveOn(LocalDate date) {
+-        String sql = "SELECT id, code, discount_percent, start_date, end_date, category FROM promotion "
++        String sql = "SELECT id, code, discount_percent, start_date, end_date, category, description FROM promotion "
+                 + "WHERE start_date <= ? AND end_date >= ? ORDER BY code, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setObject(1, date);
+@@ -8601,7 +8602,7 @@ public class DataStore {
+                 while (rs.next()) {
+                     promotions.add(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return promotions;
+             }
+@@ -8622,7 +8623,7 @@ public class DataStore {
+     }
+ 
+     public List<Promotion> listPromotionsActiveOnInRegion(LocalDate date, Region region) {
+-        String sql = "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category FROM promotion p "
++        String sql = "SELECT p.id, p.code, p.discount_percent, p.start_date, p.end_date, p.category, p.description FROM promotion p "
+                 + "LEFT JOIN promotion_region r ON r.promotion_id = p.id "
+                 + "WHERE p.start_date <= ? AND p.end_date >= ? AND (r.region IS NULL OR r.region = ?) ORDER BY p.code, p.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -8634,7 +8635,7 @@ public class DataStore {
+                 while (rs.next()) {
+                     promotions.add(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return promotions;
+             }
+@@ -8644,7 +8645,7 @@ public class DataStore {
+     }
+ 
+     public List<Promotion> listPromotionsByCategory(String category) {
+-        String sql = "SELECT id, code, discount_percent, start_date, end_date, category FROM promotion "
++        String sql = "SELECT id, code, discount_percent, start_date, end_date, category, description FROM promotion "
+                 + "WHERE category = ? ORDER BY start_date, code, id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+             statement.setString(1, category);
+@@ -8653,7 +8654,7 @@ public class DataStore {
+                 while (rs.next()) {
+                     promotions.add(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return promotions;
+             }
+@@ -8663,7 +8664,7 @@ public class DataStore {
+     }
+ 
+     public Optional<Promotion> findBestPromotion(String category, LocalDate date) {
+-        String sql = "SELECT id, code, discount_percent, start_date, end_date, category FROM promotion "
++        String sql = "SELECT id, code, discount_percent, start_date, end_date, category, description FROM promotion "
+                 + "WHERE start_date <= ? AND end_date >= ? AND (category IS NULL OR category = ?) "
+                 + "ORDER BY discount_percent DESC, code, id LIMIT 1";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+@@ -8674,7 +8675,7 @@ public class DataStore {
+                 if (rs.next()) {
+                     return Optional.of(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return Optional.empty();
+             }
+@@ -9575,7 +9576,7 @@ public class DataStore {
+      * in the period. Sorted by code.
+      */
+     public List<Promotion> listUnusedPromotions(LocalDate from, LocalDate to) {
+-        String sql = "SELECT id, code, discount_percent, start_date, end_date, category FROM promotion pr "
++        String sql = "SELECT id, code, discount_percent, start_date, end_date, category, description FROM promotion pr "
+                 + "WHERE pr.start_date <= ? AND pr.end_date >= ? AND NOT EXISTS (SELECT 1 FROM sales_order o "
+                 + "JOIN sales_order_line l ON l.order_id = o.id WHERE l.promotion_code = pr.code "
+                 + "AND o.order_date >= ? AND o.order_date <= ? AND o.status <> 'CANCELLED') ORDER BY pr.code, pr.id";
+@@ -9589,7 +9590,7 @@ public class DataStore {
+                 while (rs.next()) {
+                     promotions.add(new Promotion(rs.getLong("id"), rs.getString("code"), rs.getBigDecimal("discount_percent"),
+                             rs.getObject("start_date", LocalDate.class), rs.getObject("end_date", LocalDate.class),
+-                            rs.getString("category")));
++                            rs.getString("category"), rs.getString("description")));
+                 }
+                 return promotions;
+             }
+diff --git a/src/main/java/com/acme/backoffice/model/Promotion.java b/src/main/java/com/acme/backoffice/model/Promotion.java
+index 78f4873..3e15a20 100644
+--- a/src/main/java/com/acme/backoffice/model/Promotion.java
++++ b/src/main/java/com/acme/backoffice/model/Promotion.java
+@@ -5,7 +5,14 @@ import java.time.LocalDate;
+ 
+ /**
+  * A percentage discount valid from start to end date, both inclusive. The category is null when the promotion applies to
+- * all products. The id is 0 until the promotion has been created in the database.
++ * all products. The description is an optional text for customers, null when there is none. The id is 0 until the
++ * promotion has been created in the database.
+  */
+-public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++public record Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category,
++        String description) {
++
++    /** A promotion without a description. */
++    public Promotion(long id, String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++        this(id, code, discountPercent, startDate, endDate, category, null);
++    }
+ }
+diff --git a/src/main/java/com/acme/backoffice/service/PromotionService.java b/src/main/java/com/acme/backoffice/service/PromotionService.java
+index 50debb7..406835e 100644
+--- a/src/main/java/com/acme/backoffice/service/PromotionService.java
++++ b/src/main/java/com/acme/backoffice/service/PromotionService.java
+@@ -21,6 +21,12 @@ public class PromotionService {
+ 
+     /** Creates a promotion. A null or blank category means all products. */
+     public Promotion createPromotion(String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category) {
++        return createPromotion(code, discountPercent, startDate, endDate, category, null);
++    }
++
++    /** Creates a promotion with a description for customers. A null or blank description means none. */
++    public Promotion createPromotion(String code, BigDecimal discountPercent, LocalDate startDate, LocalDate endDate, String category,
++            String description) {
+         if (code == null || code.isBlank()) {
+             throw new IllegalArgumentException("Promotion code is required");
+         }
+@@ -34,7 +40,8 @@ public class PromotionService {
+             throw new IllegalArgumentException("Duplicate promotion code: " + code);
+         }
+         String appliesTo = category == null || category.isBlank() ? null : category;
+-        return store.createPromotion(new Promotion(0, code, discountPercent, startDate, endDate, appliesTo));
++        return store.createPromotion(new Promotion(0, code, discountPercent, startDate, endDate, appliesTo,
++                description == null || description.isBlank() ? null : description.trim()));
+     }
+ 
+     /** The promotions whose period includes the date. */
+diff --git a/src/main/resources/schema.sql b/src/main/resources/schema.sql
+index 7513869..46c1caf 100644
+--- a/src/main/resources/schema.sql
++++ b/src/main/resources/schema.sql
+@@ -180,6 +180,7 @@ CREATE TABLE promotion (
+     start_date DATE NOT NULL,
+     end_date DATE NOT NULL,
+     category VARCHAR(100),
++    description VARCHAR(500),
+     CHECK (end_date >= start_date)
+ );
+ 

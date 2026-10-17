@@ -1,0 +1,30 @@
+diff --git a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+index 08c3dd5..f98bb8e 100644
+--- a/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
++++ b/reports/src/main/java/nl/obren/sokrates/reports/dataexporters/DataExporter.java
+@@ -638,13 +638,18 @@ public class DataExporter {
+             File zipFolder = new File(dataFolder, "zips");
+             zipFolder.mkdirs();
+ 
+-            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), new String[][]{
+-                    {"aspect_main.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_main.txt"), UTF_8)},
+-                    {"aspect_test.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_test.txt"), UTF_8)},
+-                    {"aspect_generated.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_generated.txt"), UTF_8)},
+-                    {"aspect_build_and_deployment.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_build_and_deployment.txt"), UTF_8)},
+-                    {"aspect_other.txt", FileUtils.readFileToString(new File(textDataFolder, "aspect_other.txt"), UTF_8)}
+-            });
++            List<String[]> allFiles = new ArrayList<>();
++            List<NamedSourceCodeAspect> scopeAspects = Arrays.asList(
++                    analysisResults.getMainAspectAnalysisResults().getAspect(),
++                    analysisResults.getTestAspectAnalysisResults().getAspect(),
++                    analysisResults.getGeneratedAspectAnalysisResults().getAspect(),
++                    analysisResults.getBuildAndDeployAspectAnalysisResults().getAspect(),
++                    analysisResults.getOtherAspectAnalysisResults().getAspect());
++            for (NamedSourceCodeAspect aspect : scopeAspects) {
++                String fileName = DataExportUtils.getAspectFileListFileName(aspect, "");
++                allFiles.add(new String[]{fileName, FileUtils.readFileToString(new File(textDataFolder, fileName), UTF_8)});
++            }
++            ZipUtils.stringToZipFile(new File(zipFolder, "all_files.zip"), allFiles.toArray(new String[0][]));
+             File gitHistoryFile = new File(reportsFolder, "../../git-history.txt");
+             if (gitHistoryFile.exists()) {
+                 String gitHistoryContent = FileUtils.readFileToString(gitHistoryFile, UTF_8);

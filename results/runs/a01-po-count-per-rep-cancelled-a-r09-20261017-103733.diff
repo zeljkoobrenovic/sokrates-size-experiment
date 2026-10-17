@@ -1,0 +1,113 @@
+diff --git a/src/main/java/com/acme/backoffice/DataStore.java b/src/main/java/com/acme/backoffice/DataStore.java
+index f9c4107..76c3801 100644
+--- a/src/main/java/com/acme/backoffice/DataStore.java
++++ b/src/main/java/com/acme/backoffice/DataStore.java
+@@ -6514,7 +6514,7 @@ public class DataStore {
+     public List<SalesRepPurchaseOrderCount> findPurchaseOrderCountPerSalesRep(LocalDate from, LocalDate to) {
+         String sql = "SELECT r.id AS id, r.name AS name, "
+                 + "(SELECT COUNT(*) FROM purchase_order po JOIN warehouse w ON w.id = po.warehouse_id "
+-                + "WHERE po.order_date >= ? AND po.order_date <= ? "
++                + "WHERE po.order_date >= ? AND po.order_date <= ? AND po.status <> 'CANCELLED' "
+                 + "AND EXISTS (SELECT 1 FROM customer c WHERE c.sales_rep_id = r.id AND c.region = w.region)) AS purchase_order_count "
+                 + "FROM sales_rep r ORDER BY purchase_order_count DESC, r.name, r.id";
+         try (PreparedStatement statement = connection.prepareStatement(sql)) {
+diff --git a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+index 9265fe3..e144043 100644
+--- a/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
++++ b/src/test/java/com/acme/backoffice/SalesRepPurchaseOrderCountTest.java
+@@ -8,7 +8,6 @@ import com.acme.backoffice.model.PurchaseOrderLine;
+ import com.acme.backoffice.model.PurchaseOrderStatus;
+ import com.acme.backoffice.model.Region;
+ import com.acme.backoffice.model.SalesRep;
+-import com.acme.backoffice.model.SalesRepPurchaseOrderCount;
+ import com.acme.backoffice.model.Supplier;
+ import com.acme.backoffice.model.Warehouse;
+ import com.acme.backoffice.service.SalesRepPurchaseOrderCountService;
+@@ -19,66 +18,36 @@ import java.time.LocalDate;
+ import java.util.List;
+ 
+ import static org.junit.jupiter.api.Assertions.assertEquals;
+-import static org.junit.jupiter.api.Assertions.assertThrows;
+ 
+ class SalesRepPurchaseOrderCountTest {
+     private final DataStore store = new DataStore(Database.openInMemory());
+     private final SalesRepPurchaseOrderCountService service = new SalesRepPurchaseOrderCountService(store);
+-    private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("4.50"), "piece", true));
+-    private final Supplier supplier = store.createSupplier(new Supplier(0, "Acme Supply", "s@example.com", "Sweden", 3));
++    private final Supplier supplier = store.createSupplier(new Supplier(0, "Nordic Supply", "n@example.com", "Sweden", 3));
++    private final Product widget = store.createProduct(new Product(0, "W-1", "Widget", "Hardware", new BigDecimal("2.00"), "piece", true));
+     private final Warehouse north = store.createWarehouse(new Warehouse(0, "WH-N", "North", "Oslo", Region.NORTH));
+     private final Warehouse south = store.createWarehouse(new Warehouse(0, "WH-S", "South", "Rome", Region.SOUTH));
+-    private int counter;
+ 
+-    private SalesRep rep(String name) {
+-        return store.createSalesRep(new SalesRep(0, name, name + "@example.com", Region.NORTH));
+-    }
+-
+-    private void customer(SalesRep rep, Region region) {
+-        counter++;
+-        Customer customer = store.createCustomer(new Customer(0, "C" + counter, "c" + counter + "@example.com", null, "UK", region, CustomerStatus.ACTIVE));
+-        store.assignCustomerToSalesRep(customer.id(), rep.id());
+-    }
+-
+-    private void purchaseOrder(Warehouse warehouse, LocalDate date) {
+-        counter++;
+-        store.createPurchaseOrder(new PurchaseOrder(0, "PO-" + counter, supplier.id(), date, date.plusDays(14), PurchaseOrderStatus.SENT,
+-                List.of(new PurchaseOrderLine(widget.id(), 1, new BigDecimal("1.00"))), warehouse.id()));
+-    }
+-
+-    private String describe(SalesRepPurchaseOrderCount count) {
+-        return count.name() + ":" + count.purchaseOrderCount();
+-    }
+-
+-    @Test
+-    void countsPurchaseOrdersPerRepHighestFirst() {
+-        SalesRep anna = rep("Anna");
+-        SalesRep bob = rep("Bob");
+-        SalesRep carl = rep("Carl");
+-        SalesRep dora = rep("Dora");
+-        customer(anna, Region.NORTH);
+-        customer(bob, Region.SOUTH);
+-        customer(bob, Region.SOUTH);
+-        customer(carl, Region.NORTH);
+-        customer(carl, Region.SOUTH);
+-        purchaseOrder(north, LocalDate.of(2024, 1, 1));
+-        purchaseOrder(south, LocalDate.of(2024, 1, 15));
+-        purchaseOrder(south, LocalDate.of(2024, 1, 31));
+-        purchaseOrder(south, LocalDate.of(2023, 12, 31));
+-        purchaseOrder(north, LocalDate.of(2024, 2, 1));
+-
+-        assertEquals(List.of("Carl:3", "Bob:2", "Anna:1", "Dora:0"),
+-                service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream().map(this::describe).toList());
+-    }
+-
+-    @Test
+-    void noRepsGivesEmptyReport() {
+-        assertEquals(List.of(), service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)));
++    private void order(String number, Warehouse warehouse, PurchaseOrderStatus status) {
++        store.createPurchaseOrder(new PurchaseOrder(0, number, supplier.id(), LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 20),
++                status, List.of(new PurchaseOrderLine(widget.id(), 5, new BigDecimal("2.00"))), warehouse.id()));
+     }
+ 
+     @Test
+-    void rejectsInvalidRange() {
+-        assertThrows(IllegalArgumentException.class, () -> service.report(LocalDate.of(2024, 2, 1), LocalDate.of(2024, 1, 1)));
+-        assertThrows(IllegalArgumentException.class, () -> service.report(null, LocalDate.of(2024, 1, 1)));
++    void leavesOutCancelledPurchaseOrdersAndKeepsRepsWithNone() {
++        SalesRep anna = store.createSalesRep(new SalesRep(0, "Anna", "anna@example.com", Region.NORTH));
++        SalesRep bob = store.createSalesRep(new SalesRep(0, "Bob", "bob@example.com", Region.SOUTH));
++        store.createSalesRep(new SalesRep(0, "Cy", "cy@example.com", Region.EAST));
++        store.assignCustomerToSalesRep(store.createCustomer(new Customer(0, "Nord", "n@example.com", null, "Norway", Region.NORTH, CustomerStatus.ACTIVE)).id(), anna.id());
++        store.assignCustomerToSalesRep(store.createCustomer(new Customer(0, "Sud", "s@example.com", null, "Italy", Region.SOUTH, CustomerStatus.ACTIVE)).id(), bob.id());
++
++        order("PO-1", north, PurchaseOrderStatus.SENT);
++        order("PO-2", north, PurchaseOrderStatus.RECEIVED);
++        order("PO-3", south, PurchaseOrderStatus.SENT);
++        order("PO-4", south, PurchaseOrderStatus.CANCELLED);
++        order("PO-5", south, PurchaseOrderStatus.CANCELLED);
++
++        assertEquals(List.of("Anna:2", "Bob:1", "Cy:0"),
++                service.report(LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 31)).stream()
++                        .map(r -> r.name() + ":" + r.purchaseOrderCount()).toList());
+     }
+ }
